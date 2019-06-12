@@ -17,7 +17,7 @@ Para compilar este juego necesitas instalar el software gratuito [Blastbay Game 
 5. Repite los pasos 2 y 3 con el fichero server.bgt.
 6. Regresa a la carpeta client.
 7. Pulsa aplicaciones sobre el archivo PackCreator.bgt, y pulsa enter sobre la opción "Run script".
-8. ¡Todo listo! Ejecuta el archivo server.exe para activar el servidor, y el archivo client.exe para jugar. Si quieres acceder a las opciones administrativas del juego, crea un usuario llamado "admin".
+8. ¡Todo listo! Ejecuta el archivo server.exe para activar el servidor, y el archivo client.exe para jugar. No olvides crear un usuario llamado igual que el valor de la constante ADMIN_NAME que encontrarás en el archivo config.bgt. Por defecto, si no lo has cambiado, es "admin".
 
 ### Modificación de variables
 
@@ -45,14 +45,20 @@ De aquí sólo nos interesan los valores, situados a la derecha. A continuación
 * IP_LOCALE_API_KEY: clave para utilizar la API de IpInfoDB. Debes registrarte en este servicio y escribir la tuya entre las comillas para poder geolocalizar las direcciones IP de tus usuarios. Esta función es opcional.
 * IP_LOCALE_PHP_URL: dirección web del script PHP que hará las consultas al servicio IpInfoDB. Este script se incluye en la raíz del repositorio.
 * portable: indica si el juego es portable o no. Admite los valores false o true, que deberán ir sin comillas y en minúscula.
+* ADMIN_NAME: Nombre del administrador principal de tu juego. Debe cambiarse antes de iniciar el servidor por primera vez y nunca, bajo ningún concepto debe eliminarse ni modificarse luego.
 
 Cuando acabes de editar este archivo y guardes los cambios, vuelve a compilar tanto el cliente como el servidor.
+
+## Añadir a alguien como administrador
+
+Tal vez quieras otorgar comandos de administración a alguien para que te ayude con tu juego. Para ello solo tienes que añadir un archivo con el nombre admintudo.usr dentro del directorio que contiene al personaje que deseas convertir en administrador.
+
 
 ## Tareas pendientes
 
 Falta mucho por hacer en este juego, incluso en este mismo documento. Si te animas a abrir una pull request, aquí tienes sugerencias de tareas que puedes hacer:
 
-* Documentar cómo añadir administradores al servidor.
+
 * Redactar la documentación del usuario final. Los manuales de Desafío Mortal han sido eliminados.
 * Indentar el código, de tal forma que sea más navegable y legible.
 * Optimizar el código.
