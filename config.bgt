@@ -1,4 +1,5 @@
 const string GAME_NAME="Entre a vida e a morte";
+const string ADMIN_NAME="admin";
 const double minversion=1.0;
 const string version="test";
 const string EXECUTABLE_NAME="client.exe";
@@ -19,4 +20,3 @@ const string PASSWORD_ENCRYPTION_KEY="encryptpasswords";
 const string IP_LOCALE_API_KEY="";
 const string IP_LOCALE_PHP_URL="http://localhost/ip_locale.php";
 const bool portable=true;
-const string ADMIN_NAME="admin";

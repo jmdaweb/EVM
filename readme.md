@@ -51,13 +51,12 @@ Cuando acabes de editar este archivo y guardes los cambios, vuelve a compilar ta
 
 ## Añadir a alguien como administrador
 
-Tal vez quieras otorgar comandos de administración a alguien para que te ayude con tu juego. Para ello solo tienes que añadir un archivo con el nombre admintudo.usr dentro del directorio que contiene al personaje que deseas convertir en administrador.
+Tal vez quieras otorgar comandos de administración a alguien para que te ayude con tu juego. Para ello solo tienes que añadir un archivo con el nombre admintudo.usr dentro del directorio que contiene al personaje que deseas convertir en administrador. Los jugadores se encuentran bajo el directorio players.
 
 
 ## Tareas pendientes
 
 Falta mucho por hacer en este juego, incluso en este mismo documento. Si te animas a abrir una pull request, aquí tienes sugerencias de tareas que puedes hacer:
-
 
 * Redactar la documentación del usuario final. Los manuales de Desafío Mortal han sido eliminados.
 * Indentar el código, de tal forma que sea más navegable y legible.
