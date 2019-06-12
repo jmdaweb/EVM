@@ -1,0 +1,17 @@
+map:departamento_da_polícia_federal
+maxx:30
+maxy:50
+platform:0:30:0:carpet
+wall:0:0:50:wallgeneric
+wall:30:0:50:wallgeneric
+zone:1:29:0:50:Departamento da polícia federal.
+zone:1:1:0:10:Há um movimento constante de pessoas por esta porta, cada um cuidando de seus assuntos com a lei.
+zone:10:22:0:10:As pessoas se sentam nestas cadeiras para esperar o atendimento.
+zone:27:29:0:10:Balcão de atendimento.
+travelpoint:1:1:0:0:124:0:cidade1:Você resolve seus assuntos com a polícia e deixa o departamento.
+sound_source:0:4:0:50:calm.ogg
+sound_source:5:29:4:8:vent.ogg
+safezone:1:29:0:50
+desativar:bicicleta
+desativar:coordenadas
+teto:none

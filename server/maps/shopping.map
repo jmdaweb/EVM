@@ -1,0 +1,59 @@
+map:shopping
+maxx:101
+maxy:100
+wall:51:0:19:wallfence
+wall:51:30:50:wallcone
+platform:0:50:0:concrete4
+platform:12:30:0:wood3
+platform:1:50:30:concrete
+platform:1:100:20:concrete2
+sound_source:0:2:0:5:calm.ogg
+sound_source:0:100:0:40:pessoas.ogg
+sound_source:0:100:10:40:pessoas2.ogg
+zone:2:10:0:19:Estacionamento oeste do shopping.
+sound_source:50:51:0:5:calm.ogg
+zone:31:49:0:19:Estacionamento leste do shopping.
+zone:1:1:0:19:Para voltar à cidade, pressione enter.
+travelpoint:1:1:0:0:260:0:cidade_de_belick:Você volta para à cidade.
+wall:101:20:100:wallgeneric
+wall:0:0:9:wallfence
+staircase:1:2:20:30:stairs
+zone:1:100:20:29:Grande área contendo lojas.
+zone:90:100:20:100:Corredor dos banheiros.
+zone:1:2:20:100:Escada.
+zone:1:50:30:100:Praça de alimentação.
+zone:50:50:0:19:Para ir à cidade, pressione enter.
+travelpoint:50:50:0:0:20:0:cidade_de_belick2:Você volta para à cidade.
+zone:11:30:0:19:Shopping.
+door:30:0:32:0:0:door.ogg:none:door2open.ogg:door2close.ogg
+wall:31:0:19:wallscreen
+door:32:0:30:0:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:10:0:12:0:0:door.ogg:none:door2open.ogg:door2close.ogg
+wall:11:0:19:wallscreen
+door:12:0:10:0:0:door.ogg:none:door2open.ogg:door2close.ogg
+wall:3:21:29:wallcone
+wall:0:10:100:wallgeneric
+zone:94:94:20:100:Porta do banheiro feminino.
+zone:98:98:20:100:Porta do banheiro masculino.
+travelpoint:94:94:20:20:1:0:banheiro_feminino_do_shopping:Você entra no banheiro feminino.
+travelpoint:98:98:20:20:1:0:banheiro_masculino_do_shopping:Você entra no banheiro masculino.
+portamapa:10:10:20:20:1:0:loja_de_roupas:Você entra na loja de roupas.:door10open
+zone:10:10:20:29:Uma vitrine com roupas à mostra. Para entrar na loja, pressione enter.
+zone:50:50:20:29:Esta loja exibe seus produtos para quem quiser ver. Coleções de explosivos e outros aparatos de guerra.
+portamapa:50:50:20:20:1:0:loja_de_explosivos:Você fecha a porta de vidro e sente um cheiro inconfundível de pólvora.:portaarmas
+portamapa:40:40:20:20:1:0:joalheria:Você entra na joalheria.:door10open
+zone:40:40:20:29:Uma vitrine com joias à mostra. Para entrar na loja, pressione enter.
+zone:30:30:20:29:Uma vitrine com aparelhos eletrônicos à mostra. Para entrar na loja, pressione enter.
+portamapa:30:30:20:25:1:0:loja_de_eletrônicos:Você entra na loja de aparelhos eletrônicos.:door10open
+zone:20:20:0:19:Portas do elevador. Pressione enter para acioná-lo.
+elevador:20:0:20:20
+zone:20:20:20:25:Portas do elevador. Pressione enter para acioná-lo.
+elevador:20:20:20:0
+wall:19:1:19:wallglass
+wall:21:1:19:wallglass
+safezone:0:100:0:100
+desativar:bicicleta
+desativar:coordenadas
+desativar:camera
+desativar:varinha
+teto:none

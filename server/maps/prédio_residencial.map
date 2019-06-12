@@ -1,0 +1,299 @@
+map:prédio_residencial
+maxx:66
+maxy:1020
+wall:0:0:19:wallfence
+wall:0:20:1020:wallnone
+wall:66:0:1020:wallmetal
+sound_source:0:66:0:1020:calm.ogg
+sound_source:0:0:0:5:amb1.ogg
+desativar:armas_pretas
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+desativar:varinha
+teto:none
+safezone:0:66:0:1020
+zone:1:1:0:19:Portão principal.
+portamapa:1:1:0:0:350:0:cidade_de_belick2:Você sai do prédio.:door11close
+platform:1:20:0:concrete2
+zone:2:19:0:19:Entrada.
+zone:20:20:0:19:Porta de acesso à portaria.
+zone:21:21:0:19:.
+door:20:0:22:0:100:none:none:door13open.ogg:door13close.ogg
+wall:21:0:19:wallscreen
+door:22:0:20:0:100:none:none:door13open.ogg:door13close.ogg
+zone:22:22:0:19:Porta de acesso à entrada.
+platform:22:38:0:concrete4
+zone:23:37:0:19:Portaria.
+zone:38:38:0:19:Porta de acesso ao corredor.
+zone:39:39:0:19:.
+door:38:0:40:0:100:none:none:door13open.ogg:door13close.ogg
+wall:39:0:19:wallscreen
+door:40:0:38:0:100:none:none:door13open.ogg:door13close.ogg
+zone:40:40:0:19:Porta de acesso à portaria.
+zone:41:60:0:19:Corredor.
+platform:40:60:0:concrete3
+platform:1:60:20:concrete4
+zone:1:59:20:39:1º andar.
+platform:1:60:40:concrete4
+zone:1:59:40:59:2º andar.
+platform:1:60:60:concrete4
+zone:1:59:60:79:3º andar.
+platform:1:60:80:concrete4
+zone:1:59:80:99:4º andar.
+platform:1:60:100:concrete4
+zone:1:59:100:119:5º andar.
+platform:1:60:120:concrete4
+zone:1:59:120:139:6º andar.
+platform:1:60:140:concrete4
+zone:1:59:140:159:7º andar.
+platform:1:60:160:concrete4
+zone:1:59:160:179:8º andar.
+platform:1:60:180:concrete4
+zone:1:59:180:199:9º andar.
+platform:1:60:200:concrete4
+zone:1:59:200:219:10º andar.
+platform:1:60:220:concrete4
+zone:1:59:220:239:11º andar.
+platform:1:60:240:concrete4
+zone:1:59:240:259:12º andar.
+platform:1:60:260:concrete4
+zone:1:59:260:279:13º andar.
+platform:1:60:280:concrete4
+zone:1:59:280:299:14º andar.
+platform:1:60:300:concrete4
+zone:1:59:300:319:15º andar.
+platform:1:60:320:concrete4
+zone:1:59:320:339:16º andar.
+platform:1:60:340:concrete4
+zone:1:59:340:359:17º andar.
+platform:1:60:360:concrete4
+zone:1:59:360:379:18º andar.
+platform:1:60:380:concrete4
+zone:1:59:380:399:19º andar.
+platform:1:60:400:concrete4
+zone:1:59:400:419:20º andar.
+platform:1:60:420:concrete4
+zone:1:59:420:439:21º andar.
+platform:1:60:440:concrete4
+zone:1:59:440:459:22º andar.
+platform:1:60:460:concrete4
+zone:1:59:460:479:23º andar.
+platform:1:60:480:concrete4
+zone:1:59:480:499:24º andar.
+platform:1:60:500:concrete4
+zone:1:59:500:519:25º andar.
+platform:1:60:520:concrete4
+zone:1:59:520:539:26º andar.
+platform:1:60:540:concrete4
+zone:1:59:540:559:27º andar.
+platform:1:60:560:concrete4
+zone:1:59:560:579:28º andar.
+platform:1:60:580:concrete4
+zone:1:59:580:599:29º andar.
+platform:1:60:600:concrete4
+zone:1:59:600:619:30º andar.
+platform:1:60:620:concrete4
+zone:1:59:620:639:31º andar.
+platform:1:60:640:concrete4
+zone:1:59:640:659:32º andar.
+platform:1:60:660:concrete4
+zone:1:59:660:679:33º andar.
+platform:1:60:680:concrete4
+zone:1:59:680:699:34º andar.
+platform:1:60:700:concrete4
+zone:1:59:700:719:35º andar.
+platform:1:60:720:concrete4
+zone:1:59:720:739:36º andar.
+platform:1:60:740:concrete4
+zone:1:59:740:759:37º andar.
+platform:1:60:760:concrete4
+zone:1:59:760:779:38º andar.
+platform:1:60:780:concrete4
+zone:1:59:780:799:39º andar.
+platform:1:60:800:concrete4
+zone:1:59:800:819:40º andar.
+platform:1:60:820:concrete4
+zone:1:59:820:839:41º andar.
+platform:1:60:840:concrete4
+zone:1:59:840:859:42º andar.
+platform:1:60:860:concrete4
+zone:1:59:860:879:43º andar.
+platform:1:60:880:concrete4
+zone:1:59:880:899:44º andar.
+platform:1:60:900:concrete4
+zone:1:59:900:919:45º andar.
+platform:1:60:920:concrete4
+zone:1:59:920:939:46º andar.
+platform:1:60:940:concrete4
+zone:1:59:940:959:47º andar.
+platform:1:60:960:concrete4
+zone:1:59:960:979:48º andar.
+platform:1:60:980:concrete4
+zone:1:59:980:999:49º andar.
+platform:1:60:1000:concrete4
+zone:1:59:1000:1020:50º andar.
+zone:60:60:0:1020:Portas do elevador. Pressione Enter para acioná-lo.
+zone:61:61:0:1020:.
+wall:61:0:1020:wallmetal
+zone:62:62:0:1020:Porta de acesso ao corredor.
+zone:63:64:0:1020:Elevador do prédio.
+zone:65:65:0:1020:Painel.
+platform:62:65:0:carpet2
+platform:62:65:20:carpet2
+platform:62:65:40:carpet2
+platform:62:65:60:carpet2
+platform:62:65:80:carpet2
+platform:62:65:100:carpet2
+platform:62:65:120:carpet2
+platform:62:65:140:carpet2
+platform:62:65:160:carpet2
+platform:62:65:180:carpet2
+platform:62:65:200:carpet2
+platform:62:65:220:carpet2
+platform:62:65:240:carpet2
+platform:62:65:260:carpet2
+platform:62:65:280:carpet2
+platform:62:65:300:carpet2
+platform:62:65:320:carpet2
+platform:62:65:340:carpet2
+platform:62:65:360:carpet2
+platform:62:65:380:carpet2
+platform:62:65:400:carpet2
+platform:62:65:420:carpet2
+platform:62:65:440:carpet2
+platform:62:65:460:carpet2
+platform:62:65:480:carpet2
+platform:62:65:500:carpet2
+platform:62:65:520:carpet2
+platform:62:65:540:carpet2
+platform:62:65:560:carpet2
+platform:62:65:580:carpet2
+platform:62:65:600:carpet2
+platform:62:65:620:carpet2
+platform:62:65:640:carpet2
+platform:62:65:660:carpet2
+platform:62:65:680:carpet2
+platform:62:65:700:carpet2
+platform:62:65:720:carpet2
+platform:62:65:740:carpet2
+platform:62:65:760:carpet2
+platform:62:65:780:carpet2
+platform:62:65:800:carpet2
+platform:62:65:820:carpet2
+platform:62:65:840:carpet2
+platform:62:65:860:carpet2
+platform:62:65:880:carpet2
+platform:62:65:900:carpet2
+platform:62:65:920:carpet2
+platform:62:65:940:carpet2
+platform:62:65:960:carpet2
+platform:62:65:980:carpet2
+platform:62:65:1000:carpet2
+door:60:0:62:0:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:20:62:20:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:40:62:40:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:60:62:60:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:80:62:80:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:100:62:100:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:120:62:120:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:140:62:140:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:160:62:160:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:180:62:180:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:200:62:200:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:220:62:220:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:240:62:240:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:260:62:260:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:280:62:280:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:300:62:300:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:320:62:320:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:340:62:340:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:360:62:360:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:380:62:380:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:400:62:400:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:420:62:420:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:440:62:440:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:460:62:460:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:480:62:480:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:500:62:500:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:520:62:520:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:540:62:540:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:560:62:560:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:580:62:580:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:600:62:600:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:620:62:620:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:640:62:640:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:660:62:660:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:680:62:680:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:700:62:700:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:720:62:720:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:740:62:740:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:760:62:760:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:780:62:780:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:800:62:800:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:820:62:820:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:840:62:840:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:860:62:860:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:880:62:880:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:900:62:900:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:920:62:920:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:940:62:940:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:960:62:960:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:980:62:980:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:60:1000:62:1000:400:none:none:elevadorabre.ogg:elevadorfecha.ogg
+door:62:0:60:0:400:none:none:elevadorabre.ogg:none
+door:62:20:60:20:400:none:none:elevadorabre.ogg:none
+door:62:40:60:40:400:none:none:elevadorabre.ogg:none
+door:62:60:60:60:400:none:none:elevadorabre.ogg:none
+door:62:80:60:80:400:none:none:elevadorabre.ogg:none
+door:62:100:60:100:400:none:none:elevadorabre.ogg:none
+door:62:120:60:120:400:none:none:elevadorabre.ogg:none
+door:62:140:60:140:400:none:none:elevadorabre.ogg:none
+door:62:160:60:160:400:none:none:elevadorabre.ogg:none
+door:62:180:60:180:400:none:none:elevadorabre.ogg:none
+door:62:200:60:200:400:none:none:elevadorabre.ogg:none
+door:62:220:60:220:400:none:none:elevadorabre.ogg:none
+door:62:240:60:240:400:none:none:elevadorabre.ogg:none
+door:62:260:60:260:400:none:none:elevadorabre.ogg:none
+door:62:280:60:280:400:none:none:elevadorabre.ogg:none
+door:62:300:60:300:400:none:none:elevadorabre.ogg:none
+door:62:320:60:320:400:none:none:elevadorabre.ogg:none
+door:62:340:60:340:400:none:none:elevadorabre.ogg:none
+door:62:360:60:360:400:none:none:elevadorabre.ogg:none
+door:62:380:60:380:400:none:none:elevadorabre.ogg:none
+door:62:400:60:400:400:none:none:elevadorabre.ogg:none
+door:62:420:60:420:400:none:none:elevadorabre.ogg:none
+door:62:440:60:440:400:none:none:elevadorabre.ogg:none
+door:62:460:60:460:400:none:none:elevadorabre.ogg:none
+door:60:480:62:480:400:none:none:elevadorabre.ogg:none
+door:62:500:60:500:400:none:none:elevadorabre.ogg:none
+door:62:520:60:520:400:none:none:elevadorabre.ogg:none
+door:62:540:60:540:400:none:none:elevadorabre.ogg:none
+door:62:560:60:560:400:none:none:elevadorabre.ogg:none
+door:62:580:60:580:400:none:none:elevadorabre.ogg:none
+door:62:600:60:600:400:none:none:elevadorabre.ogg:none
+door:62:620:60:620:400:none:none:elevadorabre.ogg:none
+door:62:640:60:640:400:none:none:elevadorabre.ogg:none
+door:62:600:60:600:400:none:none:elevadorabre.ogg:none
+door:62:680:60:680:400:none:none:elevadorabre.ogg:none
+door:62:700:60:700:400:none:none:elevadorabre.ogg:none
+door:62:720:60:720:400:none:none:elevadorabre.ogg:none
+door:62:740:60:740:400:none:none:elevadorabre.ogg:none
+door:62:760:60:760:400:none:none:elevadorabre.ogg:none
+door:62:780:60:780:400:none:none:elevadorabre.ogg:none
+door:62:800:60:800:400:none:none:elevadorabre.ogg:none
+door:62:820:60:820:400:none:none:elevadorabre.ogg:none
+door:62:840:60:840:400:none:none:elevadorabre.ogg:none
+door:62:860:60:860:400:none:none:elevadorabre.ogg:none
+door:62:880:60:880:400:none:none:elevadorabre.ogg:none
+door:62:900:60:900:400:none:none:elevadorabre.ogg:none
+door:62:920:60:920:400:none:none:elevadorabre.ogg:none
+door:62:940:60:940:400:none:none:elevadorabre.ogg:none
+door:62:960:60:960:400:none:none:elevadorabre.ogg:none
+door:62:980:60:980:400:none:none:elevadorabre.ogg:none
+door:62:1000:60:1000:400:none:none:elevadorabre.ogg:none
+travelpoint:50:50:20:20:1:0:apartamento_de_deborah:Você entra no apartamento.
+zone:10:10:380:380:Apartamento de deborah.
+travelpoint:45:45:20:20:1:0:apartamento_de_erfani:Você entra no apartamento.
+zone:45:45:20:20:Apartamento de erfani.
+platform:40:60:0:concrete5

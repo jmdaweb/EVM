@@ -1,0 +1,14 @@
+map:trem
+maxx:21
+maxy:20
+platform:1:20:0:carpet2
+wall:0:0:20:wallnone
+wall:21:0:20:wallnone
+zone:0:20:0:20:Dentro do trem.
+zone:1:1:0:20:Portas do trem.
+safezone:0:20:0:20
+travelpoint:1:1:0:0:90:0:sairdomapat:Você sai do trem.
+sound_source:0:20:2:20:vent.ogg
+desativar:bicicleta
+desativar:coordenadas
+teto:none

@@ -1,0 +1,15 @@
+map:ônibus
+maxx:11
+maxy:20
+platform:0:10:0:carpet2
+wall:0:0:20:wallgeneric
+wall:11:0:20:wallgeneric
+zone:0:10:0:20:Dentro do ônibus.
+zone:1:1:0:20:Portas do ônibus.
+safezone:0:10:0:20
+travelpoint:1:1:0:0:96:0:rodoviárias:Você sai do ônibus.
+sound_source:0:10:0:20:calm.ogg
+desativar:coordenadas
+desativar:bicicleta
+desativar:camera
+teto:telhado.ogg

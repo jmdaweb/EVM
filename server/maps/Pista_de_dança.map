@@ -1,0 +1,54 @@
+map:Pista_de_dança
+maxx:100
+maxy:100
+platform:1:60:0:carpet2
+platform:60:100:0:concrete4
+platform:1:55:30:carpet2
+zone:1:60:0:29:Pista_de_dança.
+zone:61:100:0:20:Corredor dos banheiros.
+staircase:55:55:0:30:carpet
+zone:55:55:0:50:Escada.
+platform:1:60:20:carpet2
+wall:56:1:50:camerawall
+wall:54:1:29:camerawall
+zone:75:75:0:19:Porta do banheiro feminino.
+zone:85:85:0:19:Porta do banheiro masculino.
+travelpoint:85:85:0:0:1:0:banheiro_masculino_da_Pista_de_dança:Você entra no banheiro masculino. Um odor desagradável de urina paira no ar.
+travelpoint:75:75:0:0:1:0:banheiro_feminino_da_Pista_de_dança:Você entra no banheiro feminino. Onde a fila é sempre constante.
+desativar:armas_pretas
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+wall:99:0:20:camerawall
+zone:1:54:30:50:segunda pista de dança
+zone:1:1:0:15:porta de saída da pista de dança
+zone:50:50:0:15:mesa de son do dijei
+zone:40:45:0:15:lanchonete.
+zone:10:11:0:15:sofá
+staircase:10:11:0:3:areia
+zone:13:14:0:15:mêzinha
+zone:15:16:0:15:sofá
+staircase:15:16:0:3:areia
+zone:25:26:0:15:sofás
+zone:27:27:0:15:mêzinha
+zone:28:30:0:15:sofás
+staircase:25:26:0:3:areia
+staircase:28:30:0:3:areia
+zone:5:6:30:45:sofás
+zone:7:7:30:45:mêzinha
+zone:8:9:30:45:sofás
+staircase:5:6:30:33:areia
+staircase:8:9:30:33:areia
+zone:20:21:30:45:sofás
+zone:22:22:30:45:mêzinha
+zone:23:24:30:45:sofás
+staircase:20:21:30:33:areia
+staircase:23:24:30:33:areia
+zone:35:36:30:45:sofás
+zone:37:37:30:45:mêzinha
+zone:38:39:30:45:sofás
+staircase:35:36:30:33:areia
+staircase:38:39:30:33:areia
+zone:52:53:30:45:você aqui avista pessoas dançando!
+portamapa:1:1:0:0:59:0:estacionamento_da_boat:você sai da Pista_de_dança.:door4close
+url:http://radioardenalina.usuarios.space:8025/live

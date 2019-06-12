@@ -1,0 +1,33 @@
+map:igreja
+maxx:140
+maxy:40
+platform:0:140:0:floor
+wall:0:0:40:wallgeneric
+wall:140:0:40:wallgeneric
+staircase:120:120:0:4:wood
+platform:120:130:0:wood
+platform:120:130:1:wood
+platform:120:130:2:wood
+platform:120:130:3:wood
+platform:120:130:4:wood
+platform:121:129:0:wallgeneric
+platform:121:129:1:wallgeneric
+platform:121:129:2:wallgeneric
+platform:121:129:3:wallgeneric
+platform:131:139:0:wood
+staircase:130:130:0:4:wood
+zone:1:25:0:40:Nave central
+zone:26:115:0:40:Bancos
+zone:116:119:0:40:Perto do altar
+zone:120:130:0:40:Altar
+zone:131:139:0:40:Detrás do altar
+zone:139:139:0:40:Aqui há uma bacia de pedra ornamentada, cheia de água cristalina.
+zone:1:1:0:40:Pressione Enter para voltar à cidade.
+zone:60:60:0:40:Pressione Enter para voltar à cidade.
+travelpoint:60:60:0:0:120:0:cidade2:Você deixa a igreja, e o som do coral ainda ecoa em seus ouvidos.
+travelpoint:1:1:0:0:60:0:cidade2:Você deixa a igreja, e o som do coral ainda ecoa em seus ouvidos.
+desativar:bicicleta
+safezone:0:140:0:40
+sound_source:0:115:0:40:igreja.ogg
+desativar:coordenadas
+teto:none

@@ -1,0 +1,12 @@
+map:silêncio
+maxx:101
+maxy:20
+platform:1:100:0:terra2
+platform:1:100:-1:wallnone
+platform:1:100:20:wallnone
+wall:0:0:20:wallnone
+wall:101:0:20:wallnone
+teto:none
+zone:1:101:0:20:.
+platform:1:100:0:concrete4
+zone:1:100:0:100:Admins Map!

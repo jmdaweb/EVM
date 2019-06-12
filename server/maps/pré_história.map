@@ -1,0 +1,118 @@
+map:pré_história
+maxx:101
+maxy:200
+platform:1:100:200:wallnone
+platform:1:100:-1:wallnone
+wall:0:0:200:wallnone
+wall:101:0:200:wallnone
+zone:0:100:0:200:Pré história
+zone:20:20:0:100:Montanha.
+zone:19:19:10:100:Montanha.
+zone:21:21:10:100:Montanha.
+zone:0:100:50:1000:Montanha.
+platform:1:100:0:grass
+zone:20:20:10:15:Entrada da primeira caverna.
+travelpoint:20:20:10:10:1:0:primeira_caverna:Você entra na caverna.
+staircase:20:20:0:6:rocks
+staircase:21:21:6:10:rocks
+staircase:19:20:10:10:rocks
+staircase:19:19:10:20:rocks
+platform:20:20:24:rocks
+zone:20:20:24:25:Entrada da segunda caverna.
+travelpoint:20:20:24:24:1:0:segunda_caverna:Você entra na caverna.
+platform:25:25:24:rocks
+staircase:25:25:24:28:rocks
+platform:20:20:28:rocks
+staircase:20:20:28:30:rocks
+platform:20:20:30:rocks
+zone:20:40:30:100:Montanha.
+zone:40:100:40:100:Montanha
+platform:25:25:30:rocks
+platform:30:30:30:rocks
+staircase:30:30:34:40:rocks
+zone:30:30:40:45:Entrada da terceira caverna.
+travelpoint:30:30:40:40:1:0:terceira_caverna:Você entra na caverna.
+platform:36:36:40:rocks
+platform:40:40:40:rocks
+staircase:40:40:40:48:rocks
+platform:46:48:48:rocks
+staircase:47:47:48:60:rocks
+platform:50:50:60:rocks
+zone:50:50:60:65:Entrada da quarta caverna.
+travelpoint:50:50:60:60:1:0:quarta_caverna:Você entra na caverna.
+platform:56:56:60:rocks
+platform:56:56:64:rocks
+platform:55:55:67:rocks
+platform:60:60:67:rocks
+platform:60:60:70:rocks
+platform:56:56:70:rocks
+platform:50:50:70:rocks
+zone:50:50:70:75:Entrada da quinta caverna.
+travelpoint:50:50:70:70:1:0:quinta_caverna:Você entra na caverna.
+platform:50:50:74:rocks
+platform:50:50:78:rocks
+platform:50:50:82:rocks
+platform:55:55:82:rocks
+platform:55:55:86:rocks
+platform:60:60:86:rocks
+platform:60:60:90:rocks
+zone:60:60:90:95:Entrada da sexta caverna.
+travelpoint:60:60:90:90:1:0:sexta_caverna:Você entra na caverna.
+platform:65:65:90:rocks
+platform:65:65:94:rocks
+platform:65:65:98:rocks
+platform:50:60:98:rocks
+staircase:55:55:98:120:rocks
+platform:61:62:120:rocks
+platform:66:68:110:rocks
+platform:70:70:112:rocks
+zone:70:70:112:115:Entrada da sétima caverna.
+travelpoint:70:70:112:112:1:0:sétima_caverna:Você entra na caverna.
+platform:72:72:114:rocks
+platform:74:74:117:rocks
+platform:76:76:120:rocks
+zone:76:76:120:125:Entrada da oitava caverna.
+travelpoint:76:76:120:120:1:0:oitava_caverna:Você entra na caverna.
+platform:80:80:120:rocks
+platform:80:80:124:rocks
+platform:80:80:128:rocks
+platform:86:86:128:rocks
+platform:90:90:130:rocks
+zone:90:90:130:135:Entrada da nona caverna.
+travelpoint:90:90:130:130:1:0:nona_caverna:Você entra na caverna.
+platform:92:92:132:rocks
+platform:94:94:134:rocks
+platform:96:96:136:rocks
+platform:98:98:138:rocks
+platform:100:100:140:rocks
+zone:100:100:140:145:Entrada da décima caverna.
+travelpoint:100:100:140:140:1:0:décima_caverna:Você entra na caverna.
+platform:80:85:0:mud
+platform:86:90:0:water2
+platform:91:100:0:shallow
+staircase:10:10:0:13:branch
+staircase:16:16:0:10:branch
+staircase:35:35:0:24:branch
+zone:35:35:0:30:Árvore.
+staircase:45:45:0:30:branch
+zone:45:45:0:35:Árvore.
+staircase:50:50:0:11:branch
+zone:50:50:0:16:Árvore.
+staircase:70:70:0:8:branch
+zone:70:70:0:14:Árvore.
+staircase:85:85:0:6:branch
+zone:85:85:0:12:Árvore.
+zone:91:100:0:5:Dentro da cachoeira.
+sound_source:91:100:-3:-3:heavywater.ogg
+sound_source:0:100:0:15:birds.ogg
+sound_source:0:100:0:15:birds12.ogg
+zone:100:100:0:100:Uma passagem de baixo da cachoeira, onde será que ela leva?
+travelpoint:100:100:0:0:1:0:caverna_subterrânea:Você nada pela cachoeira, se encontrando em uma passagem subterrâmea, acho melhor sair da qui!
+sound_source:0:100:20:200:wind2.ogg
+zone:10:10:0:20:Árvore.
+zone:16:16:0:16:Árvore.
+zone:45:45:30:40:Uma pequenina casa encontra-se aqui.
+travelpoint:45:45:30:30:1:0:casa_na_árvore_da_pré_história:Você entra nesta pequena casa, poderia servir de um bom esconderijo ou para não se molhar na chuva.
+sound_source:85:100:0:0:cachoeira.ogg
+desativar:bicicleta
+desativar:coordenadas

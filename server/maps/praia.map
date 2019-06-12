@@ -1,0 +1,35 @@
+map:praia
+maxx:200
+maxy:30
+platform:1:199:30:wallnone
+platform:1:199:-1:wallnone
+platform:51:99:0:areia
+wall:0:0:30:wallnone
+wall:200:0:30:wallwater
+wall:50:0:5:wallnone
+wall:62:6:30:wallnone
+platform:1:61:6:concrete2
+staircase:51:51:0:6:concrete2
+staircase:0:49:0:5:concrete2
+platform:100:110:0:mud
+platform:111:149:0:water2
+platform:150:199:0:shallow
+zone:1:60:6:30:Calçadão.
+zone:51:99:0:5:Areia branca e fofa.
+zone:100:110:0:30:Areia úmida.
+zone:111:149:0:30:Andando em águas rasas.
+zone:150:199:0:30:Andando em águas profundas.
+zone:199:199:0:30:O mar se torna mais furioso e fundo aqui.
+zone:51:51:0:30:Escada.
+travelpoint:199:199:0:0:1:50:mar:O chão foge dos seus pés, à medida que você nada pelas águas mais profundas.
+zone:1:1:6:30:Portas da rodoviária.
+travelpoint:1:1:6:6:1:0:rodoviária:Você entra na rodoviária.
+sound_source:61:61:6:30:pessoas.ogg
+zone:61:61:6:30:Entrada do porto.
+travelpoint:61:61:6:6:1:0:porto:Você entra no porto.
+sound_source:1:1:0:30:pessoas.ogg
+sound_source:1:100:0:30:birds.ogg
+sound_source:110:200:-2:-2:oceano1.ogg
+sound_source:110:200:-10:-10:oceano3.ogg
+sound_source:110:200:0:0:oceano4.ogg
+desativar:coordenadas

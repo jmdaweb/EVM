@@ -1,0 +1,15 @@
+map:sentro_de_entercâmbio
+maxx:50
+maxy:30
+wall:0:0:15:wallgeneric
+wall:50:0:15:wallgeneric
+zone:1:50:0:40:sentro_de_entercâmbio
+platform:1:50:0:concrete5
+wall:50:0:40:wallgineric
+zone:45:45:0:30:Balcão de atendimento.
+teto:none
+zone:49:49:0:20:Uma placa fixada na parede com letras enormes chama sua atenção.
+texto:49:0:aqui você pode trocar suas latas vazias!
+desativar:bicicleta
+desativar:coordenadas
+safezone:0:50:0:20

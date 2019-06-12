@@ -1,0 +1,121 @@
+void apartamentomenu(string iii){
+get_characters();
+string cl;
+int counter=0;
+string content=iii;
+string[] peramitors=string_split(content, "\r\n", true);
+string[] peramitors2;
+for(uint i=0; i<peramitors.length(); i++){
+peramitors[i]=string_split(peramitors[i],"=",true)[0];
+}
+while(true){
+cl=get_characters();
+wait(5);
+mainloop();
+peramitors.resize(0);
+peramitors2.resize(0);
+content=iii;
+peramitors2=string_split(content, "\r\n", true);
+for(uint i=0; i<peramitors2.length(); i++)
+{
+peramitors2[i]=string_split(peramitors2[i],"=",true)[0];
+int pwn=0;
+peramitors.insert_last(peramitors2[i]);
+if(counter > peramitors.length())
+{
+counter=peramitors.length()-1;
+}
+if(cl!="" and cl!=" " and cl.length()==1 and peramitors.length()>0)
+{
+int f=0;
+int oc=counter;
+for(uint i=counter; i<peramitors.length(); i++)
+{
+if(i==counter)
+{
+continue;
+}
+if(peramitors[i][0]==cl)
+{
+counter=i;
+p.play_stationary("invclick.ogg",false);
+speak(pu.get_value(peramitors[counter])+", "+inv_item_number(peramitors[counter]));
+cl="";
+f=1;
+break;
+}
+}
+if(f==0)
+{
+counter=0;
+for(uint i=counter; i<peramitors.length(); i++)
+{
+if(peramitors[i][0]==cl)
+{
+counter=i;
+p.play_stationary("invclick.ogg",false);
+speak(pu.get_value(peramitors[counter])+", "+inv_item_number(peramitors[counter]));
+cl="";
+f=1;
+break;
+}
+}
+}
+if(f==0)
+{
+p.play_stationary("inverror.ogg",false);
+}
+}
+if(key_pressed(KEY_RETURN)){
+int n=string_to_number(v.input(pu.get_value("Quantos você quer pegar?")));
+if(n>0)send_reliable(0, "papartamento "+peramitors[counter]+" "+n, 0);
+}
+if(key_pressed(KEY_HOME) and peramitors.length()>0&&cavando==0)
+{
+counter=0;
+p.play_stationary("invclick.ogg",false);
+speak(pu.get_value(peramitors[counter])+", "+inv_item_number(peramitors[counter]));
+}
+if(key_pressed(KEY_END) and peramitors.length()>0&&cavando==0)
+{
+counter=peramitors.length()-1;
+p.play_stationary("invclick.ogg",false);
+speak(pu.get_value(peramitors[counter])+", "+inv_item_number(peramitors[counter]));
+}
+if(iup.pressing()&&cavando==0)
+{
+if(peramitors.length==1)
+{
+p.play_stationary("invclick.ogg",false);
+speak(peramitors[0]+", "+inv_item_number(peramitors[0]));
+counter=0;
+}
+else if(counter > 0)
+{
+counter--;
+p.play_stationary("invclick.ogg",false);
+speak(pu.get_value(peramitors[counter])+", "+inv_item_number(peramitors[counter]));
+}
+}
+if(idown.pressing()&&cavando==0)
+{
+if(peramitors.length==1)
+{
+p.play_stationary("invclick.ogg",false);
+speak(peramitors[0]+", "+inv_item_number(peramitors[0]));
+counter=0;
+}
+else if(counter < peramitors.length()-1)
+{
+counter++;
+p.play_stationary("invclick.ogg",false);
+speak(pu.get_value(peramitors[counter])+", "+inv_item_number(peramitors[counter]));
+}
+}
+if(key_pressed(KEY_ESCAPE)&&cavando==0)
+{
+send_reliable(0,"playsocial fecharziper.ogg",0);
+return;
+}
+}
+}

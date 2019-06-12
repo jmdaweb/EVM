@@ -1,0 +1,15 @@
+map:lanchonete
+maxx:50
+maxy:20
+platform:0:50:0:concrete2
+wall:0:0:20:wallnone
+wall:50:0:20:wallnone
+zone:1:1:0:20:Pressione Enter para sair da lanchonete.
+travelpoint:1:1:0:0:100:0:cidade_de_belick:Você deixa o delicioso cheiro de fritura para trás.
+sound_source:2:49:2:20:lanchonete.ogg
+sound_source:2:44:0:20:lanchonete1.ogg
+zone:2:49:0:20:Lanchonete.
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+desativar:armas_pretas

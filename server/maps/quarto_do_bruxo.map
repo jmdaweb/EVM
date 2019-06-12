@@ -1,0 +1,18 @@
+map:quarto_do_bruxo
+maxx:21
+maxy:20
+platform:1:20:20:wallnone
+platform:1:20:-1:wallnone
+platform:0:21:0:carpet
+wall:0:0:20:wallnone
+wall:21:0:20:wallnone
+zone:0:20:0:20:Um quarto sujo e bagunçado.
+zone:1:1:0:20:Porta de saída.
+zone:7:7:0:20:Aqui tem um penico! E, que nojo... Está sujo!
+zone:11:12:0:20:Um grande baú de madeira. Parece trancado.
+zone:15:16:0:20:Esta cama, coberta por um lençol negro, não parece ser arrumada há dias.
+zone:19:20:0:20:Um criado mudo cheio de manchas escuras e suspeitas.
+travelpoint:1:1:0:0:49:15:casa_do_bruxo:Você sai do quarto.
+desativar:coordenadas
+desativar:bicicleta
+teto:none

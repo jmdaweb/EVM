@@ -1,0 +1,41 @@
+map:lago_da_floresta
+maxx:100
+maxy:30
+platform:1:99:30:wallnone
+platform:1:99:-1:wallnone
+platform:0:100:0:grass
+wall:0:0:30:wallnone
+wall:100:0:30:wallnone
+zone:5:97:0:30:Parte rasa do lago.
+zone:5:20:0:30:Uma formação rochosa natural à margem do lago. Lembra bastante a uma colina.
+staircase:1:2:0:15:branch
+staircase:5:20:0:10:rocks
+travelpoint:1:1:10:10:199:10:floresta:Você caminha de volta para uma floresta mais clara.
+travelpoint:10:10:10:10:1:0:casa_do_bruxo:Você adentra a casa. Por dentro, é tão pouco atrativa quanto por fora e o ar carrega um odor denso e desagradável.
+zone:10:10:10:30:Uma casinha feia e mal construída foi encarapitada no topo dessa colina. Daqui é possível ver uma fumaça preta saindo da chaminé.
+zone:1:2:0:30:Árvore.
+zone:1:1:10:10:Para voltar à floresta mais clara, pressione ENTER.
+zone:3:4:0:30:Mato.
+staircase:15:16:10:15:branch
+zone:15:16:10:30:Árvore.
+staircase:30:31:0:15:branch
+zone:30:31:0:30:Árvore.
+staircase:45:46:0:15:branch
+zone:45:46:0:30:Árvore.
+staircase:60:61:0:15:branch
+zone:60:61:0:30:Árvore.
+staircase:75:76:0:15:branch
+zone:75:76:0:30:Árvore.
+staircase:90:91:0:15:branch
+zone:90:91:0:30:Árvore.
+platform:21:40:0:water2
+platform:41:99:0:shallow
+sound_source:21:99:0:0:water6.ogg
+sound_source:1:99:10:30:birds9.ogg
+sound_source:1:99:10:30:birds.ogg
+staircase:98:99:0:15:branch
+zone:98:99:0:30:Árvore.
+zone:99:99:15:30:Para continuar no lago, pressione ENTER.
+travelpoint:99:99:15:15:1:20:continuação_do_lago:Você entra em um lago muito grande e profundo.
+desativar:bicicleta
+desativar:coordenadas

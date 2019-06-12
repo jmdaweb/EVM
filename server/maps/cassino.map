@@ -1,0 +1,24 @@
+map:cassino
+maxx:51
+maxy:20
+teto:none
+safezone:0:50:0:20:
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+desativar:varinha
+wall:0:0:20:wallnone
+wall:51:0:20:wallnone
+platform:1:50:0:concrete4
+zone:0:50:0:20:Cassino.
+zone:1:1:0:20:Porta de saída.
+travelpoint:1:1:0:0:140:0:clube:Você sai do cassino.
+zone:35:35:0:20:Dado da sorte.
+zone:40:40:0:20:Pedra, papel, tesoura!
+zone:45:45:0:20:Farkle!
+zone:50:50:0:20:Black Jack, ou 21!
+sound_source:0:50:0:20:cassino.ogg
+sound_source:0:2:0:20:cassino1.ogg
+sound_source:8:18:0:20:cassino2.ogg
+sound_source:20:30:0:20:cassino3.ogg
+sound_source:32:50:0:20:cassino4.ogg

@@ -1,0 +1,17 @@
+map:cozinha_do_bruxo
+maxx:21
+maxy:20
+platform:1:20:20:wallnone
+platform:1:20:-1:wallnone
+platform:0:20:0:concrete3
+wall:0:0:20:wallgeneric
+wall:21:0:20:wallgeneric
+zone:0:20:0:20:Uma desagradável cozinha.
+zone:6:6:0:20:Uma bancada de mármore escuro.
+zone:10:11:0:20:Uma geladeira. Mesmo fechada, é possível perceber que algo nela cheira muito mal.
+zone:16:20:0:20:Uma grande e imunda pia.
+zone:1:1:0:20:Porta de saída.
+travelpoint:1:1:0:0:51:15:casa_do_bruxo:Você sai da cozinha.
+desativar:bicicleta
+desativar:coordenadas
+teto:none

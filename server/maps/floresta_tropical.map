@@ -1,0 +1,38 @@
+map:floresta_tropical
+maxx:101
+maxy:50
+platform:1:100:50:wallnone
+platform:1:100:-1:wallnone
+wall:0:0:50:wallarvore
+wall:101:0:50:wallarvore
+platform:1:100:0:grass
+sound_source:72:74:5:50:birds5.ogg
+sound_source:44:48:3:50:birds2.ogg
+sound_source:0:100:0:50:birds.ogg
+zone:0:100:0:50:Floresta tropical.
+zone:1:1:0:50:Para voltar à cidade rural de santa bertalina, pressione enter.
+sound_source:0:100:0:50:forest.ogg
+staircase:50:50:0:10:branch
+zone:50:50:0:50:Árvore.
+platform:49:51:10:branch
+zone:49:49:10:50:Galho.
+zone:51:51:10:50:Galho.
+staircase:45:45:0:15:branch
+zone:45:45:0:50:Coqueiro.
+staircase:30:30:0:20:branch
+zone:30:30:0:50:Árvore.
+staircase:20:20:0:10:branch
+zone:20:20:0:50:Árvore.
+platform:52:60:13:branch
+zone:52:60:13:50:Galho.
+staircase:70:70:0:6:branch
+zone:70:70:0:50:Árvore.
+staircase:90:92:0:15:branch
+zone:90:92:0:50:Árvore.
+travelpoint:1:1:0:0:150:0:cidade_de_santa_bertalina:Você caminha de volta para cidade.
+travelpoint:100:100:0:0:1:0:aldeia_indígena:Você transpõe a vegetação, desviando de alguns espinhos, e entra em um lugar que parece uma aldeia indígena.
+zone:100:100:0:50:Uma vegetação densa se acumulou aqui, como se feita de propósito. Mas talvez você consiga atravessá-la.
+portamapa:6:6:0:0:1:10:casa:Você adentra uma casa agora esquecida, abandonada por um aposentado engenheiro.:door11open
+zone:6:6:0:50:Você está de fronte à uma casa com as janelas sujas de poeira.
+desativar:coordenadas
+

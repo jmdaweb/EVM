@@ -1,0 +1,17 @@
+map:banheiro_feminino_da_rodoviária
+maxx:31
+maxy:20
+platform:0:31:0:cement
+wall:0:0:20:wallnone
+wall:31:0:20:wallnone
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+zone:1:30:0:20:Banheiro.
+zone:30:30:0:20:Chuveiro.
+zone:25:25:0:20:Vaso sanitário.
+zone:18:18:0:20:Fraudário.
+zone:10:10:0:20:Lavatório.
+zone:1:1:0:20:Porta de saída.
+travelpoint:1:1:0:0:30:20:rodoviária:Você sai do banheiro feminino.
+safezone:0:30:0:20

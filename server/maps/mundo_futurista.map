@@ -1,0 +1,10 @@
+map:mundo_futurista
+maxx:201
+maxy:20
+wall:0:0:20:wallnone
+wall:201:0:20:wallnone
+teto:none
+platform:1:200:0:concrete4
+zone:1:200:0:20:Tudo neste mundo é diferente, como jamais imaginara ver um dia. Os soldados atiram para matar, protegendo as riquezas magníficas daqui. Carros folheados à ouro transitam na rua em sua frente, acompanhados por intransponíveis naves que protege-os com lasers poderosíssimos. Robôs passam por você, analisando tudo ao redor. Completamente metálicos, a couraça destes parecem intransponíveis, resistindo, incluso, à tiros de bazuca. Eles apenas disparam no que encontram pela frente, controlados por impulsivos que não ligam pelo que você pensa, quer ou faz... eles querem a sua morte, e proteger os interesses de seus donos.
+sound_source:0:200:5:20:wind2.ogg
+travelpoint:1:2:0:0:8:0:cidade1:Você deixa o mundo futurista e volta à cidade.

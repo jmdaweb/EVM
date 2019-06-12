@@ -1,0 +1,18 @@
+map:os_canhões
+maxx:21
+maxy:20
+platform:1:20:20:wallnone
+platform:1:20:-1:wallnone
+platform:1:20:0:terra2
+platform:1:20:11:glass
+wall:0:0:9:walldirt
+wall:21:0:9:walldirt
+wall:0:10:20:wallglass
+wall:21:10:20:wallglass
+zone:0:20:0:10:Sobrevivendo as balas de canhão.
+zone:0:20:11:20:Arquibancada.
+safezone:0:20:0:20
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+desativar:varinha

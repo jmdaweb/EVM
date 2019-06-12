@@ -1,0 +1,19 @@
+map:mar
+maxx:101
+maxy:80
+platform:1:100:80:wallnone
+platform:1:100:-1:wallnone
+platform:0:100:0:shallow
+wall:0:0:80:wallwater
+wall:101:0:80:wallwater
+staircase:1:100:0:50:shallow
+travelpoint:1:1:50:50:199:0:praia:Você para de nadar e toca a areia no fundo das águas frias com os pés.
+sound_source:0:100:34:80:oceano1.ogg
+sound_source:0:100:2:30:nadando.ogg
+zone:1:100:0:49:Mergulhando nas águas frias do mar.
+zone:1:100:50:80:Nadando nas águas frias do mar.
+zone:1:1:50:80:Perto da arrebentação. Aqui é possível voltar a águas mais razas.
+desativar:coordenadas
+desativar:camera
+desativar:bicicleta
+teto:none

@@ -1,0 +1,45 @@
+map:aeroporto_internacional_de_belick
+maxx:100
+maxy:50
+platform:1:99:50:wallnone
+platform:1:99:-1:wallnone
+platform:1:99:0:concrete9
+wall:0:0:50:wallnone
+wall:100:0:50:wallnone
+zone:1:99:0:50:Aeroporto internacional.
+zone:1:1:0:50:Portas do aeroporto.
+zone:24:26:0:50:Guichê para compras de passagens.
+zone:40:55:0:50:Um vasto corredor de lojas.
+zone:60:77:0:50:Sala de espera.
+zone:78:78:0:50:Portões de embarque e desembarque. Pressione Enter para entrar.
+wall:79:0:50:wallfence
+zone:80:80:0:50:Portões de embarque e desembarque. Pressione Enter para sair.
+zone:84:87:0:50:Esteiras.
+wall:95:1:50:wallgeneric
+staircase:96:99:0:30:concrete2
+zone:96:99:0:50:Rampa de embarque e desembarque.
+zone:99:99:30:50:Portas do avião.
+sound_source:84:87:-3:0:car2.ogg
+travelpoint:1:1:0:0:1:0:cidade_de_belick:Você deixa o aeroporto e pisa nas ruas da famosa cidade de Belick, conhecida pelo comércio livre de tudo relacionado  armamentos.
+travelpoint:99:99:30:30:1:0:avião:Você entra no avião.
+travelpoint:78:78:0:0:80:0:aeroports:Você passa os portões.
+door:80:0:78:0:1:door.ogg:none:dooropen.ogg:doorclose.ogg
+sound_source:0:100:0:100:pessoas.ogg
+sound_source:0:100:0:100:pessoas2.ogg
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+staircase:10:12:0:20:concrete2
+wall:9:1:19:wallnone
+wall:13:1:19:wallnone
+zone:10:12:0:50:Rampa.
+platform:1:30:20:concrete
+wall:31:20:50:wallnone
+zone:1:9:20:50:Lanchonete.
+sound_source:1:9:20:50:lanchonete1.ogg
+zone:13:30:20:50:Corredor dos banheiros.
+zone:26:26:20:50:Porta do banheiro masculino.
+travelpoint:26:26:20:20:1:0:banheiro_masculino_do_aeroporto_de_belick:Você entra no banheiro masculino.
+zone:30:30:20:50:Porta do banheiro feminino.
+travelpoint:30:30:20:20:1:0:banheiro_feminino_do_aeroporto_de_belick:Você entra no banheiro feminino.
+safezone:79:100:0:50

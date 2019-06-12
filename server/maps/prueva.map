@@ -1,0 +1,9 @@
+map:prueva
+maxx:100
+maxy:100
+platform:0:100:0:terra
+wall:0:0:15:wallgeneric
+wall:100:0:15:wallgeneric
+zone:1:100:0:100:prueva xd
+staircase:1:1:0:30:caverna2
+platform:1:100:30:carpet5

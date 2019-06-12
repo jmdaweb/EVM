@@ -1,0 +1,20 @@
+map:test2
+maxx:21
+maxy:20
+platform:0:20:0:carpet2
+wall:0:0:20:wallnone
+wall:21:0:20:wallnone
+zone:0:20:0:20:Navegando. Enquanto você passa pelo comprido lago, vagarosamente, aves coloridas podem ser vistas no céu. Flores de diversas cores e tamanhos embelezam o local. Cheiros deliciosos, exalam por todo o ar, completando a magnitude do lago. Uma deliciosa brisa bate no seu rosto, balançando seus cabelos alegremente como se quisesse lhe dizer "Olá, bem-vindo". Seu corpo entra em total sintonia com este lugar, fazendo você pensar que isso poderia durar para sempre e você nunca mais precisaria voltar para sua rotina tão sangrenta.
+zone:12:12:0:20:Dado da sorte.
+zone:14:14:0:100:Farkle!
+zone:16:16:0:20:Pedra, papel, tesoura!
+zone:18:18:0:20:Black Jack, ou 21!
+zone:20:20:0:20:Tomada.
+safezone:0:20:0:20
+sound_source:0:20:0:20:water6.ogg
+sound_source:0:20:2:20:birds12.ogg
+sound_source:0:20:2:20:birds13.ogg
+desativar:coordenadas
+desativar:bicicleta
+desativar:camera
+teto:none

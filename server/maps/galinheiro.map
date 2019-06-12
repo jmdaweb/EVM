@@ -1,0 +1,20 @@
+map:galinheiro
+maxx:51
+maxy:20
+platform:1:9:0:grass3
+platform:11:50:0:brush2
+platform:10:10:4:metal2
+wall:0:0:20:wallnone
+wall:51:0:20:wallnone
+wall:10:0:3:wallfence
+teto:none
+zone:1:9:0:20:Aqui, mais de 30 galinhas podem ser ouvidas e avistadas. Com as mais variadas cores, estas parecem ser muito bem tratadas pelo rei. No alto do galinheiro, grandes placas com esculturas de galinhas são vistas por você. Ainda surpreso com o esplêndido ambiente, uma raça de galinhas em específico, chama mais a sua atenção, a Plymouth Rock. Plymouth Rock é considerada uma raça de galinha muito calma, que convive bem com pessoas e outros animais de estimação. Além disso, estas galinhas possuem uma beleza esplêndida, muito boa para negócios. Sua listra branca e preta pode ser comparada com a de uma zebra.
+zone:11:50:0:20:Dentro do galinheiro.
+zone:9:9:0:20:Uma tela, folheada em ouro, estende-se por todo o galinheiro, servindo de proteção e impedindo que as galinhas voem para fora. Você observa esse ambiente, repleto de coisas magnificas. A que mais te chama a atenção, é o material usado para a construção da tela, que cobre todo o galinheiro. Toda dourada e muito resistente, a tela emana uma luz muito intensa, que te deixa sem reação.
+zone:10:10:4:20:Em cima da tela.
+sound_source:13:50:0:20:galinheiro.ogg
+sound_source:30:40:0:20:galinha1.ogg
+sound_source:50:50:6:20:galinha2.ogg
+zone:1:1:0:20:Passagem de retorno.
+travelpoint:1:1:0:0:1:0:mundo_medieval:Você sai do galinheiro.
+safezone:0:50:0:20

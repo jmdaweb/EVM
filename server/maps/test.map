@@ -1,0 +1,10 @@
+map:test
+maxx:201
+maxy:20
+platform:1:200:0:terra2
+platform:1:200:20:wallnone
+platform:1:200:-1:wallnone
+wall:0:0:20:wallnone
+wall:201:0:20:wallnone
+teto:none
+zone:0:200:0:20:teste!

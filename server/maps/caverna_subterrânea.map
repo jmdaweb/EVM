@@ -1,0 +1,19 @@
+map:caverna_subterrânea
+maxx:101
+maxy:20
+platform:1:100:20:wallnone
+platform:1:100:-1:wallnone
+platform:0:100:0:water
+wall:0:0:20:wallwater
+wall:101:0:20:wallwater
+zone:1:100:0:20:Uma grande passagem.
+sound_source:0:100:0:20:caverna2.ogg
+sound_source:0:100:0:20:water6.ogg
+travelpoint:1:1:0:0:100:0:pré_história:Você volta a cachoeira, o fluxo de água aqui é maior.
+zone:1:1:0:20:Pressione enter para voltar a cachoeira.
+zone:100:100:0:20:Pressione enter para ir ao brejo.
+travelpoint:100:100:0:0:1:0:brejo:Você sai da passagem.
+sound_source:-6:-6:0:20:heavywater.ogg
+desativar:bicicleta
+desativar:coordenadas
+teto:none

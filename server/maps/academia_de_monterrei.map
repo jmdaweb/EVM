@@ -1,0 +1,37 @@
+map:academia_de_monterrei
+maxx:121
+maxy:300
+platform:0:400:0:carpet2
+wall:0:0:15:wallgeneric
+wall:400:0:15:wallgeneric
+zone:1:400:0:400:academia
+zone:30:30:0:30:Porta da sala dos professores.
+zone:1:400:0:400:academia
+zone:40:40:0:30:Porta da biblioteca.
+zone:50:50:0:30:porta da diretoria
+wall:150:0:40:wallfence
+travelpoint:149:149:0:0:1:40:zona_de_segurança:Você sai da academia
+zone:149:149:0:30:portão de saída
+wall:120:0:40:wallfence
+travelpoint:119:119:0:0:1:0:cidade1:Você sai da academia
+zone:119:119:0:30:Você vê uma cidade muito movimentada ao longe. Para caminhar até ela, pressione enter.
+teto:telhado
+zone:78:78:0:30:Porta do banheiro masculino
+zone:85:85:0:30:Porta do banheiro feminino.
+zone:30:30:0:30:Porta da sala dos professores.
+travelpoint:50:50:0:0:1:0:diretoria:Você entra na diretoria
+travelpoint:40:40:0:0:1:0:biblioteca:Você entra na biblioteca 
+travelpoint:30:30:0:0:1:0:sala_dos_professores:Você entra na sala_dos_professores 
+travelpoint:78:78:0:0:1:0:banheiro_masculino_da_academia_de_monterrei:Você entra no banheiro 
+travelpoint:85:85:0:0:1:0:banheiro_feminino_da_academia_de_monterrei:Você entra no banheiro
+desativar:bicicleta
+sound_source:0:119:5:20:calm.ogg
+wall:69:0:20:walldoor2
+platform:70:90:0:concreto
+platform:91:100:0:concrete
+platform:101:119:0:concrete5
+sound_source:90:101:0:20:escola2.ogg
+sound_source:70:119:0:20:birds14.ogg
+door:68:0:70:0:1:door.ogg:none:door2open.ogg:door2close.ogg
+door:70:0:68:0:1:door.ogg:none:door2open.ogg:door2close.ogg
+zone:68:68:0:20:porta de saída para sair precione enter

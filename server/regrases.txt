@@ -1,0 +1,22 @@
+Reglas de ejemplo, adáptalas según tus necesidades.
+1. Todos los jugadores, sin restricción de administración, deben respetarse, independientemente de su país, sexualidad o posición en el juego.
+2. Prohibido el envío de mensajes repetitivos, o que inciten a la pornografía o apología al crimen.
+3. Blasfemia:
+Saldar a una persona de buen acto es permitido, pero el intercambio de mensajes sobre religión, santidad o similares está prohibido, los jugadores involucrados estarán sujetos a tener sus canales de comunicación removidos por un tiempo indeterminado.
+4. Bugs:
+Cualquier error encontrado en el juego debe ser reportado a través del comando / adm.
+Se considera error cualquier comando o forma de hacer caer el juego;
+MOBS dando experiencia desproporcionada a la dificultad, etc.
+La obtención de beneficios propios o de otros a través de bugs en el juego será considerada penalidad grave y sujeta a la exclusión definitiva de los personajes involucrados.
+5. Conexiones:
+Se acogerá en la exclusión de todos los personajes involucrados.
+Se permite la creación de más de un personaje. Por lo tanto, no se acepta la multicuenta.
+Si más de una persona juega del mismo lugar, éstos deben comunicar a los administradores y esperar la autorización para conectarse por el mismo IP.
+Cada personaje en el juego pertenece a una sola persona, por lo tanto, está prohibido ceder o prestar personajes a otros.
+6. No provocar a los jugadores que no les gustan los juegos. Al provocar un jugador, y éste le dice que no le gustan las bromas, lo mínimo que debe es respetarlo, de acuerdo con la regla 1.
+7. Al comprar un artículo en la tienda, automáticamente acepta que el objeto se puede quitar en cualquier momento si los administradores deciden que está equivocado.
+Si no acepta la regla 7 y ya ha comprado un objeto, mediante el comprobante, ponga su dinero de vuelta en hasta 10 días.
+
+Cualquier otro problema, no tratado en estas reglas, será evaluado y juzgado por un administrador que tendrá siempre la palabra final sobre la decisión.
+Si no está de acuerdo con las otras reglas, por favor, desconéctese del juego inmediatamente.
+Las reglas propuestas aquí deben ser seguidas en rigor en el chat principal, para prohibir problemas futuros y estar sujetos a cambios en cualquier momento, sin previo aviso de un administrador.

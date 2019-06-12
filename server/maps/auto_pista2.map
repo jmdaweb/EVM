@@ -1,0 +1,14 @@
+map:auto_pista2
+maxx:2000
+maxy:200
+platform:0:200:0:terra
+wall:0:0:15:wallfence
+zone:1:2000:0:40:auto_pista
+platform:1:2000:0:concrete2
+travelpoint:1:1:0:30:30:0:cruzamento:você sai da auto_pista e entra na movimentada cidade!
+sound_source:1:2000:0:40:amb1.ogg
+sound_source:1:2000:0:50:traffic.ogg
+wall:2000:0:40:wallfence
+travelpoint:1999:1999:0:30:1:6:praia:você sai da auto_pista e entra na movimentada cidade!
+zone:1:1:0:30:para entrar na cidade de méxico precione enter
+zone:1999:1999:0:40:para entrar na cidade de terminal_mar precione enter

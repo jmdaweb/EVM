@@ -1,0 +1,15 @@
+map:sala_do_fander
+maxx:20
+maxy:20
+platform:0:20:0:carpet
+wall:0:0:20:wallgeneric
+wall:20:0:20:wallgeneric
+zone:0:20:0:20:Sala do Fander.
+zone:1:1:0:20:Porta de retorno à delegacia.
+zone:18:19:0:20:Aqui está uma mesa de mogno.
+sound_source:0:20:2:20:vent.ogg
+safezone:0:20:0:20
+travelpoint:1:1:0:0:15:0:delegacia:Você volta à delegacia.
+desativar:bicicleta
+desativar:coordenadas
+teto:none

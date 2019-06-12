@@ -1,0 +1,16 @@
+map:mundo_medieval
+maxx:101
+maxy:20
+platform:0:100:0:capim
+wall:0:0:20:wallnone
+wall:101:0:20:wallnone
+zone:0:100:0:20:Mundo medieval.
+sound_source:0:100:0:20:birds.ogg
+//zone:40:40:0:20:Portão do coliseu romano.
+//portamapa:40:40:0:0:1:0:coliseu_romano:Você entra no coliseu.:door11open
+zone:98:100:0:20:Você pode entrar na cidade imperial aqui.
+travelpoint:98:100:0:20:1:0:cidade_imperial:Relutando contra sua vontade, você entra neste lugar.
+zone:10:12:0:20:Entrada da taberna.
+travelpoint:10:12:0:20:1:0:taberna:Você entra na taberna.
+desativar:coordenadas
+safezone:0:100:0:20

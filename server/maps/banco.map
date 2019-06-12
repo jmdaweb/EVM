@@ -1,0 +1,17 @@
+map:banco
+maxx:21
+maxy:20
+platform:0:20:0:concrete3
+wall:0:0:20:wallglass
+wall:21:0:20:wallbigmetal
+zone:0:20:0:20:Banco.
+zone:1:1:0:20:Porta de saída.
+travelpoint:1:1:0:0:240:0:cidade_de_belick:Você sai do banco.
+zone:20:20:0:20:Cofre.
+zone:10:10:0:20:Caixa eletrônico.
+zone:14:16:0:20:Balcão de atendimento.
+sound_source:0:20:0:20:pessoas.ogg
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+safezone:0:20:0:20

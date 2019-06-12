@@ -1,0 +1,55 @@
+map:navio_pirata
+maxx:100
+maxy:55
+platform:1:100:15:wood
+platform:1:100:0:wood
+sound_source:0:100:15:40:calm.ogg
+zone:0:100:0:100:navio_pirata
+zone:1:100:40:50:convés superior
+zone:80:81:0:100:escada_para_o_convês
+travelpoint:1:2:20:198:11:Ilha_dos_pirátas
+teto:none
+travelpoint:1:1:0:0:199:0:Ilha_dos_piratas:Vocé sai do naviu respirando ar puro
+zone:1:1:0:0:Porta_de_saída
+door:84:40:86:40:1:door.ogg:none:door3open.ogg:door3close.ogg
+door:86:40:84:40:1:door.ogg:none:door3open.ogg:door3close.ogg
+zone:84:84:40:50:Gabinête_do_capitão
+zone:86:86:40:50:Porta_de_retorno_ao_convês_superior
+zone:87:99:20:50:Gabinête_do_capitão
+sound_source:99:99:40:40:car1.ogg
+zone:97:97:40:50:Aqui_se_encontra_o_capitão_conduzindo_o_navio
+platform:1:99:40:wood
+zone:1:100:15:15:Convês_dos_alujamentos
+platform:1:80:30:wood
+platform:21:59:30:concrete4
+platform:1:20:30:metal
+door:59:30:61:30:1:door.ogg:none:door10open.ogg:door10close.ogg
+door:61:30:59:30:1:door.ogg:none:door10open.ogg:door10close.ogg
+door:22:30:20:30:1:door.ogg:none:door12open.ogg:door12close.ogg
+door:20:30:22:30:1:door.ogg:none:door12open.ogg:door12close.ogg
+zone:62:78:30:37:Convéz_da_sala_das_ármas!
+zone:79:81:30:30:Convés_da_sala_das_ármas!
+zone:61:61:30:37:Uau!_uma_porta_levando_a_uma_sala_das_ármas!
+zone:22:24:30:37:Mas que será isto gravado na parede ta escrito a sua esquerda se encontra um cofre forte! melhor entrar e ver! 
+zone:25:59:30:38:Sala_das_ármas!
+zone:40:50:30:38:Mas que é isso? vc se aproxima e vê que é  várias caixas com  armas e   munições dos canhões! melhor não mecher!
+zone:55:59:30:38:Vc_entra_na_sala_das_armas_mas_que_cheiro_entensso_a_pólvora_no_ar!
+zone:1:20:30:38:Cofre_forte
+sound_source:1:83:40:43:wind1.ogg
+platform:1:19:47:wood3
+zone:1:3:47:55:Aqui se encontram os canhões a disparar tome coidado!
+sound_source:3:1:47:50:mina.ogg
+zone:20:21:40:48:Aqui se encontram as escadas levando aos canhões!
+sound_source:1:3:47:50:aviaoloop.ogg
+wall:21:30:39:wallbigmetal
+wall:60:30:39:wallglass
+staircase:18:19:40:47:wood4
+wall:17:40:46:camerawall
+wall:1:30:39:wallmedal
+staircase:80:81:0:40:wood3
+wall:85:40:55:wallwood
+wall:82:1:39:camerawall
+wall:79:31:39:camerawall
+wall:79:16:29:camerawall
+wall:79:1:14:camerawall
+sound_source:1:50:4:9:musica2.ogg

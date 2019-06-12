@@ -1,0 +1,15 @@
+map:cidade_imperial
+maxx:201
+maxy:20
+platform:1:200:20:wallnone
+platform:1:200:-1:wallnone
+platform:0:200:0:concrete5
+wall:0:0:20:wallnone
+wall:201:0:20:wallnone
+desativar:coordenadas
+zone:0:200:0:20:Cidade imperial.
+zone:1:1:0:20:Aqui você pode voltar as ruas medievais.
+travelpoint:1:1:0:0:99:0:mundo_medieval:Com muito alívio, você sai da cidade.
+sound_source:0:200:0:20:cidade_medieval.ogg
+zone:200:200:0:20:Aqui Você pode entrar no castelo do rei Cétus.
+portamapa:200:200:0:0:1:0:castelo_medieval:Você está nos grandiosos portões do fantástico castelo de Cétus. O portão é bastante resistente, e sua estrutura totalmente metálica impossibilita aos povos intrusos de arrombá-lo. A guarda real que sempre fica neste local, usa armaduras jamais vistas. Todas pretas e com um material desconhecido, luzes coloridas muito intensas saem delas, contrastando com as roupas dos soldados, que, imponentes, protegem tudo e todos que fazem parte dos domínios do Rei.:door11open

@@ -1,0 +1,19 @@
+map:cidade_de_kingkong
+maxx:1000
+maxy:500
+platform:0:1000:0:concreto2
+wall:0:0:15:wallgeneric
+wall:1000:0:15:wallgeneric
+zone:1:1000:0:300:cidade_de_kingkong
+platform:1:1000:0:concrete2
+sound_source:1:1000:0:50:a14.ogg
+platform:1:10:0:shortgrass
+staircase:5:5:0:15:branch
+zone:5:5:0:30:árvore
+staircase:7:10:0:3:deck
+zone:7:10:0:15:bancos por de baixo da árvore
+platform:1:500:30:concrete2
+staircase:25:25:0:30:cement
+zone:25:25:0:30:escadas
+staircase:500:500:0:30:cement
+zone:500:500:0:30:escadas

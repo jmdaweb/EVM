@@ -1,0 +1,20 @@
+map:estacionamento_da_boat
+maxx:150
+maxy:50
+platform:1:60:0:concrete2
+wall:0:11:50:wallnone
+wall:0:0:10:wallfence
+wall:61:0:50:wallnone
+sound_source:0:10:0:5:calm.ogg
+zone:0:59:0:50:estacionamento.
+zone:1:1:0:15:Portão de saída
+portamapa:1:1:0:0:50:0:cidade_de_méxico2:Você volta à cidade.:door11close
+sound_source:0:55:0:10:pessoas.ogg
+sound_source:0:1:0:10:amb1.ogg
+desativar:armas_pretas
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+zone:60:60:0:30:porta de entrada da boat! entra e vidírtace
+zone:55:55:0:15:você aqui avista um cegurança  
+portamapa:60:60:0:0:1:0:Pista_de_dança:vocé entra na Pista de dança:door4open

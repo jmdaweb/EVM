@@ -1,0 +1,19 @@
+Ce sont les commandes disponibles jusqu'à le présent.
+SHIFT + F1: Restez stable, la même commande est utilisée pour revenir au jeu.
+SHIFT + F2: Active et désactive le mode pacifiste.
+SHIFT + F3: Active ou désactive la fonction d'affichage et de ne pas afficher les messages de jeu dans les autres fenêtres.
+/débutant: Retirez le drapeau recrue le joueur vient par défaut.
+/pm message du nom du joueur: Envoie un message privé au joueur averti.
+/ign  nom de joueur : Ignore un joueur.
+/deign  le nom du joueur: Désigne un joueur.
+/igns: Affiche la liste des joueurs que vous avez ignorés.
+/équipe nom de joueur: Ajoute le joueur à ton équipe.
+/équipeur nom do joueur: Retire le joueur de son équipe.
+/equipes: Laissez la dernière équipe à laquelle vous avez été ajouté.
+/équipement: Liste les membres ajoutés à votre équipe.
+/e message: Envoie un message aux joueurs ajoutés à votre équipe.
+/vente aux enchères:: Si c'est le cas, il montre l'objet qui est à vendre.
+/ofertar Offre: Dans la vente aux enchères en cours.
+/adm message: Envoie un message aux administrateurs du jeu.
+/lircadre: Les messages du cadre de la bibliothèque.
+/écriscadre: Message que tu as tapé dans le cadre de la bibliothèque.

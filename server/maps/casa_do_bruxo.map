@@ -1,0 +1,66 @@
+map:casa_do_bruxo
+maxx:71
+maxy:80
+platform:1:70:80:wallnone
+platform:1:70:-1:wallnone
+platform:0:71:0:concrete4
+wall:0:0:14:wallfence
+wall:0:15:80:wallnone
+wall:71:0:80:wallnone
+platform:61:70:0:grass
+platform:1:70:15:carpet
+staircase:70:70:15:50:carpet2
+platform:1:70:50:concrete4
+door:10:13:10:15:13:door.ogg:none:door2open.ogg:door2close.ogg
+platform:0:71:14:wallnone
+door:10:15:10:13:15:door.ogg:none:door2open.ogg:door2close.ogg
+door:39:15:41:15:15:door.ogg:none:door2open.ogg:door2close.ogg
+wall:40:15:30:walldoor
+door:41:15:39:15:15:door.ogg:none:door2open.ogg:door2close.ogg
+wall:68:16:49:wallnone
+zone:1:70:0:14:Um quintal empoeirado.
+zone:1:1:0:5:Este velho portão enferrujado é a sua passagem de retorno ao lago.
+zone:10:10:0:12:Escadas
+zone:59:60:0:5:À beira de um canteiro de ervas.
+zone:61:70:0:5:Um canteiro de ervas.
+zone:10:10:13:14:Uma porta com alguns símbolos entalhados.
+zone:1:39:15:29:Uma obscura sala de estar.
+zone:5:8:15:20:Poltronas encardidas.
+zone:19:20:15:20:Uma mesa desorganizada. Sobre ela há um monte de papéis rabiscados com que parece ser uma língua estranha.
+zone:30:36:15:20:Neste ponto da sala, a má iluminação permite enxergar algumas pinturas grotescas na parede.
+zone:39:39:15:20:Uma porta conduzindo a um corredor.
+zone:41:41:15:20:Porta que leva à sala de estar.
+zone:41:70:15:29:Um obscuro corredor.
+zone:49:49:15:29:Uma pequena porta.
+zone:51:51:15:29:Uma pequena porta.
+zone:30:49:30:49:Um quarto sujo e bagunçado.
+zone:30:30:30:35:Aqui tem um penico! E, que nojo... Está sujo!
+zone:34:36:30:35:Um grande baúde madeira. Parece trancado.
+zone:41:42:30:35:Esta cama, coberta por um lençol negro, não parece ser arrumada há dias.
+zone:43:43:30:35:Um criado mudo cheio de manchas escuras e suspeitas.
+zone:49:49:30:35:Porta de saída.
+zone:51:67:30:49:Uma desagradável cozinha.
+zone:51:51:30:35:Porta de saída.
+zone:56:57:30:35:Uma antiga e desgastada mesa de madeira.
+zone:61:61:30:35:Uma bancada de mármore escuro.
+zone:62:62:30:35:Uma pilha de mantimentos.
+zone:64:64:30:35:Uma geladeira. Mesmo fechada, é possível perceber que algo nela cheira muito mal.
+zone:66:66:30:35:Um fogão engordurado.
+zone:67:67:30:35:Uma grande e imunda pia.
+zone:70:70:15:50:Uma escada estreita e um tanto insegura.
+zone:1:70:50:60:Um amplo e mal iluminado sótão.
+zone:1:20:50:55:Nas paredes, prateleiras e mais prateleiras de quinquilharias mágicas. caldeirões, frascos repletos de substâncias esquisitas, varinhas, e outras coisas que você mal consegue distinguir à fraca luz.
+zone:30:30:50:50:Cornelius, O Bruxo, está de pé aqui, preparando suas poções.
+zone:31:35:50:50:Do chão, brasas fumegantes brotam, sem nada as alimentar. Sobre elas, um grande caldeirão borbulha, liberando muita fumaça. Hora ou outra, alguns raios coloridos sobem e explodem do Fogo, tome cuidado!
+zone:51:60:50:55:Uma gigantesca estante de livros. São todos grossos, antigos e com títulos macabros. Julgando, é claro, os que você consegue entender.
+zone:10:10:15:29:Porta de saída da casa.
+sound_source:1:70:15:60:calm.ogg
+sound_source:31:35:50:50:fire.ogg
+travelpoint:1:1:0:0:10:10:lago_da_floresta:Você vóuta ao lago.
+travelpoint:49:49:15:15:1:0:quarto_do_bruxo:Você entra no quarto.
+travelpoint:51:51:15:15:1:0:cozinha_do_bruxo:Você entra na cozinha.
+teto:none
+staircase:10:10:0:13:concreto
+sound_source:1:70:0:13:birds.ogg
+desativar:coordenadas
+desativar:camera

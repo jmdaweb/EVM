@@ -1,0 +1,15 @@
+map:casa_do_armeiro
+maxx:11
+maxy:20
+wall:0:0:20:wallglass
+wall:11:0:20:wallnone
+platform:1:10:0:carpet2
+teto:none
+safezone:0:10:0:20
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+zone:0:10:0:20:Como jamais imaginara, centenas de dispositivos iluminados e desconhecidos foram colocados nas paredes desta humilde casa. Brilhantes e coloridas luzes clareiam todo o local, contrastando com o belíssimo espelhado chão de taco, que reflete sob seu rosto. Ithalo, o jovem armeiro permanece em um canto, aguardando armas para concertar.
+zone:1:1:0:20:Porta de saída.
+travelpoint:1:1:0:0:20:20:loja_de_armas_de_santa_bertalina:Você sai da casa de Ithalo.
+sound_source:0:10:4:20:vent.ogg

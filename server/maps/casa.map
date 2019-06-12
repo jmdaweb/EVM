@@ -1,0 +1,91 @@
+map:casa
+maxx:41
+maxy:50
+platform:1:40:50:wallnone
+platform:1:40:-1:wallnone
+platform:1:8:10:concrete
+platform:9:30:10:carpet2
+zone:0:41:0:50:Casa.
+sound_source:0:41:0:50:calm.ogg
+wall:0:20:50:wallnone
+wall:0:10:19:wallfence
+wall:41:0:50:wallnone
+wall:31:10:19:walldoor2
+wall:0:0:9:wallbigmetal
+door:8:10:10:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+wall:9:10:19:walldoor2
+door:10:10:8:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+door:30:10:32:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+door:32:10:30:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+platform:32:40:10:concrete
+zone:10:16:10:15:Sala de estar.
+staircase:26:26:0:10:wood
+zone:21:22:10:15:Banheiro.
+zone:27:30:10:15:Cozinha.
+zone:31:40:10:15:Quintal.
+zone:1:1:10:15:Portões da casa.
+wall:11:20:40:wallnone
+zone:2:9:10:15:Entrada da casa.
+platform:1:40:0:carpet
+zone:0:40:0:9:Porão.
+zone:19:30:10:15:Corredor.
+zone:10:18:10:15:Sala de estar.
+wall:19:10:19:walldoor2
+door:18:10:20:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+door:20:10:18:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+platform:1:10:20:carpet2
+zone:1:10:20:25:Quarto.
+zone:10:10:20:25:Porta de saída.
+zone:1:1:20:25:Tomada.
+zone:2:2:20:25:Pequeno criado mudo.
+zone:4:5:20:25:Cama.
+zone:7:8:20:25:Guarda-roupa.
+zone:23:23:10:15:Porta do quarto.
+door:23:10:10:20:1:door.ogg:none:door6open.ogg:door6close.ogg
+door:10:20:23:10:1:door.ogg:none:door6open.ogg:door6close.ogg
+zone:25:25:10:15:Porta do banheiro.
+platform:12:20:20:cement
+zone:11:20:20:25:Banheiro.
+zone:20:20:20:25:Porta de saída.
+zone:18:18:20:25:Pia.
+zone:15:15:20:25:Vaso sanitário.
+zone:11:12:20:25:Chuveiro.
+door:20:20:25:10:1:door.ogg:none:door6open.ogg:door6close.ogg
+door:25:10:20:20:1:door.ogg:none:door6open.ogg:door6close.ogg
+wall:21:20:40:wallnone
+zone:27:27:10:15:Porta da cozinha.
+platform:22:30:20:concrete4
+wall:31:20:40:wallnone
+zone:22:30:20:25:Cozinha.
+zone:22:22:20:25:Pia.
+zone:24:25:20:25:Mesa e cadeiras.
+zone:27:28:20:25:Geladeira.
+sound_source:27:28:20:25:fridge2.ogg
+zone:30:30:20:25:Porta de saída.
+door:30:20:27:10:1:door.ogg:none:door6open.ogg:door6close.ogg
+door:27:10:30:20:1:door.ogg:none:door6open.ogg:door6close.ogg
+zone:30:35:0:5:Bancada de ferramentas.
+zone:20:25:0:5:Rôlos de fios, peças e parafusos estão espalhados aqui.
+zone:10:10:0:5:Gerador.
+zone:15:15:0:5:Garrafas de ólho.
+zone:1:5:0:5:Você não vai acreditar, mas uma grande máquina encontra-se em sua frente, será  que é uma boa ver o que pode ser?
+travelpoint:1:5:0:0:1:0:máquina_do_tempo:Você entra na máquina do tempo.
+portamapa:1:1:10:10:6:0:floresta_tropical:Você sai da casa.:door11close
+zone:26:26:10:15:Escada para o porão.
+zone:26:26:0:0:Escada para o corredor.
+wall:25:1:9:wallnone
+wall:27:1:9:wallnone
+zone:8:9:10:15:Porta de acesso a sala.
+zone:10:10:10:15:Porta de acesso a saída.
+zone:18:19:10:15:Porta de acesso ao corredor.
+zone:20:20:10:15:Porta de acesso a sala.
+zone:30:31:10:15:Porta de acesso ao quintal.
+zone:32:32:10:15:Porta de acesso ao corredor.
+zone:12:12:10:15:Poltrona.
+zone:14:14:10:15:Televisão.
+zone:16:16:10:15:Poltrona.
+desativar:coordenadas
+desativar:camera
+desativar:bicicleta
+safezone:0:40:10:50
+teto:none

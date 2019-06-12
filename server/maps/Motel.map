@@ -1,0 +1,399 @@
+map:Motel
+maxx:201
+maxy:100
+platform:1:200:100:wallnone
+platform:1:200:-1:wallnone
+teto:none
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+wall:0:0:100:wallnone
+wall:201:0:100:wallnone
+wall:0:0:10:wallfence
+zone:0:19:0:19:Entrada do Motel.
+zone:20:20:0:15:Porta de acesso à portaria.
+zone:22:22:0:15:Porta de acesso à entrada.
+zone:23:50:0:15:Portaria.
+zone:51:51:0:15:Porta de acesso ao corredor.
+zone:53:53:0:15:Porta de acesso à portaria.
+door:20:0:22:0:100:none:none:door13open.ogg:door13close.ogg
+door:22:0:20:0:100:none:none:door13open.ogg:door13close.ogg
+door:51:0:53:0:100:none:none:door13open.ogg:door13close.ogg
+door:53:0:51:0:100:none:none:door13open.ogg:door13close.ogg
+zone:1:1:0:19:Portão de saída.
+sound_source:0:20:0:0:birds.ogg
+platform:1:150:0:concrete4
+wall:151:0:19:wallnone
+platform:1:200:20:wood3
+zone:1:200:20:39:Primeiro andar.
+platform:1:200:40:wood3
+zone:1:200:40:59:Segundo andar.
+zone:98:100:0:50:Escada.
+staircase:98:100:0:40:wood
+zone:98:100:20:20:Primeiro andar.
+zone:98:100:40:50:Segundo andar.
+zone:110:110:0:5:Porta de acesso à biblioteca.
+door:110:0:110:6:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:110:6:110:0:0:door.ogg:none:door2open.ogg:door2close.ogg
+wall:109:6:19:wallnone
+wall:131:6:19:wallnone
+zone:110:110:6:19:Porta de retorno.
+platform:110:130:6:carpet2
+zone:111:130:6:19:Pelas paredes, estantes atulhadas de livros.
+zone:116:124:6:19:Uma grande mesa, com cadeiras estofadas em volta, destinada à leitura.
+zone:132:150:6:19:Cozinha.
+zone:132:132:0:5:Porta de acesso à cozinha.
+platform:132:150:6:concrete3
+door:132:0:132:6:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:132:6:132:0:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:132:132:6:19:Porta de retorno.
+zone:148:150:6:19:Uma pia, é usada para preparar muitas delícias.
+zone:144:145:6:19:Geladeira.
+zone:140:142:6:19:Um grande forno a lenha.
+zone:134:138:6:19:Mesas e cadeiras.
+door:1:20:1:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:1:26:1:20:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:1:10:26:39:Quarto.
+zone:1:1:20:25:Porta de acesso à um quarto.
+zone:1:1:26:39:Porta de retorno.
+zone:4:4:26:39:Criado mudo.
+zone:5:5:26:39:Uma cama, com muitos travesseiros decorados..
+zone:6:6:26:39:Criado mudo.
+zone:8:8:26:39:Guarda-roupa.
+zone:10:11:26:39:Porta de acesso à suíte.
+wall:11:26:39:walldoor2
+platform:1:10:26:carpet2
+platform:12:20:26:cement
+door:10:26:12:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:12:26:10:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:12:12:26:39:Porta de retorno.
+zone:13:20:26:39:Suíte.
+zone:15:15:26:39:Pia.
+zone:17:17:26:39:Vaso sanitário.
+zone:19:20:26:39:Chuveiro.
+wall:21:26:39:wallnone
+door:22:20:22:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:22:26:22:20:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:22:30:26:39:Quarto.
+zone:22:22:20:25:Porta de acesso à um quarto.
+zone:22:22:26:39:Porta de retorno.
+zone:24:24:26:39:Criado mudo.
+zone:25:25:26:39:Cama de casal.
+zone:26:26:26:39:Criado mudo.
+zone:28:28:26:39:Guarda-roupa.
+zone:30:31:26:39:Porta de acesso à suíte.
+wall:31:26:39:walldoor2
+platform:22:30:26:carpet2
+platform:32:40:26:cement
+door:30:26:32:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:32:26:30:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:32:32:26:39:Porta de retorno.
+zone:33:40:26:39:Suíte.
+zone:35:35:26:39:Pia.
+zone:37:37:26:39:Vaso sanitário.
+zone:39:40:26:39:Chuveiro.
+wall:41:26:39:wallnone
+door:42:20:42:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:42:26:42:20:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:42:50:26:39:Quarto.
+zone:42:42:20:25:Porta de acesso à um quarto.
+zone:42:42:26:39:Porta de retorno.
+zone:44:44:26:39:Criado mudo.
+zone:45:45:26:39:Uma cama, com muitos travesseiros decorados..
+zone:46:46:26:39:Criado mudo.
+zone:48:48:26:39:Guarda-roupa.
+zone:50:51:26:39:Porta de acesso à suíte.
+wall:51:26:39:walldoor2
+platform:42:50:26:carpet2
+platform:52:60:26:cement
+door:50:26:52:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:52:26:50:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:52:52:26:39:Porta de retorno.
+zone:53:60:26:39:Suíte.
+zone:55:55:26:39:Pia.
+zone:57:57:26:39:Vaso sanitário.
+zone:59:60:26:39:Chuveiro.
+wall:61:26:39:wallnone
+door:62:20:62:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:62:26:62:20:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:62:70:26:39:Quarto.
+zone:62:62:20:25:Porta de acesso à um quarto.
+zone:62:62:26:39:Porta de retorno.
+zone:64:64:26:39:Criado mudo.
+zone:65:65:26:39:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:66:66:26:39:Criado mudo.
+zone:68:68:26:39:Guarda-roupa.
+zone:70:71:26:39:Porta de acesso à suíte.
+wall:71:26:39:walldoor2
+platform:62:70:26:carpet2
+platform:72:80:26:cement
+door:70:26:72:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:72:26:70:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:72:72:26:39:Porta de retorno.
+zone:73:80:26:39:Suíte.
+zone:75:75:26:39:Pia.
+zone:77:77:26:39:Vaso sanitário.
+zone:79:80:26:39:Chuveiro.
+wall:81:26:39:wallnone
+wall:109:26:39:wallnone
+door:110:20:110:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:110:26:110:20:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:110:120:26:39:Quarto.
+zone:110:110:20:25:Porta de acesso à um quarto.
+zone:110:110:26:39:Porta de retorno.
+zone:114:114:26:39:Criado mudo.
+zone:115:115:26:39:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:116:116:26:39:Criado mudo.
+zone:118:118:26:39:Guarda-roupa.
+zone:120:121:26:39:Porta de acesso à suíte.
+wall:121:26:39:walldoor2
+platform:110:120:26:carpet2
+platform:122:130:26:cement
+door:120:26:122:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:122:26:120:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:122:122:26:39:Porta de retorno.
+zone:123:130:26:39:Suíte.
+zone:125:125:26:39:Pia.
+zone:127:127:26:39:Vaso sanitário.
+zone:129:130:26:39:Chuveiro.
+wall:131:26:39:wallnone
+door:132:20:132:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:132F:26:132:20:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:132:142:26:39:Quarto.
+zone:132:132:20:25:Porta de acesso à um quarto.
+zone:132:132:26:39:Porta de retorno.
+zone:134:134:26:39:Criado mudo.
+zone:135:135:26:39:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:136:136:26:39:Criado mudo.
+zone:138:138:26:39:Guarda-roupa.
+zone:140:141:26:39:Porta de acesso à suíte.
+wall:141:26:39:walldoor2
+platform:132:140:26:carpet2
+platform:142:150:26:cement
+door:140:26:142:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:142:26:140:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:142:142:26:39:Porta de retorno.
+zone:143:150:26:39:Suíte.
+zone:145:145:26:39:Pia.
+zone:147:147:26:39:Vaso sanitário.
+zone:149:150:26:39:Chuveiro.
+wall:151:26:39:wallnone
+door:152:20:152:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:152:26:152:20:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:152:162:26:39:Quarto.
+zone:152:152:20:25:Porta de acesso à um quarto.
+zone:152:152:26:39:Porta de retorno.
+zone:154:154:26:39:Criado mudo.
+zone:155:155:26:39:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:156:156:26:39:Criado mudo.
+zone:158:158:26:39:Guarda-roupa.
+zone:160:161:26:39:Porta de acesso à suíte.
+wall:161:26:39:walldoor2
+platform:152:160:26:carpet2
+platform:162:170:26:cement
+door:160:26:162:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:162:26:160:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:162:162:26:39:Porta de retorno.
+zone:163:170:26:39:Suíte.
+zone:165:165:26:39:Pia.
+zone:167:167:26:39:Vaso sanitário.
+zone:169:170:26:39:Chuveiro.
+wall:171:26:39:wallnone
+door:172:20:172:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:172:26:172:20:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:172:180:26:39:Quarto.
+zone:172:172:20:25:Porta de acesso à um quarto.
+zone:172:172:26:39:Porta de retorno.
+zone:174:174:26:39:Criado mudo.
+zone:175:175:26:39:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:176:176:26:39:Criado mudo.
+zone:178:178:26:39:Guarda-roupa.
+zone:180:181:26:39:Porta de acesso à suíte.
+wall:181:26:39:walldoor2
+platform:172:180:26:carpet2
+platform:182:190:26:cement
+door:180:26:182:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:182:26:180:26:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:182:182:26:39:Porta de retorno.
+zone:183:190:26:39:Suíte.
+zone:185:185:26:39:Pia.
+zone:187:187:26:39:Vaso sanitário.
+zone:189:190:26:39:Chuveiro.
+wall:191:26:39:wallnone
+door:1:40:1:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:1:46:1:40:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:1:10:46:59:Quarto.
+zone:1:1:40:45:Porta de acesso à um quarto.
+zone:1:1:46:59:Porta de retorno.
+zone:4:4:46:59:Criado mudo.
+zone:5:5:46:59:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:6:6:46:59:Criado mudo.
+zone:8:8:46:59:Guarda-roupa.
+zone:10:11:46:59:Porta de acesso à suíte.
+wall:11:46:59:walldoor2
+platform:1:10:46:carpet2
+platform:12:20:46:cement
+door:10:46:12:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:12:46:10:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:12:12:46:59:Porta de retorno.
+zone:13:20:46:59:Suíte.
+zone:15:15:46:59:Pia.
+zone:17:17:46:59:Vaso sanitário.
+zone:19:20:46:59:Chuveiro.
+wall:21:46:59:wallnone
+door:22:40:22:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:22:46:22:40:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:22:30:46:59:Quarto.
+zone:22:22:40:45:Porta de acesso à um quarto.
+zone:22:22:46:59:Porta de retorno.
+zone:24:24:46:59:Criado mudo.
+zone:25:25:46:59:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:26:26:46:59:Criado mudo.
+zone:28:28:46:59:Guarda-roupa.
+zone:30:31:46:59:Porta de acesso à suíte.
+wall:31:46:59:walldoor2
+platform:22:30:46:carpet2
+platform:32:40:46:cement
+door:30:46:32:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:32:46:30:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:32:32:46:59:Porta de retorno.
+zone:33:40:46:59:Suíte.
+zone:35:35:46:59:Pia.
+zone:37:37:46:59:Vaso sanitário.
+zone:39:40:46:59:Chuveiro.
+wall:41:46:59:wallnone
+door:42:40:42:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:42:46:42:40:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:42:50:46:59:Quarto.
+zone:42:42:40:45:Porta de acesso à um quarto.
+zone:42:42:46:59:Porta de retorno.
+zone:44:44:46:59:Criado mudo.
+zone:45:45:46:59:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:46:46:46:59:Criado mudo.
+zone:48:48:46:59:Guarda-roupa.
+zone:50:51:46:59:Porta de acesso à suíte.
+wall:51:46:59:walldoor2
+platform:42:50:46:carpet2
+platform:52:60:46:cement
+door:50:46:52:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:52:46:50:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:52:52:46:59:Porta de retorno.
+zone:53:60:46:59:Suíte.
+zone:55:55:46:59:Pia.
+zone:57:57:46:59:Vaso sanitário.
+zone:59:60:46:59:Chuveiro.
+wall:61:46:59:wallnone
+door:62:40:62:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:62:46:62:40:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:62:70:46:59:Quarto.
+zone:62:62:40:45:Porta de acesso à um quarto.
+zone:62:62:46:59:Porta de retorno.
+zone:64:64:46:59:Criado mudo.
+zone:65:65:46:59:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:66:66:46:59:Criado mudo.
+zone:68:68:46:59:Guarda-roupa.
+zone:70:71:46:59:Porta de acesso à suíte.
+wall:71:46:59:walldoor2
+platform:62:70:46:carpet2
+platform:72:80:46:cement
+door:70:46:72:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:72:46:70:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:72:72:46:59:Porta de retorno.
+zone:73:80:46:59:Suíte.
+zone:75:75:46:59:Pia.
+zone:77:77:46:59:Vaso sanitário.
+zone:79:80:46:59:Chuveiro.
+wall:81:46:59:wallnone
+wall:109:46:59:wallnone
+door:110:40:110:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:110:46:110:40:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:110:120:46:59:Quarto.
+zone:110:110:40:45:Porta de acesso à um quarto.
+zone:110:110:46:59:Porta de retorno.
+zone:114:114:46:59:Criado mudo.
+zone:115:115:46:59:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:116:116:46:59:Criado mudo.
+zone:118:118:46:59:Guarda-roupa.
+zone:120:121:46:59:Porta de acesso à suíte.
+wall:121:46:59:walldoor2
+platform:110:120:46:carpet2
+platform:122:130:46:cement
+door:120:46:122:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:122:46:120:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:122:122:46:59:Porta de retorno.
+zone:123:130:46:59:Suíte.
+zone:125:125:46:59:Pia.
+zone:127:127:46:59:Vaso sanitário.
+zone:129:130:46:59:Chuveiro.
+wall:131:46:59:wallnone
+door:132:40:132:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:132:46:132:40:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:132:142:46:59:Quarto.
+zone:132:132:40:45:Porta de acesso à um quarto.
+zone:132:132:46:59:Porta de retorno.
+zone:134:134:46:59:Criado mudo.
+zone:135:135:46:59:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:136:136:46:59:Criado mudo.
+zone:138:138:46:59:Guarda-roupa.
+zone:140:141:46:59:Porta de acesso à suíte.
+wall:141:46:59:walldoor2
+platform:132:140:46:carpet2
+platform:142:150:46:cement
+door:140:46:142:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:142:46:140:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:142:142:46:59:Porta de retorno.
+zone:143:150:46:59:Suíte.
+zone:145:145:46:59:Pia.
+zone:147:147:46:59:Vaso sanitário.
+zone:149:150:46:59:Chuveiro.
+wall:151:46:59:wallnone
+door:152:40:152:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:152:46:152:40:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:152:162:46:59:Quarto.
+zone:152:152:40:45:Porta de acesso à um quarto.
+zone:152:152:46:59:Porta de retorno.
+zone:154:154:46:59:Criado mudo.
+zone:155:155:46:59:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:156:156:46:59:Criado mudo.
+zone:158:158:46:59:Guarda-roupa.
+zone:160:161:46:59:Porta de acesso à suíte.
+wall:161:46:59:walldoor2
+platform:152:160:46:carpet2
+platform:162:170:46:cement
+door:160:46:162:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:162:46:160:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:162:162:46:59:Porta de retorno.
+zone:163:170:46:59:Suíte.
+zone:165:165:46:59:Pia.
+zone:167:167:46:59:Vaso sanitário.
+zone:169:170:46:59:Chuveiro.
+wall:171:46:59:wallnone
+door:172:40:172:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:172:46:172:40:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:172:180:46:59:Quarto.
+zone:172:172:40:45:Porta de acesso à um quarto.
+zone:172:172:46:59:Porta de retorno.
+zone:174:174:46:59:Criado mudo.
+zone:175:175:46:59:Uma linda cama de casal, sobre ela, os mais fofos cobertores que você já viu.
+zone:176:176:46:59:Criado mudo.
+zone:178:178:46:59:Guarda-roupa.
+zone:180:181:46:59:Porta de acesso à suíte.
+wall:181:46:59:walldoor2
+platform:172:180:46:carpet2
+platform:182:190:46:cement
+door:180:46:182:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:182:46:180:46:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:182:182:46:59:Porta de retorno.
+zone:183:190:46:59:Suíte.
+zone:185:185:46:59:Pia.
+zone:187:187:46:59:Vaso sanitário..
+zone:189:190:46:59:Chuveiro.
+wall:191:46:59:wallnone
+wall:21:0:15:wallscreen
+zone:54:97:0:15:corredor
+wall:52:0:15:wallscreen
+wall:97:1:19:camerawall
+wall:101:0:19:camerawall
+wall:97:21:39:camerawall
+wall:101:21:39:camerawall
+portamapa:1:1:0:0:130:0:cidade_de_méxico:Você deicha o Motel volta ao movimento da cidade.:door11close

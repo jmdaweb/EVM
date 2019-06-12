@@ -1,0 +1,19 @@
+map:biblioteca
+maxx:11
+maxy:20
+platform:0:10:0:carpet2
+wall:0:0:20:wallglass
+wall:11:0:20:wallnone
+zone:7:10:0:20:Pelas paredes, estantes atulhadas de livros.
+zone:2:6:0:20:Uma grande mesa, com cadeiras estofadas em volta, destinada à leitura.
+zone:10:10:0:20:Um grande quadro de cortiça, com mensagens fixadas nele, jaz aqui na parede. Talvez você queira escrever a sua...
+zone:1:1:0:20:porta de saída
+portamapa:1:1:0:0:60:40:escola:Você sai da biblioteca.:door6close
+sound_source:4:10:4:20:vent.ogg
+desativar:bicicleta
+desativar:coordenadas
+desativar:camera
+desativar:varinha
+sound_source:5:5:4:20:clock.ogg
+teto:none
+safezone:0:11:0:20

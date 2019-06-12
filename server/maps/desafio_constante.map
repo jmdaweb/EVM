@@ -1,0 +1,28 @@
+map:desafio_constante
+maxx:101
+maxy:20
+platform:1:100:20:wallnone
+platform:1:100:-1:wallnone
+wall:0:0:20:walldirt
+wall:101:0:20:walldirt
+platform:21:79:0:capim
+platform:1:20:0:terra2
+platform:80:100:0:terra2
+platform:43:60:0:water2
+zone:20:80:0:20:Capture a bandeira!
+zone:21:21:0:20:Porta da base Mortal.
+zone:79:79:0:20:Porta da base Desafio.
+zone:43:60:0:20:Um pequeno riacho.
+zone:1:20:0:20:Base da equipe Mortal.
+zone:80:100:0:20:Base da equipe Desafio.
+sound_source:0:100:0:20:a1.ogg
+sound_source:43:60:0:0:water3.ogg
+door:19:0:21:0:0:none:none:none:none
+door:81:0:79:0:0:none:none:none:none
+safezone:0:20:0:20
+safezone:80:100:0:20
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+platform:1:100:0:wood3
+platform:43:60:0:shallow

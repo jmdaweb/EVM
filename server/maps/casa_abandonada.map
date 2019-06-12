@@ -1,0 +1,57 @@
+map:casa_abandonada
+maxx:70
+maxy:100
+platform:1:69:100:wallnone
+platform:1:69:-1:wallnone
+safezone:0:100:0:100
+zone:1:99:0:5:Você está em um lugar desprovido de iluminação, onde as únicas coisas mais evidentes são o medo e o horror. Você imagina que isso seja um quintal que foi abandonado há pouco tempo, julgando pelas pegadas no chão. Observando mais atentamente, é possível avistar cacos de vidro, utencilhos de cozinha, pedaços de madeira, dentre outros objetos. Todos eles espalhados pelo gramado, como se tivessem sido atirados. Tome cuidado, ou você pode acabar se machucando. Um som calmo, porém aterrorizante invade os seus ouvidos, fazendo congelar instantaneamente a sua espinha. Tudo o que você consegue fazer é continuar esquadrinhando essa paisagem horripilante, a qual lhe trás uma profunda sensação de morte se aproximando.
+travelpoint:1:1:0:0:244:40:cidade2:Com grande alívio, você volta à cidade.
+zone:1:1:0:0:Pressione Enter para deixar este local horripilante.
+platform:0:60:0:grass
+platform:61:100:0:gravel
+wall:0:0:15:wallgeneric
+wall:100:0:15:wallfence
+wall:50:0:10:wallgenerik
+sound_source:1:100:0:5:calm.ogg
+platform:1:50:10:concrete
+wall:21:10:50:wallgeneric
+zone:0:20:10:10:Você está em uma sala aterrorizante, onde a única luz existente é a que passa por uma pequena rachadura na parede, e mesmo assim é desprezível. Um gigantesco sofá de couro legítimo está em um canto da sala, e sobre ele você avista algo incompreensível... Melhor se aproximar e ver o que é. Ou não...
+zone:1:1:10:10:Alimentando o fogo desta lareira  há um corpo desfigurado. Duas pernas, dobradas em ângulos estranhos, são as únicas partes reconhecíveis. O restante agora não passa de um monte de carne, ossos e sangue, mesclados a cinzas fumegantes. Um cheiro insuportável de carne e cabelos humanos queimados sobe e toma conta de suas narinas.
+sound_source:1:1:10:10:fire1.ogg
+zone:3:7:10:12:Sabe-se lá que cor fora esse sofá outrora. Agora tem um tom intenso de vermelho, dado todo o sangue derramado aqui. Um corpo jaz sobre ele, coberto de marcas de perfurações. Alguns dedos estão faltando, e parece que você acabou de avistar um, no braço do móvel...
+zone:21:38:10:19:um corredor, dando acesso às dependências da casa. Há manchas no chão, como se alguém estivesse andado por ele diversas vezes. Um cheiro horrível de fumaça e sangue dificulta cada passo seu.
+staircase:15:15:0:8:concrete:staircase
+zone:15:15:0:8:escada
+door:15:8:15:10:0:door.ogg:none:door2open.ogg:door2close.ogg
+zone:15:15:10:10:porta de acesso à saída
+zone:20:20:10:10:porta de acesso ao corredor
+zone:22:22:10:10:porta de acesso à sala de estar
+door:20:10:22:10:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:22:10:20:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+platform:15:15:9:wallmetal
+door:15:10:15:8:1:door.ogg:none:door2open.ogg:door2close.ogg
+zone:15:15:8:8:porta da frente
+zone:29:29:10:19:porta de acesso ao quarto
+door:29:10:19:30:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:20:30:29:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+platform:10:20:30:carpet
+wall:40:10:250:wallgeneric
+zone:10:20:30:40:Ao adentrar este quarto, você sente o impulso incontrolável de sair. Um corpo, estirado de forma macabra sobre a cama, fita o teto de forma inexpressiva. O crânio afundado repousa sobre um travesseiro, e junto dele, fios grisalhos, clara e impiedosamente arrancados. Nas paredes, manchas grotescas de sangue e alguma outra coisa, cinzenta... Um rádio toca à toa em um canto, sem ninguém mais para escutá-lo.
+sound_source:11:11:30:31:radio.ogg
+zone:20:20:30:34:porta de acesso ao corredor
+wall:9:30:40:wallgeneric
+zone:35:35:10:19:porta de acesso ao banheiro
+door:35:10:38:40:0:door.ogg:none:door2open.ogg:door2close.ogg
+door:38:40:35:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+wall:32:40:50:wallscreen
+platform:33:39:40:concrete3
+zone:33:39:30:40:Este é o banheiro. Está intacto, ao que parece. Um pouco sujo, é verdade; mas nenhum resquício de destruição ou morte. Você já pode sair pela porta e... Espere! Há algo no cantinho da parede! Uma pequena frase escrita com sangue, ao que parece. Ela diz, "Nunca mais voltarão a fazer mal a mim ou à minha família. Ardam com suas riquezas no fogo do inferno!"
+zone:38:38:30:40:porta de acesso ao corredor
+zone:39:39:10:19:porta de acesso à cozinha
+door:39:10:41:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+zone:41:41:10:19:porta de acesso ao corredor
+door:41:10:39:10:1:door.ogg:none:door2open.ogg:door2close.ogg
+zone:42:54:10:19:Ao entrar nessa cozinha mal iluminada, logo você sente um ar fétido lhe envolver, deixando-o meio tonto. Uma pequena mesa de madeira está encostada no canto da parede situada à sua esquerda. No lado contrário, em uma paralela com a mesa, está situado um grande armário de carvalho, que chama muito a sua atenção. Ao olhar novamente para a mesinha, você logo avista uma grande faca ensanguentada sobre ela, aparentando ser de algum assassino mortífero.
+platform:42:54:10:concrete4
+wall:55:10:50:wallgeneric
+teto:none

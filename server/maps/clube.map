@@ -1,0 +1,65 @@
+map:clube
+maxx:200
+maxy:100
+platform:1:199:100:wallnone
+platform:1:199:-1:wallnone
+platform:0:200:0:concrete4
+wall:0:0:100:wallgeneric
+zone:1:20:0:20:Estacionamento
+zone:1:1:0:20:Para voltar à cidade, pressione Enter.
+travelpoint:1:1:0:0:150:0:cidade_de_belick:Você caminha de volta para a cidade.
+platform:21:32:0:concrete2
+zone:21:32:0:20:Entrada principal
+zone:33:70:0:20:Clube
+zone:48:52:0:20:Lanchonete.
+sound_source:48:52:0:5:lanchonete1.ogg
+platform:60:67:30:wood
+zone:60:64:0:20:Loja de conveniências do clube
+zone:71:117:0:29:Ponte
+staircase:71:71:0:20:wood:wood
+wall:70:1:29:wallfence
+wall:72:0:1:wallfence
+platform:71:117:20:wood
+zone:73:114:0:5:Rio
+zone:73:114:6:19:Caindo...
+platform:73:114:0:shallow
+wall:115:0:4:wallfence
+platform:116:116:0:water2
+zone:116:116:0:19:Pressione Enter se quiser entrar no rio.
+staircase:117:117:0:30:wood:wood:
+platform:71:117:20:wood
+wall:118:1:29:wallfence
+staircase:117:117:0:30:wood:wood:
+sound_source:1:20:0:5:park.ogg
+sound_source:0:65:0:10:pessoas.ogg
+sound_source:76:113:0:5:water2.ogg
+sound_source:125:199:0:5:birds9.ogg
+sound_source:1:120:30:20:pessoas.ogg
+platform:118:150:0:floor
+platform:151:199:0:grass
+zone:118:149:0:20:Caminho de pedras coloridas
+zone:130:130:0:20:Entrada da piscina
+zone:150:150:0:20:Uma placa diz, "Não pise na grama".
+zone:151:199:0:20:Gramado
+wall:200:0:100:walldirt
+platform:1:150:30:concrete2
+wall:151:30:50:wallfence
+wall:54:31:40:wallfence
+platform:60:67:35:wood
+wall:72:31:40:wallfence
+staircase:55:71:30:35:wood:wood
+zone:1:54:30:100:Área de lazer
+zone:55:71:30:100:Rampa de acesso ao ginásio
+zone:64:64:35:100:Entrada para o ginásio
+zone:72:120:30:100:Praça de alimentação
+zone:121:150:30:100:Sacada
+zone:117:117:20:100:Uma pequena escada
+travelpoint:130:130:0:0:1:20:piscina:Você caminha pela borda da piscina. Alguns respingos de água batem em seu rosto.
+travelpoint:64:64:35:35:1:0:ginásio:Você entra no movimentado ginásio.
+travelpoint:116:116:0:0:114:0:clube:Você entra no rio
+desativar:bicicleta
+desativar:coordenadas
+zone:140:140:0:20:Porta do cassino.
+travelpoint:140:140:0:0:1:0:cassino:Você entra no cassino.
+sound_source:140:140:0:5:cassino.ogg
+sound_source:140:140:0:5:cassino1.ogg

@@ -1,0 +1,17 @@
+map:casa_de_intercâmbio
+maxx:11
+maxy:20
+platform:1:10:0:carpet
+wall:0:0:20:wallglass
+wall:11:0:20:wallgeneric
+zone:1:10:0:20:Casa de intercâmbio.
+zone:1:1:0:20:Porta de saída.
+zone:8:9:0:20:Balcão de atendimento.
+portamapa:1:1:0:0:15:0:cidade_de_belick:Você volta à cidade.:door10close
+sound_source:4:11:3:20:vent.ogg
+zone:10:10:0:20:Uma placa fixada na parede com letras enormes chama sua atenção.
+texto:10:0:A cada 100 coins convertidos, um real. Cada um real convertido, 10 coins.
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+safezone:0:10:0:20

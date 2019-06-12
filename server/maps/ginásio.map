@@ -1,0 +1,32 @@
+map:ginásio
+maxx:100
+maxy:30
+platform:1:99:30:wallnone
+platform:1:99:-1:wallnone
+platform:0:100:0:concrete4
+platform:0:100:10:concrete2
+wall:0:0:30:wallnone
+wall:100:0:30:wallnone
+travelpoint:1:1:0:0:64:35:clube:Você volta ao clube.
+zone:1:2:0:30:Escadas
+zone:1:1:0:0:Para retornar ao clube, pressione Enter.
+staircase:1:2:0:10:stairs
+wall:3:1:9:wallcone
+zone:3:97:10:30:Arquibancadas
+zone:3:100:0:9:Ginásio
+zone:20:25:0:9:Quadra de futebol 1
+zone:30:35:0:9:Quadra de futebol 2
+zone:40:40:1:9:Cesta de basquete
+zone:50:55:0:9:Barraca de cachorro quente
+zone:55:60:0:9:Um barzinho
+zone:61:100:0:9:Final do estádio
+wall:97:1:9:wallcone
+staircase:98:99:0:10:stairs
+sound_source:1:100:10:30:torcida.ogg
+sound_source:20:25:0:5:basquete.ogg
+sound_source:30:35:0:5:basquete.ogg
+zone:98:99:0:30:Escadas
+desativar:armas_pretas
+desativar:bicicleta
+desativar:coordenadas
+teto:none

@@ -1,0 +1,76 @@
+map:pesqueiro
+maxx:501
+maxy:40
+wall:0:0:40:wallfence
+wall:501:0:40:wallnone
+safezone:0:500:0:40
+teto:none
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+desativar:varinha
+platform:1:50:0:grass2
+zone:0:50:0:40:Estacionamento.
+zone:1:1:0:40:Portão de saída.
+travelpoint:1:1:0:0:100:0:cidade_de_santa_bertalina:Você sai do pesqueiro.
+sound_source:0:40:6:40:wind2.ogg
+zone:51:80:0:40:Jardim
+platform:51:80:0:shortgrass
+staircase:58:58:0:10:branch
+zone:58:58:0:40:Árvore.
+staircase:65:65:0:10:branch
+zone:65:65:0:40:Árvore.
+staircase:72:72:0:10:branch
+zone:72:72:0:40:Árvore.
+sound_source:48:80:0:40:birds13.ogg
+platform:81:140:0:concrete3
+zone:81:140:0:40:Mesas e cadeiras.
+zone:101:120:0:40:Lanchonete.
+sound_source:101:120:0:40:pessoas2.ogg
+sound_source:81:140:0:40:pessoas.ogg
+zone:130:130:0:20:Porta do banheiro feminino.
+travelpoint:130:130:0:0:1:0:banheiro_feminino_do_pesqueiro:Você entra no banheiro feminino.
+zone:132:132:0:20:Porta do banheiro masculino.
+travelpoint:132:132:0:0:1:0:banheiro_masculino_do_pesqueiro:Você entra no banheiro masculino.
+sound_source:152:170:2:20:birds22.ogg
+platform:141:179:0:shortgrass
+platform:180:180:0:mud
+zone:141:169:0:40:Grama.
+staircase:155:155:0:10:branch
+zone:155:155:0:40:Árvore.
+staircase:165:165:0:10:branch
+zone:165:165:0:40:Árvore.
+zone:170:180:0:40:As margens de um grande lago.
+platform:181:400:0:water2
+platform:201:380:0:shallow
+sound_source:181:400:0:40:water6.ogg
+zone:181:400:0:40:Um grande lago.
+zone:201:380:0:40:Parte funda do lago.
+platform:401:401:0:mud
+platform:402:500:0:shortgrass
+zone:401:410:0:40:As margens de um grande lago.
+sound_source:410:500:0:40:birds12.ogg
+sound_source:410:500:0:40:birds13.ogg
+zone:410:500:0:40:Grama
+staircase:420:420:0:10:branch
+zone:420:420:0:40:Árvore.
+staircase:425:425:0:10:branch
+zone:425:425:0:40:Árvore.
+staircase:430:430:0:10:branch
+zone:430:430:0:40:Árvore.
+staircase:440:440:0:10:branch
+zone:440:440:0:40:Árvore.
+staircase:450:450:0:10:branch
+zone:450:450:0:40:Árvore.
+staircase:455:455:0:10:branch
+zone:455:455:0:40:Árvore.
+staircase:460:460:0:10:branch
+zone:460:460:0:40:Árvore.
+staircase:470:470:0:10:branch
+zone:470:470:0:40:Árvore.
+staircase:480:480:0:10:branch
+zone:480:480:0:40:Árvore.
+staircase:490:490:0:10:branch
+zone:490:490:0:40:Árvore.
+staircase:495:495:0:10:branch
+zone:495:495:0:40:Árvore.

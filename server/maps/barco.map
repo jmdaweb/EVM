@@ -1,0 +1,16 @@
+map:barco
+maxx:17
+maxy:10
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+desativar:varinha
+platform:1:16:0:none
+wall:0:0:10:wallnone
+wall:17:0:10:wallnone
+zone:1:16:0:10:.
+safezone:1:16:0:10
+sound_source:0:17:-10:-10:barcomovendo.ogg
+sound_source:0:17:-2:-2:oceano1.ogg
+sound_source:0:17:-10:-10:oceano3.ogg
+sound_source:0:17:0:0:oceano4.ogg

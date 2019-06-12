@@ -1,0 +1,26 @@
+string ajuda="
+Estes são os comandos disponíveis até o momento:
+/onde <jogador>: Mostra a localização atual de um jogador.
+/xp <jogador>: Mostra quantos pontos de experiência o jogador possui.
+/novidades: Mostra as novidades do jogo.
+/r, /reply ou /responder <Mensagem>: Responde para o último jogador que te mandou PM.
+/pm <nome> <mensagem>: Manda mensagem privada para um jogador.
+/ign <jogador>: Ignora um jogador.
+/deign: Designora um jogador.
+/igns: Mostra a lista de jogadores ignorados por você.
+/leilão: Se tiver, mostra o item que está a venda.
+/cancelarl: Cancela o leilão do item que estiver vendendo.
+/suicidar: Se suicida...
+Para ver a lista de comandos em Inglês digite /help.
+";
+string help="
+Hear are the current server commands available at the moment.
+/pacifist: It leaves you protected against shots and explosives. You can only disable this command after 10 minutes, and not fire.
+/me msg, says a me message.
+/deleteme, deletes your char.
+/nickname new nickname for your character.
+/where playername, checks someone's zone, and coordinates.
+/message playername: sends them a private message
+/r replys to the last person who sent you a message.
+/administrators, tells you how many administrators are.
+";

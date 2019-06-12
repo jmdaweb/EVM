@@ -1,0 +1,33 @@
+map:igreja_de_belick
+maxx:140
+maxy:40
+platform:0:140:0:floor
+wall:0:0:40:wallgeneric
+wall:140:0:40:wallgeneric
+safezone:0:140:0:40
+sound_source:1:120:0:40:igreja.ogg
+sound_source:0:140:0:40:calm.ogg
+staircase:120:120:0:4:wood
+wall:121:0:3:wallnone
+wall:122:0:3:wallnone
+wall:123:0:3:wallnone
+wall:124:0:3:wallnone
+wall:125:0:3:wallnone
+wall:126:0:3:wallnone
+wall:127:0:3:wallnone
+wall:128:0:3:wallnone
+platform:120:130:4:wood
+platform:131:139:0:wood
+staircase:130:130:0:4:wood
+wall:129:0:3:wallnone
+zone:1:25:0:40:Nave central
+zone:26:115:0:40:Bancos
+zone:116:119:0:40:Perto do altar
+zone:120:130:0:40:Altar
+zone:131:139:0:40:Detrás do altar
+zone:139:139:0:40:Aqui há uma bacia de pedra ornamentada, cheia de água cristalina.
+zone:50:50:0:40:Pressione Enter para voltar à cidade.
+travelpoint:50:50:0:0:160:0:cidade_de_belick2:Você deixa a igreja, e o som do coral ainda ecoa em seus ouvidos.
+desativar:bicicleta
+desativar:coordenadas
+teto:none

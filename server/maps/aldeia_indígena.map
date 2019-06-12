@@ -1,0 +1,42 @@
+map:aldeia_indígena
+maxx:200
+maxy:50
+platform:1:199:50:wallnone
+platform:1:199:-1:wallnone
+platform:1:199:0:grass
+wall:0:0:50:wallarvore
+wall:200:0:50:walldirt
+platform:70:130:0:shortgrass
+platform:131:140:0:terra
+platform:141:150:0:mud
+platform:151:155:0:water2
+platform:156:199:0:shallow
+sound_source:-2:-2:0:5:forest.ogg
+sound_source:98:102:0:0:fire1.ogg
+sound_source:130:150:0:100:birds8.ogg
+sound_source:156:200:0:0:heavywater.ogg
+sound_source:146:200:0:100:cachoeira.ogg
+zone:1:69:0:50:Várias ocas foram construídas em meio ao mato verde.
+zone:1:1:0:20:Um caminho estreito te permite voltar à floresta.
+zone:70:130:0:50:No centro da aldeia.
+zone:98:102:0:20:Os moradores da aldeia se reunem em volta desta grande fogueira para assar a comida, proteger-se do frio e contar histórias.
+zone:131:140:0:50:À vista de uma linda cachoeira.
+zone:141:150:0:20:Pedras sujas de limo.
+zone:151:155:0:50:Entrando na água.
+zone:156:199:0:5:Dentro da cachoeira. Vez ou outra, você vê alguns índios tomando banho ou lavando as roupas.
+zone:199:199:0:50:Uma perigosa queda d'água desaba mais a frente, mas uma barreira improvisada foi construída aqui.
+travelpoint:1:1:0:0:100:0:floresta_tropical:Você transpõe a vegetação, desviando de alguns espinhos, e volta à floresta.
+sound_source:0:200:0:100:birds13.ogg
+sound_source:0:200:0:200:birds.ogg
+staircase:12:12:0:10:branch
+zone:12:12:0:100:Árvore.
+staircase:20:20:0:10:branch
+zone:20:20:0:100:Árvore.
+staircase:35:35:0:10:branch
+zone:35:35:0:100:Árvore.
+staircase:52:52:0:10:branch
+zone:52:52:0:100:Árvore.
+staircase:64:64:0:10:branch
+zone:64:64:0:100:Árvore
+desativar:coordenadas
+desativar:armas_pretas

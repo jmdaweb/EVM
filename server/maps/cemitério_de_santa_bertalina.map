@@ -1,0 +1,26 @@
+map:cemitério_de_santa_bertalina
+maxx:100
+maxy:50
+platform:0:100:0:dirt2
+wall:0:0:50:wallnone
+wall:100:0:50:wallgeneric
+platform:1:15:0:grass
+wall:60:0:9:wallgeneric
+staircase:58:59:0:10:concrete
+platform:60:99:10:concrete2
+wall:57:1:19:wallfence
+door:60:10:62:10:10:door.ogg:none:door2open.ogg:door2close.ogg
+wall:61:10:16:wallmetal
+door:62:10:60:10:10:door.ogg:none:door2open.ogg:door2close.ogg
+zone:1:15:0:25:Jardim.
+zone:16:57:0:25:Cuidado onde piza; há túmulos por toda parte.
+zone:58:59:0:15:Escadas.
+zone:60:99:10:15:Capela.
+zone:60:61:10:18:Porta de entrada da capela.
+zone:62:62:10:18:Porta de saída da capela.
+portamapa:1:1:0:0:60:0:cidade_de_santa_bertalina:Você deixa o cemitério e retorna ao movimento da cidade.:door11close
+zone:1:1:0:50:Você consegue vislumbrar o movimento da cidade através deste portão.
+sound_source:1:57:8:20:cemiterio.ogg
+safezone:0:100:0:50
+desativar:coordenadas
+desativar:varinha

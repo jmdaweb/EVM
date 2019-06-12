@@ -1,0 +1,47 @@
+map:Zoológico
+maxx:400
+maxy:100
+platform:0:400:0:terra
+wall:0:0:15:wallgeneric
+wall:400:0:15:wallgeneric
+zone:1:400:0:100:Zoológico 
+platform:50:400:0:grass
+platform:1:49:0:concrete5
+zone:1:49:0:100:estacionamento do Zoológico.
+staircase:85:85:0:10:branch
+zone:85:85:0:30:árvore
+zone:84:84:0:30:aqui se encontra a jaula dos macacos
+sound_source:53:400:2:20:birds15.ogg
+sound_source:54:400:2:30:birds16.ogg
+sound_source:84:84:0:10:macaco4.ogg
+sound_source:84:84:0:10:macaco7.ogg
+staircase:125:125:0:10:branch
+zone:125:125:0:30:oliveira
+zone:124:124:0:30:Aqui se encontra a jaula dos lobos
+sound_source:124:124:0:4:lobo2.ogg
+sound_source:169:169:0:4:dragonsauro3.ogg
+sound_source:169:169:0:3:dragonsauro1.ogg
+zone:169:169:0:30:aqui se encontra a jaula dos dragonsauros
+staircase:170:170:0:10:branch
+zone:170:170:0:30:coqueiro
+staircase:220:220:0:10:branch
+zone:220:220:0:30:árvore
+zone:219:219:0:30:aqui se encontra a jaula dos coelhos
+sound_source:219:219:0:4:coelho1.ogg
+sound_source:219:219:0:4:coelho2.ogg
+sound_source:219:219:0:4:coelho1.ogg
+staircase:280:280:0:10:branch
+zone:280:280:0:30:oliveira
+zone:279:279:0:30:aqui se encontra a jaula dos cães
+sound_source:279:279:0:3:mountain.ogg
+staircase:320:320:0:10:branch
+zone:320:320:0:30:coqueiro
+zone:319:319:0:30:jaula dos papagaios
+sound_source:319:319:0:3:birds5.ogg
+wall:49:0:30:wallfence
+sound_source:1:49:0:20:wind1.ogg
+door:48:0:52:0:1:door.ogg:none:door11open.ogg:door11close.ogg
+door:50:0:47:0:1:door.ogg:none:door11open.ogg:door11close.ogg
+wall:0:0:30:wallfence
+zone:50:50:0:30:Porta de saída do Zoológico.
+zone:48:48:0:30:Você está nos grandiosos portões do fantástico Zoológico. O portão é bastante resistente, e sua estrutura totalmente metálica.

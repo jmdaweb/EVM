@@ -1,0 +1,25 @@
+map:delegacia
+maxx:21
+maxy:50
+platform:1:20:0:carpet
+wall:0:0:50:wallglass
+wall:0:11:50:wallgeneric
+wall:21:0:50:wallgeneric
+zone:0:20:0:50:Delegacia
+zone:1:1:0:50:Portas de saída
+sound_source:4:20:3:5:vent.ogg
+sound_source:0:20:23:25:vent.ogg
+sound_source:0:1:0:5:calm.ogg
+staircase:20:20:0:20:carpet
+zone:20:20:0:19:Escadas.
+platform:1:20:20:carpet
+zone:0:20:20:50:Corredor.
+wall:19:1:19:wallcone
+safezone:0:20:0:50
+zone:15:15:0:19:Um pequeno corredor conduz a outro escritório.
+travelpoint:1:1:0:0:250:0:cidade_de_belick2:Você deixa a delegacia.
+travelpoint:15:15:0:0:1:0:sala_do_fander:Você atravessa o pequeno corredor e adentra o escritório particular do delegado Fander.
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+platform:1:20:50:wallglass

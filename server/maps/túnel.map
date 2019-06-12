@@ -1,0 +1,16 @@
+map:túnel
+maxx:101
+maxy:20
+platform:0:100:0:rocks
+wall:0:0:20:wall
+wall:101:0:20:wall
+zone:1:100:0:20:Ao redor, muito desastre. Sangue, é a única coisa usada, para a representação deste lugar (onde tudo provoca arrepios em você.) Com as paredes quebradas e sons de pessoas gritando, algo ainda pior faz você sentir medo (o chão que você pisa.) Todo demarcado por manchas de sangue, o chão deste lugar ainda causa-lhe apavoramento imediato por parecer abrir à cada momento, como se quisesse te jogar para as profundezas deste lugar. No teto à todo instante, labaredas intensas passam por você, procurando novas vítimas...
+travelpoint:1:100:0:20:1:11:túnels:Você atravéça todo o túnel e se satisfaz ao sentir o cheiro puro do ar.
+sound_source:0:100:0:20:mosca1.ogg
+sound_source:0:100:-22:-22:flies.ogg
+safezone:0:100:0:20
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+desativar:varinha
+teto:none

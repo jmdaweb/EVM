@@ -1,0 +1,21 @@
+map:prisão2
+maxx:101
+maxy:20
+platform:1:100:0:metal2
+wall:0:0:20:wallnone
+wall:11:0:20:wallfence
+wall:21:0:20:wallfence
+wall:31:0:20:wallfence
+wall:41:0:20:wallfence
+wall:51:0:20:wallfence
+wall:61:0:20:wallfence
+wall:71:0:20:wallfence
+wall:81:0:20:wallfence
+wall:91:0:20:wallfence
+wall:101:0:20:wallnone
+zone:1:100:0:20:Ouch! A prisão. Você veio parar aqui, porque fez algo de ruim no servidor.
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+teto:telha1.ogg
+safezone:0:101:0:20

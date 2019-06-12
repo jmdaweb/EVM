@@ -1,0 +1,36 @@
+map:acampamento
+maxx:200
+maxy:20
+platform:1:199:20:wallnone
+platform:1:199:-1:wallnone
+platform:1:199:0:grass
+wall:0:0:20:wallnone
+wall:200:0:20:wallarvore
+platform:41:130:0:dirt2
+wall:64:1:20:wallfence
+platform:131:140:0:floor
+platform:141:185:0:shallow
+platform:186:199:0:floor
+zone:1:40:0:20:Trilha.
+zone:41:55:0:20:Clareira.
+zone:56:64:0:20:Nas proximidades de um acampamento.
+zone:63:63:0:20:Uma cerca de metal enferrujada, muito mal posta, permite que passe por baixo dela e adentre um acampamento.
+zone:64:64:0:20:Rastejando por baixo da cerca.
+zone:65:79:0:20:Acampamento.
+zone:65:65:0:20:Uma cerca de metal enferrujada, muito mal posta, permite que passe por baixo dela e deixe este acampamento.
+zone:80:93:0:20:Barracas abandonadas.
+zone:94:100:0:20:No centro do acampamento.
+zone:101:113:0:20:Perto dos resquícios de uma fogueira mal apagada.
+zone:106:108:0:20:Fogo.
+zone:114:130:0:20:Barracas abandonadas.
+zone:131:140:0:20:Às margens de um riacho.
+zone:141:185:0:20:Em um riacho comprido e pouco profundo.
+zone:186:199:0:20:Às margens de um riacho.
+zone:199:199:0:20:Uma passagem bloqueada por um arbusto espinhoso.
+sound_source:1:199:-10:-10:night.ogg
+sound_source:141:185:0:0:water3.ogg
+sound_source:106:108:0:0:fire1.ogg
+travelpoint:1:1:0:0:34:0:floresta:Você volta para a floresta
+zone:1:1:0:20:daqui você avista a grande floresta
+travelpoint:199:199:0:0:1:0:estrada_do_acampamento:Você chega em uma estrada, muito grande e deserta.
+desativar:coordenadas

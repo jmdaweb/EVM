@@ -1,0 +1,55 @@
+map:zona_de_segurança
+maxx:301
+maxy:60
+teto:none
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+wall:0:50:60:walldirt
+wall:0:0:49:wallnone
+wall:301:0:60:walldirt
+zone:1:300:0:19:Área proibida.
+safezone:0:31:0:19
+platform:1:30:0:carpet
+staircase:30:30:0:10:metal2
+zone:30:30:0:19:Escada.
+wall:31:0:9:wallbarricada
+platform:31:31:10:metal
+platform:32:300:0:montanha
+staircase:32:32:4:10:metal2
+zone:31:32:4:19:Escada.
+safezone:32:32:4:19
+sound_source:32:300:0:10:caverna2.ogg
+platform:20:300:11:wallnone
+platform:20:300:-1:wallnone
+door:1:2:1:21:0:none:none:none:none
+door:1:3:1:21:0:none:none:none:none
+door:1:4:1:21:0:none:none:none:none
+door:1:5:1:21:0:none:none:none:none
+platform:1:20:20:concrete4
+wall:21:20:39:wallnone
+zone:1:20:20:39:Corredor.
+door:1:20:1:19:0:none:none:none:none
+safezone:1:20:20:39
+elevador:10:20:10:40:
+elevador:10:40:10:20
+zone:20:20:20:39:Porta da escola abandonada.
+travelpoint:20:20:20:20:80:0:escola:Você entra na escola abandonada.
+sound_source:1:30:20:40:calm.ogg
+platform:1:30:40:carpet2
+zone:1:30:40:49:Zona de segurança.
+zone:1:2:40:49:Escada.
+staircase:1:2:40:50:metal3
+wall:3:41:49:wallfence
+platform:4:30:49:wallnone
+platform:1:30:50:concrete2
+zone:1:30:50:60:Laje.
+platform:1:30:60:wallnone
+zone:10:10:20:49:Portas do elevador. Pressione enter para acioná-lo.
+zone:30:30:40:49:Você vê uma cidade muito movimentada ao longe. Para caminhar até ela, pressione enter.
+travelpoint:30:30:40:40:1:0:cidade1:Você entra na movimentada cidade. Muitas pessoas passam apreçadas por você.
+wall:31:40:49:wallnone
+wall:31:50:60:wallfence
+sound_source:1:30:55:60:wind2.ogg
+platform:1:30:39:wallnone
+safezone:1:30:40:49

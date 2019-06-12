@@ -1,0 +1,21 @@
+map:estrada_do_acampamento
+maxx:400
+maxy:20
+wall:0:0:20:wallarvore
+wall:400:0:20:wallnone
+desativar:camera
+desativar:coordenadas
+platform:1:399:20:wallnone
+platform:1:399:-1:wallnone
+platform:1:201:0:shortgrass
+travelpoint:1:1:0:0:199:0:acampamento:Você volta ao acampamento.
+zone:1:50:0:20:Uma parte mais sombria do acampamento.
+sound_source:1:50:0:20:birds10.ogg
+zone:51:200:0:20:Um lugar mais frio. A brisa cai em você.
+sound_source:51:200:0:20:a1.ogg
+zone:201:399:0:20:Uma parte destruída do acampamento. Animais mortos, árvores derrubadas e pedras pelo caminho são vistas por você.
+sound_source:201:399:0:20:a3.ogg
+platform:50:200:0:grass
+platform:201:399:0:rocks
+zone:399:399:0:20:entrada do corredor mortal!
+travelpoint:399:399:0:0:1:0:corredor_mortal:Você entra no corredor mortal!

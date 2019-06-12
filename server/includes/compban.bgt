@@ -1,0 +1,44 @@
+string get_comp_bans(){
+if(banidos.length()==0)return "Ninguém banido";
+string ret="Banidos: ";
+string[] b;
+for(uint i=0;i<banidos.length();i++){
+string[] dd=string_split(banidos[i], ":", false);
+b.insert_last(dd[0]);
+}
+return "Banidos: "+linear(b);
+}
+bool comp_ban(string username){
+int banindex=get_player_index_from(username);
+if(banindex>-1){
+string b=username+":"+players[banindex].computer_id+":"+net.get_peer_address(players[banindex].peer_id);
+banidos.insert_last(b);
+send_reliable(0,"msgdepois "+players[banindex].charname+" foi banid"+players[banindex].sexo2+".",0);
+send_reliable(players[banindex].peer_id,"kill",0);
+return true;
+}
+else
+{
+return false;
+}
+}
+bool comp_unban(string username){
+bool baniu=false;
+for(uint i=0;i<banidos.length();i++){
+string[] d=string_split(banidos[i], ":", false);
+if(d[0]==username){
+banidos.remove_at(i);
+baniu=true;
+}
+}
+return baniu;
+}
+bool banido(string id){
+for(uint i=0;i<banidos.length();i++){
+string[] ver=string_split(banidos[i], ":", false);
+if(ver.length()>1){
+if(string_contains(ver[1], id, 1)>-1)return true;
+}
+}
+return false;
+}

@@ -1,0 +1,4 @@
+const int Left=-1;
+const int Right=1;
+const int Back=0;
+const int Forward=2;

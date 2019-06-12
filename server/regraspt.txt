@@ -1,0 +1,20 @@
+Regras de ejemplo:
+1. Todos os jogadores, sem restrição de administradores, devem respeitar-se, independente de país, sexualidade ou posição no jogo.
+2. Proibido o envio de mensagens repetitivas, ou que incitem a pornografia ou apologia ao crime.
+3. Blasfêmia:
+Saldar uma pessoa de bom ato é permitido, porém a troca de mensagens sobre religião, santidade ou similares é proibida, os jogadores envolvidos estarão sujeitos à terem seus canais de comunicação removidos por um tempo indeterminado.
+4. Bugs:
+Qualquer bug encontrado no jogo deve ser reportado através do comando /adm.
+Considera-se bug qualquer comando ou forma de fazer o jogo cair; MOBS dando experiência desproporcional à dificuldade ETC.
+Obter benefícios próprios ou de outros através de bugs, será considerada penalidade grave e sujeita a exclusão definitiva dos personagens envolvidos.
+5. Conexões:
+Acarretará na exclusão dos personagens envolvidos.
+É permitido a criação de mais de um personagem. Portanto não é aceita a multe conexão.
+Caso mais de uma pessoa jogue do mesmo local, estes devem comunicar aos administradores e aguardar a autorização para conectarem pelo mesmo IP.
+Cada personagem no jogo pertence a uma única pessoa, portanto, é proibido ceder ou emprestar personagens para outros.
+6. Não provocar jogadores que não gostam de brincadeiras. Ao provocar um jogador, e este lhe disser que não gosta de brincadeiras, o mínimo que deve é respeitá-lo, de acordo com a primeira regra.
+7. Ao comprar um item na loja, você automaticamente aceita que o objeto pode ser removido a qualquer momento, se os administradores decidirem que você está errado.
+Caso não aceite esta regra e já tenha comprado um objeto, mediante à comprovante, pessa seu dinheiro de volta em até 10 dias.
+Qualquer outro problema, não tratado nestas regras, será avaliado e julgado por um administrador que terá sempre a palavra final sobre a decisão.
+Se não concorda com as outras regras, por favor, desconecte-se do jogo imediatamente.
+As regras propostas aqui devem ser seguidas em rigor no chat principal, para proibir problemas futuros e estão sujeitas à mudanças a qualquer momento, sem um prévio aviso de um administrador.

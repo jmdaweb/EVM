@@ -1,0 +1,14 @@
+map:apresentação
+maxx:2
+maxy:20
+platform:1:2:0:carpet
+wall:0:0:20:wallnone
+wall:2:0:20:wallnone
+zone:1:1:0:20:Antes de continuar, leia as regras.
+travelpoint:1:1:0:20:1:40:zona_de_segurança:Você deixa esse lugar, concordando com as regras.
+safezone:1:1:0:20
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+desativar:varinha
+sound_source:1:2:0:20:birds.ogg

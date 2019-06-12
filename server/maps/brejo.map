@@ -1,0 +1,26 @@
+map:brejo
+maxx:201
+maxy:20
+platform:1:200:20:wallnone
+platform:1:200:-1:wallnone
+platform:1:20:0:water2
+platform:21:29:0:water
+platform:30:200:0:brejo
+wall:0:0:20:wallnone
+wall:201:0:20:wallnone
+sound_source:0:200:0:20:birds24.ogg
+sound_source:0:30:0:20:water1.ogg
+zone:0:200:0:20:brejo
+travelpoint:1:1:0:0:100:0:caverna_subterrânea:Você nada pela cachoeira, se encontrando em uma passagem subterrâmea, acho melhor sair da qui!
+zone:1:1:0:20:Uma passagem de baixo da cachoeira, onde será que ela leva?
+sound_source:-4:-4:0:50:water3.ogg
+desativar:coordenadas
+desativar:bicicleta
+areia_movediça:35:0
+areia_movediça:50:0
+areia_movediça:60:0
+areia_movediça:80:0
+areia_movediça:110:0
+areia_movediça:140:0
+areia_movediça:166:0
+areia_movediça:195:0

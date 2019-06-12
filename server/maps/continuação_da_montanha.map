@@ -1,0 +1,54 @@
+map:continuação_da_montanha
+maxx:400
+maxy:420
+platform:1:399:420:wallnone
+platform:1:399:-1:wallnone
+platform:0:400:0:gravel2
+wall:0:0:400:wallnone
+wall:400:0:400:wallnone
+platform:201:399:0:gravel
+staircase:300:324:0:96:rocks
+staircase:320:331:96:115:rocks
+staircase:330:353:115:150:rocks
+staircase:344:369:150:168:rocks
+staircase:345:368:168:185:rocks
+staircase:367:367:185:200:rocks
+platform:298:370:200:rocks2
+platform:374:398:200:rocks2
+staircase:304:306:200:315:rocks2
+staircase:305:305:315:350:rocks2
+platform:307:399:350:rocks2
+staircase:391:391:350:400:ice
+platform:391:398:400:ice
+wall:370:6:199:walldirt
+wall:307:330:349:walldirt
+platform:308:350:330:cement
+staircase:337:337:332:350:brush
+wall:351:330:349:walldirt
+zone:1:200:0:5:Estrada de terra batida.
+zone:1:1:0:0:Aqui o terreno nivela e parece dar lugar à um lugar civilizado.
+zone:200:200:0:5:Neste ponto da estradinha, o cascalho se mostra mais fino.
+zone:201:399:0:5:Estrada de rochas e cascalho.
+zone:300:369:6:199:Estas rochas irregulares permitem uma escalada perigosa.
+zone:300:324:0:5:O terreno rochoso se inclina.
+zone:298:398:200:205:Um trecho plano na montanha rochosa.
+zone:304:306:200:355:As rochas irregulares parecem mais frias e ainda mais escorregadias.
+zone:307:399:350:355:Uma parte plana e fria da montanha rochosa.
+zone:308:350:330:349:Uma caverna natural.
+zone:337:337:330:331:Uma corda improvisada, feita de galhos secos e cipó, jaz pendurada no alto e oscila diante de seus olhos.
+zone:391:391:350:400:Um trecho estreito de rocha gelada.
+zone:391:398:400:420:O pico estreito e rochoso da montanha.
+zone:398:398:400:420:Se tomar muito cuidado, você pode atravessar para o outro lado da montanha aqui.
+sound_source:1:399:0:10:night2.ogg
+sound_source:1:399:15:328:wind2.ogg
+sound_source:1:300:330:400:wind2.ogg
+sound_source:1:399:351:400:wind2.ogg
+sound_source:1:399:370:400:winter.ogg
+travelpoint:398:398:400:400:391:400:montanha:Um trecho congelado e escorregadio permite que você caminhe até o outro lado do topo da montanha.
+zone:1:1:0:20:O que outrora fora um prédio gigantesco e imponente não passa agora de uma estrutura de tijolos enegrecidos e sujos de fuligem. Há fumaça saindo pela porta quebrada.
+travelpoint:1:1:0:0:1:0:mortal_construções:Você entra neste prédio em ruínas e sente o cheiro inconfundível de fumaça.
+desativar:bicicleta
+desativar:coordenadas
+sound_source:308:350:330:349:caverna2.ogg
+zone:350:350:330:345:Uma passagem.
+travelpoint:350:350:330:330:1:100:caverna:Você entra na passagem, caíndo sem saber onde isso vai levar.

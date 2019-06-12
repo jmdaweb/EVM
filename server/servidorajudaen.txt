@@ -1,0 +1,20 @@
+These are the available commands:
+SHIFT+F1: AFK mode, use the same command to remove the AFK mode;
+SHIFT+F2: Enable or disable the pacifist mode;
+SHIFT+F3: Enable or disable the option to show game messages in another window;
+/newbie:Removes the newbie flag that your charracter come by default;
+/pm playername message: Send a private message to the player;
+/r message: Reply the last private message sent to you;
+/ign playername: Ignores a player;
+/deign playername: undo de ignore player request.;
+/igns: Shows you a list with all ignored players in your account;
+/teama playername: Adds the player to your team;
+/teamr Playername: Remove the player from your team;
+/teamq: Quit from the last team that you have been added;
+/teaml: List the members of your team;
+/t message: Send a message to all players of your team;
+/auction: If there's an item in auction, speak what item is available in the auction;
+/bid price: Bid in the current auction;
+/adm message: Send a message to the game administrators;
+/readboard: Reads the message in the library board.;
+/writeboard message: Writes a message in the library's board..

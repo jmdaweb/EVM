@@ -1,0 +1,32 @@
+map:praça_da_cidade
+maxx:100
+maxy:50
+platform:1:99:50:wallnone
+platform:1:99:-1:wallnone
+platform:0:49:0:concrete4
+platform:50:99:0:shortgrass
+wall:0:0:40:wallnone
+wall:100:0:50:wallnone
+zone:0:100:0:100:Praça arborizada.
+sound_source:1:100:0:50:birds.ogg
+sound_source:51:55:30:35:birds8.ogg
+travelpoint:1:1:0:0:200:0:cidade2:Você retorna ao movimento da cidade.
+staircase:31:40:0:20:concrete:concrete
+staircase:48:49:0:30:branch
+zone:1:1:0:5:Pressione Enter para voltar à cidade.
+zone:2:15:0:10:bancos
+zone:16:18:0:10:barraca de lanches
+zone:25:25:0:10:Aqui há uma fonte de pedra ornamentada, jorrando água cristalina.
+zone:31:40:0:40:rampa de skate
+zone:41:47:0:40:bancos à sombra da árvore
+zone:48:49:0:29:árvore
+zone:48:49:30:40:vista do alto da praça
+zone:60:63:0:19:árvore
+staircase:60:63:0:20:branch
+zone:60:63:20:40:vista do alto da praça
+sound_source:62:62:23:26:birds8.ogg
+staircase:85:85:0:10:branch
+zone:85:85:0:30:árvore
+sound_source:85:85:12:20:birds8.ogg
+desativar:camera
+desativar:coordenadas

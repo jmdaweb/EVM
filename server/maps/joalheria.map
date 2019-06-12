@@ -1,0 +1,15 @@
+map:joalheria
+maxx:21
+maxy:20
+platform:0:20:0:carpet
+wall:0:0:20:wallglass
+wall:21:0:20:wallgeneric
+sound_source:0:4:0:20:calm.ogg
+sound_source:5:20:2:20:vent.ogg
+portamapa:1:1:0:0:40:20:shopping:Você volta ao shopping.:door10close
+zone:1:1:0:20:Para voltar ao shopping, pressione enter.
+zone:2:20:0:20:joalheria
+safezone:0:20:0:20
+desativar:bicicleta
+desativar:coordenadas
+teto:none

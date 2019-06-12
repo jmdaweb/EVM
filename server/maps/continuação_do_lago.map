@@ -1,0 +1,34 @@
+map:continuação_do_lago
+maxx:200
+maxy:40
+platform:1:199:40:wallnone
+platform:1:199:-1:wallnone
+platform:0:200:0:shallow
+wall:0:0:40:wallnone
+wall:200:0:18:wallnone
+sound_source:0:199:0:16:water6.ogg
+zone:1:200:20:40:ponte velha
+zone:1:1:20:40:para voltar ao lago da floresta, pressione ENTER.
+travelpoint:1:1:20:20:99:15:lago_da_floresta:você caminha de volta ao lago da floresta.
+travelpoint:199:199:20:20:1:0:montanha:Você percorre um longo caminho, que se abre diante à uma montanha.
+zone:199:199:20:40:Para seguir o caminho até a montanha, pressione enter.
+zone:2:199:0:5:Parte funda do lago.
+zone:1:199:6:19:Caindo.
+platform:1:23:20:bridge
+platform:27:37:20:bridge
+platform:41:60:20:bridge
+platform:65:79:20:bridge
+platform:84:128:20:bridge
+platform:133:167:20:bridge
+platform:173:173:20:bridge
+platform:179:182:20:bridge
+platform:185:189:20:bridge
+platform:195:199:20:bridge
+wall:0:19:40:wallarvore
+wall:200:19:40:wallarvore
+staircase:1:1:0:20:bridge
+zone:1:1:0:19:Escada.
+staircase:199:199:0:20:bridge
+zone:199:199:0:19:Escada.
+desativar:bicicleta
+desativar:coordenadas

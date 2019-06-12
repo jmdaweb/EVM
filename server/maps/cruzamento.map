@@ -1,0 +1,20 @@
+map:cruzamento
+maxx:61
+maxy:20
+platform:1:60:20:wallnone
+platform:1:60:-1:wallnone
+platform:0:60:0:concrete2
+wall:0:0:20:wallnone
+wall:61:0:20:wallnone
+zone:0:60:0:20:Cruzamento.
+zone:1:1:0:20:Aqui é possível voltar à rua mais tranquila.
+travelpoint:1:1:0:0:450:0:cidade_de_belick2:Você volta a Belick.
+sound_source:1:1:0:20:pessoas.ogg
+zone:30:30:0:20:Portas da rodoviária.
+travelpoint:30:30:0:0:1:0:rodoviária_de_belick:Você entra na rodoviária.
+sound_source:30:30:0:20:pessoas.ogg
+zone:60:60:0:20:Portas da estação de trem de Belick.
+travelpoint:60:60:0:0:1:0:estação_de_belick:Você entra na estação.
+sound_source:60:60:0:20:pessoas.ogg
+sound_source:0:60:0:20:birds.ogg
+desativar:coordenadas

@@ -1,0 +1,20 @@
+Estes são os comandos disponíveis até o momento:
+SHIFT+F1: Fica alzente, o mesmo comando se usa para voltar ao jogo;
+SHIFT+F2: Ativar e desativar o modo pacifista;
+SHIFT+F3: Ativa ou desativa a função de esibir e não esibir mensagens do jogo em outras janelas;
+/novato: Retira a flag de novato que o jogador vem por padrão;
+/pm nome_do_jogador mensagem: Manda uma mensagem privada para o jogador informado;
+/r mensagem: Responde a última mensagem privada que foi enviada para você;
+/ign nome_do_jogador: Ignora um jogador;
+/deign nome_do_jogador: Designora um jogador;
+/igns: Mostra a lista de jogadores ignorados por você;
+/equipea nome_do_jogador: Adiciona o jogador em sua equipe;
+/equiper nome_do_jogador: Remove o jogador de sua equipe;
+/equipes: Sai da última equipe em que te adicionaram;
+/equipel: Lista os membros adicionados em sua equipe;
+/e mensagem: Envia uma mensagem para os jogadores adicionados em sua equipe;
+/leilão: Se tiver, mostra o item que está a venda;
+/ofertar valor: Oferta no leilão atual;
+/adm mensagem: Manda uma mensagem para os administradores do jogo;
+/lerquadro: Lê as mensagens do quadro da biblioteca;
+/escreverquadro mensagem: Escreve a mensagem digitada no quadro da biblioteca.

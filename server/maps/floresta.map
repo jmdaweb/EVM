@@ -1,0 +1,53 @@
+map:floresta
+maxx:200
+maxy:50
+platform:1:199:50:wallnone
+platform:1:199:-1:wallnone
+wall:0:0:50:wallarvore
+wall:200:0:50:wallarvore
+platform:1:199:0:grass
+platform:1:10:0:concrete4
+zone:25:197:0:50:Mato
+sound_source:42:42:0:50:birds1.ogg
+staircase:42:42:0:10:branch
+zone:42:42:0:50:Árvore.
+sound_source:50:50:0:50:birds3.ogg
+staircase:50:50:0:10:branch
+zone:50:50:0:50:Árvore.
+sound_source:60:60:0:50:birds1.ogg
+staircase:60:60:0:5:branch
+zone:60:60:0:50:Árvore
+sound_source:65:65:0:50:birds3.ogg
+staircase:65:65:0:8:branch
+zone:65:65:0:50:Árvore.
+sound_source:80:80:0:50:birds7.ogg
+staircase:80:80:0:9:branch
+zone:80:80:0:50:Árvore.
+sound_source:0:200:0:50:birds9.ogg
+sound_source:0:200:0:50:night2.ogg
+zone:1:1:0:50:Para voltar à cidade, pressione enter.
+travelpoint:1:1:0:0:249:40:cidade2:Você caminha de volta para cidade
+travelpoint:34:34:0:0:1:1:acampamento:Você adentra o acampamento.
+zone:198:199:0:50:Árvore
+staircase:198:199:0:10:branch
+platform:11:14:0:dirt2
+zone:11:14:0:50:Terra
+zone:15:17:0:50:mato
+platform:18:24:0:mud
+zone:18:24:0:50:Lama
+zone:199:199:10:50:Para entrar em uma floresta mais expeça, pressione ENTER.
+travelpoint:199:199:10:10:1:10:lago_da_floresta:Você entra em uma floresta mais expeça e escura.
+zone:2:10:0:50:uma leve inclinação
+zone:34:34:0:50:uma entrada, parece ser um acampamento
+zone:100:100:0:50:Uma entrada, parece ser um vilarejo.
+travelpoint:100:100:0:0:1:0:vilarejo:Você entra num grande vilarejo. Uma sensação de conforto preenche seu corpo.
+zone:115:115:0:10:Árvore.
+staircase:115:115:0:10:branch
+zone:130:130:0:8:Árvore.
+staircase:130:130:0:8:branch
+zone:150:150:0:10:Árvore.
+staircase:150:150:0:10:branch
+zone:170:170:0:10:Árvore.
+staircase:170:170:0:10:branch
+desativar:coordenadas
+

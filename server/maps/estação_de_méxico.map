@@ -1,0 +1,26 @@
+map:estação_de_méxico
+maxx:101
+maxy:20
+platform:1:100:20:wallnone
+platform:1:100:-1:wallnone
+platform:1:100:0:concrete
+wall:0:0:20:wallnone
+wall:101:0:20:wallnone
+zone:1:100:0:20:Estação de trem de méxico
+zone:1:1:0:20:Portas da estação.
+zone:30:36:0:20:Guichê para compras de passagens.
+zone:60:60:0:20:Catracas de embarque e desembarque. Pressione Enter para passar.
+sound_source:1:100:0:20:cruzamento.ogg
+zone:86:100:0:20:Plataforma de embarque e desembarque
+travelpoint:86:100:0:0:5:0:trem:Você entra no trem, agora parado, aguardando pelos passageiros.
+zone:62:62:0:20:Catracas de embarque e desembarque. Pressione Enter para passar.
+wall:61:0:20:wallcone
+portamapa:60:60:0:0:62:0:trens:Você passa as catracas.:catraca
+door:62:0:60:0:1:door.ogg:none:door0open.ogg:catraca.ogg
+sound_source:0:100:0:20:pessoas.ogg
+sound_source:0:100:0:20:pessoas2.ogg
+travelpoint:1:1:0:0:60:0:cruzamento:Você caminha para fora da estação.
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+safezone:61:100:0:20

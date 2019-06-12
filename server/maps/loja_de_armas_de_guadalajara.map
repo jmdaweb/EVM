@@ -1,0 +1,25 @@
+map:loja_de_armas_de_guadalajara
+maxx:21
+maxy:40
+platform:0:20:0:carpet
+wall:0:0:40:wallglass
+wall:21:0:19:wallnone
+wall:21:20:40:wallglass
+wall:18:1:40:wallnone
+zone:0:20:0:40:Loja de equipamentos para caça e pesca.
+zone:6:10:0:20:Cessão de equipamentos para caça.
+zone:12:16:0:20:Cessão de equipamentos para pesca.
+staircase:19:20:0:20:wood2
+zone:19:20:0:40:Escada.
+zone:20:20:20:40:Seu rosto é refletido na porta espelhada que está em sua frente, escondendo o que há por trás desta exuberante barreira.
+travelpoint:20:20:20:20:1:0:casa_do_armeiro:Você entra na casa de Ithalo, o jovem armeiro.
+zone:1:1:0:40:Porta de saída.
+travelpoint:1:1:0:0:80:0:cidade_de_guadalajara:Você sai da loja.
+sound_source:0:0:0:40:amb1.ogg
+sound_source:5:21:4:18:vent.ogg
+safezone:0:20:0:40
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+desativar:varinha
+teto:none

@@ -1,0 +1,26 @@
+map:cidade_de_santa_bertalina
+maxx:151
+maxy:20
+platform:1:150:20:wallnone
+platform:1:150:-1:wallnone
+platform:0:150:0:gravel
+wall:0:0:20:wallnone
+wall:151:0:20:wallnone
+desativar:camera
+desativar:coordenadas
+zone:0:150:0:20:Cidade rural de Santa Bertalina
+sound_source:0:150:0:20:birds12.ogg
+zone:1:1:0:20:Portas da estação de trem de santa bertalina.
+travelpoint:1:1:0:0:1:0:estação_de_santa_bertalina:Você entra na estação.
+sound_source:0:0:0:10:pessoas.ogg
+zone:20:20:0:20:Porta da farmácia.
+travelpoint:20:20:0:0:1:0:farmácia_de_santa_bertalina:Você entra na farmácia.
+zone:60:60:0:20:Aqui há um portão conduzindo a um cemitério.
+portamapa:60:60:0:0:1:0:cemitério_de_santa_bertalina:Em passos vagarosos, você adentra este silencioso e nevoento cemitério.:door11open
+zone:80:80:0:20:Uma pequena loja encontra-se aqui, um pequeno letreiro a cima da porta diz, loja de equipamentos para caça.
+travelpoint:80:80:0:0:1:0:loja_de_armas_de_santa_bertalina:Você entra na loja.
+zone:100:100:0:20:Entrada do pesqueiro.
+travelpoint:100:100:0:0:1:0:pesqueiro:Você entra no pesqueiro.
+zone:150:150:0:20:Uma floresta assoma ao longe.
+travelpoint:150:150:0:0:1:0:floresta_tropical:Você entra em uma floresta tropical
+sound_source:151:151:0:20:forest.ogg

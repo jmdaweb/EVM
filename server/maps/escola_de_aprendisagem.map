@@ -1,0 +1,64 @@
+map:escola_de_aprendisagem
+maxx:100
+maxy:20
+platform:0:150:0:concreto
+wall:0:0:15:wallgeneric
+wall:150:0:15:wallgeneric
+zone:1:150:0:40:escola_de_aprendizagem
+zone:10:11:0:20:comandos_do_jogo
+zone:15:15:0:20:para ficar em modo pacifista, pressione shift mais f2
+zone:20:20:0:20:Para verificar su inventario, pulse la letra I.
+zone:25:25:0:20:para dirigir seu personagem para a esquerda ou para a direita, precione shift juntamente com a seta do lado correspondente
+zone:30:30:0:20:Para recarregar sus armas, apriete la letra R y para abilitar el supressor la letra T.
+zone:35:35:0:20:para efetuar um leilão, abra seu inventário, vai em cima do item que pertende leiloar e preciona shift enter. coloca a quantidade do item a ser vendido, preciona novamente enter e coloca o valor a que pertende vender o item.
+zone:40:40:0:20:para que seu personagem corra, preciona alt juntamente da ceta a esquerda ou ceta a direita.
+zone:45:45:0:20:No banheiro> para abrir ou fechar o coverto do vazo sanitário, preciona letra e. para se sentar ou levantar letra q,, para faser as nececidades letra e.   para puchar a descarga  preciona enter e para lavar as mãos enfrente da pia precionar letra e.
+zone:50:50:0:20:para comprar algum item numa loja do jogo preciona letra l cetas cima e baixo para navegar entre os itens e enter para comprar o respetivo item.
+zone:55:55:0:20:comandos de chat: para falar no chat público preciona ifen, para mandar uma mensagem privada preciona f5 na lista dos jogadores conectados  preciona enter  escreve a mensagem e enter novamente para enviar, para mandar uma mensagem aos administradores preciona barra addm escreve a mensagem a ser enviada e enter para enviar.
+platform:15:15:0:diamond
+map:escola_de_aprendisagem
+maxx:100
+maxy:20
+platform:0:150:0:concreto
+wall:0:0:15:wallgeneric
+wall:150:0:15:wallgeneric
+zone:1:150:0:40:escola_de_aprendizagem
+zone:10:11:0:20:comandos_do_jogo
+zone:15:15:0:20:para ficar em modo pacifista, pressione chift mais f2
+zone:20:20:0:20:Para verificar seu inventário, pulse a letra I.
+zone:25:25:0:20:para dirigir seu personagem para a esquerda ou para a direita precione chift juntamente com a seta do lado correspondente
+zone:30:30:0:20:Para recarregar suas armas, aperte a letra R t para abilitar o supressor. 
+zone:35:35:0:20:para efetuar um leilão abra seu inventário vai em cima do item que pertende leiloar e preciona chift enter coloca a quantidade do item a ser vendido preciona novamente enter e coloca o valor a que pertende vender o item.
+zone:40:40:0:20:para que seu personagem corra preciona alt juntamente da ceta a esquerda ou ceta a direita.
+zone:45:45:0:20:No banheiro para abrir ou fechar o coverto do vazo sanitário preciona letra e para se sentar ou levantar letra q, para faser as nececidades letra e   para puchar a descarga  preciona enter e para lavar as mãos enfrente da pia precionar letra e.
+zone:50:50:0:20:para comprar algum item numa loja do jogo preciona letra l cetas cima e baixo para navegar entre os itens e enter para comprar o respetivo item.
+zone:55:55:0:20:comandos de chat: 
+platform:15:15:0:diamond
+platform:20:20:0:diamond
+zone:60:60:0:20:para falar no chat público preciona ifen, para mandar uma mensagem privada preciona f5 na lista dos jogadores conectados  preciona enter  escreve a mensagem e enter novamente para enviar, para mandar uma mensagem aos administradores preciona barra addm escreve a mensagem a ser enviada e enter para enviar.
+platform:25:25:0:diamond
+platform:30:30:0:diamond
+platform:35:35:0:diamond
+platform:40:40:0:diamond
+platform:45:45:0:diamond
+platform:50:50:0:diamond
+platform:55:55:0:diamond
+platform:60:60:0:diamond
+zone:5:5:0:20:secretária do professor
+sound_source:1:100:0:30:office.ogg
+wall:99:0:20:wallscreen
+zone:65:65:0:20:para ver sua saúde preciona letra s
+staircase:65:65:0:0:diamond
+teto:none
+zone:70:70:0:20:para vereficar em que nível está se seu personagem tem sede ou fome ou está sujo ou ta doente preciona letra v. 
+staircase:70:70:0:0:diamond
+zone:98:98:0:20:porta de saída para sair precione enter
+desativar:bicicleta
+
+desativar:camera
+
+desativar:coordenadas
+
+desativar:varinha
+
+travelpoint:98:98:0:0:1:0:academia_de_monterrei:Você sai da escola  

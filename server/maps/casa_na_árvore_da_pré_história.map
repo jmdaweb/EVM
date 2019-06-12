@@ -1,0 +1,14 @@
+map:casa_na_árvore_da_pré_história
+maxx:11
+maxy:16
+platform:1:10:0:wood2
+wall:0:0:16:wallnone
+wall:11:0:16:wallnone
+zone:0:10:0:16:Casa na árvore.
+zone:1:1:0:16:Pressione enter para sair.
+travelpoint:1:1:0:0:45:30:pré_história:Você sai da casa na árvore.
+desativar:bicicleta
+desativar:coordenadas
+desativar:varinha
+teto:telhado.ogg
+safezone:0:11:0:16

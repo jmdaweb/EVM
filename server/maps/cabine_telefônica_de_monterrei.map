@@ -1,0 +1,13 @@
+map:cabine_telefônica_de_monterrei
+maxx:7
+maxy:20
+platform:0:6:0:concrete4
+wall:0:0:20:wallcar
+wall:7:0:20:wallcar
+zone:1:6:0:20:Cabine telefônica.
+zone:1:1:0:20:Porta de saída da cabine.
+travelpoint:1:1:0:0:14:0:cidade1:Você deixa a cabine e volta à cidade.
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+safezone:0:7:0:20

@@ -1,0 +1,17 @@
+map:refrigerador
+maxx:21
+maxy:20
+platform:1:20:20:wallnone
+platform:1:20:-1:wallnone
+platform:1:20:0:concrete3
+wall:0:0:20:wallnone
+wall:21:0:20:wallnone
+zone:1:20:0:20:Refrigerador.
+travelpoint:1:1:0:0:120:0:BarRS:Você sai do frio e escuro refrigerador.
+zone:1:1:0:20:Para sair do refrigerador, pressione enter.
+sound_source:1:20:0:20:rumble.ogg
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+teto:none
+congelar:0:20:0:20

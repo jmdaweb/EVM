@@ -1,0 +1,22 @@
+map:delegacia_de_mortalândia
+maxx:21
+maxy:50
+platform:1:20:0:carpet
+wall:0:0:10:wallglass
+wall:0:11:50:wallgeneric
+wall:21:0:50:wallgeneric
+zone:0:20:0:50:Delegacia
+zone:1:1:0:5:Portas de saída
+sound_source:4:20:3:5:vent.ogg
+sound_source:0:20:23:25:vent.ogg
+sound_source:0:1:0:5:calm.ogg
+staircase:20:20:0:20:carpet
+zone:20:20:0:19:Escadas.
+platform:1:20:20:carpet
+zone:0:20:20:50:Corredor
+wall:19:1:19:wallcone
+safezone:0:20:0:50
+travelpoint:1:1:0:0:150:0:cidade2:Você deixa a delegacia.
+desativar:bicicleta
+desativar:coordenadas
+teto:none

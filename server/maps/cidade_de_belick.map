@@ -1,0 +1,38 @@
+map:cidade_de_belick
+maxx:281
+maxy:20
+platform:1:280:20:wallnone
+platform:1:280:-1:wallnone
+platform:0:280:0:concrete14
+wall:0:0:20:wallnone
+wall:281:0:20:wallnone
+sound_source:0:280:0:20:amb1.ogg
+sound_source:0:280:1:20:park.ogg
+zone:0:280:0:20:Rua principal.
+zone:1:1:0:20:Estes são os portões do aeroporto internacional de Belick.
+travelpoint:1:1:0:0:1:0:aeroporto_internacional_de_belick:Você se aperta por entre pessoas carregando malas e entra no aeroporto.
+sound_source:1:1:0:20:pessoas.ogg
+zone:15:15:0:20:A porta da casa de intercâmbio está aberta aos turistas que querem trocar seu dinheiro.
+portamapa:15:15:0:0:1:0:casa_de_intercâmbio:Você entra neste pequeno, porém aconchegante escritório.:door10open
+zone:55:55:0:20:Aqui está a porta de uma cabine telefônica.
+travelpoint:55:55:0:0:1:0:cabine_telefônica_de_Belick:Você adentra a cabine, torcendo para que não esteja ocupada.
+zone:70:75:0:20:Uma pequena banca de jornais.
+zone:100:100:0:20:Um delicioso cheiro de comida provém desta lanchonete.
+travelpoint:100:100:0:0:1:0:lanchonete:Você entra na lanchonete. A visão dos lanches te dá água na boca.
+sound_source:100:100:0:20:lanchonete1.ogg
+sound_source:100:100:0:20:pessoas.ogg
+zone:150:150:0:20:Aqui há uma passagem conduzindo a um clube.
+travelpoint:150:150:0:0:1:0:clube:Você caminha pelo estacionamento do clube. Observando os carros, esse parece ser um ambiente luxuoso.
+sound_source:150:150:0:20:pessoas.ogg
+zone:240:240:0:20:Entrada do banco.
+sound_source:240:240:0:20:pessoas.ogg
+travelpoint:240:240:0:0:1:0:banco:Você entra no banco.
+zone:260:260:0:20:Aqui está a entrada oeste de um grande shopping.
+travelpoint:260:260:0:0:1:0:shopping:Você adentra o estacionamento oeste do shopping.
+sound_source:260:260:0:20:pessoas.ogg
+zone:280:280:0:20:Esta esquina conecta a rua principal com outra menos movimentada.
+travelpoint:280:280:0:0:1:0:cidade_de_belick2:Você dobra a esquina e se vê em uma rua mais tranquila.
+sound_source:280:280:0:20:pessoas.ogg
+zone:204:204:0:20:Porta da farmácia.
+travelpoint:204:204:0:0:1:0:farmácia_de_belick:Você entra na farmácia.
+desativar:coordenadas

@@ -1,0 +1,31 @@
+map:cidade1
+maxx:250
+maxy:50
+platform:1:249:50:wallnone
+platform:1:249:-1:wallnone
+platform:0:250:0:concrete2
+wall:0:0:50:wallfence
+wall:250:0:50:wallnone
+zone:1:249:0:50:Rua principal da cidade.
+zone:1:1:0:50:Para voltar à Zona de Segurança, pressione Enter.
+zone:95:95:0:10:Nesta calçada, o Bar RS abre suas portas a todos
+zone:124:124:0:0:Na frente deste prédio, uma placa indica "Departamento da Polícia Federal".
+zone:249:249:0:10:Esta esquina conecta a rua principal com outra menos movimentada.
+travelpoint:1:1:0:0:30:40:zona_de_segurança:Você volta à zona de segurança.
+travelpoint:95:95:0:0:1:0:BarRS:Você adentra o famoso, e muito bem frequentado, Bar RS.
+travelpoint:124:124:0:0:1:0:departamento_da_polícia_federal:Você entra em uma sala ampla. Há pessoas bem vestidas por toda parte.
+travelpoint:249:249:0:0:1:0:cidade2:Você dobra a esquina e se vê em uma rua mais tranquila.
+sound_source:0:250:0:50:birds.ogg
+sound_source:0:250:0:100:park.ogg
+sound_source:0:250:0:100:amb1.ogg
+sound_source:95:95:0:5:restaurant.ogg
+sound_source:124:124:0:100:pessoas.ogg
+travelpoint:160:160:0:0:1:0:aeroporto:Você se aperta por entre pessoas carregando malas e entra no aeroporto.
+zone:160:160:0:5:esses são os portões do aeroporto, aperte enter e entre
+sound_source:160:160:0:5:pessoas.ogg
+sound_source:0:250:0:10:amb.ogg
+zone:14:14:0:10:A porta desta cabine telefônica está fechada, mas você pode entrar.
+travelpoint:14:14:0:0:1:0:cabine_telefônica_de_Mortalândia:Você adentra a cabine, torcendo para que não esteja ocupada.
+desativar:coordenadas
+travelpoint:8:10:0:0:1:0:mundo_futurista:Você adentra a mundo futurista, torcendo para que não esteja cheia de robôs.
+

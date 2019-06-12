@@ -1,0 +1,31 @@
+map:boate
+maxx:61
+maxy:50
+platform:1:60:50:wallnone
+platform:1:60:-1:wallnone
+platform:1:10:0:concrete2
+platform:11:60:0:concrete4
+wall:0:11:50:wallnone
+wall:0:0:10:wallfence
+wall:61:0:50:wallnone
+sound_source:0:10:0:5:calm.ogg
+zone:0:60:0:50:Boate.
+zone:1:1:0:15:Portão de saída
+portamapa:1:1:0:0:50:0:cidade_de_belick2:Você volta à cidade.:door11close
+zone:2:10:0:15:Estacionamento.
+sound_source:0:55:0:10:pessoas.ogg
+sound_source:0:1:0:10:amb1.ogg
+zone:21:40:0:19:Lanchonete.
+zone:1:60:20:50:Pista de dança.
+staircase:59:60:0:20:concrete
+zone:59:60:0:19:Escada.
+platform:1:60:20:carpet2
+wall:58:1:19:wallfence
+zone:48:48:0:19:Porta do banheiro feminino.
+zone:52:52:0:19:Porta do banheiro masculino.
+travelpoint:52:52:0:0:1:0:banheiro_masculino_da_boate:Você entra no banheiro masculino. Um odor desagradável de urina paira no ar.
+travelpoint:48:48:0:0:1:0:banheiro_feminino_da_boate:Você entra no banheiro feminino. Onde a fila é sempre constante.
+desativar:armas_pretas
+desativar:bicicleta
+desativar:coordenadas
+teto:none

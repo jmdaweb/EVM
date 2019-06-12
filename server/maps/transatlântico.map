@@ -1,0 +1,72 @@
+map:transatlântico
+maxx:100
+maxy:100
+platform:0:100:0:wood
+wall:0:0:100:wallnone
+wall:100:0:100:wallnone
+staircase:1:2:0:60:wood
+wall:3:1:100:wallcone
+zone:1:99:0:19:Convés principal.
+zone:1:29:0:5:Proa do navio. Há uma grande escada à esquerda.
+zone:30:30:40:45:Portas principais.
+zone:40:43:0:5:Balcão de informações.
+zone:80:99:0:5:Poupa do navio. Aqui se localiza a cabine de controle e a escada para o convés superior, mas a passagem para ambos os lugares são permitidas apenas aos funcionários.
+platform:1:99:20:wood
+zone:1:99:20:39:Convés dos alojamentos.
+platform:1:99:40:wood
+zone:1:99:40:59:Convés do cassino.
+zone:72:74:40:59:Dado da sorte.
+zone:78:80:40:59:Pedra, papel, tesoura!
+zone:84:86:40:59:Farkle!
+zone:90:94:40:59:Black Jack, ou 21!
+zone:96:99:40:59:Roleta dos animais!
+platform:1:99:60:wood2
+zone:1:99:60:100:Convés superior.
+zone:1:1:60:65:Amurada do navio. Um vento trás o cheiro do mar.
+wall:0:60:100:wallscreen
+wall:5:40:59:wallglass
+zone:4:4:40:45:Detrás desta porta de vidro transparente há um luxuoso cassino.
+zone:6:6:40:45:Portas levando para fora do cassino.
+zone:40:50:60:60:Esta grande mesa destina-se a jogos de cartas e tabuleiro.
+zone:60:99:60:80:Um restaurante ao ar livre.
+staircase:20:20:60:85:metal
+platform:20:30:85:deck
+staircase:31:31:73:85:metal
+wall:30:70:79:wallnone
+platform:31:60:70:shallow
+wall:61:70:79:wallnone
+zone:20:20:60:85:Escadas para o deque.
+zone:20:30:85:85:Deque à beira da piscina.
+zone:31:60:70:85:Piscina.
+zone:31:31:73:85:Escadas para a piscina.
+zone:1:2:0:59:Escada para o convés.
+zone:1:2:20:20:Convés dos alojamentos.
+zone:1:2:40:40:Convés do cassino.
+wall:19:61:100:wallmetal
+door:4:40:6:40:1:door.ogg:none:door2open.ogg:door20close.ogg
+door:6:40:4:40:1:door.ogg:none:door20open.ogg:door2close.ogg
+zone:20:20:0:0:Porta de saída.
+travelpoint:20:20:0:0:95:0:sairdomapan:Você sai do transatlântico, desembarcando com cuidado.
+sound_source:1:99:0:55:calm.ogg
+sound_source:6:20:40:50:cassino1.ogg
+sound_source:18:40:40:50:cassino2.ogg
+sound_source:37:70:40:50:cassino3.ogg
+sound_source:65:99:40:50:cassino4.ogg
+sound_source:1:99:60:80:wind2.ogg
+desativar:bicicleta
+desativar:coordenadas
+desativar:camera
+desativar:varinha
+teto:none
+safezone:0:100:0:100
+platform:50:60:10:carpet
+zone:50:60:10:19:Banheiro
+zone:60:60:0:9:Porta do banheiro.
+zone:60:60:10:19:Porta de saída.
+door:60:0:60:10:0:none:none:none:none
+door:60:10:60:0:0:none:none:none:none
+wall:49:10:19:wallnone
+wall:61:10:19:wallnone
+zone:50:51:10:19:Chuveiro.
+zone:54:54:10:19:Vaso sanitário.
+zone:56:56:10:19:Lavatório.

@@ -1,0 +1,46 @@
+map:escola
+maxx:101
+maxy:80
+platform:1:80:0:concrete4
+wall:0:0:80:wallnone
+wall:101:0:80:wallnone
+wall:5:1:19:wallcone
+wall:5:21:39:wallcone
+wall:5:41:59:wallcone
+staircase:1:4:0:60:wood
+platform:1:100:20:concrete4
+platform:1:100:40:concrete4
+platform:1:100:60:plank
+platform:82:100:0:concrete3
+wall:81:0:19:wallnone
+zone:82:82:0:19:Porta que conduz ao pátio principal.
+zone:5:80:0:19:Pátio principal.
+zone:60:62:0:19:Guichê de atendimento da secretaria.
+zone:40:43:0:19:Balcão de atendimento da cantina.
+zone:1:4:0:60:Escada.
+zone:1:4:20:20:Um patamar.
+zone:1:4:40:40:Um patamar.
+zone:5:100:20:39:Um corredor de salas de aula.
+zone:90:100:20:39:Armários.
+zone:5:100:40:59:Corredor.
+zone:1:100:60:80:Telhado.
+sound_source:1:100:0:80:calm.ogg
+sound_source:0:100:60:80:wind2.ogg
+zone:60:60:40:59:Porta da biblioteca.
+portamapa:60:60:40:40:1:0:biblioteca:Você entra na biblioteca.:door6open
+zone:100:100:40:59:Porta da diretoria.
+portamapa:100:100:40:40:1:0:diretoria:Você entra na diretoria.:door6open
+zone:80:80:40:59:Porta da sala dos professores.
+portamapa:80:80:40:40:1:0:sala_dos_professores:Você entra na sala dos professores:door6open
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+desativar:varinha
+teto:telhado.ogg
+zone:6:6:0:19:Porta do banheiro masculino
+travelpoint:6:6:0:0:1:0:banheiro_masculino_da_escola:Você entra no banheiro masculino.
+zone:8:8:0:19:Porta do banheiro feminino.
+travelpoint:8:8:0:0:1:0:banheiro_feminino_da_escola:Você entra no banheiro feminino.
+safezone:0:100:0:80
+zone:80:80:0:10:Porta de saída.
+travelpoint:80:80:0:0:20:20:zona_de_segurança:Você sai da escola abandonada.

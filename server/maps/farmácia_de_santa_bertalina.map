@@ -1,0 +1,17 @@
+map:farmácia_de_santa_bertalina
+maxx:21
+maxy:20
+platform:1:10:0:concrete3
+platform:11:20:0:concrete4
+wall:0:0:20:wallglass
+wall:21:0:20:wallgeneric
+zone:1:20:0:20:Farmácia.
+zone:1:1:0:20:Porta de saída.
+sound_source:0:5:0:20:calm.ogg
+sound_source:-4:-4:0:20:park.ogg
+sound_source:10:20:2:20:vent.ogg
+travelpoint:1:1:0:0:20:0:cidade_de_santa_bertalina:Você fecha a porta, e volta a cidade.
+safezone:0:20:0:20
+desativar:bicicleta
+desativar:coordenadas
+teto:none

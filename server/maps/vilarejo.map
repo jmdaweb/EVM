@@ -1,0 +1,33 @@
+map:vilarejo
+maxx:101
+maxy:50
+platform:1:100:50:wallnone
+platform:1:100:-1:wallnone
+wall:0:0:50:wallnone
+wall:101:0:50:wallnone
+platform:1:50:0:grass
+platform:51:100:0:matos
+zone:0:100:0:50:Vilarejo.
+sound_source:0:100:0:50:birds.ogg
+sound_source:0:100:0:50:birds22.ogg
+staircase:10:10:0:10:branch
+zone:10:10:0:50:Oliveira.
+staircase:20:20:0:10:branch
+zone:20:20:0:50:Oliveira.
+staircase:30:30:0:10:branch
+zone:30:30:0:50:Oliveira.
+staircase:40:40:0:10:branch
+zone:40:40:0:50:Oliveira.
+staircase:50:50:0:10:branch
+zone:50:50:0:50:Oliveira.
+staircase:60:60:0:10:branch
+zone:60:60:0:50:Oliveira.
+staircase:70:70:0:10:branch
+zone:70:70:0:50:Oliveira.
+staircase:80:80:0:10:branch
+zone:80:80:0:50:Oliveira.
+staircase:90:90:0:10:branch
+zone:90:90:0:50:Oliveira.
+zone:1:1:0:50:Você pode voltar à floresta pressionando enter aqui.
+travelpoint:1:1:0:0:100:0:floresta:Você volta à floresta.
+desativar:coordenadas

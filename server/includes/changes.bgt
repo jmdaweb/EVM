@@ -1,0 +1,6 @@
+const string changes="
+Esto es lo que ha cambiado en el servidor:
+-Cambio 1
+-Cambio 2
+-Cambio 3
+";

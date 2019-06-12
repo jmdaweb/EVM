@@ -1,0 +1,37 @@
+map:cidade2
+maxx:301
+maxy:50
+platform:1:300:50:wallnone
+platform:1:300:-1:wallnone
+platform:0:300:0:concrete9
+wall:0:0:50:wallnone
+wall:250:1:50:wallfence
+wall:243:1:50:wallfence
+wall:301:0:50:wallnone
+staircase:244:249:0:40:concrete9
+zone:1:300:0:15:Uma rua tranquila da cidade.
+zone:1:1:0:5:Aqui é possível voltar à rua principal.
+zone:200:200:0:5:Você vê uma praça arborizada.
+zone:60:60:0:5:Uma pequena elevação conduz a uma catedral histórica.
+sound_source:60:60:0:10:igreja2.ogg
+zone:120:120:0:5:Uma pequena elevação conduz a uma catedral histórica.
+zone:244:249:0:45:Rampa.
+travelpoint:1:1:0:0:249:0:cidade1:Você dobra a esquina que conecta esta rua à principal.
+travelpoint:200:200:0:0:1:0:praça_da_cidade:Você adentra a praça arborizada. Tudo aqui parece muito tranquilo...
+travelpoint:60:60:0:0:1:0:igreja:Você cruza a entrada lateral de uma catedral histórica. O teto é abobadado e há vitrais coloridos nas janelas.
+travelpoint:120:120:0:0:60:0:igreja:Você cruza a entrada principal´ de uma catedral histórica. O teto é abobadado e há vitrais coloridos nas janelas.
+travelpoint:246:246:40:40:1:0:cemitério:Em passos vagarosos, você adentra este silencioso e nevoento cemitério.
+sound_source:0:200:0:8:cidade.ogg
+sound_source:1:300:5:50:citybirds.ogg
+sound_source:120:120:0:5:igreja2.ogg
+zone:249:249:40:45:Uma floresta assoma ao lonje
+travelpoint:249:249:40:40:1:0:floresta:Você adentra a floresta.
+travelpoint:244:244:40:40:1:0:casa_abandonada:Você entra em um lugar que parece ser um quintal de uma casa.
+zone:244:244:40:50:Você avista um portão ao longe, precione enter e entre.
+zone:150:150:0:10:Aqui estão as portas da delegacia de Mortalândia, muito bem guardadas.
+travelpoint:150:150:0:0:1:0:delegacia_de_mortalândia:Você cruza as portas da delegacia. Todos os policiais se viram para te olhar.
+zone:300:300:0:10:As portas do porto se encontram em sua frente.
+travelpoint:300:300:0:0:1:0:porto_de_mortalândia:Você entra no porto.
+sound_source:300:300:0:10:pessoas.ogg
+zone:246:246:40:50:Aqui há um portão conduzindo a um cemitério.
+desativar:coordenadas

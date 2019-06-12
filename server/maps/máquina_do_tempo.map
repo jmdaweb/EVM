@@ -1,0 +1,15 @@
+map:máquina_do_tempo
+maxx:9
+maxy:20
+platform:1:8:0:carpet
+wall:0:0:20:wallnone
+wall:9:0:20:wallnone
+zone:1:8:0:20:máquina do tempo.
+travelpoint:1:1:0:0:1:0:casa:Você sai da máquina do tempo.
+sound_source:0:10:0:20:a6.ogg
+safezone:0:10:0:20
+zone:1:1:0:20:Portas da máquina.
+desativar:coordenadas
+desativar:bicicleta
+desativar:camera
+teto:none

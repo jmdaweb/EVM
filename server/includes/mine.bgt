@@ -1,0 +1,193 @@
+class mina
+{
+int x,y,damage;
+string id,owner,map;
+mina(string mid, int mx, int my, int md,string mo,string mm)
+{
+id=mid;
+x=mx;
+y=my;
+damage=md;
+owner=mo;
+map=mm;
+}
+}
+mina@[] minas;
+void spawnmina(int x, int y, int damage,string owner,string map)
+{
+string id;
+bool breakit=false;
+while(true)
+{
+id=randomstring();
+breakit=true;
+for(uint i=0; i<minas.length; i++)
+{
+if(minas[i].id==id) breakit=false;
+}
+if(breakit) break;
+}
+mina m1(id,x,y,damage,owner,map);
+minas.insert_last(m1);
+send_packet(0, "play mineplace.ogg "+x+" "+y, map);
+}
+void destroymina(string id)
+{
+for(uint i=0; i<minas.length; i++)
+{
+if(minas[i].id==id)
+{
+minas.remove_at(i);
+continue;
+}
+}
+}
+class objmagnet
+{
+int x,y,dir,traveled;
+bool collecting=true;
+string owner,map;
+timer velocidadetimer;
+obj@[] collected;
+string[] playernames;
+string soundid;
+bool dead=false;
+int velocidade=30;
+objmagnet(int mx, int my, int md, string mm, string mo)
+{
+x=mx;y=my;map=mm;dir=md;owner=mo;
+soundid=spawn_moving_sound("item_magnet_loop.ogg",x,y,map);
+send_packet(0,"play item_magnet_start.ogg "+x+" "+y,map);
+}
+void loop()
+{
+if(traveled>=100) {collecting=true;}
+if(velocidadetimer.elapsed>=velocidade){
+if(traveled<=100) x+=dir;
+else x-=dir;
+if(string_contains(get_tile_at(dir, y, map), "wall", 1)>-1)traveled=100;
+traveled++;
+update_moving_sound(soundid,x,y);
+if(collecting)
+{
+for(uint i2=0;i2<players.length();i2++){
+if(x==players[i2].x&&y==players[i2].y&&map==players[i2].map){
+send_packet(0,"play spell_electrobomb_hit.ogg "+players[i2].x+" "+players[i2].y+" "+players[i2].map,players[i2].map);
+send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+players[i2].health-=random(200, 300);
+players[i2].lasthit="magnet_"+owner;
+}
+}
+for(uint i2=0;i2<cachorros.length();i2++){
+if(x==cachorros[i2].x&&y==cachorros[i2].y&&map==cachorros[i2].map){
+send_packet(0,"play spell_electrobomb_hit.ogg "+cachorros[i2].x+" "+cachorros[i2].y+" "+cachorros[i2].map,cachorros[i2].map);
+send_packet(0,"play cachorroapanhando"+random(1, 2)+".ogg "+cachorros[i2].x+" "+cachorros[i2].y+" "+cachorros[i2].map,cachorros[i2].map);
+cachorros[i2].vida-=random(200, 300);
+cachorros[i2].golpeado="magnet_"+owner;
+}
+}
+for(uint i2=0;i2<guardacofres.length();i2++){
+if(x==guardacofres[i2].x&&y==guardacofres[i2].y&&map==guardacofres[i2].map){
+send_packet(0,"play spell_electrobomb_hit.ogg "+guardacofres[i2].x+" "+guardacofres[i2].y+" "+guardacofres[i2].map,guardacofres[i2].map);
+guardacofres[i2].vida-=random(200, 300);
+guardacofres[i2].golpeado="magnet_"+owner;
+}
+}
+for(uint i2=0;i2<sequestradors.length();i2++){
+if(x==sequestradors[i2].x&&y==sequestradors[i2].y&&map==sequestradors[i2].map){
+send_packet(0,"play spell_electrobomb_hit.ogg "+sequestradors[i2].x+" "+sequestradors[i2].y+" "+sequestradors[i2].map,sequestradors[i2].map);
+sequestradors[i2].vida-=random(200, 300);
+sequestradors[i2].golpeado="magnet_"+owner;
+}
+}
+for(uint i2=0;i2<macacos.length();i2++){
+if(x==macacos[i2].x&&y==macacos[i2].y&&map==macacos[i2].map){
+send_packet(0,"play spell_electrobomb_hit.ogg "+macacos[i2].x+" "+macacos[i2].y+" "+macacos[i2].map,macacos[i2].map);
+send_packet(0,"play macacoapanhando"+random(1, 3)+".ogg "+macacos[i2].x+" "+macacos[i2].y+" "+macacos[i2].map,macacos[i2].map);
+macacos[i2].vida-=random(200, 300);
+macacos[i2].golpeado="magnet_"+owner;
+}
+}
+for(uint i2=0;i2<lobos.length();i2++){
+if(x==lobos[i2].x&&y==lobos[i2].y&&map==lobos[i2].map){
+send_packet(0,"play spell_electrobomb_hit.ogg "+lobos[i2].x+" "+lobos[i2].y+" "+lobos[i2].map,lobos[i2].map);
+send_packet(0,"play loboapanhando"+random(1, 2)+".ogg "+lobos[i2].x+" "+lobos[i2].y+" "+lobos[i2].map,lobos[i2].map);
+lobos[i2].vida-=random(200, 300);
+lobos[i2].golpeado="magnet_"+owner;
+}
+}
+for(uint i2=0;i2<ursos.length();i2++){
+if(x==ursos[i2].x&&y==ursos[i2].y&&map==ursos[i2].map){
+send_packet(0,"play spell_electrobomb_hit.ogg "+ursos[i2].x+" "+ursos[i2].y+" "+ursos[i2].map,ursos[i2].map);
+ursos[i2].vida-=random(200, 300);
+ursos[i2].golpeado="magnet_"+owner;
+}
+}
+for(uint i2=0;i2<mercenarios.length();i2++){
+if(x==mercenarios[i2].x&&y==mercenarios[i2].y&&map==mercenarios[i2].map){
+send_packet(0,"play spell_electrobomb_hit.ogg "+mercenarios[i2].x+" "+mercenarios[i2].y+" "+mercenarios[i2].map,mercenarios[i2].map);
+mercenarios[i2].vida-=random(200, 300);
+mercenarios[i2].golpeado="magnet_"+owner;
+}
+}
+for(uint i2=0;i2<dragonsauros.length();i2++){
+if(x==dragonsauros[i2].x&&y==dragonsauros[i2].y&&map==dragonsauros[i2].map){
+send_packet(0,"play spell_electrobomb_hit.ogg "+dragonsauros[i2].x+" "+dragonsauros[i2].y+" "+dragonsauros[i2].map,dragonsauros[i2].map);
+send_packet(0,"play dragonsauroapanhando.ogg "+dragonsauros[i2].x+" "+dragonsauros[i2].y+" "+dragonsauros[i2].map,dragonsauros[i2].map);
+dragonsauros[i2].vida-=random(200, 300);
+dragonsauros[i2].golpeado="magnet_"+owner;
+}
+}
+for(uint i=0; i<objs.length; i++)
+{
+if(x==objs[i].x&&y==objs[i].y&&map==objs[i].map&&string_contains(objs[i].item, "bandeira", 1)<0&&string_contains(objs[i].item, "-", 1)<0){
+objs[i].obtainable=false;
+send_packet(0,"play item_magnet_click.ogg "+x+" "+y+" "+map,map);
+collected.insert_last(objs[i]);
+objs[i].delete=true;
+objloop();
+}
+}
+}
+velocidadetimer.restart();
+}
+if(traveled>=200)
+{
+destroy_moving_sound(soundid);
+int ind=get_player_index_from(owner);
+if(ind>-1) 
+{
+bool were=false;
+string output="Um total de ";
+if(collected.length==1) output+="1 item";
+else output+=collected.length+" items";
+if(collected.length!=1||playernames.length!=1) were=true;
+output+=were==true ? " coletou" : "foi coletado";
+send_reliable(players[ind].peer_id,"Seu item_magnético voltou. "+output,2);
+}
+send_packet(0,"play item_magnet_deposit.ogg "+x+" "+y+" "+map,map);
+for(uint i=0; i<collected.length; i++)
+{
+collected[i].x=x;collected[i].y=y;collected[i].map=map;collected[i].obtainable=true;spawn_obj(collected[i].x,collected[i].y,collected[i].item,collected[i].num,collected[i].map,collected[i].player);
+}
+dead=true;
+}
+}
+}
+objmagnet@[] oms;
+void spawn_item_magnetico(int x, int y, int dir, string map, string owner)
+{
+objmagnet om(x,y,dir,map,owner);
+oms.insert_last(om);
+}
+void omloop(){
+for(uint i=0; i<oms.length; i++){
+int foi=0;
+if(oms[i].dead){
+oms.remove_at(i);
+foi=1;
+break;
+}
+if(foi==0)oms[i].loop();
+}
+}

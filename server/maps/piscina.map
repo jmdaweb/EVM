@@ -1,0 +1,20 @@
+map:piscina
+maxx:101
+maxy:50
+platform:1:100:50:wallnone
+platform:1:100:-1:wallnone
+wall:0:0:50:wallnone
+wall:101:0:50:wallnone
+platform:1:100:0:shallow
+platform:1:10:20:deck
+staircase:11:11:3:20:metal4
+zone:1:100:0:50:Piscina.
+zone:1:1:20:50:Aqui você pode voltar ao clube.
+zone:2:10:20:50:Deque de madeira.
+zone:11:11:3:50:Escada.
+travelpoint:1:1:20:20:130:0:clube:Você sai da piscina. O vento sopra em seu corpo molhado, te fazendo tremer de frio!
+sound_source:0:100:0:10:bighall.ogg
+zone:11:11:0:2:Em baixo da escada.
+desativar:bicicleta
+desativar:coordenadas
+desativar:armas_pretas

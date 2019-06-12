@@ -1,0 +1,39 @@
+map:rodoviária
+maxx:101
+maxy:50
+platform:1:100:50:wallnone
+platform:1:100:-1:wallnone
+platform:0:100:0:concrete2
+wall:0:0:50:wallnone
+wall:101:0:50:wallnone
+zone:0:100:0:20:Rodoviária.
+zone:1:1:0:20:Portas da rodoviária.
+zone:40:46:0:20:Guichê para compras de passagens.
+wall:79:0:20:wallcone
+zone:78:78:0:20:Catraca de embarque e desembarque. Pressione Enter para passar.
+zone:80:80:0:20:Catraca de embarque e desembarque. Pressione Enter para passar.
+portamapa:78:78:0:0:1:0:bus:Você cruza a catraca.:catraca
+zone:94:100:0:20:Plataforma de embarque e desembarque.
+travelpoint:1:1:0:0:1:6:praia:Você sai da rodoviária indo em direção ao calçadão.
+travelpoint:94:100:0:0:5:0:ônibus:Você entra no ônibus.
+door:80:0:78:0:1:door.ogg:none:door0open.ogg:catraca.ogg
+sound_source:0:100:0:20:pessoas.ogg
+sound_source:0:100:0:20:pessoas2.ogg
+sound_source:94:100:0:20:truck.ogg
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+staircase:10:12:0:20:concrete2
+wall:9:1:19:wallnone
+wall:13:1:19:wallnone
+zone:10:12:0:50:Rampa.
+platform:1:30:20:concrete3
+wall:31:20:50:wallnone
+zone:1:9:20:50:Lanchonete.
+sound_source:1:9:20:50:lanchonete1.ogg
+zone:13:30:20:50:Corredor dos banheiros.
+zone:26:26:20:50:Porta do banheiro masculino.
+travelpoint:26:26:20:20:1:0:banheiro_masculino_da_rodoviária:Você entra no banheiro masculino.
+zone:30:30:20:50:Porta do banheiro feminino.
+travelpoint:30:30:20:20:1:0:banheiro_feminino_da_rodoviária:Você entra no banheiro feminino.
+safezone:79:100:0:50

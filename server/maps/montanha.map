@@ -1,0 +1,82 @@
+map:montanha
+maxx:400
+maxy:420
+platform:1:399:420:wallnone
+platform:1:399:-1:wallnone
+platform:0:400:0:dirt2
+wall:0:0:9:wallborder
+wall:400:0:400:wallborder
+travelpoint:1:1:0:0:199:20:continuação_do_lago:Você volta ao lago.
+staircase:10:10:0:20:dirt2:dirt2
+zone:10:10:0:20:Uma longa subida.
+wall:11:0:19:wallborder
+platform:10:30:20:dirt2
+platform:10:29:21:wallborder
+wall:9:1:21:wallborder
+staircase:30:30:20:40:dirt2:dirt2
+platform:30:50:31:dirt2
+wall:31:20:39:wallborder
+staircase:80:80:48:80:dirt2:dirt2
+platform:30:80:40:dirt2
+staircase:80:80:40:80:dirt2:dirt2
+platform:80:150:80:dirt2
+staircase:150:150:80:200:dirt2:dirt2
+platform:130:150:200:dirt2
+staircase:130:130:200:230:dirt:dirt
+platform:132:132:226:dirt
+platform:132:132:230:dirt
+staircase:132:132:230:260:dirt:dirt
+platform:132:150:260:dirt
+platform:153:155:260:dirt2
+staircase:154:154:260:300:sand:sand
+platform:120:180:300:dirt
+staircase:137:137:300:330:dirt:dirt
+platform:137:172:330:dirt
+staircase:174:174:330:350:dirt:dirt
+platform:174:200:350:dirt2
+staircase:200:200:350:352:dirt2:dirt2
+platform:190:200:352:dirt
+staircase:193:193:350:355:dirt:dirt
+platform:193:250:355:dirt
+staircase:243:243:355:361:dirt:dirt
+platform:240:240:361:dirt2
+staircase:240:240:361:363:dirt:dirt
+platform:230:240:363:dirt
+staircase:230:230:363:366:dirt:dirt
+platform:234:234:366:dirt2
+staircase:234:234:366:367:dirt2:dirt2
+platform:234:256:367:dirt2
+staircase:254:254:367:370:dirt:dirt
+platform:254:370:370:dirt
+zone:254:370:370:370:O horizonte se estende ao longe...
+zone:370:370:370:370:Para caminhar em uma longa passagem, pressione ENTER.
+travelpoint:370:370:370:370:1:4:montanha:Você percorre uma passagem secreta, e cai em uma armadilha!!!
+staircase:370:370:370:377:dirt:dirt
+platform:375:375:377:dirt2
+staircase:375:375:377:380:dirt:dirt
+platform:375:398:380:dirt2
+staircase:398:398:380:400:dirt2:dirt2
+platform:391:397:400:ice
+zone:1:398:400:400:O topo!
+sound_source:1:397:400:420:winter.ogg
+sound_source:100:398:100:400:wind2.ogg
+sound_source:1:80:1:80:night2.ogg
+sound_source:1:10:10:10:birds9.ogg
+sound_source:10:30:20:20:birds3.ogg
+sound_source:30:80:40:40:birds4.ogg
+sound_source:392:399:395:395:trovão1.ogg
+sound_source:13:400:10:30:vento.ogg
+safezone:398:400:400:500
+zone:1:1:0:0:Para retornar ao lago, pressione Enter.
+zone:2:9:0:0:Base da montanha
+zone:11:150:20:99:caminhos íngremes
+zone:130:150:100:201:parte mais fria da montanha
+zone:130:150:201:260:chão de cascalho
+zone:153:155:260:299:pequeno e perigoso trecho de terra batida
+zone:120:180:300:300:chão de cascalho
+zone:137:369:301:369:subidas vertiginosas
+zone:370:398:371:399:frio ainda mais intenso
+zone:391:391:400:420:Se tomar muito cuidado, você pode atravessar para o outro lado da montanha.
+travelpoint:391:391:400:400:398:400:continuação_da_montanha:Você quase escorrega, mas consegue atravessar.
+desativar:bicicleta
+desativar:coordenadas

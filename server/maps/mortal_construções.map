@@ -1,0 +1,42 @@
+map:mortal_construções
+maxx:101
+maxy:120
+platform:1:100:120:wallnone
+platform:1:100:-1:wallnone
+platform:0:100:0:concrete4
+wall:0:0:120:wallnone
+wall:101:0:120:wallnone
+zone:1:10:0:10:Recepção.
+zone:1:1:0:10:Porta de entrada... Ou o que restou dela.
+zone:11:11:0:120:Escadas.
+wall:10:1:120:wallbigmetal
+zone:12:100:0:10:Parte destruída do prédio. Neste ponto do local, a fumaça exala do Fogo por todos os lados, enchendo seus pumões de cinzas.
+sound_source:1:100:0:120:calm.ogg
+sound_source:12:100:0:10:fire.ogg
+staircase:11:11:0:100:carpet
+zone:12:100:11:16:Primeiro andar.
+platform:12:100:11:carpet
+zone:12:100:17:22:Segundo andar. A fumaça do local destruído ainda te atinge com muita força, perfurando seus pumões.
+platform:12:100:17:carpet
+zone:12:100:23:29:Terceiro andar. Neste ponto é possível ver toda a fumaça que cobre o prédio, porém que te atinge com menos força.
+platform:12:100:23:carpet
+zone:12:100:30:39:Quarto andar. A chama ainda pode ser vista, queimando todo o prédio.
+platform:12:100:30:carpet
+zone:12:100:40:49:Quinto andar. Daqui as chamas não são mais ouvidas, mas a fumaça que cobre o prédio segue imponente diante de sua visão.
+platform:12:100:40:carpet
+zone:12:100:50:59:Sexto andar. As chamas começam a sumir de sua vista, dando lugar à uma grande escuridão.
+platform:12:100:50:carpet
+zone:12:100:60:69:Sétimo andar. A escuridão parece tomar conta de seu corpo, deixando seus passos lentos.
+platform:12:100:60:carpet
+zone:12:100:70:79:Oitavo andar. O breu é tão profundo que você não enxerga mais suas próprias mãos.
+platform:12:100:70:carpet
+zone:12:100:80:89:Nono andar. Seus passos são guiados somente pelo tato e a audição.
+platform:12:100:80:carpet
+zone:12:100:90:99:Décimo andar. Suas pernas doem e fraquejam por ter subido até aqui e você resiste à vontade de rastejar e tatear o chão com as próprias mãos, tanto para se orientar quanto para descansar.
+platform:12:100:90:carpet
+zone:12:100:100:120:Último andar. Cada passo é um perjúrio. Por sorte, não tem mais subida, o que te leva a crer que não tem mais andares.
+platform:12:100:100:carpet
+travelpoint:1:1:0:0:1:0:continuação_da_montanha:As nuvens de poeira e fumaça ficam para trás e o ar cheio de outra poeira, das ruas, toma seu lugar.
+desativar:coordenadas
+desativar:bicicleta
+teto:none

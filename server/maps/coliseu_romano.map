@@ -1,0 +1,21 @@
+map:coliseu_romano
+maxx:21
+maxy:20
+platform:0:9:0:concrete2
+platform:10:20:0:sand
+wall:0:0:20:wallnone
+wall:21:0:20:wallnone
+wall:9:0:20:walldoor
+zone:2:9:0:20:Pessoas podem ser vistas emfileiradas preparando-se para entrar no grandioso colizeu romano.  O tumulto aqui é enorme, e você não sabe a quantidade estimada de pessoas que podem ser vistas daqui.
+zone:10:10:0:20:A fila à frente de você é enorme, quase que te empedindo de observar os quadros.
+zone:11:20:0:20:Este é o centro do colizeu romano.  Grandiosas lutas aconteceram por aqui,  e muitos gladiadores morreram.  O chão aqui é feito de areia, e labaredas de  FOGO delimitam o espaço da arena.  Em volta há a pista de corridas, onde  muitos gladiadores costumam se aquecer antes de entrar na arena.  Competições acontecem a todo instante, e logo esta arena estará banhada  por sangue! Você nota pessoas nas arquibancadas assistindo as competições na pista  de corridas, até que, de repente gladiadores pulam para o centro da arena e começam a lutar!
+door:8:0:10:0:1:door.ogg:none:door10open.ogg:door20close.ogg
+door:10:0:8:0:1:door.ogg:none:door20open.ogg:door10close.ogg
+safezone:0:8:0:20
+sound_source:0:22:0:20:calm.ogg
+zone:1:1:0:20:Portão de saída do coliseu.
+portamapa:1:1:0:0:40:0:mundo_medieval:Você sai do coliseu.:door11close
+sound_source:0:20:0:20:torcida1.ogg
+sound_source:0:20:0:20:torcida3.ogg
+desativar:bicicleta
+desativar:coordenadas

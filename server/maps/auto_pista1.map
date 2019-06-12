@@ -1,0 +1,13 @@
+map:auto_pista1
+maxx:2000
+maxy:200
+wall:0:0:15:wallfence
+zone:1:2000:0:100:auto_pista
+platform:1:2000:0:concrete9
+sound_source:1:2000:0:14:park.ogg
+wall:2000:0:100:wallfence
+zone:1999:1999:0:30:para entrar na cidade de méxico precione enter
+travelpoint:1999:1999:0:20:1:0:cidade_de_méxico:você sai da auto_pista e entra na famosa cidade_de_méxico!
+travelpoint:1:1:0:30:160:0:cidade1:você sai da auto_pista e avista a cidade de monterrei!
+zone:1:1:0:20:para entrar na cidade de monterrei precione enter!
+sound_source:1:2000:0:5:traffic.ogg

@@ -1,0 +1,101 @@
+map:Ilha_dos_piratas
+maxx:200
+maxy:200
+zone:0:200:0:200:ilha dos pirátas
+zone:50:50:10:30:Coqueiro
+zone:1:19:0:30:Andando em aguas rasas
+staircase:20:20:0:10:terra
+zone:100:100:10:35:Coqueiro
+zone:150:150:10:30:Coqueiro
+zone:75:75:10:30:Palmeira
+zone:125:125:0:30:palmeira
+travelpoint:100:100:0:0:1:0:Grota_da_ilha:vocé entrou na Grota
+platform:180:198:10:wood2
+travelpoint:199:199:0:0:1:1:navio_pirata:você_entrou_no_navio_tudo_aqui_parece_misterioso
+zone:199:199:0:0:Entrada_do_navio_pirata
+zone:100:100:0:0:Uma cavidade sob esta árvore leva a uma gruta
+zone:180:198:0:50:Ponte levando a um navio dos piratas
+staircase:199:199:0:10:wood2
+platform:197:150:190:snow
+platform:197:10:190:snow
+platform:1:197:190:snow
+travelpoint:1:1:190:191:1:0:Castélo_dos_pirátas:Vocé entra no castélo tudo aqui parece misterioso
+zone:1:1:190:200:Um_grande_portão_dando_acesso_ao_castélo_dos_pirátas
+zone:24:25:10:10:Subida_da_montanha
+zone:1:1:0:10:Passagem de saída.
+staircase:140:141:10:30:metal
+platform:135:145:30:metal
+zone:138:138:30:40:Aqui_se_encontra_um_canhão_disparando_para_tuda_a_ilha_coidádo!
+staircase:138:138:30:30:metal
+zone:140:140:10:10:Subida _para_a_torre_do_canhão
+staircase:140:140:30:30:metal
+zone:105:105:10:30:Mangueiro
+zone:110:110:10:35:Abacateiro
+zone:118:118:10:40:Pinheiro
+zone:80:80:10:40:Pereira
+zone:86:86:10:19:escadas_de_uma_barraca_abandonada
+zone:82:92:20:40:Barraca_abandonada
+staircase:145:145:30:60:metal
+platform:146:165:60:metal
+staircase:165:165:64:67:metal
+staircase:165:165:71:76:metal
+staircase:165:165:80:85:metal
+staircase:165:165:85:85:metal
+zone:120:165:85:108:Tórre_do_relógio
+zone:165:165:60:84:Escadas_levando_há_tórre_do_relógio
+zone:145:145:30:70:Escadas_levando_a_uma_tórre
+platform:1:19:0:shallow
+wall:21:0:9:camerawall
+wall:119:80:95:camerawall
+platform:120:164:85:caverna2
+wall:166:60:93:wallmetal
+wall:146:30:59:wallmetal
+wall:144:31:70:wallmetal
+wall:200:0:30:wallcone
+wall:198:0:9:wallcone
+teto:none
+staircase:34:35:30:45:terra2
+staircase:89:90:45:80:terra2
+platform:85:130:110:rocks2
+platform:136:140:110:rocks2
+platform:145:150:110:rocks2
+staircase:150:150:110:140:rocks2
+staircase:198:199:140:191:snow
+platform:1:197:191:snow
+platform:20:179:10:rocks
+staircase:86:86:10:20:deck
+wall:81:20:28:wallcone
+wall:93:20:28:wallcone
+zone:130:140:85:90:cuidado a aqui uma bomba relógio! se ela explodirá vc morerá!
+sound_source:185:199:0:5:clima9
+wall:19:7:20:wallcone
+travelpoint:1:1:191:192:1:1:castelo_dos_piratas:vc entra no castelo tudo aqui parece mesteriozo.
+staircase:150:150:10:25:branch
+staircase:125:125:10:20:branch
+staircase:118:118:10:30:branch
+staircase:110:110:10:20:branch
+staircase:105:105:10:25:branch
+staircase:100:100:10:30:branch
+staircase:80:80:10:15:branch
+staircase:75:75:10:20:branch
+staircase:50:50:10:25:branch
+sound_source:1:200:10:100:birds10.ogg
+sound_source:1:19:0:3:oceano3.ogg
+staircase:24:25:10:30:terra2
+platform:26:33:30:gravel
+platform:36:60:45:gravel
+platform:64:70:45:gravel
+platform:76:88:45:gravel
+platform:85:85:80:sand
+platform:83:83:80:sand2
+staircase:84:84:80:110:gravel
+platform:154:170:140:galho
+platform:174:178:140:galho
+platform:184:197:140:galho
+sound_source:1:199:140:170:a4.ogg
+sound_source:1:199:172:200:winter.ogg
+platform:180:199:10:bridge
+sound_source:185:199:0:6:oceano3.ogg
+travelpoint:1:1:0:0:139:50:mar:Você retorna ao mar
+wall:134:30:50:camerawall
+staircase:140:140:10:10:metal

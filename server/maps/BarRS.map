@@ -1,0 +1,49 @@
+map:BarRS
+maxx:121
+maxy:50
+platform:1:120:50:wallnone
+platform:1:120:-1:wallnone
+platform:1:120:0:carpet
+wall:0:0:50:wallnone
+travelpoint:1:1:0:0:95:0:cidade1:Você caminha para fora do bar. O movimento da cidade te envolve.
+sound_source:0:120:0:50:calm.ogg
+sound_source:25:86:0:10:restaurant.ogg
+sound_source:85:119:19:22:birds.ogg
+staircase:85:85:17:19:concrete3
+wall:11:1:16:wallfence
+wall:121:0:50:wallnone
+wall:19:1:16:wallfence
+platform:1:84:17:carpet
+platform:25:120:0:concrete3
+platform:86:120:19:concrete
+wall:86:17:18:wallgeneric
+platform:91:92:2:wallnone
+platform:91:92:3:concrete
+platform:93:93:3:concrete
+travelpoint:40:40:17:22:1:0:banheiro_masculino:Você entra no banheiro dos rapazes. Um odor desagradável de urina paira no ar.
+travelpoint:60:60:17:22:1:0:banheiro_feminino:Você entra no banheiro das moças, onde a fila é sempre constante.
+zone:12:18:0:16:escadas para o segundo andar
+zone:12:18:17:30:patamar
+zone:19:119:17:50:corredor
+zone:19:24:0:16:hall de entrada
+zone:1:11:0:16:Hall de entrada
+zone:1:11:17:50:corredor
+zone:25:74:0:16:Lanchonete.
+zone:40:40:17:50:Pressione Enter para ir ao banheiro masculino.
+zone:60:60:17:50:Pressione Enter para ir ao banheiro das mulheres.
+zone:75:90:0:16:Mesas próximas ao balcão
+zone:85:85:17:19:pequenos degraus
+zone:86:120:17:50:área ao ar livre
+zone:91:93:0:2:Debaixo do balcão.
+zone:91:93:3:16:balcão
+zone:94:119:0:16:detrás do balcão
+zone:1:1:0:10:Pressione Enter para voltar à cidade.
+travelpoint:120:120:0:0:1:0:refrigerador:Você adentra o escuro e frio refrigerador. Há bebidas e carnes congeladas nas prateleiras.
+zone:120:120:0:16:Pressione Enter para entrar no refrigerador.
+zone:25:25:0:10:Mesa de som.
+staircase:12:18:0:17:metal
+sound_source:-4:-4:0:10:amb1.ogg
+desativar:armas_pretas
+desativar:bicicleta
+desativar:coordenadas
+teto:none

@@ -1,0 +1,42 @@
+map:porto_de_monterrei
+maxx:101
+maxy:50
+platform:1:100:50:wallnone
+platform:1:100:-1:wallnone
+platform:0:70:0:concrete2
+platform:71:100:0:metal4
+wall:0:0:50:wallnone
+wall:101:0:50:wallnone
+travelpoint:1:1:0:0:300:0:cidade2:Você sai do porto.
+zone:0:100:0:20:Porto de leon.
+zone:1:1:0:20:Porta de saída.
+zone:25:39:0:20:Pessoas fazem fila aqui para comprar suas passagens.
+sound_source:20:50:0:20:pessoas2.ogg
+zone:40:45:0:20:Guichê para compras de passagens.
+zone:10:15:0:20:Loja de conveniências.
+sound_source:0:100:0:20:pessoas.ogg
+sound_source:92:100:-4:-4:oceano2.ogg
+wall:51:0:20:wallcone
+zone:50:50:0:20:Catraca de embarque e desembarque. Pressione Enter para passar.
+zone:52:52:0:20:Catraca de embarque e desembarque. Pressione Enter para passar.
+zone:90:100:0:20:Plataforma de embarque e desembarque.
+portamapa:50:50:0:0:1:0:portos:Você cruza as catracas.:catraca
+door:52:0:50:0:1:door.ogg:none:door0open.ogg:catraca.ogg
+travelpoint:94:100:0:0:20:0:transatlântico:Você entra no navio, o transatlântico parece ser muito luxuoso.
+desativar:bicicleta
+desativar:coordenadas
+teto:none
+staircase:10:12:0:20:concrete2
+wall:9:1:19:wallnone
+wall:13:1:19:wallnone
+zone:10:12:0:50:Rampa.
+platform:1:30:20:concrete3
+wall:31:20:50:wallnone
+zone:1:9:20:50:Lanchonete.
+sound_source:1:9:20:50:lanchonete1.ogg
+zone:13:30:20:50:Corredor dos banheiros.
+zone:26:26:20:50:Porta do banheiro masculino.
+travelpoint:26:26:20:20:1:0:banheiro_masculino_do_porto_de_monterrei:Você entra no banheiro masculino.
+zone:30:30:20:50:Porta do banheiro feminino.
+travelpoint:30:30:20:20:1:0:banheiro_feminino_do_porto_de_monterrei:Você entra no banheiro feminino.
+safezone:51:100:0:50

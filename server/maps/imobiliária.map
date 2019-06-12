@@ -1,0 +1,16 @@
+map:imobiliária
+maxx:30
+maxy:20
+platform:0:30:0:carpet
+wall:0:0:20:wallglass
+wall:30:0:20:wallgeneric
+zone:1:29:0:20:Imobiliária.
+zone:1:1:0:20:Porta de saída.
+zone:28:29:0:20:Balcão de atendimento.
+sound_source:1:4:0:20:calm.ogg
+sound_source:5:30:2:20:vent.ogg
+safezone:0:30:0:20
+travelpoint:1:1:0:0:300:0:cidade_de_belick2:Você sai da imobiliária.
+desativar:bicicleta
+desativar:coordenadas
+teto:none

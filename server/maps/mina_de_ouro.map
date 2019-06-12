@@ -1,0 +1,16 @@
+map:mina_de_ouro
+maxx:101
+maxy:20
+platform:1:100:20:wallnone
+platform:1:100:-1:wallnone
+wall:0:0:20:wallmina
+wall:101:0:20:wallmina
+zone:1:100:0:20:Mina de ouro!
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+teto:none
+platform:1:100:0:mina
+sound_source:0:100:0:20:caverna2.ogg
+zone:1:1:0:20:Pressione enter para saír da mina de ouro.
+travelpoint:1:1:0:0:100:0:caverna:Você sai da mina de ouro.

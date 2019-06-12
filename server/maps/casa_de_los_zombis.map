@@ -1,0 +1,10 @@
+map:casa_de_los_zombis
+maxx:99
+maxy:20
+wall:0:0:20:wallgeneric
+zone:1:100:0:20:casa_de_los_zombis
+platform:1:198:0:dirt4
+teto:none
+travelpoint:1:1:0:0:40:15:cemitério:você retorna ao cemitério 
+zone:1:1:0:30:para returnar ao cemitério precione enter
+sound_source:0:100:2:20:a10.ogg

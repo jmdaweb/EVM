@@ -1,0 +1,35 @@
+map:cidade_de_méxico2
+maxx:451
+maxy:20
+platform:1:450:20:wallnone
+platform:1:450:-1:wallnone
+platform:0:450:0:concrete2
+wall:0:0:20:wallnone
+wall:451:0:20:wallnone
+sound_source:0:450:1:20:park.ogg
+sound_source:0:450:0:20:birds.ogg
+zone:1:450:0:20:Uma rua tranquila da cidade.
+zone:1:1:0:20:Aqui é possível voltar à rua principal.
+travelpoint:1:1:0:0:280:0:cidade_de_méxico:Você dobra a esquina que conecta esta rua à principal.
+sound_source:1:1:0:20:pessoas.ogg
+zone:20:20:0:20:Aqui está a entrada leste de um grande shopping.
+travelpoint:20:20:0:0:50:0:shopping:Você adentra o estacionamento leste do shopping.
+sound_source:20:20:0:20:pessoas.ogg
+zone:50:50:0:20:Portão de entrada de estacionamento de uma grande boate.
+portamapa:50:50:0:0:1:0:estacionamento_da_boat:vocé entra no estacionamento:door11open
+sound_source:50:50:0:20:pessoas.ogg
+zone:160:160:0:20:As amplas portas de uma igreja te convidam a entrar.
+travelpoint:160:160:0:0:50:0:igreja_de_méxico:Você entra em uma primorosa igreja. Tudo parece bem feito e decorado.
+sound_source:160:160:0:20:igreja2.ogg
+zone:250:250:0:20:Aqui estão as portas da delegacia de méxico, muito bem guardadas.
+travelpoint:250:250:0:0:1:0:delegacia:Você cruza as portas da delegacia. Todos os policiais se viram para te olhar.
+zone:300:300:0:20:Uma imobiliária com as portas abertas encontra-se em sua frente.
+travelpoint:300:300:0:0:1:0:imobiliária:Você adentra a imobiliária. Muitas pessoas procurando negócios passam por você.
+sound_source:300:300:0:20:pessoas.ogg
+zone:350:350:0:20:Portas do prédio residencial.
+portamapa:350:350:0:0:1:0:prédio_residencial:Você entra no prédio.:door11open
+sound_source:350:350:0:20:pessoas.ogg
+zone:450:450:0:20:Um cruzamento de ruas se estendendo para lá e para ca.
+travelpoint:450:450:0:0:1:0:cruzamento:Você dobra a esquina e se vê em um cruzamento.
+sound_source:450:450:0:20:pessoas.ogg
+desativar:coordenadas

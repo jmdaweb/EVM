@@ -1,0 +1,11 @@
+praça_da_cidade:Você começa a voar e observa em baixo uma praça.
+floresta:Esta floresta é próxima a cidade e da passagem para vários outros caminhos.
+milão:Você observa uma cidade cheia de atrações, incluindo cassino e muito mais.
+acampamento:Você pode observar alguns resquícios de fogo e madeiras jogadas.
+vilarejo:Você vê uma plantação de oliveiras.
+montanha:A esquerda a montanha que você avista é alta demais, o melhor é voar para longe.
+cidade_de_los_angeles:Você avista uma rua  com vários pontos comerciais.
+cidade_de_santa_bertalina:Uma cidade rural.
+floresta_tropical:Você pode observar muitas árvores frutíferas e animais seuvagens.
+aldeia_indígena:Abaixo uma tribo indígena com algumas flechas jogadas ao chão.
+praia:Você observa uma entrada da rôdoviária que volta para belick, a entrada para o porto e uma linda praia.

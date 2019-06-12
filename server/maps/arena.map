@@ -1,0 +1,32 @@
+map:arena
+maxx:101
+maxy:120
+zone:0:101:0:120:O sangue que cobre as paredes do local, contrasta com as labaredas de FOGO do teto que chama a atenção dos lutadores. Nas diversas colunas que interferem entre um corredor e outro, desenhos de serpentes com três cabeças, dão ênfase ao terror diabólico deste lugar misterioso. Sons horripilantes de espadas e armas podem ser ouvidos daqui, em inúmeras quantidades. Sua espinha congela por instantes, e você chega à pensar que não existe mais tempo. Para fugir desta batalha, para fugir deste destino, que você luta contra a morte.
+teto:nada
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+desativar:varinha
+desativar:armas_pesadas
+desativar:mirabaixo
+platform:1:100:0:concrete4
+platform:1:100:10:concrete4
+platform:1:100:20:concrete4
+platform:1:100:30:concrete4
+platform:1:100:40:concrete4
+platform:1:100:50:concrete4
+platform:1:100:60:concrete4
+platform:1:100:70:concrete4
+platform:1:100:80:concrete4
+platform:1:100:90:concrete4
+platform:1:100:100:concrete4
+staircase:10:10:0:100:wood3
+staircase:20:20:0:100:wood3
+staircase:30:30:0:100:wood3
+staircase:40:40:0:100:wood3
+staircase:50:50:0:100:wood3
+staircase:60:60:0:100:wood3
+staircase:70:70:0:100:wood3
+staircase:80:80:0:100:wood3
+staircase:90:90:0:100:wood3
+zone:1:2:0:9:Área de preparação.

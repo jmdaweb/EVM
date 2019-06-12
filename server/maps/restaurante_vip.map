@@ -1,0 +1,61 @@
+map:restaurante_vip
+maxx:200
+maxy:100
+platform:0:200:0:linoleum
+zone:1:10:0:15:Entrada
+platform:1:10:0:concrete10
+wall:11:0:15:walldoor2
+door:10:0:12:0:1:door.ogg:none:door13open.ogg:door13close.ogg
+door:12:0:10:0:1:door.ogg:none:door13open.ogg:door13close.ogg
+zone:10:10:0:15:Porta de entrada do restaurante.
+zone:11:12:0:15:Porta de saída.
+staircase:39:40:0:6:chair
+zone:13:200:0:15:Aqui há mesas e cadeiras, a gente tem lugar aqui para comer a comida que pediu.
+platform:41:46:6:concreto
+staircase:47:48:0:6:chair
+zone:41:46:6:15:Mesa para 4 pessoas.
+staircase:60:64:0:6:chair
+platform:65:75:6:concreto
+teto:none
+wall:200:0:100:wallnone
+wall:0:0:100:wallnone
+staircase:76:80:0:6:chair
+zone:65:75:6:15:Mesa para 10 pessoas
+staircase:95:100:0:6:chair
+zone:49:59:0:15:Lanchonete.
+zone:81:90:0:15:Lanchonete.
+wall:92:0:100:wallbars
+door:91:0:93:0:1:door.ogg:none:door13open.ogg:door13close.ogg
+door:93:0:91:0:1:door.ogg:none:door13open.ogg:door13close.ogg
+zone:91:92:0:15:Porta de acesso a próxima parte do restaurante.
+zone:93:93:0:15:Porta de acesso ao restaurante.
+platform:101:115:6:concreto
+staircase:116:120:0:6:chair
+zone:101:115:6:15:Mesa para 12 pessoas.
+zone:116:130:0:15:Lanchonete.
+staircase:131:136:0:6:chair
+platform:137:148:6:concreto
+zone:137:149:6:15:Mesa para 12 pessoas
+staircase:149:154:0:6:chair
+zone:155:200:0:15:Lanchonete.
+staircase:170:171:0:30:stonee
+zone:170:171:0:35:Escadas.
+platform:155:169:30:concrete5
+wall:154:30:300:wallbank
+platform:172:199:30:concrete5
+zone:155:169:30:50:Corredor dos banheiros.
+zone:172:199:30:50:Corredor dos banheiros.
+travelpoint:160:160:30:30:1:0:banheiro_feminino:Você entra no banheiro.
+zone:160:160:30:50:Entrada do banheiro femenino.
+zone:180:180:30:50:Entrada do banheiro masculino
+travelpoint:180:180:30:50:1:0:banheiro_masculino:Você entra no banheiro.
+wall:169:2:29:wallbank
+zone:1:1:0:15:Porta de saída do restaurante.
+sound_source:13:200:3:10:lanchonete1.ogg
+sound_source:13:200:3:10:musica5.ogg
+travelpoint:1:1:0:0:95:0:cidade1:Você sai do restaurante deichando o delicioso cheiro de comida para trás.
+desativar:varinha
+desativar:bicicleta
+desativar:armas_pretas
+desativar:camera
+

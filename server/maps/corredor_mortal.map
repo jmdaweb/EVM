@@ -1,0 +1,54 @@
+map:corredor_mortal
+maxx:61
+maxy:50
+platform:0:60:0:concrete4
+zone:1:2:0:40:Escada para o corredor Mortal.
+staircase:1:2:0:30:wood:wood
+wall:3:0:29:wallnone
+platform:3:11:30:wood
+zone:3:11:30:35:Corredor Mortal.
+zone:11:13:11:29:Caindo...
+zone:11:13:0:10: Labaredas de fogo exalam no céu, e cinzas caem sobre você a todo instante.
+wall:0:0:50:wallgeneric
+wall:61:0:50:wallgeneric
+sound_source:12:13:0:25:fire.ogg
+wall:10:0:29:wallnone
+wall:14:0:29:wallnone
+platform:14:16:30:wood
+zone:14:16:30:40:O corredor continua
+wall:16:0:29:wallnone
+wall:19:0:29:wallnone
+zone:17:18:0:0:Uma corda.
+travelpoint:17:18:0:0:16:30:corredor_mortal:Você sobe pela corda.
+wall:15:31:38:wallfence
+platform:21:21:30:wood
+zone:21:21:30:40:Um paço de chão firme.
+platform:25:25:29:wood
+zone:25:25:29:40:Uma parte mais baixa do chão.
+platform:29:29:30:wood
+zone:29:29:30:40:O chão volta ao nivelamento correto.
+platform:20:28:0:water2
+zone:20:28:0:0:Rio
+sound_source:20:28:0:0:water2.ogg
+wall:29:0:29:wallnone
+zone:30:35:0:0:Prensadeira.
+wall:36:0:29:wallnone
+travelpoint:30:35:0:0:29:30:corredor_mortal:Você sobe pela corda.
+platform:36:40:30:wood
+zone:36:40:30:40:O corredor continua.
+platform:41:46:0:metal4
+zone:41:46:0:29:Caindo em estacas de metal.
+wall:40:0:29:wallnone
+wall:47:0:29:wallnone
+platform:47:50:30:wood
+zone:47:50:30:40:Chegando ao fim do corredor.
+zone:51:58:0:10: Labaredas de fogo exalam no céu, e cinzas caem sobre você a todo instante.
+sound_source:51:58:0:25:fire.ogg
+wall:50:0:29:wallnone
+wall:59:0:27:wallnone
+platform:59:60:28:wood
+zone:59:60:28:40:Fim do corredor mortal!
+sound_source:1:60:0:20:a2.ogg
+travelpoint:1:1:0:0:399:0:estrada_do_acampamento:Você volta para a estrada, depois de atravessar o corredor_mortal.
+desativar:bicicleta
+desativar:coordenadas

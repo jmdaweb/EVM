@@ -1,0 +1,19 @@
+map:floresta_dos_coelhos
+maxx:1001
+maxy:20
+zone:2:1001:0:20:Grama.
+zone:1:1:0:20:Para voltar à cidade, pressione enter.
+zone:490:499:0:20:Às margens de um riacho.
+zone:500:600:0:20:Em um riacho comprido e pouco profundo.
+zone:601:610:0:20:Às margens de um riacho.
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas
+platform:1:500:0:grass3
+platform:500:600:0:shallow
+zone:601:610:0:40:Às margens de um riacho.
+sound_source:500:600:0:2:water3.ogg
+sound_source:1:1001:3:15:a17.ogg
+platform:601:1001:0:grass3
+wall:1000:0:40:wallarvore
+travelpoint:1:1:0:20:115:0:cidade_de_guadalajara:Você caminha de volta para cidade.
