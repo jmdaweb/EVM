@@ -2161,7 +2161,7 @@ if(i2 > -1)
 inv(i2, parsed[2], event.peer_id);
 }
 else if(parsed[0]=="/inv2"&&parsed.length()>2){
-if(players[index].charname=="admin"){
+if(players[index].is_admin()){
 int i2=get_player_index_from(parsed[1]);
 if(i2 > -1)
 inv_total(i2, parsed[2], event.peer_id);
@@ -2172,7 +2172,7 @@ int i2=get_player_index_from(parsed[1]);
 if(i2 > -1)  send_reliable(players[i2].peer_id,"kill",0);
 }
 else if(parsed[0]=="/rawdata"&&parsed.length()>1){
-if(players[index].charname=="admin"){
+if(players[index].is_admin()){
 if(string_contains(get_event_message(), players[index].map, 1)>-1){
 file f;
 f.open("maps/"+players[index].map+".map","wb");
