@@ -56,7 +56,7 @@ Después tendrás que buscar en server la carpeta qcomandos. Allí encontrarás 
 
 ## comandos de administración. Por favor, usar con cuidado.
 En el menú que sacas con F5, si pulsas ctrl+z sobre un jugador, te harás invisible y verás lo que hace el jugador. Para dejar de observar, pulsa z desde el menú.
-
+si pulsas f9, accedes a un editor de mapas.
 /reboot: Reinicia el servidor.
 /invs: Activa o desactiva la invisibilidad.
 /lcoisas: Analiza las cosas que en realidad hay en el servidor.
