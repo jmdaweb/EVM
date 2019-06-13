@@ -51,7 +51,7 @@ Cuando acabes de editar este archivo y guardes los cambios, vuelve a compilar ta
 
 ## Añadir a alguien como administrador
 
-Tal vez quieras otorgar comandos de administración a alguien para que te ayude con tu juego. Para ello solo tienes que añadir un archivo con el nombre admintudo.usr dentro del directorio que contiene al personaje que deseas convertir en administrador. Los jugadores se encuentran bajo el directorio players.
+Tal vez quieras otorgar comandos de administración a alguien para que te ayude con tu juego. Para ello solo tienes que añadir un archivo con el nombre admintudo.usr dentro del directorio que contiene al personaje que deseas convertir en administrador. Los jugadores se encuentran bajo el directorio players. una vez otorgado permisos el usuario será pacifista y no podrá atacar ni ser atacado hasta que se quite el flag de admin el mismo con el comando / nadm:. si lo hace, hasta que no salga del juego y vuelva a entrar, no podrá usar comandos de administración y será a todos efectos un jugador más.
 
 
 ## Tareas pendientes
