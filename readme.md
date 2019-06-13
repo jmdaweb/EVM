@@ -52,7 +52,7 @@ Cuando acabes de editar este archivo y guardes los cambios, vuelve a compilar ta
 ## Añadir a alguien como administrador
 
 Tal vez quieras otorgar comandos de administración a alguien para que te ayude con tu juego. Para ello solo tienes que añadir un archivo con el nombre admintudo.usr dentro del directorio que contiene al personaje que deseas convertir en administrador.
-Después tendrás que buscar en server la carpeta qcomandos. Allí encontrarás archivos .md. Edítalos y añade los nombres de los administradores, uno por cada línea. Si no lo haces en algún comando, no podrán usarlos.
+Después tendrás que buscar en server la carpeta qcomandos. Allí encontrarás archivos .md. Edítalos y añade los nombres de los administradores, uno por cada línea. Si no lo haces en algún comando, no podrá usarlo.
 
 ## Tareas pendientes
 
