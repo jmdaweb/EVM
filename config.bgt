@@ -19,4 +19,3 @@ const string PASSWORD_ENCRYPTION_KEY="encryptpasswords";
 const string IP_LOCALE_API_KEY="";
 const string IP_LOCALE_PHP_URL="http://localhost/ip_locale.php";
 const bool portable=true;
-const string ADMIN_NAME="admin";

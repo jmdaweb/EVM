@@ -412,8 +412,6 @@ else if(hora>=6||hora<18) send_reliable(players[index].peer_id, "addambiente 1 2
 if(TIME_HOUR==16)send_reliable(players[index].peer_id, "msg2 Evento em andamento:; ;Massacre da quadrilha de sequestradores;.", 0);
 if(TIME_HOUR==18)send_reliable(players[index].peer_id, "msg2 Evento em andamento:; ;Helicóptero de guerra;.", 0);
 if(TIME_HOUR==20)send_reliable(players[index].peer_id, "msg2 Evento em andamento:; ;O carro forte de Belick;.", 0);
-int rand=random(0, servidornomes.length()-1);
-//send_reliable(players[index].peer_id, "msg2 Esta conexão é patrocinada por; ;"+servidornomes[rand]+".", 0);
 if(gamestopped) 
 {
 send_reliable(players[index].peer_id,"stopmoving",0);
