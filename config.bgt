@@ -1,5 +1,4 @@
 const string GAME_NAME="Entre a vida e a morte";
-const string ADMIN_NAME="admin";
 const double minversion=1.0;
 const string version="test";
 const string EXECUTABLE_NAME="client.exe";
