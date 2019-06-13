@@ -3679,9 +3679,6 @@ if(m1.y<=p2.y) dy=p2.y-m1.y;
 else dy=m1.y-p2.y;
 return dx+dy;
 }
-bool administrador(int index){
-return file_exists("players/"+players[index].charname+"/admin.md");
-}
 double gcforte(carroforte@ m1, player@ p2){
 if(m1.mapa!=p2.map||p2.afk||p2.pacifico==1) return -1;
 int dx,dy;

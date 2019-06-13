@@ -5,7 +5,12 @@ n1=string_replace(n1, "apartamento_de_", "", true);
 n2=string_replace(n2, "apartamento_de_", "", true);
 n1=string_replace(n1, "\r\n", "", true);
 n2=string_replace(n2, "\r\n", "", true);
-if(n1==n2||n1=="admin")return true;
+if(n1==n2){
+int index=get_player_index_from(n1);
+if (index>-1){
+return players[index].is_admin();
+}
+}
 return false;
 }
 bool igual(string n1, string n2){
