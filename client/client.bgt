@@ -4,35 +4,18 @@ const string ver=version;
 const int serverport=port;
 
 lancha lan;
-string mapainicial="map:começo\r\nmaxx:51\r\nmaxy:10\r\nplatform:0:50:0:carpet\r\nwall:0:0:100:wallgeneric\r\nwall:51:0:100:wallgeneric\r\nzone:0:50:0:100:Carregando jogo...\r\nsafezone:0:100:0:100";
-string bonus="map:barco
-maxx:17
-maxy:10
-desativar:camera
-desativar:coordenadas
-desativar:varinha
-platform:1:16:0:none
-wall:0:0:10:wallnone
-wall:17:0:10:wallnone
-zone:1:16:0:10:.
-safezone:1:16:0:10
-sound_source:0:17:-10:-10:barcomovendo.ogg
-sound_source:0:17:-2:-2:oceano1.ogg
-sound_source:0:17:-10:-10:oceano3.ogg
-sound_source:0:17:0:0:oceano4.ogg";
-string[] gladiadores, weapons(39), sons, itenssecundarios;
-string bell=ascii_to_character(7);
-string bell2=ascii_to_character(9);
+const string mapainicial="map:começo\r\nmaxx:51\r\nmaxy:10\r\nplatform:0:50:0:carpet\r\nwall:0:0:100:wallgeneric\r\nwall:51:0:100:wallgeneric\r\nzone:0:50:0:100:Carregando jogo...\r\nsafezone:0:100:0:100";
+string[] weapons(39), sons, itenssecundarios;
+const string bell=ascii_to_character(7);
+const string bell2=ascii_to_character(9);
 int f1, f2, f3, f4, f5, f6, f7, f8, f9, f0, paraquedas=0, mdor=1, olhar_x, olhar_y, nvaicair=0, avisanivel=1, studo=0, abarco=0, velo2=100, dveloz=0, modogalil=0, rcontrol=0, pak48=0, nandar=-1;
 int modoak48=0;
 uint invsecundario=0;
 bool brancas=true, outras=true, ausente=false;
-int mouseativo=1, ouviremoutrasjanelas=1, ouvirpassos=1, dcoordenadas=0, dcamera=0, bicicleta=0, bicicletaativa=1, dvarinha=0;
+int ouviremoutrasjanelas=1, ouvirpassos=1, dcoordenadas=0, dcamera=0, bicicleta=0, bicicletaativa=1, dvarinha=0;
 int rak47=0, rar15=0;
-joystick j;
 int modera=0;
-int defjoy=0;
-string defjoyname=j.name, nolhar;
+string nolhar;
 const string nomejogo=GAME_NAME;
 string idiomachat="pt";
 string idiomaorigem="es";
@@ -57,11 +40,9 @@ int novato=1;
 bool echeck;
 int ouvirmortes=1;
 double walktime=250;
-double walkvelocidade=200;
-double defwalkvelocidade=250;
-double runvelocidade=140;
-double defrunvelocidade=220;
-double jumpvelocidade=100;
+const double walkvelocidade=200;
+const double runvelocidade=140;
+const double jumpvelocidade=100;
 int naoevoce=1;
 int afogando=0;
 int congelando=0;
@@ -115,7 +96,7 @@ int carregar25=928;
 int carregar26=900;
 int carregar33=1000;
 int m249_carregada, sub_laser_carregada, m4a1_carregada, benelli_carregada, mp5_carregada, remington_carregada, doze_carregada, vulcan_carregada, ar15_carregada, m60_carregada, glock_carregada, desert_carregada, sniper_carregada, ak47_carregada, granada_carregada, uzi_carregada, bazuca_carregada=0, m240_carregada, arco_carregado, ultralaser_carregada, m14_carregada, shotgun_carregada, rifle_carregado=0, arco_carregado2=0, dardo_carregado, dardo_carregado2;
-int molotovtime=560, 	extintortime=900;
+int molotovtime=560,         extintortime=900;
 int mp7time=130;
 int knifetime=400;
 int tdardo=400;
@@ -154,8 +135,7 @@ int tasertime=5000;
 uint tirostaser=0, clicado=0, falhou=0;
 int carregar27=30000;
 int modoatirar;
-int mousey, mousex, mousez;
-timer mousemenutimer, joymenutimer, tmouse, tvolume, tempocongelando, modoatirartempo, ativotimer, carregartimer, tenter, tverificar, tpingar, tbonus, tbonus2;
+timer tvolume, tempocongelando, modoatirartempo, ativotimer, carregartimer, tenter, tverificar, tpingar;
 string mainlang;
 bool demo=false;
 string latest, vernova;
@@ -172,40 +152,25 @@ key_hold kdown(KEY_DOWN,300,80);
 int invcatpos;
 string[] invcat, idiomaschat;
 const uint pingchannel=0;
-const uint msoundchannel=13;
 tts_voice ws;
 string[] wslist;
 int wsindex=0;
 int wsv=0;
-string lasttile;
-string lastzone;
 bool airchange;
 bool tilechange;
 int tempweap=0, tempweap2=0;
 int vmode=1;
 int falarteclas=0;
 int asktoexit=0;
-int droptime=30;
-library dll;
+const int droptime=30;
 instance fd (EXECUTABLE_NAME);
 string banned;
 int voice=1;
-int minping=-1;
-int maxping=0;
-int cursor;
-int failedpings, totalfailedpings;
-int pings;
-int lastping;
-int comidatime=1000000;
 bool term;
 int termtime=300;
 int exittime=600;
-bool exiting;
 bool ping;
-int pingtime=5000;
-int pingtime2=10000;
-int defpingtime=10000;
-int def2pingtime=5000;
+bool exiting;
 int mdardo=0;
 int galil_carregada=0;
 int carregar34=90;
@@ -218,18 +183,13 @@ int m16time=230;
 string inv, apartamentoinv, opcoespc;
 int interrupt=1;
 int wineask;
-int staircasetime=140;
-int defstaircasetime=140;
 bool falling;
 int fallvelocidade=120;
-int deffallvelocidade=120;
-double airtime=200;
-double defairtime=40;
-double airvelocidade=40;
+const int deffallvelocidade=120;
 bool atapex;
-int jumptime=100;
+const int jumptime=100;
 int apextime=60;
-int jumptime2=90;
+const int jumptime2=90;
 bool ascending;
 int jumpheight=5;
 int ty1, ty2;
@@ -239,7 +199,6 @@ int weapon=0;
 int weapondist;
 int weapondano;
 double weapontime;
-int defbvelocidade=20;
 string playertrack;
 string godir, godir2;
 int ttsrate=0;
@@ -248,7 +207,7 @@ int beaconing;
 bool looping;
 int go, go2;
 string currentloc;
-int zonestatus=1;
+const int zonestatus=1;
 string mapname;
 int jumping, pulou=0;
 string un, pw;
@@ -279,8 +238,11 @@ bool star=false;
 bool moveable=true;
 bool floating=false;
 bool cloaked=false;
-sound gamemus;
 void main(){
+    if(!file_exists(SOUND_STORAGE)){
+        alert("Error", "missing "+SOUND_STORAGE+" file.");
+        exit();
+    }
 stream.init_bass();
 set_sound_storage(SOUND_STORAGE);
 set_sound_decryption_key(SOUND_ENCRYPTION_KEY, false);
@@ -359,27 +321,6 @@ sons.insert_last("soco4.ogg:56");
 sons.insert_last("soco6.ogg:57");
 sons.insert_last("soco7.ogg:58");
 sons.insert_last("balaacerta.ogg:59");
-gladiadores.insert_last("Wuula:0:200:30000:Wuula é um homem negro de cerca de 1,70 metros, natural da Numídia, norte da África.  Seu físico é leve porém vigoroso, e sua compleição física remete a um lutador de grande agilidade.  Possui uma grande cicatriz oblíqua em seu torso, provavelmente resultante de um confronto com um dos lutadores vencidos de sua lista.  Wuula, quando livre, era um caçador.  Hoje, é um gladiador iniciado na arte do combate de retiarius, que usa o tridente e a rede de captura.  Este gladiador, foi capturado pela legião romana em uma mina de sal no norte da África e trazido aqui para ser escravo.  Entretanto, Caius Felix, lanista de Julius Cesar, viu em seu porte físico uma boa possibilidade para a luta no circo e o comprou para os espetáculos.  Wulla foi então reinado pelos melhores retiarius da escola de Caius Felix e hoje é um respeitado retiarius.:Soldado");
-gladiadores.insert_last("Wazax:0:200:60000:Wazax é o que se pode chamar de um típico espólio de guerra.  Na conquista da Grécia pelo Império Romano, muitas crianças foram capturadas e feitos de escravos para o deleite dos nobres romanos.  Com Wazax, não foi diferente. Na conquista de Tróia, Wazax foi capturado e levado a Roma para virar escravo. Entretando sua habilidade com lanças, trazida da educação troiana, mostrou-se útil ao manejar um pillum de um legionário para se defender do feitor, o que lhe custou uma bela surra e a admiração de Lucius Proximus, um renomado lanista de Roma.  Desde então, foi criado para ser um gladiador hoplomachus, disciplina que consiste na arte do combate com lança.  Por mais glórias que Wazax tenha na arena, ele não esconde sua origem escrava. Suas costas e suas pernas são repletas de marcas de chicote.  Seu apelido é \"Tigre\", por causa das marcas de chicote, que se parecem com as listras do animal.:Soldado");
-gladiadores.insert_last("Cairis:201:1000:90000:Cairis é um gaulês típico. Ruivo, cabelos longos, bigode espesso e uma barba comprida arrumada em três tranças.  E um belo porte físico, ainda que distribuídos em pouco mais de 1,60m, o que faz dele o mais baixo de todos os gladiadores.  Mas não se engane; cairis é muito forte.  Para ser capturado, quase devastou uma decúria sozinho!  Cairis foi capturado a mando de Marcus Grachus, ex-general da campanha da Gália, hoje lanista de Roma.  Grachus, durante uma escaramuça viu o brilho deste guerreiro e decidiu captura-lo para dar de presente à Cesar, como prêmio da campanha na Galia.  Cesar então mandou Grachus treinar o gaulês para o circo.  E hoje Cairis ganha sua vida nos combates no coliseu.:Mercenário");
-gladiadores.insert_last("Claudius:201:1000:120000:Claudius sempre esteve desde cedo ligado ao circo.  De família muito pobre, começou trabalhando na caserna do coliseu como limpador de estrebaria. Aprendeu o ofício da forja e logo se tornou o ferreiro do coliseu, responsável pela manutenção das bigas, das ferraduras dos cavalos e dos equipamentos usados pelos gladiadores.  Com o tempo, ocupou o ofício de carrasco, responsável por cortar a cabeça dos prisioneiros no coliseu, para o deleite da platéia.  Esta prática fez Claudius pegar gosto pela matança e logo se inscreveu em uma seletiva para formação de novos gladiadores.  Claudius realizou um verdadeiro massacre nesta seletiva e logicamente foi o vencedor.  Foi então arrebanhado por Caius Felix e tornou-se um conhecido gladiador.  Sua fama é de colecionar tampas de crânios de seus vencidos.:Mercenário");
-gladiadores.insert_last("Lucius:1001:2000:150000:Lucius é um enorme gladiador proveniente da região da Trácia, ao norte da Grécia, região famosa pela maldade de seus guerreiros.  Lucius não é diferente. Foi recrutado cedo nas hordas de bárbaros trácios fazendo pilhagens frequentes nas províncias romanas da região do norte da Grécia, quando acabou capturado. O centurião de um dos campos fortificados viu que Lucius não passava de um menino de pouco mais de 13 anos.  Porém, tinha quase a altura e o porte físico de um legionário regular da legião.  Decidiu dar tratamento especial a este prisioneiro e a treina-lo para as arenas locais.  Lucius foi tão bem nas arenas que mais tarde foi comprado a peso de ouro por Gaius, um famoso lanista de Roma. Desde então, é um dos campeões da arena romana, conhecido e renomado por sua crueldade e por sua resistência a ferimentos.:Presidente");
-gladiadores.insert_last("Sirix:1001:2000:180000:Cirix é um gladiador de origem bárbara, oriental, provavelmente huno.  Tanto como incerta é sua origem, incerta é também sua trajetória até ter se tornado gladiador.  Mas sabe-se que é o mais cruel e sádico gladiador de todos os do Coliseu.  Seu prazer é desarmar seu inimigo, para ir imolando-o aos poucos, extasiando-se de cada jorro de sangue.  Ele consegue lutar desta forma sádica graças a sua enorme e conhecida agilidade, capaz de lhe proporcionar um método de luta quase acrobático.  Cirix tem outra particularidade.  Ele luta sem armadura pesada, expondo seu corpo, repleto de tatuagens tribais.:Presidente");
-gladiadores.insert_last("Cressus:2001:3000:210000:Cressus vem de uma família de tradição romana na caserna.  Filho de gladiador, Cressus aprendeu desde muito cedo o dia-a-dia na caserna.  Era o escudeiro de seu pai, inclusive viu-o sendo morto na arena.  Sua ira fôra tão grande que pegou a espada da mão ainda quente de seu pai e picou seu algoz de forma muito feroz.  Isso foi o suficiente para ele ser aclamado como \"a sensação\" dos jogos daquele ano.  Desde então, Cressus vem dedicando sua vida a matar todos e qualquer guerreiro que cruzar seu caminho.:Ditador");
-gladiadores.insert_last("Duron:2001:3000:240000:Duron é um gladiador esbelto e de aparência bem ágil.  Foi treinado por seu irmão Argon, que o tinha em alta estima, antes de sua morte, durante as revoltas para libertação dos escravos, liderado por Spartacus.  Sua agilidade e sua força, aliada à sua inteligência na peleja fazem de Duron um terrível adversário.:Ditador");
-gladiadores.insert_last("Aiellus:3001:4000:270000:Aiellus fôra um dia um legionário romano.  Entretanto, sua crueldade e indisciplina militar fizeram com que ele fosse expulso da legião.  Virou desta forma um desertor, hostilizado em todo o mundo romano.  Entretanto, viu no Coliseu a oportunidade de ter o salvo-conduto em todo mundo romano, além de ser remunerado e bem tratado fazendo o que mais gostava de fazer.  Desde sua entrada na caserna do coliseu, sua vida mudou para melhor.  Adquiriu fama, dinheiro, reputação.  E em troca disto, perdeu apenas um olho em uma de suas lutas. Aiellus é facilmente reconhecido por usar um tapa-olho de pano negro feito a partir de uma bandana de seda jogado por alguma mulher da nobreza.:Assassino");
-gladiadores.insert_last("Quintos:3001:4000:300000:Quintus é um homem rude e cruel.  Sua enorme estatura e compleição física tornam este gladiador uma figura realmente apavorante.  Conhecido por uma grande cicatriz de luta, que começa em sua testa e termina perto do queixo, Quintus, o \"cara-partida\", como é conhecido por seus companheiros de caserna é muito respeitado. Para os companheiros, um apelido de brincadeira.  Para seus oponentes, a alcunha de \"Destruidor\" é bem mais indicada.:Assassino");
-gladiadores.insert_last("Marcus:4001:5000:330000:Marcus é um gladiador provindo da região da Germânia.  Veio como escravo como troféu de batalha a Julio Cesar, que pensou inicialmente em joga-lo aos leões.  Entretanto, Caius Felix viu em seu físico um amplo potencial para a luta no Circus.  Caius então pediu autorização ao Imperador para treina-lo na Ludus, e César o apoiou.  Marcus então participou de intensos treinamentos e ia pegando o gosto pelo sangue espirrando.  Hoje Marcus é um enorme gladiador de cabelos compridos e louros, do mesmo tom de sua grande barba.  Possui uma cicatriz que lhe corta obliquamente o torso e uma outra cicatriz em sua cabeça, evidenciada por uma grande falha no couro cabeludo.:Desenvolvedor de guerra");
-gladiadores.insert_last("Barca:4001:5000:350000:Após os romanos derrotarem os cártagos, os sobreviventes foram obrigados a lutarem entre si na arena.  Barca foi o último sobrevivente.  Sua última luta foi contra Mago, o chefe de seu povo.  Ele era seu pai.  Barca é hoje um gladiador sem nenhum sentimento, sem senso de laços.  Sua única ocupação é matar oponentes para não pensar no semblante agonizante de seu pai.:Desenvolvedor de guerra");
-gladiadores.insert_last("Theokoles:5001:6000:400000:Theokoles, \"a sombra da morte\", era um gladiador gigante.  Tinha mais de 3 metros de altura.  Certa vez, lutou contra 100 homens.  Matou a todos.  Antes de se aposentar enfrentou um último adversário que o derrotou.  O nome desse adversário, Doctore.:Chefe da guerra");
-gladiadores.insert_last("Crixus:6001:7000:500000:Crixus é o melhor gladiador do ludus de Batiatus, o Campeão de Cápua. Arrogante e poderoso, ele tem uma profunda antipatia por Spartacus, cujo surgimento ameaça perturbar seu reinado no ludus.  Crixus segue seu caminho à espera de oponentes, enquanto defende o seu lugar no topo da hierarquia dos gladiadores.:Comandante");
-gladiadores.insert_last("Tetraites:7001:8000:600000:Tetraites foi originalmente descoberto por meio de pichações encontradas em Pompéia, em 1817, que ilustravam sua corajosa vitória sobre Prudes. Lutando no estilo mirmilão, ele usava uma espada curta, um grande escudo retangular, um capacete, protetores de braço e caneleiras. A extensão da fama de Tetraites só foi totalmente compreendida no final do século XX, quando foram encontradas cerâmicas em lugares tão distantes como a França e a Inglaterra, com ilustrações das vitórias do gladiador.:Comandante");
-gladiadores.insert_last("Prisco:7001:8000:650000:A batalha entre Prisco e Verus no primeiro século d.C. foi o primeiro combate de gladiadores no famoso Anfiteatro Flaviano, o Coliseu de Roma. Depois de uma vigorosa batalha que se arrastou por horas, os dois gladiadores se renderam um ao outro ao mesmo tempo, baixando suas espadas em respeito mútuo. A multidão, extasiada pela luta,  gritou em aprovação, e o Imperador Tito premiou a ambos com as rudis, uma pequena espada de madeira dada aos gladiadores no momento de sua aposentadoria. Priscus e Verus deixaram a arena como homens livres.:Presidiário da desgraça");
-gladiadores.insert_last("Spiculus:10000:12000:700000:Spiculus teve uma especial relação de proximidade com o imperador Nero. Após inúmeras vitórias de Spiculus, Nero concedeu-lhe palácios, escravos e riquezas além da imaginação. Quando Nero foi deposto em 68 d.C., ele pediu a seus assessores para encontrar Spiculus, porque desejava morrer nas mãos do famoso gladiador. Mas Spiculus não pôde ser encontrado, então, Nero foi forçado a tirar a própria vida.:Louco não confiável");
-gladiadores.insert_last("Marco Atílio:10000:12000:750000:Apesar de ser um cidadão romano de nascimento, Atílio escolheu entrar na escola de gladiadores para tentar liquidar as pesadas dívidas contraídas durante a sua vida. Na primeira batalha ele derrotou Hilarus, um gladiador pertencente a Nero, que já havia vencido treze vezes seguidas. Em outro combate, Atílio derrotou Raecius Felix, que ganhara doze batalhas seguidas. Os feitos de Atílio foram narrados em mosaicos e pichações descobertas em 2007.:Louco não confiável");
-gladiadores.insert_last("Carpoforo:12001:16000:850000:Enquanto os outros gladiadores nesta lista são conhecidos por seus combates corpo-a-corpo contra outros seres humanos, Carpoforo era um famoso bestiarri Esses gladiadores lutavam exclusivamente contra animais selvagens, e, sendo assim,  tinham carreiras muito curtas. Lutando no início do Anfiteatro Flaviano, Carpoforo ficou famoso por  derrotar um urso, um leão e um leopardo na mesma batalha. Em outro combate naquele dia, ele matou um rinoceronte com uma lança. No total, diz-se que ele matou vinte animais selvagens em um único dia, levando os fãs e os companheiros de arena a comparar Carpoforo com o mitológico Hércules.:Zumbi");
-gladiadores.insert_last("Flamma:12001:16000:900000:Flamma, um escravo sírio, morreu com a idade de trinta anos, depois de ter lutado trinta e quatro vezes e ter ganho vinte e um desses combates. Nove batalhas terminaram empatadas, sendo ele derrotado apenas quatro vezes. O mais admirável é que Flamma foi premiado com a rudis quatro vezes. Quando a rudis era dada a um gladiador, ele era libertado e podia viver normalmente entre os cidadãos romanos, contudo, Flamma recusou a liberdade, optando por continuar a lutar na arena.:Zumbi");
-gladiadores.insert_last("Spartacus:16001:20000:950000:Lêntulo Batiato, de Cápua, deve ter reconhecido seu potencial, porque comprou Espártaco  com a intenção de transformá-lo em um gladiador. Mas a independência feroz de um guerreiro não é facilmente domada. Em 73 a.C., Espártaco convenceu setenta de seus companheiros gladiadores, entre eles Crisus, a rebelarem-se contra seu senhor. Na revolta, Batiato foi assassinado e os gladiadores fugiram para as costas do vizinho Monte Vesúvio. Traído, Spartacus é vendido para os romanos como escravo e comprado por uma escola de gladiadores. Mas o destino tinha planos maiores para o soldado trácio -  ele se tornaria o líder da maior revolução da Antiguidade e seu nome permaneceria para sempre gravado na história. Enquanto fugia, o grupo ia reunindo homens livres e também muitos outros escravos, tornando-se assim um grande e poderoso exército. Os gladiadores passaram o inverno de 72 a.C. a treinar os escravos recém-libertados, em preparação para o que hoje é conhecido como a Terceira Guerra Servil, com suas fileiras chegando a abrigar até 70 mil pessoas. Legiões inteiras foram enviadas para matar Espártaco, mas  foram facilmente derrotadas pelo espírito de luta e experiência dos gladiadores. Em 71 a.C., Marco Licínio Crasso juntou 50.000 soldados romanos bem treinados para perseguir e derrotar Espártaco. Crasso encurralou Espartacus no sul da Itália, derrotando suas forças, e matando o ex-escravo ( o corpo de Espártaco, contudo, nunca foi encontrado ). Seis mil seguidores de Espártaco foram capturados e crucificados ao longo da  Via Ápia, a estrada de Cápua a Roma.:Monstro");
 // De cara al futuro: restaurar este comportamiento
 //if(string_contains(COMMAND_LINE, "portable", 1)>-1) portable=true;
 if(!portable){
@@ -459,7 +400,6 @@ create_add("hits");
 create_add("mortes");
 create_add("conexões");
 if(screen_reader_is_running(1)) install_keyhook();
-tbonus.force(0);tbonus.pause();
 show_game_window(nomejogo+" - "+pu.get_value("Versão")+" "+ver);
 if(primeiravez==0){
 primeiravez=1;
@@ -504,39 +444,16 @@ writeprefs();
 wait(400);
 reiniciar();
 }
-if(event.type==event_receive&&event.peer_id==peer_id){
-//add_add_item("variado", pegar_mensagem());
-failedpings=0;
-totalfailedpings=0;
-pingtime=defpingtime;
-ping=false;
-lastping=pingtimer.elapsed;
-pings+=1;
-if (lastping<minping or minping==-1)
-minping=lastping;
-if (lastping>maxping) maxping=lastping;
-string[] parsed=string_split(pegar_mensagem(), " ", false);
-}
 if(event.type==event_receive and event.channel==0 and event.peer_id==peer_id)
 {
 string[] parsed=string_split(pegar_mensagem(), " ", false);
 if(parsed[0]=="pong"){
-failedpings=0;
-totalfailedpings=0;
-pingtime=defpingtime;
-ping=false;
-lastping=pingtimer.elapsed;
 if(!forcepinging) pingtimer.restart();
-pings+=1;
-if (lastping<minping or minping==-1)
-minping=lastping;
-if (lastping>maxping)
-maxping=lastping;
 if(forcepinging)
 {
 forcepinging=false;
 p.play_stationary("pingstop.ogg",false);
-speak(pu.get_value("O ping levou")+" "+lastping+" ms.");
+speak(pu.get_value("O ping levou")+" "+pingtimer.elapsed+" ms.");
 }
 }
 else if(parsed[0]=="remplayer"){
@@ -813,10 +730,6 @@ p.play_2d("C:\\windows\\media\\Windows Logoff Sound.wav", me.x, me.y, 2, 21, fal
 set_sound_storage("*");
 }
 
-else if(parsed[0]=="mbonus"){
-load_map(bonus);
-tbonus.restart();
-}
 else if(parsed[0]=="fm" and add_active("chats")==0){
 }
 else if(parsed[0]=="fm"&&add_active("chats")==1)
@@ -1753,22 +1666,8 @@ break;
 }
 }
 if(lan.nalancha==1)lan.loop();
-if(tbonus.elapsed>0){
-if(tbonus.elapsed>=30000){
-tbonus.force(0);
-tbonus.pause();
-rtudobonus();
-dlgplay("caiu_água.ogg");
-send_reliable(peer_id, "vbonus", 0);
-}
-if(tbonus2.elapsed>=random(500, 800)){
-tbonus2.restart();
-cbonus(random(1, 16));
-}
-}
 mainloop();
 if(connected&&temponaoevoce.elapsed>=2000){
-if(itensbonus.length()>0)bonusloop();
 if(maquinatempos.length()>0)maquinatempoloop();
 if(objs.length()>0)objsloop();
 if(studo==1)checkitem();
@@ -4184,18 +4083,7 @@ p.destroy_all();
 p2.destroy_all();
 pobjs.destroy_all();
 pcomputador.destroy_all();
- minping=-1;
- maxping=0;
-failedpings=0;
-totalfailedpings=0;
-pings=0;
-lastping=0;
-ping=false;
 forcepinging=false;
-pingtime=5000;
-pingtime2=15000;
-defpingtime=5000;
-def2pingtime=5000;
 peer_id=0;
 inv="";
 apartamentoinv="";
@@ -5677,7 +5565,7 @@ string banned=filter[counter];
 if(string_contains(string_to_lower_case(message), filter[counter], 1)>-1)
 {
 string a;
-for( uint ii=0;ii<filter[counter].length();ii++){a+="sounds.dat";}
+for( uint ii=0;ii<filter[counter].length();ii++){a+="*";}
 message=string_replace(message, filter[counter], a, true);
 return message;
 }

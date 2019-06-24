@@ -422,8 +422,8 @@ players[index].conectou=1;
 netloop();
 }
 void whoonline(int index){
-onthis=0;
-onother=0;
+int onthis=0;
+int onother=0;
 string sendmes;
 for (uint i=0; i<players.length(); i++){
 if(players[i].map==players[index].map&&players[i].afk==false&&players[i].invs==0)onthis+=1;
@@ -2287,11 +2287,6 @@ terminar(nmatar, 1);
 }
 }
 }
-else if(parsed[0]=="/votos"){
-double total=votos2d+votos3d;
-if(votos2d==0||votos3d==0)send_reliable(players[index].peer_id, "msgnormal Votos 2D: "+votos2d+". Votos 3D: "+votos3d+".", 0);
-else send_reliable(players[index].peer_id,"msgnormal 2d: "+votos2d+" ("+round(votos2d/total*100,1)+")%. 3D: "+votos3d+" ("+round(votos3d/total*100,1)+")%.",0);
-}
 else if(parsed[0]=="/changemap"&&parsed.length()>2){
 int i2=get_player_index_from(parsed[1]);
 if(i2>-1){
@@ -2515,7 +2510,7 @@ else if(parsed[0]=="/responder"&&parsed.length()>2){
 int index2=get_player_index_from(parsed[1]);
 if(index2>-1){
 string pl;
-ad=0;
+int ad=0;
 for (uint i=0; i<players.length(); i++)
 {
 if(players[i].is_admin()){
