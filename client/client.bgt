@@ -802,15 +802,13 @@ else apartamentomenu();
 }
 else if(parsed[0]=="apartamentoinv")apartamentoinv=string_replace(pegar_mensagem(), parsed[0]+" ", "", false);
 else if(parsed[0]=="opcoespc")opcoespc=string_replace(pegar_mensagem(), parsed[0]+" ", "", false);
-else if(parsed[0]=="pcliga"){
-set_sound_storage("");
+else if(parsed[0]=="pcliga")
+{
 p.play_2d("C:\\windows\\media\\Windows Logon Sound.wav", me.x, me.y, 2, 21, false);
-set_sound_storage("*");
 }
-else if(parsed[0]=="pcdesliga"){
-set_sound_storage("");
+else if(parsed[0]=="pcdesliga")
+{
 p.play_2d("C:\\windows\\media\\Windows Logoff Sound.wav", me.x, me.y, 2, 21, false);
-set_sound_storage("*");
 }
 
 else if(parsed[0]=="mbonus"){
@@ -1782,464 +1780,507 @@ weaponcheckloop();
 secundario();
 if(gmt()!=""&&jumping==0&&pulou==1&&falling==false) pulou=0;
 }
-if(key_pressed(KEY_F9)&&desenvolvedordm==1){
+
+// map builder, pleace caution to use
+
+if(key_pressed(KEY_F9) && desenvolvedordm==1)
+{
 int slot=-1;
 setupmenu();
-m.add_item_tts(pu.get_value("Zona"), "zona");
-m.add_item_tts(pu.get_value("Zona protegida"), "zona2");
-m.add_item_tts(pu.get_value("Ambiente"), "ambiente");
-m.add_item_tts(pu.get_value("Plataforma"), "plataforma");
-m.add_item_tts(pu.get_value("Escada"), "escada");
-m.add_item_tts(pu.get_value("barreira"), "barreira");
-m.add_item_tts(pu.get_value("Passagem"), "passagem");
-m.add_item_tts(pu.get_value("Elevador"), "elevador");
-m.add_item_tts(pu.get_value("Congelar"), "congelar");
-m.add_item_tts(pu.get_value("Areia movediça"), "areia");
-m.add_item_tts(pu.get_value("Desfazer última produção"), "desfazer");
-m.add_item_tts(pu.get_value("Mais opções"), "mas");
-int mres=m.run(pu.get_value("Selecione o que deseja fazer"), true);
-if(m.get_item_name(mres)=="mas"){
-devmenu();
+m.add_item_tts(pu.get_value("Actualizar mapa"), "mapupdate");
+m.add_item_tts(pu.get_value("Ambiente"), "ambient");
+m.add_item_tts(pu.get_value("Arena movediza"), "quicksand");
+m.add_item_tts(pu.get_value("Escalera"), "stair");
+m.add_item_tts(pu.get_value("Elevador"), "elevator");
+m.add_item_tts(pu.get_value("Optener código del mapa"), "getmap");
+m.add_item_tts(pu.get_value("Pared"), "wall");
+m.add_item_tts(pu.get_value("Pasaje"), "travelpoint");
+m.add_item_tts(pu.get_value("Plataforma"), "platform");
+m.add_item_tts(pu.get_value("Puerta"), "door");
+m.add_item_tts(pu.get_value("Zona"), "zone");
+m.add_item_tts(pu.get_value("Zona protegida"), "safezone");
+m.add_item_tts(pu.get_value("Deshacer última creación"), "undo");
+m.add_item_tts(pu.get_value("Borrar mapa, (no recomendado)"), "delete");
+m.add_item_tts(pu.get_value("Mas opciones"), "more");
+m.add_item_tts(pu.get_value("Cerrar este menú"), "closemenu");
+int mres=m.run(pu.get_value("Menú del constructor, use con cuidado"), true);
+if(m.get_item_name(mres)=="closemenu")
+{
+mainloop();
 }
-if(m.get_item_name(mres)=="zona"){
-string s1=v.input("Começo da coordenada X");
-string s2=v.input("Fim da coordenada X");
-string s3=v.input("Começo da coordenada Y");
-string s4=v.input("Fim da coordenada y");
-string s5=v.input("Texto à colocar");
-if(s1!=""&&s2!=""&&s3!=""&&s4!=""&&s5!=""){
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.insert_last("zone:"+s1+":"+s2+":"+s3+":"+s4+":"+s5);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
+if(m.get_item_name(mres)=="more")
+{
+adminmenu();
+}
+if(m.get_item_name(mres)=="zone")
+{
+string s1=v.input(pu.get_value("Comienzo de la coordenada x"));
+string s2=v.input(pu.get_value("Fin de la coordenada x"));
+string s3=v.input(pu.get_value("Comienzo de la coordenada y"));
+string s4=v.input(pu.get_value("Fin de la coordenada y"));
+string s5=v.input(pu.get_value("Texto de la zona"));
+if(s1!=""&&s2!=""&&s3!=""&&s4!=""&&s5!="")
+{
+string[] data =map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.insert_last("zone:"+s1+":"+s2+":"+s3+":"+s4+":"+s5);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
 }
 }
-if(m.get_item_name(mres)=="desfazer"){
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
+if(m.get_item_name(mres)=="mapupdate")
+{
+string mapcode =v.input("Ingrese el código del mapa:");
+if(mapcode!="")
+{
+send_reliable(peer_id, "/rawdata "+mapcode, 1);
 }
-else if(m.get_item_name(mres)=="plataforma"){
-string s1=v.input("Começo da coordenada X");
-string s2=v.input("Fim da coordenada X");
-string s3=v.input("Altura da plataforma");
+}
+if(m.get_item_name(mres)=="undo")
+{
+string[] data=map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
+}
+else if(m.get_item_name(mres)=="platform")
+{
+string s1=v.input(pu.get_value("Comienzo de la coordenada x"));
+string s2=v.input(pu.get_value("Fin de la coordenada x"));
+string s3=v.input(pu.get_value("Altura de la plataforma"));
 string s4;
 pack_file pa;
-pa.open("*");
-string[] lista=pa.list_files();
-string[] plataformas;
-for(uint i=0;i<lista.length();i++){
-if(string_contains(lista[i], "step1", 1)>-1)plataformas.insert_last(lista[i]);
+pa.open(SOUND_STORAGE);
+string[] list=pa.list_files();
+string[] platforms;
+for(uint i=0; i<list.length(); i++)
+{
+if(string_contains(list[i], "step1", 1)>-1)
+{
+platforms.insert_last(list[i]);
 }
-int marcado=0;
-while(true){
+}
+pa.close();
+int selected=0;
+while(true)
+{
 wait(5);
 mainloop();
-if(key_pressed(KEY_ESCAPE)){
+if(key_pressed(KEY_ESCAPE))
+{
 s4="";
 break;
 }
-if(key_pressed(KEY_UP)&&marcado>0){
-marcado--;
+if(key_pressed(KEY_UP) && selected>0)
+{
+selected--;
 p.destroy_sound(slot);
-slot=p.play_stationary(plataformas[marcado], false);
+slot=p.play_stationary(platforms[selected], false);
+speak(platforms[selected]);
 }
-if(key_pressed(KEY_DOWN)&&marcado<plataformas.length()-1){
-marcado++;
+if(key_pressed(KEY_DOWN)&& selected<platforms.length()-1)
+{
+selected++;
 p.destroy_sound(slot);
-slot=p.play_stationary(plataformas[marcado], false);
+slot=p.play_stationary(platforms[selected], false);
+speak(platforms[selected]);
 }
-if(key_pressed(KEY_RETURN)){
-s4=plataformas[marcado];
+if(key_pressed(KEY_RETURN))
+{
+s4=platforms[selected];
 break;
 }
-if(key_pressed(KEY_SPACE)){
+if(key_pressed(KEY_SPACE))
+{
 p.destroy_sound(slot);
-slot=p.play_stationary(plataformas[marcado], false);
+slot=p.play_stationary(platforms[selected], false);
+speak(platforms[selected]);
 }
 }
-if(s1!=""&&s2!=""&&s3!=""&&s4!=""){
+if(s1!=""&&s2!=""&&s3!=""&&s4!="")
+{
 s4=string_replace(s4, "step1.ogg", "", false);
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.insert_last("platform:"+s1+":"+s2+":"+s3+":"+s4);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
+string[] data=map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.insert_last("platform:"+s1+":"+s2+":"+s3+":"+s4);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
 }
 }
-else if(m.get_item_name(mres)=="areia"){
-string s1=v.input("Coordenada X");
-string s2=v.input("Coordenada Y");
-if(s1!=""&&s2!=""){
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.insert_last("areia_movediça:"+s1+":"+s2);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
+
+else if(m.get_item_name(mres)=="quicksand")
+{
+string s1=v.input(pu.get_value("Coordenada x de la arena"));
+string s2=v.input(pu.get_value("Coordenada y de la arena"));
+if(s1!=""&&s2!="")
+{
+string[] data=map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.insert_last("areia_movediça:"+s1+":"+s2);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
 }
 }
-else if(m.get_item_name(mres)=="congelar"){
-string s1=v.input("Começo da coordenada X");
-string s2=v.input("Fim da coordenada X");
-string s3=v.input("Começo da coordenada Y");
-string s4=v.input("Fim da coordenada Y");
+
+// Start of the door creator
+else if(m.get_item_name(mres)=="door")
+{
+string s1=v.input(pu.get_value("Hubicación de la puerta, coordenada x"));
+string s2=v.input(pu.get_value("Altura de la puerta, coordenada y"));
+string s3=v.input(pu.get_value("Destino de la puerta, coordenada x"));
+string s4=v.input(pu.get_value("Altura de destino  de la puerta, coordenada y"));
+string s5 =v.input(pu.get_value("Velocidad de transporte (ms), escriba solo números aquí"));
+string s6 =v.input(pu.get_value("Sonido que se reproducirá al acercarse a la puerta, escriba none para no usar un sonido"));
+string s7 =v.input(pu.get_value("Sonido que se reproducirá al cruzar la puerta, escriba none para no usar un sonido"));
+string s8;
+pack_file pa;
+pa.open(SOUND_STORAGE);
+string[] list=pa.list_files();
+string[] sound_doors;
+for(uint i=0; i<list.length(); i++)
+{
+if(string_contains(list[i], "door", 1)>-1)
+{
+sound_doors.insert_last(list[i]);
+}
+}
+pa.close();
+int selected=0;
+add_add_item("notificaciones", pu.get_value("Elija un sonido de apertura para la puerta:"));
+while(true)
+{
+wait(5);
+if(key_pressed(KEY_ESCAPE))
+{
+s8="";
+}
+if(key_pressed(KEY_UP) && selected>0)
+{
+selected--;
+p.destroy_sound(slot);
+slot=p.play_stationary(sound_doors[selected], false);
+speak(sound_doors[selected]);
+}
+if(key_pressed(KEY_DOWN) && selected<sound_doors.length()-1)
+{
+selected++;
+p.destroy_sound(slot);
+slot=p.play_stationary(sound_doors[selected], false);
+speak(sound_doors[selected]);
+}
+if(key_pressed(KEY_RETURN))
+{
+s8 =sound_doors[selected];
+break;
+}
+if(key_pressed(KEY_SPACE))
+{
+p.destroy_sound(slot);
+slot=p.play_stationary(sound_doors[selected], false);
+speak(sound_doors[selected]);
+}
+if(s1!="" && s2!="" && s3!="" && s4!="" && s5!="" && s6!="" && s7!="")
+{
+continue;
+}
+}
+selected=0;
+string s9;
+add_add_item("notificaciones", pu.get_value("Elija un sonido de cierre para la puerta:"));
+while(true)
+{
+mainloop();
+wait(5);
+if(key_pressed(KEY_ESCAPE))
+{
+s9 ="";
+}
+if(key_pressed(KEY_UP) && selected>0)
+{
+selected--;
+p.destroy_sound(slot);
+slot=p.play_stationary(sound_doors[selected], false);
+speak(sound_doors[selected]);
+}
+if(key_pressed(KEY_DOWN) && selected<sound_doors.length()-1)
+{
+selected++;
+p.destroy_sound(slot);
+slot=p.play_stationary(sound_doors[selected], false);
+speak(sound_doors[selected]);
+}
+if(key_pressed(KEY_RETURN))
+{
+s9 =sound_doors[selected];
+}
+if(key_pressed(KEY_SPACE))
+{
+p.destroy_sound(slot);
+slot=p.play_stationary(sound_doors[selected], false);
+}
+if(s9!="")
+{
+string[] data=map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.insert_last("door:"+s1+":"+s2+":"+s3+":"+s4+":"+s5+":"+s6+":"+s7+":"+s8+":"+s9);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
+break;
+}
+}
+}
+// Doors creator end
+
+else if(m.get_item_name(mres)=="travelpoint")
+{
+string s1=v.input(pu.get_value("Comienzo de la coordenada x"));
+string s2=v.input(pu.get_value("Fin de la coordenada x"));
+string s3=v.input(pu.get_value("Comienzo de la coordenada y"));
+string s4=v.input(pu.get_value("Fin de la coordenada y"));
+string s5=v.input(pu.get_value("Coordenada x de destino"));
+string s6=v.input(pu.get_value("Coordenada y de destino"));
+string s7=v.input(pu.get_value("Mapa de destino"));
+string s8=v.input(pu.get_value("Mensaje para mostrar al llegar al mapa de destino"));
+if(s1!=""&&s2!=""&&s3!=""&&s4!=""&&s5!=""&&s6!=""&&s7!=""&&s8!="")
+{
+string[] data=map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.insert_last("travelpoint:"+s1+":"+s2+":"+s3+":"+s4+":"+s5+":"+s6+":"+s7+":"+s8);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
+}
+}
+else if(m.get_item_name(mres)=="elevator")
+{
+string s1=v.input(pu.get_value("Coordenada x de inicio del elevador"));
+string s2=v.input(pu.get_value("Coordenada y de inicio del elevador"));
+string s3=v.input(pu.get_value("Coordenada x de destino del elevador"));
+string s4=v.input(pu.get_value("Coordenada y de destino del elevador"));
 if(s1!=""&&s2!=""&&s3!=""&&s4!=""){
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.insert_last("congelar:"+s1+":"+s2+":"+s3+":"+s4);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
+string[] data=map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.insert_last("elevador:"+s1+":"+s2+":"+s3+":"+s4);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
 }
 }
-else if(m.get_item_name(mres)=="passagem"){
-string s1=v.input("Começo da coordenada X");
-string s2=v.input("Fim da coordenada X");
-string s3=v.input("Começo da coordenada Y");
-string s4=v.input("Fim da coordenada Y");
-string s5=v.input("Coordenada X de destino");
-string s6=v.input("Coordenada Y de destino");
-string s7=v.input("Nome do mapa de destino");
-string s8=v.input("Mensagem exibida ao chegar no mapa");
-if(s1!=""&&s2!=""&&s3!=""&&s4!=""&&s5!=""&&s6!=""&&s7!=""&&s8!=""){
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.insert_last("travelpoint:"+s1+":"+s2+":"+s3+":"+s4+":"+s5+":"+s6+":"+s7+":"+s8);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
-}
-}
-else if(m.get_item_name(mres)=="elevador"){
-string s1=v.input("Coordenada X onde o elevador começa");
-string s2=v.input("Coordenada Y onde o elevador vai começar");
-string s3=v.input("Coordenada X onde o elevador irá chegar");
-string s4=v.input("Coordenada Y onde o elevador irá chegar");
+else if(m.get_item_name(mres)=="safezone")
+{
+string s1=v.input(pu.get_value("Comienzo de la coordenada x"));
+string s2=v.input(pu.get_value("Fin de la coordenada x"));
+string s3=v.input(pu.get_value("Comienzo de la coordenada y"));
+string s4=v.input(pu.get_value("Fin de la coordenada y"));
 if(s1!=""&&s2!=""&&s3!=""&&s4!=""){
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.insert_last("elevador:"+s1+":"+s2+":"+s3+":"+s4);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
+string[] data=map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.insert_last("safezone:"+s1+":"+s2+":"+s3+":"+s4);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
 }
 }
-else if(m.get_item_name(mres)=="zona2"){
-string s1=v.input("Começo da coordenada X");
-string s2=v.input("Fim da coordenada X");
-string s3=v.input("Começo da coordenada Y");
-string s4=v.input("Fim da coordenada Y");
-if(s1!=""&&s2!=""&&s3!=""&&s4!=""){
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.insert_last("safezone:"+s1+":"+s2+":"+s3+":"+s4);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
-}
-}
-else if(m.get_item_name(mres)=="escada"){
-string s1=v.input("Começo da coordenada X");
-string s2=v.input("Fim da coordenada X");
-string s3=v.input("Começo da coordenada Y");
-string s4=v.input("Fim da coordenada Y");
+else if(m.get_item_name(mres)=="stair")
+{
+string s1=v.input(pu.get_value("Comienzo de la coordenada x"));
+string s2=v.input(pu.get_value("Fin de la coordenada x"));
+string s3=v.input(pu.get_value("Comienzo de la coordenada y"));
+string s4=v.input(pu.get_value("Fin de la coordenada y"));
 string s5;
 pack_file pa;
-pa.open("*");
-string[] lista=pa.list_files();
-string[] plataformas;
-for(uint i=0;i<lista.length();i++){
-if(string_contains(lista[i], "step1", 1)>-1)plataformas.insert_last(lista[i]);
+pa.open(SOUND_STORAGE);
+string[] list=pa.list_files();
+string[] platforms;
+for(uint i=0; i<list.length(); i++)
+{
+if(string_contains(list[i], "step1", 1)>-1)
+{
+platforms.insert_last(list[i]);
 }
-int marcado=0;
-while(true){
+}
+pa.close();
+int selected=0;
+while(true)
+{
 wait(5);
 mainloop();
-if(key_pressed(KEY_ESCAPE)){
+if(key_pressed(KEY_ESCAPE))
+{
 s5="";
 break;
 }
-if(key_pressed(KEY_UP)&&marcado>0){
-marcado--;
+if(key_pressed(KEY_UP) && selected>0)
+{
+selected--;
 p.destroy_sound(slot);
-slot=p.play_stationary(plataformas[marcado], false);
+slot=p.play_stationary(platforms[selected], false);
+speak(platforms[selected]);
 }
-if(key_pressed(KEY_DOWN)&&marcado<plataformas.length()-1){
-marcado++;
+if(key_pressed(KEY_DOWN) && selected<platforms.length()-1)
+{
+selected++;
 p.destroy_sound(slot);
-slot=p.play_stationary(plataformas[marcado], false);
+slot=p.play_stationary(platforms[selected], false);
+speak(platforms[selected]);
 }
-if(key_pressed(KEY_RETURN)){
-s5=plataformas[marcado];
+if(key_pressed(KEY_RETURN))
+{
+s5=platforms[selected];
 break;
 }
-if(key_pressed(KEY_SPACE)){
+if(key_pressed(KEY_SPACE))
+{
 p.destroy_sound(slot);
-slot=p.play_stationary(plataformas[marcado], false);
+slot=p.play_stationary(platforms[selected], false);
+speak(platforms[selected]);
 }
 }
-if(s1!=""&&s2!=""&&s3!=""&&s4!=""&&s5!=""){
+if(s1!=""&&s2!=""&&s3!=""&&s4!="" && s5!="")
+{
 s5=string_replace(s5, "step1.ogg", "", false);
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.insert_last("staircase:"+s1+":"+s2+":"+s3+":"+s4+":"+s5);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
+string[] data=map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.insert_last("staircase:"+s1+":"+s2+":"+s3+":"+s4+":"+s5);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
 }
 }
-else if(m.get_item_name(mres)=="ambiente"){
-string s1=v.input("Começo da coordenada X");
-string s2=v.input("Fim da coordenada X");
-string s3=v.input("Começo da coordenada Y");
-string s4=v.input("Fim da coordenada Y");
+
+else if(m.get_item_name(mres)=="ambient")
+{
+string s1=v.input(pu.get_value("Comienzo de la coordenada x"));
+string s2=v.input(pu.get_value("Fin de la coordenada x"));
+string s3=v.input(pu.get_value("Comienzo de la coordenada y"));
+string s4=v.input(pu.get_value("Fin de la coordenada y"));
 string s5;
-string[] plataformas;
-plataformas.insert_last("a1.ogg");
-plataformas.insert_last("a2.ogg");
-plataformas.insert_last("a3.ogg");
-plataformas.insert_last("a4.ogg");
-plataformas.insert_last("a5.ogg");
-plataformas.insert_last("a6.ogg");
-plataformas.insert_last("a7.ogg");
-plataformas.insert_last("a8.ogg");
-plataformas.insert_last("a9.ogg");
-plataformas.insert_last("a10.ogg");
-plataformas.insert_last("a11.ogg");
-plataformas.insert_last("a12.ogg");
-plataformas.insert_last("a13.ogg");
-plataformas.insert_last("a14.ogg");
-plataformas.insert_last("a15.ogg");
-plataformas.insert_last("a16.ogg");
-plataformas.insert_last("a17.ogg");
-plataformas.insert_last("a18.ogg");
-plataformas.insert_last("a19.ogg");
-plataformas.insert_last("amb1.ogg");
-plataformas.insert_last("avião1.ogg");
-plataformas.insert_last("avião2.ogg");
-plataformas.insert_last("avião3.ogg");
-plataformas.insert_last("aviaointerno.ogg");
-plataformas.insert_last("aviaoloop.ogg");
-plataformas.insert_last("baixodagua.ogg");
-plataformas.insert_last("barcomovendo.ogg");
-plataformas.insert_last("basquete.ogg");
-plataformas.insert_last("bertalina.ogg");
-plataformas.insert_last("bighall.ogg");
-plataformas.insert_last("birds.ogg");
-plataformas.insert_last("birds1.ogg");
-plataformas.insert_last("birds2.ogg");
-plataformas.insert_last("birds3.ogg");
-plataformas.insert_last("birds4.ogg");
-plataformas.insert_last("birds5.ogg");
-plataformas.insert_last("birds6.ogg");
-plataformas.insert_last("birds7.ogg");
-plataformas.insert_last("birds8.ogg");
-plataformas.insert_last("birds9.ogg");
-plataformas.insert_last("birds10.ogg");
-plataformas.insert_last("birds11.ogg");
-plataformas.insert_last("birds12.ogg");
-plataformas.insert_last("birds13.ogg");
-plataformas.insert_last("birds14.ogg");
-plataformas.insert_last("birds15.ogg");
-plataformas.insert_last("birds16.ogg");
-plataformas.insert_last("birds17.ogg");
-plataformas.insert_last("birds22.ogg");
-plataformas.insert_last("birds23.ogg");
-plataformas.insert_last("birds24.ogg");
-plataformas.insert_last("brejo-dia.ogg");
-plataformas.insert_last("brejo-noite.ogg");
-plataformas.insert_last("brejo.ogg");
-plataformas.insert_last("cachoeira.ogg");
-plataformas.insert_last("calm.ogg");
-plataformas.insert_last("car1.ogg");
-plataformas.insert_last("car2.ogg");
-plataformas.insert_last("cassino.ogg");
-plataformas.insert_last("cassino1.ogg");
-plataformas.insert_last("cassino2.ogg");
-plataformas.insert_last("cassino3.ogg");
-plataformas.insert_last("cassino4.ogg");
-plataformas.insert_last("caverna2.ogg");
-plataformas.insert_last("cemiterio.ogg");
-plataformas.insert_last("cerca_elétrica.ogg");
-plataformas.insert_last("chuva.ogg");
-plataformas.insert_last("cidade.ogg");
-plataformas.insert_last("cidade1.ogg");
-plataformas.insert_last("cidade_medieval");
-plataformas.insert_last("clock1.ogg");
-plataformas.insert_last("clock2.ogg");
-plataformas.insert_last("cruzamento.ogg");
-plataformas.insert_last("desktop1.ogg");
-plataformas.insert_last("desktop2.ogg");
-plataformas.insert_last("desktop3.ogg");
-plataformas.insert_last("escola1.ogg");
-plataformas.insert_last("escola2.ogg");
-plataformas.insert_last("escola3.ogg");
-plataformas.insert_last("fire.ogg");
-plataformas.insert_last("fire1.ogg");
-plataformas.insert_last("firecrackers.ogg");
-plataformas.insert_last("flies.ogg");
-plataformas.insert_last("floresta-dia.ogg");
-plataformas.insert_last("floresta-noite.ogg");
-plataformas.insert_last("floresta2.ogg");
-plataformas.insert_last("fonteagua.ogg");
-plataformas.insert_last("forest.ogg");
-plataformas.insert_last("fridge.ogg");
-plataformas.insert_last("fridge2.ogg");
-plataformas.insert_last("geradorloop.ogg");
-plataformas.insert_last("heavywater.ogg");
-plataformas.insert_last("helicopteroloop.ogg");
-plataformas.insert_last("hospital1.ogg");
-plataformas.insert_last("hospital2.ogg");
-plataformas.insert_last("hospital3.ogg");
-plataformas.insert_last("hum.ogg");
-plataformas.insert_last("igreja.ogg");
-plataformas.insert_last("igreja2.ogg");
-plataformas.insert_last("lake.ogg");
-plataformas.insert_last("lanchonete.ogg");
-plataformas.insert_last("lanchonete1.ogg");
-plataformas.insert_last("laptop1.ogg");
-plataformas.insert_last("mergulhando.ogg");
-plataformas.insert_last("montanha.ogg");
-plataformas.insert_last("mountain.ogg");
-plataformas.insert_last("musica1.ogg");
-plataformas.insert_last("musica2.ogg");
-plataformas.insert_last("musica3.ogg");
-plataformas.insert_last("musica4.ogg");
-plataformas.insert_last("musica5.ogg");
-plataformas.insert_last("musica6.ogg");
-plataformas.insert_last("musica7.ogg");
-plataformas.insert_last("musica8.ogg");
-plataformas.insert_last("musica9.ogg");
-plataformas.insert_last("musica10.ogg");
-plataformas.insert_last("musica11.ogg");
-plataformas.insert_last("musica12.ogg");
-plataformas.insert_last("musica13.ogg");
-plataformas.insert_last("musica14.ogg");
-plataformas.insert_last("musica15.ogg");
-plataformas.insert_last("musica16.ogg");
-plataformas.insert_last("musicacassino.ogg");
-plataformas.insert_last("musica_natal1.ogg");
-plataformas.insert_last("musica_natal2.ogg");
-plataformas.insert_last("night.ogg");
-plataformas.insert_last("night2.ogg");
-plataformas.insert_last("oceano1.ogg");
-plataformas.insert_last("oceano2.ogg");
-plataformas.insert_last("oceano3.ogg");
-plataformas.insert_last("oceano4.ogg");
-plataformas.insert_last("office.ogg");
-plataformas.insert_last("park.ogg");
-plataformas.insert_last("pessoas.ogg");
-plataformas.insert_last("pessoas2.ogg");
-plataformas.insert_last("radio.ogg");
-plataformas.insert_last("rain1.ogg");
-plataformas.insert_last("rain2.ogg");
-plataformas.insert_last("rain3.ogg");
-plataformas.insert_last("rain4.ogg");
-plataformas.insert_last("restaurant.ogg");
-plataformas.insert_last("rumble.ogg");
-plataformas.insert_last("rumble2.ogg");
-plataformas.insert_last("telhado.ogg");
-plataformas.insert_last("telha1.ogg");
-plataformas.insert_last("torcida.ogg");
-plataformas.insert_last("torcida1.ogg");
-plataformas.insert_last("torcida2.ogg");
-plataformas.insert_last("torcida3.ogg");
-plataformas.insert_last("traffic.ogg");
-plataformas.insert_last("transito1.ogg");
-plataformas.insert_last("transito2.ogg");
-plataformas.insert_last("trem.ogg");
-plataformas.insert_last("trem2.ogg");
-plataformas.insert_last("trem3.ogg");
-plataformas.insert_last("tremchuva.ogg");
-plataformas.insert_last("truck.ogg");
-plataformas.insert_last("vent.ogg");
-plataformas.insert_last("vento.ogg");
-plataformas.insert_last("water1.ogg");
-plataformas.insert_last("water2.ogg");
-plataformas.insert_last("water3.ogg");
-plataformas.insert_last("water4.ogg");
-plataformas.insert_last("water5.ogg");
-plataformas.insert_last("water6.ogg");
-plataformas.insert_last("wind1.ogg");
-plataformas.insert_last("wind2.ogg");
-plataformas.insert_last("winter.ogg");
-int marcado=0;
-while(true){
+pack_file pa;
+pa.open(SOUND_STORAGE);
+string[] list =pa.list_files();
+pa.close();
+int selected=0;
+while(true)
+{
 wait(5);
 mainloop();
-if(key_pressed(KEY_ESCAPE)){
+if(key_pressed(KEY_ESCAPE))
+{
 s5="";
 break;
 }
-if(key_pressed(KEY_UP)&&marcado>0){
-marcado--;
+if(key_pressed(KEY_UP) && selected>0)
+{
+selected--;
 p.destroy_sound(slot);
-slot=p.play_stationary(plataformas[marcado], false);
+speak(list[selected]);
+slot=p.play_stationary(list[selected], false);
 }
-if(key_pressed(KEY_DOWN)&&marcado<plataformas.length()-1){
-marcado++;
+if(key_pressed(KEY_DOWN) && selected<list.length()-1)
+{
+selected++;
 p.destroy_sound(slot);
-slot=p.play_stationary(plataformas[marcado], false);
+slot=p.play_stationary(list[selected], false);
+speak(list[selected]);
 }
-if(key_pressed(KEY_RETURN)){
-s5=plataformas[marcado];
+if(key_pressed(KEY_RETURN))
+{
+s5 =list[selected];
 break;
 }
-if(key_pressed(KEY_SPACE)){
+if(key_pressed(KEY_SPACE))
+{
 p.destroy_sound(slot);
-slot=p.play_stationary(plataformas[marcado], false);
+slot=p.play_stationary(list[selected], false);
+speak(list[selected]);
 }
 }
-if(s1!=""&&s2!=""&&s3!=""&&s4!=""&&s5!=""){
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.insert_last("sound_source:"+s1+":"+s2+":"+s3+":"+s4+":"+s5);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
+if(s1!=""&&s2!=""&&s3!=""&&s4!=""&&s5!="")
+{
+string[] data=map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.insert_last("sound_source:"+s1+":"+s2+":"+s3+":"+s4+":"+s5);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
 }
 }
-else if(m.get_item_name(mres)=="barreira"){
-string s1=v.input("Coordenada X");
-string s2=v.input("Começo da altura");
-string s3=v.input("Altura final da plataforma");
+
+else if(m.get_item_name(mres)=="wall")
+{
+string s1=v.input(pu.get_value("Coordenada x de la pared"));
+string s2=v.input(pu.get_value("Comienzo de la coordenada y de la pared"));
+string s3=v.input(pu.get_value("Fin de la coordenada y de la pared"));
 string s4;
 pack_file pa;
-pa.open("*");
-string[] lista=pa.list_files();
-string[] plataformas;
-for(uint i=0;i<lista.length();i++){
-if(string_contains(lista[i], "wall", 1)>-1)plataformas.insert_last(lista[i]);
+pa.open(SOUND_STORAGE);
+string[] list=pa.list_files();
+string[] walls;
+for(uint i=0; i<list.length(); i++)
+{
+if(string_contains(list[i], "wall", 1)>-1)
+{
+walls.insert_last(list[i]);
 }
-int marcado=0;
-while(true){
+}
+int selected=0;
+while(true)
+{
 wait(5);
 mainloop();
-if(key_pressed(KEY_ESCAPE)){
+if(key_pressed(KEY_ESCAPE))
+{
 s4="";
 break;
 }
-if(key_pressed(KEY_UP)&&marcado>0){
-marcado--;
-p.play_stationary(plataformas[marcado], false);
+if(key_pressed(KEY_UP) && selected>0)
+{
+selected--;
+p.play_stationary(walls[selected], false);
+speak(walls[selected]);
 }
-if(key_pressed(KEY_DOWN)&&marcado<plataformas.length()-1){
-marcado++;
-p.play_stationary(plataformas[marcado], false);
+if(key_pressed(KEY_DOWN) && selected<walls.length()-1)
+{
+selected++;
+p.play_stationary(walls[selected], false);
+speak(walls[selected]);
 }
-if(key_pressed(KEY_RETURN)){
-s4=plataformas[marcado];
+if(key_pressed(KEY_RETURN))
+{
+s4 =walls[selected];
 break;
 }
-if(key_pressed(KEY_SPACE))p.play_stationary(plataformas[marcado], false);
+if(key_pressed(KEY_SPACE))
+{
+p.play_stationary(walls[selected], false);
+speak(walls[selected]);
 }
-if(s1!=""&&s2!=""&&s3!=""&&s4!=""){
+}
+if(s1!=""&&s2!=""&&s3!=""&&s4!="")
+{
 s4=string_replace(s4, ".ogg", "", false);
-string[] mapa=map2;
-mapa.remove_at(mapa.length()-1);
-mapa.remove_at(mapa.length()-1);
-mapa.insert_last("wall:"+s1+":"+s2+":"+s3+":"+s4);
-send_reliable(peer_id, "/rawdata "+linear(mapa), 1);
+string[] data=map2;
+data.remove_at(data.length()-1);
+data.remove_at(data.length()-1);
+data.insert_last("wall:"+s1+":"+s2+":"+s3+":"+s4);
+send_reliable(peer_id, "/rawdata "+linear(data), 1);
 }
 }
+else if(m.get_item_name(mres)=="getmap")
+{
+send_reliable(peer_id, "/rawmap", 1);
 }
+else if(m.get_item_name(mres)=="delete")
+{
+string mapname =v.input("Ingrese el mapa que decea eliminar, ¡tenga cuidado al escribir!");
+if(mapname!="")
+{
+send_reliable(peer_id, "/delmap "+mapname, 1);
+}
+}
+else
+{
+mainloop();
+}
+}
+// Map builder end
+
 if(key_down(KEY_RSHIFT)&&key_pressed(KEY_W)&&!key_down(KEY_F)||key_down(KEY_LSHIFT)&&key_pressed(KEY_W)&&!key_down(KEY_F))send_reliable(peer_id, "nv", 0);
 if(key_pressed(KEY_M) and moveable==true)send_reliable(peer_id, "r", 0);
 if(key_pressed(KEY_Z)&&nolhar!=""){

@@ -7777,3 +7777,23 @@ if(projeteis.length()>0)projeteiloop();
 if(oms.length()>0)omloop();
 if(canhaos.length()>0)canhaoloop();
 }
+
+void reboot()
+{
+send_reliable(0,"ps notify.ogg",0);
+send_reliable(0, "msgnormal Atención, el servidor será reiniciado. Los clientes serán desconectados y reiniciados en 6 segundos.", 0);
+writeprefs();
+wait(5000);
+send_reliable(0, "reiniciar", 0);
+wait(1000);
+if(SCRIPT_COMPILED==false)
+{
+run(SCRIPT_EXECUTABLE, SCRIPT_CURRENT_FILE, false, false);
+exit();
+}
+else
+{
+run(SCRIPT_EXECUTABLE, "", false, false);
+exit();
+}
+}

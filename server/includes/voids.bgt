@@ -1697,7 +1697,8 @@ m.insert_last(projeteis.length+" projéteis");
 m.insert_last(dogs.length+" ondas d'água");
 send_reliable(players[index].peer_id, "msgnormal "+linear(m), 0);
 }
-else if(parsed[0]=="/vbackup"&&parsed.length()>1){
+else if(parsed[0]=="/vbackup"&&parsed.length()>1)
+{
 if(directory_exists("players/"+parsed[1])==false)send_reliable(players[index].peer_id, "msgnormal Jogador não existe.", 0);
 else if(file_exists("players2/"+parsed[1]+"/inv.md")==false)send_reliable(players[index].peer_id, "msgnormal Nenhum backup.", 0);
 else{
@@ -1867,7 +1868,8 @@ string msg=string_replace(get_event_message(), parsed[0]+" ", "", true);
 send_reliable(0, "ps notify_startrek_message.ogg", 0);
 send_reliable(0, msg, 0);
 }
-else if(parsed[0]=="/clearserver"||parsed[0]=="/limparservidor"){
+else if(parsed[0]=="/clearserver")
+{
 send_reliable(0, "msgnormal Limpando servidor. Para que tudo funcione corretamente, você será desconectado em 6 segundos...", 0);
 writeprefs();
 wait(6000);
@@ -2099,18 +2101,11 @@ send_reliable(0,"ps notify.ogg",0);
 send_reliable(0, "msgnormal Utilização de dardos desativado.", 0);
 }
 }
-else if(parsed[0]=="/reboot"){
-if(dcomando(index, parsed))return;
-send_reliable(0,"ps notify.ogg",0);
-send_reliable(0, "msgnormal aviso! O servidor agora será reiniciado. Seus clientes vão ser desconectados em 6 segundos.", 0);
-writeprefs();
-wait(6000);
-send_reliable(0, "reiniciar", 0);
-wait(1000);
-if(SCRIPT_COMPILED==false)run("C:/Program Files (x86)/BGT/bgt.exe", "C:/Users/Administrador/Desktop/Nova versão/DM-servidor.bgt", false, false);
-else run(SCRIPT_EXECUTABLE, "", false, false);
-exit();
+else if(parsed[0]=="/reboot")
+{
+reboot();
 }
+
 else if(parsed[0]=="/notify"&&parsed.length()>=3){
 if(dcomando(index, parsed))return;
 send_reliable(0,"ps "+parsed[1],0);
