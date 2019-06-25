@@ -61,11 +61,12 @@ Después tendrás que buscar en server la carpeta qcomandos. Allí encontrarás 
 * /invs: Activa o desactiva la invisibilidad.
 * /lcoisas: Analiza las cosas que en realidad hay en el servidor.
 * /quantos nombre_de_item: Verifica cuantos objetos con ese nombre hay en el servidor.
-* /inv nombre_de_jugador objeto=cantidad: Da la cantidad de objetos especificada al jugador seleccionado.
+* /inv nombre_de_jugador objeto=cantidad: Da la cantidad de objetos especificada al jugador seleccionado. No otorga objetos de la tienda virtual.
+* /inv2 nombre_de_jugador objeto de tienda virtual=cantidad: Da la cantidad de objetos especificada al jugador seleccionado. para usar con objetos de la tienda virtual.
 * /backup: Realiza una copia de seguridad de las cuentas de jugadores. Ejecuta uno cada día como mínimo.
 * /vbackup jugador: Restaura el inventario del jugador a partir de una copia.
 * /vbackup2 jugador: Restaura la copia de seguridad del inventario para el jugador seleccionado. es la copia de seguridad que él hace con el comando /save.
-* /move jugador X Y: Mueve al jugador a la coordenada seleccionada. si tecleas /move nombre de un jugador sin coordenadas, te teletransportarás.
+* /move jugador X Y: Mueve al jugador a la coordenada seleccionada. si tecleas /move tu nombre nombre de un jugador sin coordenadas, te teletransportarás.
 * /changemap jugador mapa X Y: Mueve al jugador indicado al mapa indicado. si no introduces coordenadas también funciona.
 * /rawdata codigo_mapa: Actualiza el mapa.
 * /delmap Mapa: borra el mapa. (No recomendado).
