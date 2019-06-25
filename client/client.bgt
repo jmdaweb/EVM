@@ -722,12 +722,12 @@ else if(parsed[0]=="opcoespc")opcoespc=string_replace(pegar_mensagem(), parsed[0
 else if(parsed[0]=="pcliga"){
 set_sound_storage("");
 p.play_2d("C:\\windows\\media\\Windows Logon Sound.wav", me.x, me.y, 2, 21, false);
-set_sound_storage(SOUND_STORAGE);
+set_sound_storage("*");
 }
 else if(parsed[0]=="pcdesliga"){
 set_sound_storage("");
 p.play_2d("C:\\windows\\media\\Windows Logoff Sound.wav", me.x, me.y, 2, 21, false);
-set_sound_storage(SOUND_STORAGE);
+set_sound_storage("*");
 }
 
 else if(parsed[0]=="fm" and add_active("chats")==0){
@@ -1727,7 +1727,7 @@ string s2=v.input("Fim da coordenada X");
 string s3=v.input("Altura da plataforma");
 string s4;
 pack_file pa;
-pa.open(SOUND_STORAGE);
+pa.open("*");
 string[] lista=pa.list_files();
 string[] plataformas;
 for(uint i=0;i<lista.length();i++){
@@ -1843,7 +1843,7 @@ string s3=v.input("Começo da coordenada Y");
 string s4=v.input("Fim da coordenada Y");
 string s5;
 pack_file pa;
-pa.open(SOUND_STORAGE);
+pa.open("*");
 string[] lista=pa.list_files();
 string[] plataformas;
 for(uint i=0;i<lista.length();i++){
@@ -2101,7 +2101,7 @@ string s2=v.input("Começo da altura");
 string s3=v.input("Altura final da plataforma");
 string s4;
 pack_file pa;
-pa.open(SOUND_STORAGE);
+pa.open("*");
 string[] lista=pa.list_files();
 string[] plataformas;
 for(uint i=0;i<lista.length();i++){
@@ -5565,7 +5565,7 @@ string banned=filter[counter];
 if(string_contains(string_to_lower_case(message), filter[counter], 1)>-1)
 {
 string a;
-for( uint ii=0;ii<filter[counter].length();ii++){a+=SOUND_STORAGE;}
+for( uint ii=0;ii<filter[counter].length();ii++){a+="*";}
 message=string_replace(message, filter[counter], a, true);
 return message;
 }
