@@ -1,5 +1,4 @@
 #include "../config.bgt"
-#include"includes/speed_stop_sound.bgt"
 #include"includes/add.bgt"
 #include"includes/ambiente.bgt"
 #include"includes/classes.bgt"
@@ -9,8 +8,6 @@
 #include"includes/door.bgt"
 #include"includes/downloader.bgt"
 #include"includes/elevador.bgt"
-#include"includes/fadepool.bgt"
-#include"includes/gladiadores.bgt"
 #include"includes/item.bgt"
 #include"includes/jogos.bgt"
 #include"includes/key_hold.bgt"
@@ -29,10 +26,7 @@
 #include"includes/usl.bgt"
 #include"includes/virtualizer.bgt"
 #include"includes/wine.bgt"
-
 const int Left=-1;
 const int Right=1;
 const int Back=0;
 const int Forward=2;
-typedef uint8 usmall;
-typedef int8 small;

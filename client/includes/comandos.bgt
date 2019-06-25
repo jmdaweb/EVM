@@ -595,8 +595,7 @@ return;
 }
 else nandar=n;
 }
-if(string_contains(locate, "Este é o centro do colizeu romano.", 1)>-1) gladiadoresmenu();
-else if(locate=="Guichê para compras de passagens."&&string_contains(mapname, "estação", 1)>-1){
+if(locate=="Guichê para compras de passagens."&&string_contains(mapname, "estação", 1)>-1){
 string m=comprarpa2();
 if(m!="")
 {

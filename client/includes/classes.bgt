@@ -106,47 +106,6 @@ send_reliable(peer_id, "move3 "+me.x+" "+me.y, 0);
 }
 }
 }
-itembonus@[] itensbonus;
-class itembonus{
-int x, s, pitch=100;
-timer tficar, tmudar;
-itembonus(int bx){
-x=bx;
-p.play_extended_2d("objcaindo.ogg", me.x, me.y, x, 0, 0, 0, 0, 0, true, 0.0, 0.0, 0.0, tficar.elapsed/5);
-}
-}
-void cbonus(int x){
-itembonus b(x);
-itensbonus.insert_last(b);
-}
-void bonusloop(){
-for(uint i=0;i<itensbonus.length();i++){
-if(itensbonus[i].tmudar.elapsed>=10){
-itensbonus[i].pitch--;
-itensbonus[i].tmudar.restart();
-}
-p.update_sound_2d(itensbonus[i].s,itensbonus[i].x,0);
-p.update_sound_start_values(itensbonus[i].s, 0, -1, itensbonus[i].pitch);
-if(itensbonus[i].tficar.elapsed>=1000){
-p.destroy_sound(itensbonus[i].s);
-itensbonus.remove_at(i);
-break;
-}
-if(itensbonus[i].x==me.x){
-p.destroy_sound(itensbonus[i].s);
-itensbonus.remove_at(i);
-send_reliable(peer_id, "gbonus", 0);
-p.play_stationary("get_raw.ogg", false);
-break;
-}
-}
-}
-void rtudobonus(){
-for(uint i=00;i<itensbonus.length();i++){
-p.destroy_sound(itensbonus[i].s);
-itensbonus.remove_at(i);
-}
-}
 class telefone
 {
 string input(string text)
@@ -229,32 +188,6 @@ return "";
 }
 }
 return "";
-}
-}
-carro@[] carros;
-class carro{
-int x, y, ligado=0, som;
-string map, nome;
-timer tligando;
-carro(int cx, int cy, string cmap, string cnome){
-x=cx;
-y=cy;
-map=cmap;
-nome=cnome;
-p.play_2d("carstart.ogg", me.x, me.y, me.x, me.y, false);
-}
-}
-void colocar_carro(int x, int y, string map, string nome){
-carro c(x, y, map, nome);
-carros.insert_last(c);
-}
-void carroloop(){
-for(uint i=0;i<carros.length();i++){
-if(carros[i].tligando.elapsed>=900){
-carros[i].tligando.force(0);
-carros[i].tligando.pause();
-carros[i].som=p.play_2d("car1.ogg", me.x, me.y, carros[i].x, carros[i].y, true);
-}
 }
 }
 areia_movedissa@[] areia_movedissas;

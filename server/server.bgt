@@ -11,12 +11,12 @@
 #include "includes/map.bgt"
 #include "includes/player.bgt"
 #include"includes/voids.bgt"
-string bell=ascii_to_character(7);
-string bell2=ascii_to_character(9);
+const string bell=ascii_to_character(7);
+const string bell2=ascii_to_character(9);
 network_event event;
-bool encryption=true, jogoteste=false, pvp=true;
+bool jogoteste=false, pvp=true;
 bool bombaativa=true, dardoativo=true, fitaativa=true;
-double idversion=2.0;
+const double idversion=2.0;
 string mapainicial, msalvar="salvar1.usr", mapaatual;
 string stringmorte;
 string[] desc, objsbelick, ambientesmapa, nban, msmorte, mapasaviao, mapascastelo, mraio;
@@ -35,14 +35,11 @@ timer divulgar;
 timer trobo;
 timer casabruxo1, casabruxo2, casabruxo3;
 timer ondatempo;
-string[] ids;
 timer tempoleilao;
 int numeroleilao=60000, x_castelo, y_castelo, npresentes=random(600000, 900000);
 int semleilao=0;
-int votos2d=0, votos3d=0;
 int numerochuva;
 int volumechuva;
-int congelando=60000;
 int trov1=0;
 int trov2=0;
 int trov3=0;
@@ -69,7 +66,6 @@ string presentes;
 int doublexp, doublegold, megadouble, avisadoublexp1, avisadoublexp2, avisadoublexp3, avisadoublexp4, numerodoublexp=0;
 int eventpiratas;
 timer tempodoublexp, tempodoublegold;
-int prisao=300000;
 int hora=0;
 int minuto=1;
 int dia=1;
@@ -79,15 +75,15 @@ timer horatemporizador;
 timer soltaritenstimer;
 timer chuvatimer;
 timer jogarfogo;
-int soltaritenstime=90000;
-int horatempo=5000;
-int chuvatempo=2000000;
+const int soltaritenstime=90000;
+const int horatempo=5000;
+const int chuvatempo=2000000;
 int chovendo=0;
 string msgpt="Ótimo jogo!", msgen="good game!", msges="Bueno juego!", msgfr="salut";
 string wintext="Servidor de testes do "+GAME_NAME+" "+version+" pronto";
 string[] items, items2, items2loja2;
 int[] amounts, amounts2, amounts2loja2;
-int auctiontime=30000;
+const int auctiontime=30000;
 string auctionwho,auctionwho2;
 bool auctionbidder, postar=false;
 bool auction;
@@ -106,7 +102,6 @@ int upzd=0;
 int upzh=0;
 int upzs=0;
 int upzm=0;
-int ad;
 int maxobjs=150;
 int safetime=20000;
 string[] what, what2;
@@ -114,22 +109,10 @@ int objtime=100;
 int belicktime=6000;
 string[] maps;
 string[] weapons(60), weapons2(60);
-int onthis, onother;
-int ftotal;
 bool testing=false;
-double voteyes;
-double voteno;
-int idletime=120000;
 int timetime=250;
 int hour, minute, day=1, month=1, year=1970;
-int playerlimit=151;
-int healtime=300;
-int szx=1;
-int szy=1;
-int szminx=0;
-int szmaxx=1;
-int szy2=0;
-string szmap="escola";
+const int playerlimit=151;
 double uptime;
 timer versiontimer, auctiontimer, objtimer, sendtimer, timetimer, uptimer, belicktimer;
 int peak;
@@ -138,7 +121,6 @@ string motd;
 string[] killmsgs;
 network net;
 bool gamestopped=false;
-bool queststopped=false;
 timer salvarconfigs;
 void main(){
 //set_error_output("log.md");
@@ -379,14 +361,6 @@ minuto=string_to_number(values[peramitors.find("minuto")]);
 if(peramitors.find("peak")!=-1)
 {
 peak=string_to_number(values[peramitors.find("peak")]);
-}
-if(peramitors.find("votos2d")!=-1)
-{
-votos2d=string_to_number(values[peramitors.find("votos2d")]);
-}
-if(peramitors.find("votos3d")!=-1)
-{
-votos3d=string_to_number(values[peramitors.find("votos3d")]);
 }
 if(peramitors.find("msalvar")!=-1)
 {
@@ -1275,7 +1249,7 @@ players[index].telestage=1;
 send_reliable(players[index].peer_id,"stopmoving",0);
 players[index].y+=5;
 send_reliable(players[index].peer_id,"move "+players[index].x+" "+players[index].y,0);
-send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "	+players[index].y+" "+players[index].map,players[index].map);
+send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "        +players[index].y+" "+players[index].map,players[index].map);
 players[index].tfid=spawn_moving_sound("teleporter_field.ogg",players[index].x,players[index].y,players[index].map);
 send_packet(0,"play teleporter_fieldstart.ogg "+players[index].x+" "+players[index].y,players[index].map);
 players[index].inv_add_item("teleporter",-1);
@@ -1534,18 +1508,6 @@ if(a>-1){
 send_reliable(players[a].peer_id, "msgdepois "+players[index].charname+" te removeu da equipe!", 0);
 send_reliable(players[a].peer_id, "ps notify_died.ogg", 0);
 }
-}
-}
-else if(parsed[0]=="/inq"&&parsed.length()>1&&players[index].inq<=0){
-int n=string_to_number(parsed[1]);
-if(n<=0||n>2)send_reliable(players[index].peer_id, "msgnormal Número inválido. Digite 1 para 2D ou 2 para 3D.", 0);
-else{
-players[index].inq=n;
-write_to(players[index].charname, "votos.md", players[index].inq);
-send_reliable(players[index].peer_id, "msgnormal Pronto.", 0);
-if(n==1)votos2d+=1;
-else if(n==2)votos3d+=1;
-writeprefs();
 }
 }
 else if(parsed[0]=="/evento"){
@@ -2058,7 +2020,7 @@ for (uint i2=1; i2<parsed.length(); i2++)
 a+=parsed[i2]+" ";
 }
 string pl;
-ad=0;
+int ad=0;
 msgadm.insert_at(0, players[index].charname+": "+a);
 file f;
 f.open("servidor.msgadm","w");
@@ -3459,8 +3421,6 @@ timetime="+timetime+"
 objtime="+objtime+"
 peak="+peak+"
 msalvar="+msalvar+"
-votos2d="+votos2d+"
-votos3d="+votos3d+"
 andar1="+andar1+"
 andar2="+andar2+"
 andar3="+andar3+"
@@ -6894,13 +6854,13 @@ else if(players[index].inv_item_number("passagem_para_los_angeles")>0&&players[i
 players[index].inv_add_item("passagem_para_los_angeles", -1);
 players[index].x=players[index].x+2;
 send_reliable(players[index].peer_id,"move "+players[index].x+" "+players[index].y,0);
-send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "	+players[index].y+" "+players[index].map,players[index].map);
+send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "        +players[index].y+" "+players[index].map,players[index].map);
 }
 else if(players[index].inv_item_number("passagem_para_milão")>0&&players[index].destino=="aeroporto"&&players[index].passaporte==1){
 players[index].inv_add_item("passagem_para_milão", -1);
 players[index].x=players[index].x+2;
 send_reliable(players[index].peer_id,"move "+players[index].x+" "+players[index].y,0);
-send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "	+players[index].y+" "+players[index].map,players[index].map);
+send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "        +players[index].y+" "+players[index].map,players[index].map);
 }
 else{
 send_reliable(players[index].peer_id, "msgdepois você não tem nenhuma passagem. Compre uma primeiro!", 0);
@@ -7062,7 +7022,7 @@ players[index].map=mapname;
 players[index].x=1;
 players[index].y=0;
 send_reliable(players[index].peer_id, "changemap "+mdata+"\r\nx:1\r\ny:0\r\n", 0);
-send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "	+players[index].y+" "+players[index].map,players[index].map);
+send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "        +players[index].y+" "+players[index].map,players[index].map);
 send_reliable(players[index].peer_id, "msgnormal Você tentou embarcar com um passaporte falso e foi flagrad"+players[index].sexo2+" pela segurança do aeroporto, que te escoltou diretamente para a cadeia!", 0);
 players[index].inv_add_item("um_passaporte", -players[index].inv_item_number("um_passaporte"));
 players[index].tempoprisao.restart();
@@ -7078,13 +7038,13 @@ else if(players[index].inv_item_number("passagem_para_los_angeles")>0&&players[i
 players[index].inv_add_item("passagem_para_los_angeles", -1);
 players[index].x=players[index].x+2;
 send_reliable(players[index].peer_id,"move "+players[index].x+" "+players[index].y,0);
-send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "	+players[index].y+" "+players[index].map,players[index].map);
+send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "        +players[index].y+" "+players[index].map,players[index].map);
 }
 else if(players[index].inv_item_number("passagem_para_milão")>0&&players[index].destino=="aeroporto"&&players[index].passaporte==1){
 players[index].inv_add_item("passagem_para_milão", -1);
 players[index].x=players[index].x+2;
 send_reliable(players[index].peer_id,"move "+players[index].x+" "+players[index].y,0);
-send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "	+players[index].y+" "+players[index].map,players[index].map);
+send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "        +players[index].y+" "+players[index].map,players[index].map);
 }
 else{
 send_reliable(players[index].peer_id, "msgdepois você não tem nenhuma passagem. Compre uma primeiro!", 0);
@@ -7097,7 +7057,7 @@ if(players[index].inv_item_number("passagem_de_ônibus_para_los_angeles")>0&&play
 players[index].inv_add_item("passagem_de_ônibus_para_los_angeles", -1);
 players[index].x=players[index].x+2;
 send_reliable(players[index].peer_id,"move "+players[index].x+" "+players[index].y,0);
-send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "	+players[index].y+" "+players[index].map,players[index].map);
+send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "        +players[index].y+" "+players[index].map,players[index].map);
 newmap="aeroports";
 newmap2="naotemmapa";
 players[index].dbus="rodoviária_de_los_angeles";
@@ -7106,7 +7066,7 @@ else if(players[index].inv_item_number("passagem_de_ônibus_para_terminal_mar")>0
 players[index].inv_add_item("passagem_de_ônibus_para_terminal_mar", -1);
 players[index].x=players[index].x+2;
 send_reliable(players[index].peer_id,"move "+players[index].x+" "+players[index].y,0);
-send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "	+players[index].y+" "+players[index].map,players[index].map);
+send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "        +players[index].y+" "+players[index].map,players[index].map);
 newmap="aeroports";
 newmap2="naotemmapa";
 players[index].dbus="rodoviária";
@@ -7170,7 +7130,7 @@ else if(players[index].inv_item_number("passagem_de_cruzeiro_para_copa_cabana")>
 players[index].inv_add_item("passagem_de_cruzeiro_para_copa_cabana", -1);
 players[index].x=players[index].x+2;
 send_reliable(players[index].peer_id,"move "+players[index].x+" "+players[index].y,0);
-send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "	+players[index].y+" "+players[index].map,players[index].map);
+send_packet(0,"upl "+players[index].charname+" "+players[index].x+" "        +players[index].y+" "+players[index].map,players[index].map);
 newmap="aeroports";
 newmap2="naotemmapa";
 }
