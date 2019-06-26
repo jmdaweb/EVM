@@ -1,122 +1,122 @@
 bool varinha_desativada(string m){
-file f;
-f.open("maps/"+m+".map", "r");
-string[] map=delinear(f.read());
-f.close();
-for(uint i=0;i<map.length();i++){
-string[] parsed=string_split(map[i], ":", false);
-if(parsed[0]=="desativar"){
-if(parsed[1]=="varinha")return true;
-}
-}
-return false;
+	file f;
+	f.open("maps/"+m+".map", "r");
+	string[] map=delinear(f.read());
+	f.close();
+	for(uint i=0;i<map.length();i++){
+		string[] parsed=string_split(map[i], ":", false);
+		if(parsed[0]=="desativar"){
+			if(parsed[1]=="varinha")return true;
+		}
+	}
+	return false;
 }
 string get_tile_at(int x, int y, string mapname, bool includeglobal=true){
-string outval;
-if(includeglobal==true){
-if(!file_exists("maps/"+mapname+".map"))return"";
-file f;
-f.open("maps/"+mapname+".map", "r");
-string[] map=delinear(f.read());
-f.close();
-for(uint i=0;i<map.length();i++){
-string[] parsed=string_split(map[i], ":", false);
-if(parsed[0]=="platform"){
-int minx=string_to_number(parsed[1]);
-int maxx=string_to_number(parsed[2]);
-int miny=string_to_number(parsed[3]);
-int maxy=string_to_number(parsed[3]);
-if(minx>x)continue;
-if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y)outval=parsed[4];
-}
-if(parsed[0]=="staircase"){
-int minx=string_to_number(parsed[1]);
-int maxx=string_to_number(parsed[2]);
-int miny=string_to_number(parsed[3]);
-int maxy=string_to_number(parsed[4]);
-if(minx>x)continue;
-if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y)outval=parsed[5];
-}
-if(parsed[0]=="wall"){
-int minx=string_to_number(parsed[1]);
-int maxx=string_to_number(parsed[1]);
-int miny=string_to_number(parsed[2]);
-int maxy=string_to_number(parsed[3]);
-if(minx>x)continue;
-if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y)outval=parsed[4];
-}
-}
-}
-return outval;
+	string outval;
+	if(includeglobal==true){
+		if(!file_exists("maps/"+mapname+".map"))return"";
+		file f;
+		f.open("maps/"+mapname+".map", "r");
+		string[] map=delinear(f.read());
+		f.close();
+		for(uint i=0;i<map.length();i++){
+			string[] parsed=string_split(map[i], ":", false);
+			if(parsed[0]=="platform"){
+				int minx=string_to_number(parsed[1]);
+				int maxx=string_to_number(parsed[2]);
+				int miny=string_to_number(parsed[3]);
+				int maxy=string_to_number(parsed[3]);
+				if(minx>x)continue;
+				if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y)outval=parsed[4];
+			}
+			if(parsed[0]=="staircase"){
+				int minx=string_to_number(parsed[1]);
+				int maxx=string_to_number(parsed[2]);
+				int miny=string_to_number(parsed[3]);
+				int maxy=string_to_number(parsed[4]);
+				if(minx>x)continue;
+				if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y)outval=parsed[5];
+			}
+			if(parsed[0]=="wall"){
+				int minx=string_to_number(parsed[1]);
+				int maxx=string_to_number(parsed[1]);
+				int miny=string_to_number(parsed[2]);
+				int maxy=string_to_number(parsed[3]);
+				if(minx>x)continue;
+				if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y)outval=parsed[4];
+			}
+		}
+	}
+	return outval;
 }
 string get_zone_at(int x, int y, string mapname, bool includeglobal=true)
 {
-string outval;
-if(includeglobal==true)
-{
-if(!file_exists("maps/"+mapname+".map"))
-{
-return "";
-}
-file f;
-f.open("maps/"+mapname+".map", "rb");
-string[] map=delinear(f.read());
-f.close();
-for(uint i=0; i<map.length(); i++)
-{
-string[] parsed=string_split(map[i], ":", false);
-if(parsed[0]=="zone"&&parsed.length()>4)
-{
-int minx=string_to_number(parsed[1]);
-int maxx=string_to_number(parsed[2]);
-int miny=string_to_number(parsed[3]);
-int maxy=string_to_number(parsed[4]);
-if(minx>x)
-{
-continue;
-}
-if(minx<=x&& maxx>=x&& miny<=y&& maxy>=y)
-{
-outval=parsed[5];
-}
-}
-}
-}
-return outval;
+	string outval;
+	if(includeglobal==true)
+	{
+		if(!file_exists("maps/"+mapname+".map"))
+		{
+			return "";
+		}
+		file f;
+		f.open("maps/"+mapname+".map", "rb");
+		string[] map=delinear(f.read());
+		f.close();
+		for(uint i=0; i<map.length(); i++)
+		{
+			string[] parsed=string_split(map[i], ":", false);
+			if(parsed[0]=="zone"&&parsed.length()>4)
+			{
+				int minx=string_to_number(parsed[1]);
+				int maxx=string_to_number(parsed[2]);
+				int miny=string_to_number(parsed[3]);
+				int maxy=string_to_number(parsed[4]);
+				if(minx>x)
+				{
+					continue;
+				}
+				if(minx<=x&& maxx>=x&& miny<=y&& maxy>=y)
+				{
+					outval=parsed[5];
+				}
+			}
+		}
+	}
+	return outval;
 }
 string get_safezone_at(int x, int y, string mapname, bool includeglobal=true){
-string outval;
-if(includeglobal==true)
-{
-if(!file_exists("maps/"+mapname+".map"))return false;
-file f;
-f.open("maps/"+mapname+".map", "rb");
-string[] map=delinear(f.read());
-f.close();
-for(uint i=0; i<map.length(); i++){
-string[] parsed=string_split(map[i], ":", false);
-if(parsed[0]=="safezone"&&parsed.length()>4){
-int minx=string_to_number(parsed[1]);
-int maxx=string_to_number(parsed[2]);
-int miny=string_to_number(parsed[3]);
-int maxy=string_to_number(parsed[4]);
-if(minx>x)continue;
-if(minx<=x&& maxx>=x&& miny<=y&& maxy>=y)return true;
-}
-}
-}
-return false;
+	string outval;
+	if(includeglobal==true)
+	{
+		if(!file_exists("maps/"+mapname+".map"))return false;
+		file f;
+		f.open("maps/"+mapname+".map", "rb");
+		string[] map=delinear(f.read());
+		f.close();
+		for(uint i=0; i<map.length(); i++){
+			string[] parsed=string_split(map[i], ":", false);
+			if(parsed[0]=="safezone"&&parsed.length()>4){
+				int minx=string_to_number(parsed[1]);
+				int maxx=string_to_number(parsed[2]);
+				int miny=string_to_number(parsed[3]);
+				int maxy=string_to_number(parsed[4]);
+				if(minx>x)continue;
+				if(minx<=x&& maxx>=x&& miny<=y&& maxy>=y)return true;
+			}
+		}
+	}
+	return false;
 }
 string linear(string[] a)
 {
-string final;
-for(uint i=0; i<a.length(); i++)
-{
-final+=(a[i]+"\r\n");
-}
-return final;
+	string final;
+	for(uint i=0; i<a.length(); i++)
+	{
+		final+=(a[i]+"\r\n");
+	}
+	return final;
 }
 string[] delinear(string a)
 {
-return string_split(a, "\r\n", false);
+	return string_split(a, "\r\n", false);
 }
