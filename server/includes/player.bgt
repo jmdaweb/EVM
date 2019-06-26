@@ -1,379 +1,379 @@
 player@[] players(0);
 class player
 {
-bool moderador=false, achuva=false;
-int nchuva=600000, ncaverna=-1;
-timer tempoveneno2, tlutar, tszona, tvelocidade, idletimer;
-timer tinv;
-timer tpa, tmaquina, thack, tpa2, tsedefome;
-timer tdoente, tdoente2, tsvida, tsitem, tsugando, tgripe;
-timer tcaverna, tsalvar, tvarinha;
-timer tmcampo, tmflutuar, tmpulo, tminvs, tppeixe, tmveloz, tmcampo2;
-timer tmchuva;
-timer tcongelar, tmeteoro, tmagia;
-int ncongelar=0, nalancha=0;
-int inq=0, ppeixe=0;
-int lado=Right, conectou=0;
-uint npescar=0, npescando, plinha=0;
-bool jpescar=false, curando=false;
-double tempopacifico, nfome=0, nsede=0, ncoco=0, nurina=0;
-string idiomachat, dmaquina, dbus, mapavoltar="milão", mapaatual;
-string tarma="soco.ogg";
-string dalison2, anotado, cidadenatal, draw;
-string msgliberdade="Você cumpriu sua pena! Não faça mais bagunças, viu?";
-int questmontanha=0, terminouquestmontanha=0, questdesaparecida=0, terminouquestdesaparecida=0, bipar=1;
-int questritual=0, terminouquestritual=0;
-int caverna=0, ninv=random(30000, 60000);
-int flecha=0, nveneno=0, chegoucidade, cmortal=0, lregras=0;
-int ouvirpassos=1, namaquina=0, vtempo=0, subirvida=0;
-int pdesafio=0, emequipe=0, relogio=0;
-int rajada=0, gcoins=0, saldo=0, mdor=1;
-int ngripe=0, galil=1000;
-int nvarinha=0;
-string[] nomesequipe;
-double doente=0, sujo=0;
-timer minatimer; int minaplacetime=15000;
-bool ouvirhits=true, envenenado=false, bolhaar=false;
-bool calor_reprimido=false, centado=false, cavalo=false, star=false, star2=false;
-bool insz=false, dev=false, newbie=false;
-bool paralisado=false, paralisado2=false;
-int equipemortal=0, equipedesafio=0;
-uint mp7=50000, bazuca=50000, m16=50000, sub_laser=1000;
-int javoou=0, noaviao=0, notrem=0, jaandou=0, contabancaria=0;
-int vbipar, vinvs;
-string muted, nconta, vconta, sugando;
-string destino, destino2, destino3, nsugador, vmap;
-int chegounavio=0, avisanivel=1;
-uint tirostaser=0, extintor=10;
-int passaporte=0, vx, vy;
-int xp, xprequerida;
-int nparalisado=0;
-int atpacifistasegundos, pacifico=0;
-bool afk=false,afking=false, atpacifista=false;
-timer tparalisado, atpacifistatempo;
-timer carregandotaser;
-timer tempovoandoaviao, tempodentrotrem;
-string computer_id;
-double level;
-string inv;
-string map="escola";
-int matou;
-string title;
-int chats, a10=0;
-double playtime;
-int kills;
-int deaths;
-int jumping;
-string lasthit;
-double health=5000;
-double maxhealth=5000;
-bool admin=false;
-int invs=0, invs2=0;
-int tempotrancado;
-int caneleirametal=0, caneleiramadeira=0;
-int capacetepolicia=0;
-int anel=0;
-int bracadeira=0;
-int pulseira=0;
-int coletesalvavida=0, colete_aprova_de_balas=0, naopodevestir=0, ncolete=0;
-int casacopeles=0;
-int oculosmizuno=0;
-int coletemizuno=0;
-int calcamizuno=0;
-int botamizuno=0;
-int escudo=0;
-int coletemilitar=0;
-int coletecamuflado=0;
-int tenisnike=0;
-int camisamalha=0;
-int jaquetacouro=0;
-int calcajeans=0;
-int sapatoscarpin=0, sapatomagnetico=0;
-int coturnomilitar=0;
-int calcalegging=0;
-int calcacamuflada=0;
-int luvas=0;
-int tenisadidas=0;
-int pulseiraouro=0;
-int pulseiraprata=0;
-int pulseirabronze=0;
-int chapeupanama=0;
-int bonemizuno=0;
-int naoitens=0;
-int negativo=0;
-int fichaprisao=0;
-int trancado=0;
-int sexo, bus=0;
-string sexo2;
-timer tempoprisao;
-timer congelartimer;
-timer tempofogo;
-int pitch;
-int voice;
-string version;
-uint peer_id=0;
-string charname;
-int x;
-int y;
-string replyname="";
-timer pingtimer;
-timer safetimer;
-timer maptraveltimer;
-timer playtimer;
-timer startimer, bolhatimer, calortimer;
-timer omtimer;
-uint starseconds=0;
-uint bolhaseconds=0, calorseconds=0;
-string starsoundid;
-uint telestage=0;
-timer telestagetimer;
-timer teletimer;
-string tfid;
-string nonomemapa;
-int tx=-1,ty=-1, npasso=0, tpasso=0;
-string telemap;
-timer castingtimer,casttimer,curspelltimer;
-string curspell;
-bool floating,cloaked,superjump,cloakhiding,casting;
-timer afksecondtimer;
-uint afkseconds=0;
-player(uint id, string name, string pver,string bannable_id){
-tcongelar.force(0);
-tcongelar.pause();
-tppeixe.force(0);
-tppeixe.pause();
-tsugando.force(0);
-tsugando.pause();
-tmveloz.force(0);
-tmveloz.pause();
-tmcampo.force(0);
-tmcampo.pause();
-tmchuva.force(0);
-tmchuva.pause();
-tmcampo2.force(0);
-tmcampo2.pause();
-tmeteoro.force(0);
-tmeteoro.pause();
-tmflutuar.force(0);
-tmflutuar.pause();
-tmpulo.force(0);
-tmpulo.pause();
-tmagia.force(0);
-tmagia.pause();
-tminvs.force(0);
-tminvs.pause();
-thack.force(0);
-thack.pause();
-tlutar.force(0);
-tlutar.pause();
-tmaquina.force(0);
-tmaquina.pause();
-tparalisado.force(0);
-tparalisado.pause();
-carregandotaser.force(0);
-carregandotaser.pause();
-tempodentrotrem.force(0);
-tempodentrotrem.pause();
-tempovoandoaviao.force(0);
-teletimer.force(30000);
-casttimer.force(30000);
-omtimer.force(60000);
-ondatempo.force(60000);
-tempofogo.force(500);
-peer_id=id;
-charname=name;
-nonomemapa="temporária_"+name;
-version=pver;
-computer_id=bannable_id;
-}
-bool is_admin()
-{
-return this.dev||this.admin;
-}
-void inv_add_item(string itemname, int itemvalue, bool enviar=true)
-{
-string content=inv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-}
-if(inv_item_exists(itemname))
-{
-int orgval;
-if(inv_item(itemname) > -1)
-{
-orgval=string_to_number(values[inv_item(itemname)]);
-}
-else
-{
-return;
-}
-if(orgval+itemvalue < 1)
-{
-inv_delete_item(itemname);
-if (string_contains(itemname,"mm",1)==0 and string_contains(itemname,"comida",1)==-1 and itemname!="mina"&&itemname!="xp")
-send_reliable(peer_id,itemvalue+" "+itemname,4);
-}
-else
-{
-values[inv_item(itemname)]=(orgval+itemvalue);
-string tempinv;
-for(uint i=0; i<peramitors.length(); i++)
-{
-tempinv+=peramitors[i]+"="+values[i]+"\r\n";
-}
-inv=tempinv;
-}
-}
-else
-{
-if(itemvalue > 0)
-{
-inv+=itemname+"="+itemvalue+"\r\n";
-if (string_contains(itemname,"mm",1)==0 and string_contains(itemname,"comida",1)==-1 and itemname!="mina"&&itemname!="xp")
-send_reliable(peer_id,itemvalue+" "+itemname,4);
-}
-}
-if(enviar==true){
-send_reliable(peer_id,"inv "+inv,0);
-string[] invsec;
-if(inv_item_number("vara_de_pesca")>0)invsec.insert_last("vara_de_pesca");
-if(inv_item_number("dardo")>0)invsec.insert_last("dardo");
-if(inv_item_number("dardo_envenenado")>0)invsec.insert_last("dardo_envenenado");
-if(inv_item_number("fita_explosiva")>0)invsec.insert_last("fita_explosiva");
-if(invsec.length()>0)send_reliable(peer_id, "invsec "+linear(invsec), 0);
-}
-}
-bool inv_item_exists(string itemname)
-{
-string content=inv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-}
-for(uint i=0; i<peramitors.length(); i++)
-{
-if(peramitors[i]==itemname)
-{
-return true;
-}
-}
-return false;
-}
-int inv_item_number(string itemname)
-{
-string content=inv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-}
-for(uint i=0; i<peramitors.length(); i++)
-{
-if(peramitors[i]==itemname)
-{
-return string_to_number(values[i]);
-}
-}
-return 0;
-}
-int inv_item(string itemname)
-{
-string content=inv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-}
-for(uint i=0; i<peramitors.length(); i++)
-{
-if(peramitors[i]==itemname)
-{
-return i;
-}
-}
-return -1;
-}
-void inv_delete_item(string itemname)
-{
-string content=inv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-}
-for(uint i=0; i<peramitors.length(); i++)
-{
-if(peramitors[i]==itemname)
-{
-inv=string_replace(inv, itemname+"="+values[i]+"\r\n", "", false);
-}
-}
-}
-bool has_muted(string name)
-{
-string[] m=string_split(muted,"\r\n",false);
-for (uint i=0; i<m.length(); i++)
-{
-if (m[i]==name)
-{
-return true;
-}
-}
-return false;
-}
-void add_muted(string name)
-{
-muted+="\r\n"+name;
-write_to(charname,"muted.usr",muted);
-}
-bool remove_muted(string name)
-{
-string[] m=string_split(muted,"\r\n",false);
-string newmuted;
-bool succeeded;
-for (uint i=0; i<m.length(); i++)
-{
-if (m[i]!=name)
-newmuted+="\r\n"+m[i];
-else
-succeeded=true;
-}
-muted=newmuted;
-write_to(charname,"muted.usr",muted);
-return succeeded;
-}
+	bool moderador=false, achuva=false;
+	int nchuva=600000, ncaverna=-1;
+	timer tempoveneno2, tlutar, tszona, tvelocidade, idletimer;
+	timer tinv;
+	timer tpa, tmaquina, thack, tpa2, tsedefome;
+	timer tdoente, tdoente2, tsvida, tsitem, tsugando, tgripe;
+	timer tcaverna, tsalvar, tvarinha;
+	timer tmcampo, tmflutuar, tmpulo, tminvs, tppeixe, tmveloz, tmcampo2;
+	timer tmchuva;
+	timer tcongelar, tmeteoro, tmagia;
+	int ncongelar=0, nalancha=0;
+	int inq=0, ppeixe=0;
+	int lado=Right, conectou=0;
+	uint npescar=0, npescando, plinha=0;
+	bool jpescar=false, curando=false;
+	double tempopacifico, nfome=0, nsede=0, ncoco=0, nurina=0;
+	string idiomachat, dmaquina, dbus, mapavoltar="milão", mapaatual;
+	string tarma="soco.ogg";
+	string dalison2, anotado, cidadenatal, draw;
+	string msgliberdade="Você cumpriu sua pena! Não faça mais bagunças, viu?";
+	int questmontanha=0, terminouquestmontanha=0, questdesaparecida=0, terminouquestdesaparecida=0, bipar=1;
+	int questritual=0, terminouquestritual=0;
+	int caverna=0, ninv=random(30000, 60000);
+	int flecha=0, nveneno=0, chegoucidade, cmortal=0, lregras=0;
+	int ouvirpassos=1, namaquina=0, vtempo=0, subirvida=0;
+	int pdesafio=0, emequipe=0, relogio=0;
+	int rajada=0, gcoins=0, saldo=0, mdor=1;
+	int ngripe=0, galil=1000;
+	int nvarinha=0;
+	string[] nomesequipe;
+	double doente=0, sujo=0;
+	timer minatimer; int minaplacetime=15000;
+	bool ouvirhits=true, envenenado=false, bolhaar=false;
+	bool calor_reprimido=false, centado=false, cavalo=false, star=false, star2=false;
+	bool insz=false, dev=false, newbie=false;
+	bool paralisado=false, paralisado2=false;
+	int equipemortal=0, equipedesafio=0;
+	uint mp7=50000, bazuca=50000, m16=50000, sub_laser=1000;
+	int javoou=0, noaviao=0, notrem=0, jaandou=0, contabancaria=0;
+	int vbipar, vinvs;
+	string muted, nconta, vconta, sugando;
+	string destino, destino2, destino3, nsugador, vmap;
+	int chegounavio=0, avisanivel=1;
+	uint tirostaser=0, extintor=10;
+	int passaporte=0, vx, vy;
+	int xp, xprequerida;
+	int nparalisado=0;
+	int atpacifistasegundos, pacifico=0;
+	bool afk=false,afking=false, atpacifista=false;
+	timer tparalisado, atpacifistatempo;
+	timer carregandotaser;
+	timer tempovoandoaviao, tempodentrotrem;
+	string computer_id;
+	double level;
+	string inv;
+	string map="escola";
+	int matou;
+	string title;
+	int chats, a10=0;
+	double playtime;
+	int kills;
+	int deaths;
+	int jumping;
+	string lasthit;
+	double health=5000;
+	double maxhealth=5000;
+	bool admin=false;
+	int invs=0, invs2=0;
+	int tempotrancado;
+	int caneleirametal=0, caneleiramadeira=0;
+	int capacetepolicia=0;
+	int anel=0;
+	int bracadeira=0;
+	int pulseira=0;
+	int coletesalvavida=0, colete_aprova_de_balas=0, naopodevestir=0, ncolete=0;
+	int casacopeles=0;
+	int oculosmizuno=0;
+	int coletemizuno=0;
+	int calcamizuno=0;
+	int botamizuno=0;
+	int escudo=0;
+	int coletemilitar=0;
+	int coletecamuflado=0;
+	int tenisnike=0;
+	int camisamalha=0;
+	int jaquetacouro=0;
+	int calcajeans=0;
+	int sapatoscarpin=0, sapatomagnetico=0;
+	int coturnomilitar=0;
+	int calcalegging=0;
+	int calcacamuflada=0;
+	int luvas=0;
+	int tenisadidas=0;
+	int pulseiraouro=0;
+	int pulseiraprata=0;
+	int pulseirabronze=0;
+	int chapeupanama=0;
+	int bonemizuno=0;
+	int naoitens=0;
+	int negativo=0;
+	int fichaprisao=0;
+	int trancado=0;
+	int sexo, bus=0;
+	string sexo2;
+	timer tempoprisao;
+	timer congelartimer;
+	timer tempofogo;
+	int pitch;
+	int voice;
+	string version;
+	uint peer_id=0;
+	string charname;
+	int x;
+	int y;
+	string replyname="";
+	timer pingtimer;
+	timer safetimer;
+	timer maptraveltimer;
+	timer playtimer;
+	timer startimer, bolhatimer, calortimer;
+	timer omtimer;
+	uint starseconds=0;
+	uint bolhaseconds=0, calorseconds=0;
+	string starsoundid;
+	uint telestage=0;
+	timer telestagetimer;
+	timer teletimer;
+	string tfid;
+	string nonomemapa;
+	int tx=-1,ty=-1, npasso=0, tpasso=0;
+	string telemap;
+	timer castingtimer,casttimer,curspelltimer;
+	string curspell;
+	bool floating,cloaked,superjump,cloakhiding,casting;
+	timer afksecondtimer;
+	uint afkseconds=0;
+	player(uint id, string name, string pver,string bannable_id){
+		tcongelar.force(0);
+		tcongelar.pause();
+		tppeixe.force(0);
+		tppeixe.pause();
+		tsugando.force(0);
+		tsugando.pause();
+		tmveloz.force(0);
+		tmveloz.pause();
+		tmcampo.force(0);
+		tmcampo.pause();
+		tmchuva.force(0);
+		tmchuva.pause();
+		tmcampo2.force(0);
+		tmcampo2.pause();
+		tmeteoro.force(0);
+		tmeteoro.pause();
+		tmflutuar.force(0);
+		tmflutuar.pause();
+		tmpulo.force(0);
+		tmpulo.pause();
+		tmagia.force(0);
+		tmagia.pause();
+		tminvs.force(0);
+		tminvs.pause();
+		thack.force(0);
+		thack.pause();
+		tlutar.force(0);
+		tlutar.pause();
+		tmaquina.force(0);
+		tmaquina.pause();
+		tparalisado.force(0);
+		tparalisado.pause();
+		carregandotaser.force(0);
+		carregandotaser.pause();
+		tempodentrotrem.force(0);
+		tempodentrotrem.pause();
+		tempovoandoaviao.force(0);
+		teletimer.force(30000);
+		casttimer.force(30000);
+		omtimer.force(60000);
+		ondatempo.force(60000);
+		tempofogo.force(500);
+		peer_id=id;
+		charname=name;
+		nonomemapa="temporária_"+name;
+		version=pver;
+		computer_id=bannable_id;
+	}
+	bool is_admin()
+	{
+		return this.dev||this.admin;
+	}
+	void inv_add_item(string itemname, int itemvalue, bool enviar=true)
+	{
+		string content=inv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++)
+		{
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		if(inv_item_exists(itemname))
+		{
+			int orgval;
+			if(inv_item(itemname) > -1)
+			{
+				orgval=string_to_number(values[inv_item(itemname)]);
+			}
+			else
+			{
+				return;
+			}
+			if(orgval+itemvalue < 1)
+			{
+				inv_delete_item(itemname);
+				if (string_contains(itemname,"mm",1)==0 and string_contains(itemname,"comida",1)==-1 and itemname!="mina"&&itemname!="xp")
+				send_reliable(peer_id,itemvalue+" "+itemname,4);
+			}
+			else
+			{
+				values[inv_item(itemname)]=(orgval+itemvalue);
+				string tempinv;
+				for(uint i=0; i<peramitors.length(); i++)
+				{
+					tempinv+=peramitors[i]+"="+values[i]+"\r\n";
+				}
+				inv=tempinv;
+			}
+		}
+		else
+		{
+			if(itemvalue > 0)
+			{
+				inv+=itemname+"="+itemvalue+"\r\n";
+				if (string_contains(itemname,"mm",1)==0 and string_contains(itemname,"comida",1)==-1 and itemname!="mina"&&itemname!="xp")
+				send_reliable(peer_id,itemvalue+" "+itemname,4);
+			}
+		}
+		if(enviar==true){
+			send_reliable(peer_id,"inv "+inv,0);
+			string[] invsec;
+			if(inv_item_number("vara_de_pesca")>0)invsec.insert_last("vara_de_pesca");
+			if(inv_item_number("dardo")>0)invsec.insert_last("dardo");
+			if(inv_item_number("dardo_envenenado")>0)invsec.insert_last("dardo_envenenado");
+			if(inv_item_number("fita_explosiva")>0)invsec.insert_last("fita_explosiva");
+			if(invsec.length()>0)send_reliable(peer_id, "invsec "+linear(invsec), 0);
+		}
+	}
+	bool inv_item_exists(string itemname)
+	{
+		string content=inv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++)
+		{
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		for(uint i=0; i<peramitors.length(); i++)
+		{
+			if(peramitors[i]==itemname)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	int inv_item_number(string itemname)
+	{
+		string content=inv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++)
+		{
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		for(uint i=0; i<peramitors.length(); i++)
+		{
+			if(peramitors[i]==itemname)
+			{
+				return string_to_number(values[i]);
+			}
+		}
+		return 0;
+	}
+	int inv_item(string itemname)
+	{
+		string content=inv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++)
+		{
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		for(uint i=0; i<peramitors.length(); i++)
+		{
+			if(peramitors[i]==itemname)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+	void inv_delete_item(string itemname)
+	{
+		string content=inv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++)
+		{
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		for(uint i=0; i<peramitors.length(); i++)
+		{
+			if(peramitors[i]==itemname)
+			{
+				inv=string_replace(inv, itemname+"="+values[i]+"\r\n", "", false);
+			}
+		}
+	}
+	bool has_muted(string name)
+	{
+		string[] m=string_split(muted,"\r\n",false);
+		for (uint i=0; i<m.length(); i++)
+		{
+			if (m[i]==name)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	void add_muted(string name)
+	{
+		muted+="\r\n"+name;
+		write_to(charname,"muted.usr",muted);
+	}
+	bool remove_muted(string name)
+	{
+		string[] m=string_split(muted,"\r\n",false);
+		string newmuted;
+		bool succeeded;
+		for (uint i=0; i<m.length(); i++)
+		{
+			if (m[i]!=name)
+			newmuted+="\r\n"+m[i];
+			else
+			succeeded=true;
+		}
+		muted=newmuted;
+		write_to(charname,"muted.usr",muted);
+		return succeeded;
+	}
 }
 void spawn_player(uint id, string name, string vers, string thebanid){
-player player1(id, name, vers,thebanid);
-players.insert_last(player1);
+	player player1(id, name, vers,thebanid);
+	players.insert_last(player1);
 }
 double get_player_distance(player@ p1, player@ p2)
 {
-if(p1.map!=p2.map) return -1;
-int dx,dy;
-if(p1.x<=p2.x) dx=p2.x-p1.x;
-else dx=p1.x-p2.x;
-if(p1.y<=p2.y) dy=p2.y-p1.y;
-else dy=p1.y-p2.y;
-return dx+dy;
+	if(p1.map!=p2.map) return -1;
+	int dx,dy;
+	if(p1.x<=p2.x) dx=p2.x-p1.x;
+	else dx=p1.x-p2.x;
+	if(p1.y<=p2.y) dy=p2.y-p1.y;
+	else dy=p1.y-p2.y;
+	return dx+dy;
 }
 double get_bala_y_distance(bullet@ p1, player@ p2){
-if(p1.mapname!=p2.map) return -1;
-int dy;
-if(p1.y<=p2.y) dy=p2.y-p1.y;
-else dy=p1.y-p2.y;
-return dy;
+	if(p1.mapname!=p2.map) return -1;
+	int dy;
+	if(p1.y<=p2.y) dy=p2.y-p1.y;
+	else dy=p1.y-p2.y;
+	return dy;
 }
