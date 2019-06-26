@@ -155,7 +155,9 @@ else
 menuprincipal();
 }
 }
-void optionsmenu2(){
+
+void optionsmenu2()
+{
 setupmenu(false);
 m.add_item_tts(pu.get_value("Trocar senha"), "senha");
 if(tradutorativo==1){
@@ -170,20 +172,10 @@ else if(interrupt==1){
 m.add_item_tts(pu.get_value("Desativar interrupção do leitor"), "interrupt");
 }
 m.add_item_tts(pu.get_value("Voltar"),"back");
-m.add_item_tts(pu.get_value("sonido"),"musica");
 int mres=m.run(pu.get_value("No jogo opções menu, selecione uma opção."), true);
-if(m.get_item_name(mres)=="musica")
-{
-devmenu();
-}
 if(m.get_item_name(mres)=="wine")
 {
 togglewine();
-optionsmenu2();
-}
-else if(m.get_item_name(mres)=="voz")
-{
-voicemenu();
 optionsmenu2();
 }
 else if(m.get_item_name(mres)=="ad")
@@ -273,43 +265,66 @@ string amount=v.input(pu.get_value("Quanto de")+" "+m.get_item_name(mres)+"?");
 send_reliable(peer_id,"/buy123321123 "+amount+" "+m.get_item_name(mres),1);
 }
 }
-void devmenu()
+
+
+void adminmenu()
 {
 setupmenu();
-m.add_item_tts(pu.get_value("limpiar servidor"), "cs");
-m.add_item_tts(pu.get_value("reiniciar servidor"),"rs");
-m.add_item_tts(pu.get_value("activar o desactivar doble xp"),"dx");
-m.add_item_tts(pu.get_value("activar o desactivar doble gold"),"dg");
+m.add_item_tts(pu.get_value("Limpiar servidor"), "cs");
+m.add_item_tts(pu.get_value("Reiniciar servidor"),"rs");
+m.add_item_tts(pu.get_value("Activar / desactivar doble xp"),"dx");
+m.add_item_tts(pu.get_value("Activar / desactivar doble gold"),"dg");
 m.add_item_tts(pu.get_value("dar presentes"),"dr");
-m.add_item_tts(pu.get_value("puerta"),"pr");
-m.add_item_tts(pu.get_value("serrar este menú"),"closemenu");
-int mres=m.run(pu.get_value("mais opções"),true);
-if(mres==6) {
-zoeiras();
-}
-if(mres==5) {
+m.add_item_tts(pu.get_value("Ver el estado del servidor"), "ss");
+m.add_item_tts(pu.get_value("Cerrar este menú"), "closemenu");
+int mres=m.run(pu.get_value("Mais opções"), true);
+/*if(mres==6) 
+{
+zoeiras(); // función sin revisar ni documentar
+adminmenu();
+}*/
+if(m.get_item_name(mres)=="dr")
+if(m.get_item_name(mres)=="dr")
+{
 string r1=v.input("escriva el item que dará a los jugadores, tenga cuidado al escrivir");
 string r2=v.input("acá, inserte el número de itens, aviso, solo números");
 int cantidad;
 cantidad=string_to_number(r2);
 send_reliable(1, "/presente "+r1+" "+cantidad, 1);
 send_reliable(1, "/n nuevo regalo!, "+r1+", cantidad, "+cantidad, 1);
+adminmenu();
 }
-if(mres==4) {
+if(m.get_item_name(mres)=="dg")
+{
 send_reliable(1, "/doublegold", 1);
+adminmenu();
 }
-if(mres==3) {
+if(m.get_item_name(mres)=="dx")
+{
 send_reliable(1, "/doublexp", 1);
+adminmenu();
 }
-if(mres==2) {
+if(m.get_item_name(mres)=="rs")
+{
 send_reliable(1, "/reboot", 1);
+adminmenu();
 }
-if(mres==0) return;
-string ret=m.get_item_name(mres);
-if(ret=="closemenu") return;
-if(ret=="cs")
+if(m.get_item_name(mres)=="cs")
+{
 send_reliable(1, "/clearserver", 1);
+mainloop();
 }
+if(m.get_item_name(mres)=="ss")
+{
+send_reliable(1, "/lcoisas", 1);
+adminmenu();
+}
+if(m.get_item_name(mres)=="closemenu")
+{
+mainloop();
+}
+}
+
 int clb(dynamic_menu_pro@ j, string dat)
 {
 if(connected) mainloop();
