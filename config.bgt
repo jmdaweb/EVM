@@ -19,3 +19,9 @@ const string PASSWORD_ENCRYPTION_KEY="encryptpasswords";
 const string IP_LOCALE_API_KEY="";
 const string IP_LOCALE_PHP_URL="http://localhost/ip_locale.php";
 const bool portable=true;
+
+// Stop changing values here!
+const int Left=-1;
+const int Right=1;
+const int Back=0;
+const int Forward=2;

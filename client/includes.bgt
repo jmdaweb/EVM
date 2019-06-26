@@ -26,7 +26,3 @@
 #include"includes/usl.bgt"
 #include"includes/virtualizer.bgt"
 #include"includes/wine.bgt"
-const int Left=-1;
-const int Right=1;
-const int Back=0;
-const int Forward=2;

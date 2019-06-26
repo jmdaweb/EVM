@@ -6,7 +6,6 @@
 #include"includes/moving_sound.bgt"
 #include"includes/compban.bgt"
 #include "includes/bullet.bgt"
-#include"includes/const.bgt"
 #include "includes/item.bgt"
 #include "includes/map.bgt"
 #include "includes/player.bgt"
