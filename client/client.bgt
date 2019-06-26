@@ -721,11 +721,15 @@ else if(parsed[0]=="apartamentoinv")apartamentoinv=string_replace(pegar_mensagem
 else if(parsed[0]=="opcoespc")opcoespc=string_replace(pegar_mensagem(), parsed[0]+" ", "", false);
 else if(parsed[0]=="pcliga")
 {
+set_sound_storage("");
 p.play_2d("C:\\windows\\media\\Windows Logon Sound.wav", me.x, me.y, 2, 21, false);
+set_sound_storage(SOUND_STORAGE);
 }
 else if(parsed[0]=="pcdesliga")
 {
+set_sound_storage("");
 p.play_2d("C:\\windows\\media\\Windows Logoff Sound.wav", me.x, me.y, 2, 21, false);
+set_sound_storage(SOUND_STORAGE);
 }
 
 else if(parsed[0]=="fm" and add_active("chats")==0){
@@ -1679,9 +1683,6 @@ weaponcheckloop();
 secundario();
 if(gmt()!=""&&jumping==0&&pulou==1&&falling==false) pulou=0;
 }
-
-// map builder, pleace caution to use
-
 if(key_pressed(KEY_F9) && desenvolvedordm==1)
 {
 int slot=-1;
@@ -1751,12 +1752,6 @@ string s3=v.input(pu.get_value("Altura de la plataforma"));
 string s4;
 pack_file pa;
 pa.open(SOUND_STORAGE);
-<<<<<<< HEAD
-string[] lista=pa.list_files();
-string[] plataformas;
-for(uint i=0;i<lista.length();i++){
-if(string_contains(lista[i], "step1", 1)>-1)plataformas.insert_last(lista[i]);
-=======
 string[] list=pa.list_files();
 string[] platforms;
 for(uint i=0; i<list.length(); i++)
@@ -1764,7 +1759,6 @@ for(uint i=0; i<list.length(); i++)
 if(string_contains(list[i], "step1", 1)>-1)
 {
 platforms.insert_last(list[i]);
->>>>>>> changes-builder
 }
 }
 pa.close();
@@ -1994,12 +1988,6 @@ string s4=v.input(pu.get_value("Fin de la coordenada y"));
 string s5;
 pack_file pa;
 pa.open(SOUND_STORAGE);
-<<<<<<< HEAD
-string[] lista=pa.list_files();
-string[] plataformas;
-for(uint i=0;i<lista.length();i++){
-if(string_contains(lista[i], "step1", 1)>-1)plataformas.insert_last(lista[i]);
-=======
 string[] list=pa.list_files();
 string[] platforms;
 for(uint i=0; i<list.length(); i++)
@@ -2007,7 +1995,6 @@ for(uint i=0; i<list.length(); i++)
 if(string_contains(list[i], "step1", 1)>-1)
 {
 platforms.insert_last(list[i]);
->>>>>>> changes-builder
 }
 }
 pa.close();
@@ -2123,12 +2110,6 @@ string s3=v.input(pu.get_value("Fin de la coordenada y de la pared"));
 string s4;
 pack_file pa;
 pa.open(SOUND_STORAGE);
-<<<<<<< HEAD
-string[] lista=pa.list_files();
-string[] plataformas;
-for(uint i=0;i<lista.length();i++){
-if(string_contains(lista[i], "wall", 1)>-1)plataformas.insert_last(lista[i]);
-=======
 string[] list=pa.list_files();
 string[] walls;
 for(uint i=0; i<list.length(); i++)
@@ -2136,7 +2117,6 @@ for(uint i=0; i<list.length(); i++)
 if(string_contains(list[i], "wall", 1)>-1)
 {
 walls.insert_last(list[i]);
->>>>>>> changes-builder
 }
 }
 int selected=0;
