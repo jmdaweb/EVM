@@ -1,4 +1,4 @@
-#include "../config.bgt"
+#include"../config.bgt"
 #include"includes/add.bgt"
 #include"includes/ambiente.bgt"
 #include"includes/classes.bgt"
@@ -26,3 +26,4 @@
 #include"includes/usl.bgt"
 #include"includes/virtualizer.bgt"
 #include"includes/wine.bgt"
+const string BGTCompiler = "Necesario para compilar sin Compilation Result";

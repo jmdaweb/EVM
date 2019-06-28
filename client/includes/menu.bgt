@@ -1,917 +1,1028 @@
 dynamic_menu_pro m;
 void menuprincipal()
 {
-setupmenu(true);
-m.letters_autoactivate=true;
-m.add_item_tts(pu.get_value("Conectar"),"logar");
-m.add_item_tts(pu.get_value("teste de alto-falantes"),"testspeaks");
-m.add_item_tts(pu.get_value("Configurar personagem"), "personagem");
-m.add_item_tts(pu.get_value("Criar nova conta"),"create");
-m.add_item_tts(pu.get_value("Configurações"),"options");
-m.add_item_tts(pu.get_value("Checar por atualizações"), "checar");
-m.add_item_tts(pu.get_value("Sair"), "exit");
-int mres=m.run(pu.get_value("Menu principal"), true);
-if(m.get_item_name(mres)=="nuevo" or mres==6)
+	setupmenu(true);
+	m.letters_autoactivate = true;
+	m.add_item_tts(pu.get_value("Conectar"), "logar");
+	m.add_item_tts(pu.get_value("teste de alto-falantes"), "testspeaks");
+	m.add_item_tts(pu.get_value("Configurar personagem"), "personagem");
+	m.add_item_tts(pu.get_value("Criar nova conta"), "create");
+	m.add_item_tts(pu.get_value("Configurações"), "options");
+	m.add_item_tts(pu.get_value("Checar por atualizações"), "checar");
+	m.add_item_tts(pu.get_value("Sair"), "exit");
+	int mres = m.run(pu.get_value("Menu principal"), true);
+	if (m.get_item_name(mres) == "nuevo" or mres == 6)
 //inicio de la ejecución
-{
+	{
 
-}
+	}
 
-if(m.get_item_name(mres)=="exit" or mres==0)
-{
-m.fade_music(30);
-writeprefs();
-sair();
-}
-else if(m.get_item_name(mres)=="checar") batualizacao(false);
-else if(m.get_item_name(mres)=="personagem")
-{
-string sz=v.input(pu.get_value("Digite seu nome de usuário."));
-string suz2=v.input(pu.get_value("Digite sua senha."));
-if (suz2=="")
-{
-menuprincipal();
-}
-else
-{
-pw=suz2;
-un=sz;
-}
-writeprefs();
-menuprincipal();
-}
-else if(m.get_item_name(mres)=="testspeaks")
-{
-m.fade_music(30);
-dlgplay("altofalante.ogg");
-menuprincipal();
-}
-else if(m.get_item_name(mres)=="logar")
-{
-m.fade_music(30);
-speak(pu.get_value("Conectando ao servidor..."));
-logar();
-}
-else if(m.get_item_name(mres)=="create")
-{
-m.fade_music(30);
-creating=true;
-create();
-}
-else if(m.get_item_name(mres)=="options")
-{
-m.fade_music(18);
-optionsmenu();
-}
+	if (m.get_item_name(mres) == "exit" or mres == 0)
+	{
+		m.fade_music(30);
+		writeprefs();
+		sair();
+	}
+	else if (m.get_item_name(mres) == "checar")
+		batualizacao(false);
+	else if (m.get_item_name(mres) == "personagem")
+	{
+		string sz = v.input(pu.get_value("Digite seu nome de usuário."));
+		string suz2 = v.input(pu.get_value("Digite sua senha."));
+		if (suz2 == "")
+		{
+			menuprincipal();
+		}
+		else
+		{
+			pw = suz2;
+			un = sz;
+		}
+		writeprefs();
+		menuprincipal();
+	}
+	else if (m.get_item_name(mres) == "testspeaks")
+	{
+		m.fade_music(30);
+		dlgplay("altofalante.ogg");
+		menuprincipal();
+	}
+	else if (m.get_item_name(mres) == "logar")
+	{
+		m.fade_music(30);
+		speak(pu.get_value("Conectando ao servidor..."));
+		logar();
+	}
+	else if (m.get_item_name(mres) == "create")
+	{
+		m.fade_music(30);
+		creating = true;
+		create();
+	}
+	else if (m.get_item_name(mres) == "options")
+	{
+		m.fade_music(18);
+		optionsmenu();
+	}
 }
 void voicemenu()
 {
-menusilent();
-/*
-m.add_item("v1nome.ogg","1");
-m.add_item("v2nome.ogg","2");
-*/
-m.add_item("v3nome.ogg","3");
-/*
-m.add_item("v4nome.ogg", "4");
-m.add_item("v5nome.ogg", "5");
-m.add_item("v7nome.ogg", "7");
-m.add_item("v9nome.ogg", "9");
-m.add_item("v10nome.ogg", "10");
-m.add_item("v11nome.ogg", "11");
-m.add_item("v12nome.ogg", "12");
-*/
-m.add_item_tts(pu.get_value("Voltar"),"back");
-int mres=m.run(pu.get_value("Selecione uma voz"),true);
-if (m.get_item_name(mres)=="back" or mres==0)
+	menusilent();
+	/*
+	m.add_item("v1nome.ogg","1");
+	m.add_item("v2nome.ogg","2");
+	*/
+	m.add_item("v3nome.ogg", "3");
+	/*
+	m.add_item("v4nome.ogg", "4");
+	m.add_item("v5nome.ogg", "5");
+	m.add_item("v7nome.ogg", "7");
+	m.add_item("v9nome.ogg", "9");
+	m.add_item("v10nome.ogg", "10");
+	m.add_item("v11nome.ogg", "11");
+	m.add_item("v12nome.ogg", "12");
+	*/
+	m.add_item_tts(pu.get_value("Voltar"), "back");
+	int mres = m.run(pu.get_value("Selecione uma voz"), true);
+	if (m.get_item_name(mres) == "back" or mres == 0)
+	{
+		perfio();
+	}
+	else
+	{
+		voice = string_to_number(m.get_item_name(mres));
+		writeprefs();
+		perfio();
+	}
+}
+string select_player(string text, bool showall = false)
 {
-perfio();
+	if (mapname == "quadro")
+		return "";
+	setupmenu();
+	for (uint i = 0; i < players.length(); i++)
+	{
+		if (players[i].map == mapname and players[i].charname != un and showall == false && players[i].beeping == 1)
+			m.add_item_tts(players[i].charname, players[i].charname);
+		else if (showall == true && players[i].beeping == 1)
+		{
+			if (players[i].charname != un && players[i].beeping == 1)
+				m.add_item_tts(players[i].charname, players[i].charname);
+		}
+	}
+	int mres = m.run(pu.get_value(text), true);
+	return m.get_item_name(mres);
 }
-else
+void pmapa(int pacifico = 0, string modificar = "Escolha um jogador:;missil")
 {
-voice=string_to_number(m.get_item_name(mres));
-writeprefs();
-perfio();
-}
-}
-string select_player(string text,bool showall=false)
-{
-if(mapname=="quadro")return "";
-setupmenu();
-for (uint i=0; i<players.length(); i++)
-{
-if (players[i].map==mapname and players[i].charname!=un and showall==false&&players[i].beeping==1)
-m.add_item_tts(players[i].charname,players[i].charname);
-else if (showall==true&&players[i].beeping==1)
-{
-if (players[i].charname!=un&&players[i].beeping==1)
-m.add_item_tts(players[i].charname,players[i].charname);
-}
-}
-int mres=m.run(pu.get_value(text),true);
-return m.get_item_name(mres);
-}
-void pmapa(int pacifico=0, string modificar="Escolha um jogador:;missil"){
-if(ausente||!moveable)return;
-setupmenu();
-string[] d=string_split(modificar, ";", false);
-for (uint i=0; i<players.length(); i++){
-if (players[i].map==mapname&&players[i].charname!=un&&players[i].beeping==1&&players[i].pacifico==pacifico)m.add_item_tts(players[i].charname,players[i].charname);
-}
-int mres=m.run(pu.get_value(d[0]),true);
-if(mres>-1)send_reliable(peer_id, d[1]+" "+m.get_item_name(mres), 0);
+	if (ausente || !moveable)
+		return;
+	setupmenu();
+	string[] d = string_split(modificar, ";", false);
+	for (uint i = 0; i < players.length(); i++)
+	{
+		if (players[i].map == mapname && players[i].charname != un && players[i].beeping == 1 && players[i].pacifico == pacifico)
+			m.add_item_tts(players[i].charname, players[i].charname);
+	}
+	int mres = m.run(pu.get_value(d[0]), true);
+	if (mres > -1)
+		send_reliable(peer_id, d[1] + " " + m.get_item_name(mres), 0);
 }
 void optionsmenu()
 {
-setupmenu();
-m.add_item_tts(pu.get_value("Configurações gerais"), "gerais");
-m.add_item_tts(pu.get_value("Configurações do perfio"), "perfio");
-m.add_item_tts(pu.get_value("Selecionar um arquivo de idioma"), "idioma");
-m.add_item_tts(pu.get_value("Voltar"),"back");
-int mres=m.run(pu.get_value("Opções Menu. Selecione uma opção."), true);
-if(m.get_item_name(mres)=="gerais")
-{
-gerais();
-}
-else if(m.get_item_name(mres)=="idioma")
-{
-string a=idiomas();
-if(a==""){
-optionsmenu();
-}
-else{
-cmfinal="lang/"+a;
-writeprefs();
-pu.set_arquivo(cmfinal);
-optionsmenu();
-}
-}
-else if(m.get_item_name(mres)=="perfio")
-{
-perfio();
-}
-else
-{
-menuprincipal();
-}
+	setupmenu();
+	m.add_item_tts(pu.get_value("Configurações gerais"), "gerais");
+	m.add_item_tts(pu.get_value("Configurações do perfio"), "perfio");
+	m.add_item_tts(pu.get_value("Selecionar um arquivo de idioma"), "idioma");
+	m.add_item_tts(pu.get_value("Voltar"), "back");
+	int mres = m.run(pu.get_value("Opções Menu. Selecione uma opção."), true);
+	if (m.get_item_name(mres) == "gerais")
+	{
+		gerais();
+	}
+	else if (m.get_item_name(mres) == "idioma")
+	{
+		string a = idiomas();
+		if (a == "")
+		{
+			optionsmenu();
+		}
+		else
+		{
+			cmfinal = "lang/" + a;
+			writeprefs();
+			pu.set_arquivo(cmfinal);
+			optionsmenu();
+		}
+	}
+	else if (m.get_item_name(mres) == "perfio")
+	{
+		perfio();
+	}
+	else
+	{
+		menuprincipal();
+	}
 }
 
 void optionsmenu2()
 {
-setupmenu(false);
-m.add_item_tts(pu.get_value("Trocar senha"), "senha");
-if(tradutorativo==1){
-m.add_item_tts(pu.get_value("Desativar tradutor"), "tradutor");
-m.add_item_tts(pu.get_value("Selecionar idioma de origem"), "selidioma");
-}
-else if(tradutorativo==0)m.add_item_tts(pu.get_value("Ativar tradutor"), "tradutor");
-if(interrupt==0){
-m.add_item_tts(pu.get_value("Ativar interrupção do leitor"), "interrupt");
-}
-else if(interrupt==1){
-m.add_item_tts(pu.get_value("Desativar interrupção do leitor"), "interrupt");
-}
-m.add_item_tts(pu.get_value("Voltar"),"back");
-int mres=m.run(pu.get_value("No jogo opções menu, selecione uma opção."), true);
-if(m.get_item_name(mres)=="wine")
-{
-togglewine();
-optionsmenu2();
-}
-else if(m.get_item_name(mres)=="ad")
-{
-asktoexit=0;
-writeprefs();
-optionsmenu2();
-}
-else if(m.get_item_name(mres)=="ae")
-{
-asktoexit=1;
-writeprefs();
-optionsmenu2();
-}
-else if(m.get_item_name(mres)=="senha"){
-string ilovecoca=v.input("Digite sua nova senha.");
-if(msginvalida(ilovecoca)||ilovecoca.length()<8){
-dlg(pu.get_value("Senha inválida. Isso pode ser porque ela contém menos de 8 caracteres, tenha símbolos especiais ou espaços."));
-}
-else{
-string ilovecocaamor=v.input("Repita sua nova senha.");
-if(msginvalida(ilovecocaamor)||ilovecocaamor.length()<8){
-dlg(pu.get_value("Senha inválida. Isso pode ser porque ela contém menos de 8 caracteres, tenha símbolos especiais ou espaços."));
-}
-else if(ilovecocaamor!=ilovecoca){
-dlg("As senhas são diferentes.");
-optionsmenu2();
-}
-else{
-add_add_item("variado", pu.get_value("Alterando senha..."));
-send_reliable(peer_id, "/changepassword "+pw+" "+ilovecoca, 1);
-}
-}
-}
-else if(m.get_item_name(mres)=="selidioma")origem();
-else if(m.get_item_name(mres)=="tradutor"){
-if(tradutorativo==0)tradutorativo=1;
-else if(tradutorativo==1)tradutorativo=0;
-readprefs();
-optionsmenu2();
-}
-else if(m.get_item_name(mres)=="interrupt")
-{
-if (interrupt==1)
-interrupt=0;
-else
-interrupt=1;
-optionsmenu2();
-}
+	setupmenu(false);
+	m.add_item_tts(pu.get_value("Trocar senha"), "senha");
+	if (tradutorativo == 1)
+	{
+		m.add_item_tts(pu.get_value("Desativar tradutor"), "tradutor");
+		m.add_item_tts(pu.get_value("Selecionar idioma de origem"), "selidioma");
+	}
+	else if (tradutorativo == 0)
+		m.add_item_tts(pu.get_value("Ativar tradutor"), "tradutor");
+	if (interrupt == 0)
+	{
+		m.add_item_tts(pu.get_value("Ativar interrupção do leitor"), "interrupt");
+	}
+	else if (interrupt == 1)
+	{
+		m.add_item_tts(pu.get_value("Desativar interrupção do leitor"), "interrupt");
+	}
+	m.add_item_tts(pu.get_value("Voltar"), "back");
+	int mres = m.run(pu.get_value("No jogo opções menu, selecione uma opção."), true);
+	if (m.get_item_name(mres) == "wine")
+	{
+		togglewine();
+		optionsmenu2();
+	}
+	else if (m.get_item_name(mres) == "ad")
+	{
+		asktoexit = 0;
+		writeprefs();
+		optionsmenu2();
+	}
+	else if (m.get_item_name(mres) == "ae")
+	{
+		asktoexit = 1;
+		writeprefs();
+		optionsmenu2();
+	}
+	else if (m.get_item_name(mres) == "senha")
+	{
+		string ilovecoca = v.input("Digite sua nova senha.");
+		if (msginvalida(ilovecoca) || ilovecoca.length() < 8)
+		{
+			dlg(pu.get_value("Senha inválida. Isso pode ser porque ela contém menos de 8 caracteres, tenha símbolos especiais ou espaços."));
+		}
+		else
+		{
+			string ilovecocaamor = v.input("Repita sua nova senha.");
+			if (msginvalida(ilovecocaamor) || ilovecocaamor.length() < 8)
+			{
+				dlg(pu.get_value("Senha inválida. Isso pode ser porque ela contém menos de 8 caracteres, tenha símbolos especiais ou espaços."));
+			}
+			else if (ilovecocaamor != ilovecoca)
+			{
+				dlg("As senhas são diferentes.");
+				optionsmenu2();
+			}
+			else
+			{
+				add_add_item("variado", pu.get_value("Alterando senha..."));
+				send_reliable(peer_id, "/changepassword " + pw + " " + ilovecoca, 1);
+			}
+		}
+	}
+	else if (m.get_item_name(mres) == "selidioma")
+		origem();
+	else if (m.get_item_name(mres) == "tradutor")
+	{
+		if (tradutorativo == 0)
+			tradutorativo = 1;
+		else if (tradutorativo == 1)
+			tradutorativo = 0;
+		readprefs();
+		optionsmenu2();
+	}
+	else if (m.get_item_name(mres) == "interrupt")
+	{
+		if (interrupt == 1)
+			interrupt = 0;
+		else
+			interrupt = 1;
+		optionsmenu2();
+	}
 }
 void exitmenu()
 {
-if (asktoexit==1)
-{
-setupmenu();
-m.add_item_tts(pu.get_value("Sim"),"yes");
-m.add_item_tts(pu.get_value("Não"),"no");
-int mres=m.run(pu.get_value("Deseja sair?"),true);
-if (mres==1)
-{
-speak(pu.get_value("respaldando inventario"));
-send_reliable(1, "/g", 1);
-wait(1000);
-exitgame();
-}
-}
-else
-{
-exitgame();
-}
+	if (asktoexit == 1)
+	{
+		setupmenu();
+		m.add_item_tts(pu.get_value("Sim"), "yes");
+		m.add_item_tts(pu.get_value("Não"), "no");
+		int mres = m.run(pu.get_value("Deseja sair?"), true);
+		if (mres == 1)
+		{
+			speak(pu.get_value("respaldando inventario"));
+			send_reliable(1, "/g", 1);
+			wait(1000);
+			exitgame();
+		}
+	}
+	else
+	{
+		exitgame();
+	}
 }
 void store(string storeitems)
 {
-if(ausente||!moveable)return;
-setupmenu();
-string[] items=string_split(storeitems,"\r\n",true);
-for (uint i=0; i<items.length(); i++)
-{
-string[] item=string_split(items[i]," ",true);
-string it=string_replace(item[0],",","",true);
-m.add_item_tts(items[i],it);
-}
-int mres=m.run(pu.get_value("Loja menu. Aqui tem")+" "+items.length()+" "+pu.get_value("itens")+".",true);
-if (mres!=0)
-{
-string amount=v.input(pu.get_value("Quanto de")+" "+m.get_item_name(mres)+"?");
-send_reliable(peer_id,"/buy123321123 "+amount+" "+m.get_item_name(mres),1);
-}
+	if (ausente || !moveable)
+		return;
+	setupmenu();
+	string[] items = string_split(storeitems, "\r\n", true);
+	for (uint i = 0; i < items.length(); i++)
+	{
+		string[] item = string_split(items[i], " ", true);
+		string it = string_replace(item[0], ",", "", true);
+		m.add_item_tts(items[i], it);
+	}
+	int mres = m.run(pu.get_value("Loja menu. Aqui tem") + " " + items.length() + " " + pu.get_value("itens") + ".", true);
+	if (mres != 0)
+	{
+		string amount = v.input(pu.get_value("Quanto de") + " " + m.get_item_name(mres) + "?");
+		send_reliable(peer_id, "/buy123321123 " + amount + " " + m.get_item_name(mres), 1);
+	}
 }
 
 
 void adminmenu()
 {
-setupmenu();
-m.add_item_tts(pu.get_value("Limpiar servidor"), "cs");
-m.add_item_tts(pu.get_value("Reiniciar servidor"),"rs");
-m.add_item_tts(pu.get_value("Activar / desactivar doble xp"),"dx");
-m.add_item_tts(pu.get_value("Activar / desactivar doble gold"),"dg");
-m.add_item_tts(pu.get_value("dar presentes"),"dr");
-m.add_item_tts(pu.get_value("Ver el estado del servidor"), "ss");
-m.add_item_tts(pu.get_value("Cerrar este menú"), "closemenu");
-int mres=m.run(pu.get_value("Mais opções"), true);
-/*if(mres==6) 
-{
-zoeiras(); // función sin revisar ni documentar
-adminmenu();
-}*/
-if(m.get_item_name(mres)=="dr")
-if(m.get_item_name(mres)=="dr")
-{
-string r1=v.input("escriva el item que dará a los jugadores, tenga cuidado al escrivir");
-string r2=v.input("acá, inserte el número de itens, aviso, solo números");
-int cantidad;
-cantidad=string_to_number(r2);
-send_reliable(1, "/presente "+r1+" "+cantidad, 1);
-send_reliable(1, "/n nuevo regalo!, "+r1+", cantidad, "+cantidad, 1);
-adminmenu();
-}
-if(m.get_item_name(mres)=="dg")
-{
-send_reliable(1, "/doublegold", 1);
-adminmenu();
-}
-if(m.get_item_name(mres)=="dx")
-{
-send_reliable(1, "/doublexp", 1);
-adminmenu();
-}
-if(m.get_item_name(mres)=="rs")
-{
-send_reliable(1, "/reboot", 1);
-adminmenu();
-}
-if(m.get_item_name(mres)=="cs")
-{
-send_reliable(1, "/clearserver", 1);
-mainloop();
-}
-if(m.get_item_name(mres)=="ss")
-{
-send_reliable(1, "/lcoisas", 1);
-adminmenu();
-}
-if(m.get_item_name(mres)=="closemenu")
-{
-mainloop();
-}
+	setupmenu();
+	m.add_item_tts(pu.get_value("Limpiar servidor"), "cs");
+	m.add_item_tts(pu.get_value("Reiniciar servidor"), "rs");
+	m.add_item_tts(pu.get_value("Activar / desactivar doble xp"), "dx");
+	m.add_item_tts(pu.get_value("Activar / desactivar doble gold"), "dg");
+	m.add_item_tts(pu.get_value("dar presentes"), "dr");
+	m.add_item_tts(pu.get_value("Ver el estado del servidor"), "ss");
+	m.add_item_tts(pu.get_value("Cerrar este menú"), "closemenu");
+	int mres = m.run(pu.get_value("Mais opções"), true);
+	/*if(mres==6)
+	{
+	zoeiras(); // función sin revisar ni documentar
+	adminmenu();
+	}*/
+	if (m.get_item_name(mres) == "dr")
+		if (m.get_item_name(mres) == "dr")
+		{
+			string r1 = v.input("escriva el item que dará a los jugadores, tenga cuidado al escrivir");
+			string r2 = v.input("acá, inserte el número de itens, aviso, solo números");
+			int cantidad;
+			cantidad = string_to_number(r2);
+			send_reliable(1, "/presente " + r1 + " " + cantidad, 1);
+			send_reliable(1, "/n nuevo regalo!, " + r1 + ", cantidad, " + cantidad, 1);
+			adminmenu();
+		}
+	if (m.get_item_name(mres) == "dg")
+	{
+		send_reliable(1, "/doublegold", 1);
+		adminmenu();
+	}
+	if (m.get_item_name(mres) == "dx")
+	{
+		send_reliable(1, "/doublexp", 1);
+		adminmenu();
+	}
+	if (m.get_item_name(mres) == "rs")
+	{
+		send_reliable(1, "/reboot", 1);
+		adminmenu();
+	}
+	if (m.get_item_name(mres) == "cs")
+	{
+		send_reliable(1, "/clearserver", 1);
+		mainloop();
+	}
+	if (m.get_item_name(mres) == "ss")
+	{
+		send_reliable(1, "/lcoisas", 1);
+		adminmenu();
+	}
+	if (m.get_item_name(mres) == "closemenu")
+	{
+		mainloop();
+	}
 }
 
 int clb(dynamic_menu_pro@ j, string dat)
 {
-if(connected) mainloop();
-return 0;
+	if (connected)
+		mainloop();
+	return 0;
 }
 void spellmenu(string data)
 {
-if(ausente||!moveable)return;
-string[] spells=string_split(data,"\r\n",false);
-setupmenu();
-for(uint i=0; i<spells.length; i++)
-{
-string[] parsed=string_split(spells[i],":",false);
-m.add_item_tts(pu.get_value(spells[i]),parsed[0]);
-}
-int mres=m.run(pu.get_value("Escolha uma magia para lançar."),true);
-if(mres==0) return;
-else
-{
-string spell=m.get_item_name(mres);
-send_reliable(peer_id,"spellcast "+spell+" "+facing,0);
-}
+	if (ausente || !moveable)
+		return;
+	string[] spells = string_split(data, "\r\n", false);
+	setupmenu();
+	for (uint i = 0; i < spells.length; i++)
+	{
+		string[] parsed = string_split(spells[i], ":", false);
+		m.add_item_tts(pu.get_value(spells[i]), parsed[0]);
+	}
+	int mres = m.run(pu.get_value("Escolha uma magia para lançar."), true);
+	if (mres == 0)
+		return;
+	else
+	{
+		string spell = m.get_item_name(mres);
+		send_reliable(peer_id, "spellcast " + spell + " " + facing, 0);
+	}
 }
 void updatemenu()
 {
-setupmenu(false);
-m.add_item_tts(pu.get_value("Sim"),"y");
-m.add_item_tts(pu.get_value("Não"),"n");
-int mres=m.run(nomejogo+" "+vernova+" "+pu.get_value("Foi encontrada!")+pu.get_value("Você quer fazer o download?"),true);
-if (m.get_item_name(mres)=="y")
-{
-atualizarv();
-}
-else
-menuprincipal();
+	setupmenu(false);
+	m.add_item_tts(pu.get_value("Sim"), "y");
+	m.add_item_tts(pu.get_value("Não"), "n");
+	int mres = m.run(nomejogo + " " + vernova + " " + pu.get_value("Foi encontrada!") + pu.get_value("Você quer fazer o download?"), true);
+	if (m.get_item_name(mres) == "y")
+	{
+		atualizarv();
+	}
+	else
+		menuprincipal();
 }
 void roupas ()
 {
-if(ausente||!moveable)return;
-menusilent();
-m.add_item_tts(pu.get_value("calça_camuflada")+" - 300 coins", "calça_camuflada");
-m.add_item_tts(pu.get_value("camisa_de_malha")+" - 60 coins", "camisa_de_malha");
-m.add_item_tts(pu.get_value("calça_jeans")+" - 95 coins","calça_jeans");
-m.add_item_tts(pu.get_value("tênis_de_corrida")+" - 360 coins","tênis_de_corrida");
-m.add_item_tts(pu.get_value("sandália")+" - 360 coins","sandália");
-m.add_item_tts(pu.get_value("chapéu_panamá")+" - 80 coins","chapéu_panamá");
-m.add_item_tts(pu.get_value("colete_de_borracha")+" - 200 coins","colete_de_borracha");
-m.add_item_tts(pu.get_value("calça_social")+" - 230 coins","calça_social");
-m.add_item_tts(pu.get_value("óculos_escuros")+" - 170 coins","óculos_escuros");
-m.add_item_tts(pu.get_value("sapato_social")+" - 280 coins","sapato_social");
-m.add_item_tts(pu.get_value("jaqueta_de_couro")+" - 780 coins","jaqueta_de_couro");
-m.add_item_tts(pu.get_value("calça_legging")+" - 130 coins", "calça_legging");
-m.add_item_tts(pu.get_value("sapato_scarpin")+" - 160 coins", "sapato_scarpin");
-m.add_item_tts(pu.get_value("luvas")+" - 80 coins","luvas");
-m.add_item_tts(pu.get_value("boné")+" - 120 coins","boné");
-m.add_item_tts(pu.get_value("Voltar"),"0");
-int mres=m.run(pu.get_value("Escolha qual roupa você deseja comprar"),true);
-if(m.get_item_name(mres)=="0")
-{
-}
-else if(mres>0)
-{
-string valor=v.input(pu.get_value("Quanto você quer de")+" "+pu.get_value(m.get_item_name(mres))+"?");
-send_reliable(peer_id,"/buy123321123 "+valor+" "+m.get_item_name(mres),1);
-}
+	if (ausente || !moveable)
+		return;
+	menusilent();
+	m.add_item_tts(pu.get_value("calça_camuflada") + " - 300 coins", "calça_camuflada");
+	m.add_item_tts(pu.get_value("camisa_de_malha") + " - 60 coins", "camisa_de_malha");
+	m.add_item_tts(pu.get_value("calça_jeans") + " - 95 coins", "calça_jeans");
+	m.add_item_tts(pu.get_value("tênis_de_corrida") + " - 360 coins", "tênis_de_corrida");
+	m.add_item_tts(pu.get_value("sandália") + " - 360 coins", "sandália");
+	m.add_item_tts(pu.get_value("chapéu_panamá") + " - 80 coins", "chapéu_panamá");
+	m.add_item_tts(pu.get_value("colete_de_borracha") + " - 200 coins", "colete_de_borracha");
+	m.add_item_tts(pu.get_value("calça_social") + " - 230 coins", "calça_social");
+	m.add_item_tts(pu.get_value("óculos_escuros") + " - 170 coins", "óculos_escuros");
+	m.add_item_tts(pu.get_value("sapato_social") + " - 280 coins", "sapato_social");
+	m.add_item_tts(pu.get_value("jaqueta_de_couro") + " - 780 coins", "jaqueta_de_couro");
+	m.add_item_tts(pu.get_value("calça_legging") + " - 130 coins", "calça_legging");
+	m.add_item_tts(pu.get_value("sapato_scarpin") + " - 160 coins", "sapato_scarpin");
+	m.add_item_tts(pu.get_value("luvas") + " - 80 coins", "luvas");
+	m.add_item_tts(pu.get_value("boné") + " - 120 coins", "boné");
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha qual roupa você deseja comprar"), true);
+	if (m.get_item_name(mres) == "0")
+	{
+	}
+	else if (mres > 0)
+	{
+		string valor = v.input(pu.get_value("Quanto você quer de") + " " + pu.get_value(m.get_item_name(mres)) + "?");
+		send_reliable(peer_id, "/buy123321123 " + valor + " " + m.get_item_name(mres), 1);
+	}
 }
 void barlanchonete()
 {
-if(ausente||!moveable)return;
-menusilent();
-m.add_item_tts(pu.get_value("refrigerante")+" - 4 coins","refrigerante");
-m.add_item_tts(pu.get_value("cerveja")+" - 6 coins","cerveja");
-m.add_item_tts(pu.get_value("energético")+" - 5 coins","energético");
-m.add_item_tts(pu.get_value("Voltar"),"0");
-int mres=m.run(pu.get_value("Escolha um item"),true);
-if(m.get_item_name(mres)=="0")
+	if (ausente || !moveable)
+		return;
+	menusilent();
+	m.add_item_tts(pu.get_value("refrigerante") + " - 4 coins", "refrigerante");
+	m.add_item_tts(pu.get_value("cerveja") + " - 6 coins", "cerveja");
+	m.add_item_tts(pu.get_value("energético") + " - 5 coins", "energético");
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha um item"), true);
+	if (m.get_item_name(mres) == "0")
+	{
+	}
+	else if (mres > 0)
+	{
+		string valor = v.input(pu.get_value("Quanto você quer de") + " " + pu.get_value(m.get_item_name(mres)) + "?");
+		send_reliable(peer_id, "/buy123321123 " + valor + " " + m.get_item_name(mres), 1);
+	}
+}
+void comprareletronicos()
 {
+	menusilent();
+	if (ausente || !moveable)
+		return;
+	m.add_item_tts(pu.get_value("taser") + " - 60000 coins", "taser");
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha um item"), true);
+	if (m.get_item_name(mres) == "0")
+	{
+	}
+	else if (mres > 0)
+	{
+		string valor = v.input(pu.get_value("Quanto você quer de") + " " + pu.get_value(m.get_item_name(mres)) + "?");
+		send_reliable(peer_id, "/buy123321123 " + valor + " " + m.get_item_name(mres), 1);
+	}
 }
-else if(mres>0)
+void perfio()
 {
-string valor=v.input(pu.get_value("Quanto você quer de")+" "+pu.get_value(m.get_item_name(mres))+"?");
-send_reliable(peer_id,"/buy123321123 "+valor+" "+m.get_item_name(mres),1);
-}
-}
-void comprareletronicos(){
-menusilent();
-if(ausente||!moveable)return;
-m.add_item_tts(pu.get_value("taser")+" - 60000 coins","taser");
-m.add_item_tts(pu.get_value("Voltar"),"0");
-int mres=m.run(pu.get_value("Escolha um item"),true);
-if(m.get_item_name(mres)=="0")
-{
-}
-else if(mres>0)
-{
-string valor=v.input(pu.get_value("Quanto você quer de")+" "+pu.get_value(m.get_item_name(mres))+"?");
-send_reliable(peer_id,"/buy123321123 "+valor+" "+m.get_item_name(mres),1);
-}
-}
-void perfio(){
-setupmenu();
-m.add_item_tts(pu.get_value("Selecionar voz"), "voz");
-if(ouvirmortes==1)m.add_item_tts(pu.get_value("Desativar avisos de mortes"), "mortes");
-else if(ouvirmortes==0)m.add_item_tts(pu.get_value("Ativar avisos de mortes"), "mortes");
-if(avisanivel==1)m.add_item_tts(pu.get_value("Desativar aviso quando um jogador subir de nível"), "nivel");
-else if(avisanivel==0)m.add_item_tts(pu.get_value("Ativar aviso quando um jogador subir de nível"), "nivel");
-if(mdor==0)m.add_item_tts(pu.get_value("Não ouvindo grunidos"), "grunido");
-else if(mdor==1)m.add_item_tts(pu.get_value("Ouvindo grunidos"), "grunido");
-if(ouvirpassos==1)
-m.add_item_tts(pu.get_value("Ouvindo passos de outros jogadores"), "passos");
-if(ouvirpassos==0)
-m.add_item_tts(pu.get_value("Não ouvindo passos de outros jogadores"), "passos");
-if(ouvirleilao==1)
-m.add_item_tts(pu.get_value("Desativar leilão"), "leilão");
-if(ouvirleilao==0)
-m.add_item_tts(pu.get_value("Ativar leilão"), "leilão");
-m.add_item_tts(pu.get_value("Voltar"), "voltar");
-int mres=m.run(pu.get_value("Opções do perfil"), true);
-if(m.get_item_name(mres)=="voz")
-{
-voicemenu();
-}
-else if(m.get_item_name(mres)=="mortes"){
-if(ouvirmortes==0)ouvirmortes=1;
-else if(ouvirmortes==1)ouvirmortes=0;
-readprefs();
-perfio();
-}
-else if(m.get_item_name(mres)=="nivel"){
-if(avisanivel==1)avisanivel=0;
-else if(avisanivel==0)avisanivel=1;
-writeprefs();
-perfio();
-}
-else if(m.get_item_name(mres)=="grunido"){
-if(mdor==0){
-mdor=1;
-}
-else if(mdor==1){
-mdor=0;
-}
-writeprefs();
-perfio();
-}
-else if(m.get_item_name(mres)=="passos"){
-if(ouvirpassos==0){
-ouvirpassos=1;
-}
-else if(ouvirpassos==1){
-ouvirpassos=0;
-}
-readprefs();
-perfio();
-}
-else if(m.get_item_name(mres)=="leilão"){
-if(ouvirleilao==0){
-ouvirleilao=1;
-}
-else if(ouvirleilao==1){
-ouvirleilao=0;
-}
-readprefs();
-perfio();
-}
-else
-{
-optionsmenu();
-}
+	setupmenu();
+	m.add_item_tts(pu.get_value("Selecionar voz"), "voz");
+	if (ouvirmortes == 1)
+		m.add_item_tts(pu.get_value("Desativar avisos de mortes"), "mortes");
+	else if (ouvirmortes == 0)
+		m.add_item_tts(pu.get_value("Ativar avisos de mortes"), "mortes");
+	if (avisanivel == 1)
+		m.add_item_tts(pu.get_value("Desativar aviso quando um jogador subir de nível"), "nivel");
+	else if (avisanivel == 0)
+		m.add_item_tts(pu.get_value("Ativar aviso quando um jogador subir de nível"), "nivel");
+	if (mdor == 0)
+		m.add_item_tts(pu.get_value("Não ouvindo grunidos"), "grunido");
+	else if (mdor == 1)
+		m.add_item_tts(pu.get_value("Ouvindo grunidos"), "grunido");
+	if (ouvirpassos == 1)
+		m.add_item_tts(pu.get_value("Ouvindo passos de outros jogadores"), "passos");
+	if (ouvirpassos == 0)
+		m.add_item_tts(pu.get_value("Não ouvindo passos de outros jogadores"), "passos");
+	if (ouvirleilao == 1)
+		m.add_item_tts(pu.get_value("Desativar leilão"), "leilão");
+	if (ouvirleilao == 0)
+		m.add_item_tts(pu.get_value("Ativar leilão"), "leilão");
+	m.add_item_tts(pu.get_value("Voltar"), "voltar");
+	int mres = m.run(pu.get_value("Opções do perfil"), true);
+	if (m.get_item_name(mres) == "voz")
+	{
+		voicemenu();
+	}
+	else if (m.get_item_name(mres) == "mortes")
+	{
+		if (ouvirmortes == 0)
+			ouvirmortes = 1;
+		else if (ouvirmortes == 1)
+			ouvirmortes = 0;
+		readprefs();
+		perfio();
+	}
+	else if (m.get_item_name(mres) == "nivel")
+	{
+		if (avisanivel == 1)
+			avisanivel = 0;
+		else if (avisanivel == 0)
+			avisanivel = 1;
+		writeprefs();
+		perfio();
+	}
+	else if (m.get_item_name(mres) == "grunido")
+	{
+		if (mdor == 0)
+		{
+			mdor = 1;
+		}
+		else if (mdor == 1)
+		{
+			mdor = 0;
+		}
+		writeprefs();
+		perfio();
+	}
+	else if (m.get_item_name(mres) == "passos")
+	{
+		if (ouvirpassos == 0)
+		{
+			ouvirpassos = 1;
+		}
+		else if (ouvirpassos == 1)
+		{
+			ouvirpassos = 0;
+		}
+		readprefs();
+		perfio();
+	}
+	else if (m.get_item_name(mres) == "leilão")
+	{
+		if (ouvirleilao == 0)
+		{
+			ouvirleilao = 1;
+		}
+		else if (ouvirleilao == 1)
+		{
+			ouvirleilao = 0;
+		}
+		readprefs();
+		perfio();
+	}
+	else
+	{
+		optionsmenu();
+	}
 }
 void joalheria()
 {
-if(ausente||!moveable)return;
-menusilent();
-m.add_item_tts(pu.get_value("ovo_de_ouro")+" - 2000000 coins","ovo_de_ouro");
-m.add_item_tts(pu.get_value("ouro")+" - 2000 coins","ouro");
-m.add_item_tts(pu.get_value("pérola")+" - 200 coins","pérola");
-m.add_item_tts(pu.get_value("pulseira")+" - 350 coins","pulseira");
-m.add_item_tts(pu.get_value("pulseira_de_prata")+" - 5298 coins", "pulseira_de_prata");
-m.add_item_tts(pu.get_value("pulseira_de_bronze")+" - 3298 coins", "pulseira_de_bronze");
-m.add_item_tts(pu.get_value("anel")+" - 320 coins","anel");
-m.add_item_tts(pu.get_value("Voltar"),"0");
-int mres=m.run(pu.get_value("Escolha um item."),true);
-if(m.get_item_name(mres)=="0")
+	if (ausente || !moveable)
+		return;
+	menusilent();
+	m.add_item_tts(pu.get_value("ovo_de_ouro") + " - 2000000 coins", "ovo_de_ouro");
+	m.add_item_tts(pu.get_value("ouro") + " - 2000 coins", "ouro");
+	m.add_item_tts(pu.get_value("pérola") + " - 200 coins", "pérola");
+	m.add_item_tts(pu.get_value("pulseira") + " - 350 coins", "pulseira");
+	m.add_item_tts(pu.get_value("pulseira_de_prata") + " - 5298 coins", "pulseira_de_prata");
+	m.add_item_tts(pu.get_value("pulseira_de_bronze") + " - 3298 coins", "pulseira_de_bronze");
+	m.add_item_tts(pu.get_value("anel") + " - 320 coins", "anel");
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha um item."), true);
+	if (m.get_item_name(mres) == "0")
+	{
+	}
+	else if (mres > 0)
+	{
+		string valor = v.input(pu.get_value("Quanto você quer de") + " " + pu.get_value(m.get_item_name(mres)) + "?");
+		send_reliable(peer_id, "/buy123321123 " + valor + " " + m.get_item_name(mres), 1);
+	}
+}
+void farmacia()
 {
+	menusilent();
+	if (ausente || !moveable)
+		return;
+	m.add_item_tts(pu.get_value("antibiótico") + " - 10 " + pu.get_value("reais"), "antibiótico");
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha um item."), true);
+	if (m.get_item_name(mres) == "0")
+	{
+	}
+	else if (mres > 0)
+	{
+		string valor = v.input(pu.get_value("Quanto você quer de") + " " + pu.get_value(m.get_item_name(mres)) + "?");
+		send_reliable(peer_id, "/buy2123321123 " + valor + " " + m.get_item_name(mres), 1);
+	}
 }
-else if(mres>0)
+string sociaismenu()
 {
-string valor=v.input(pu.get_value("Quanto você quer de")+" "+pu.get_value(m.get_item_name(mres))+"?");
-send_reliable(peer_id,"/buy123321123 "+valor+" "+m.get_item_name(mres),1);
+	menusilent();
+	m.add_item("arroto1.ogg", "arroto1.ogg");
+	m.add_item("arroto2.ogg", "arroto2.ogg");
+	m.add_item("assobio1.ogg", "assobio1.ogg");
+	m.add_item("assobio2.ogg", "assobio2.ogg");
+	m.add_item("assobio3.ogg", "assobio3.ogg");
+	m.add_item("peido1.ogg", "peido1.ogg");
+	m.add_item("peido2.ogg", "peido2.ogg");
+	m.add_item("peido3.ogg", "peido3.ogg");
+	m.add_item("risada1.ogg", "risada1.ogg");
+	m.add_item("risada2.ogg", "risada2.ogg");
+	m.add_item("risada3.ogg", "risada3.ogg");
+	m.add_item("tosse.ogg", "tosse.ogg");
+	m.add_item_tts(pu.get_value("Voltar"), "back");
+	int mres = m.run(pu.get_value("Selecione um social."), true);
+	if (m.get_item_name(mres) == "back")
+	{
+		return"";
+	}
+	else
+		return m.get_item_name(mres);
 }
-}
-void farmacia(){
-menusilent();
-if(ausente||!moveable)return;
-m.add_item_tts(pu.get_value("antibiótico")+" - 10 "+pu.get_value("reais"),"antibiótico");
-m.add_item_tts(pu.get_value("Voltar"),"0");
-int mres=m.run(pu.get_value("Escolha um item."),true);
-if(m.get_item_name(mres)=="0")
+string sexomenu()
 {
-}
-else if(mres>0)
-{
-string valor=v.input(pu.get_value("Quanto você quer de")+" "+pu.get_value(m.get_item_name(mres))+"?");
-send_reliable(peer_id,"/buy2123321123 "+valor+" "+m.get_item_name(mres),1);
-}
-}
-string sociaismenu(){
-menusilent();
-m.add_item("arroto1.ogg","arroto1.ogg");
-m.add_item("arroto2.ogg","arroto2.ogg");
-m.add_item("assobio1.ogg","assobio1.ogg");
-m.add_item("assobio2.ogg","assobio2.ogg");
-m.add_item("assobio3.ogg","assobio3.ogg");
-m.add_item("peido1.ogg","peido1.ogg");
-m.add_item("peido2.ogg","peido2.ogg");
-m.add_item("peido3.ogg","peido3.ogg");
-m.add_item("risada1.ogg", "risada1.ogg");
-m.add_item("risada2.ogg", "risada2.ogg");
-m.add_item("risada3.ogg", "risada3.ogg");
-m.add_item("tosse.ogg", "tosse.ogg");
-m.add_item_tts(pu.get_value("Voltar"),"back");
-int mres=m.run(pu.get_value("Selecione um social."),true);
-if(m.get_item_name(mres)=="back"){
-return"";
-}
-else return m.get_item_name(mres);
-}
-string sexomenu(){
-menusilent();
-m.add_item_tts("Feminino","0");
-m.add_item_tts("Masculino","1");
-m.add_item_tts("Voltar","back");
-int mres=m.run("Selecione o seu sexo.",true);
-if(mres=="back")
-{
-return-1;
-}
-else return m.get_item_name(mres);
+	menusilent();
+	m.add_item_tts("Feminino", "0");
+	m.add_item_tts("Masculino", "1");
+	m.add_item_tts("Voltar", "back");
+	int mres = m.run("Selecione o seu sexo.", true);
+	if (mres == "back")
+	{
+		return -1;
+	}
+	else
+		return m.get_item_name(mres);
 }
 string zoeiras()
 {
-string[] soundfiles=find_files("upsounds/*.ogg");
-if(soundfiles.length<=0)
+	string[] soundfiles = find_files("upsounds/*.ogg");
+	if (soundfiles.length <= 0)
+	{
+		speak("Nenhum arquivo encontrado na pasta uploads");
+		return -1;
+	}
+	setupmenu();
+	for (uint i = 0; i < soundfiles.length; i++)
+	{
+		m.add_item_tts(string_replace(soundfiles[i], ".ogg", "", true), soundfiles[i]);
+	}
+	int mres = m.run("Escolha o arquivo de som para enviar.", true);
+	if (mres <= 0)
+	{
+		return -1;
+	}
+	else
+		return m.get_item_name(mres);
+}
+string daritem()
 {
-speak("Nenhum arquivo encontrado na pasta uploads");
-return -1;
+	if (ausente || !moveable)
+		return "";
+	menusilent();
+	for (int i = me.x - 3; i <= me.x + 3; i++)
+	{
+		for (uint i2 = 0; i2 < players.length(); i2++)
+		{
+			if (players[i2].x == i && players[i2].charname != un && players[i2].map == mapname && players[i2].y == me.y && players[i2].beeping == 1)
+			{
+				m.add_item_tts(players[i2].charname, players[i2].charname);
+			}
+		}
+	}
+	int mres = m.run(pu.get_value("Selecione o jogador que deseja"), true);
+	if (mres <= 0)
+	{
+		speak(pu.get_value("Ninguém por perto."));
+		return"";
+	}
+	else
+		return m.get_item_name(mres);
 }
-setupmenu();
-for(uint i=0; i<soundfiles.length; i++)
+string selecionar_jogador()
 {
-m.add_item_tts(string_replace(soundfiles[i],".ogg","",true),soundfiles[i]);
+	menusilent();
+	for (uint i2 = 0; i2 < players.length(); i2++)
+	{
+		if (players[i2].beeping == 1 && desenvolvedordm == 0 || desenvolvedordm == 1)
+			m.add_item_tts(players[i2].charname, players[i2].charname);
+	}
+	int mres = m.run(pu.get_value("Selecione o jogador que deseja"), true);
+	if (mres <= 0)
+	{
+		speak(pu.get_value("Ninguém por perto."));
+		return"";
+	}
+	else
+		return m.get_item_name(mres);
 }
-int mres=m.run("Escolha o arquivo de som para enviar.",true);
-if(mres<=0)
+string telemenu()
 {
-return -1;
-}
-else return m.get_item_name(mres);
-}
-string daritem(){
-if(ausente||!moveable)return "";
-menusilent();
-for (int i=me.x-3; i<=me.x+3; i++)
-{
-for (uint i2=0; i2<players.length(); i2++)
-{
-if (players[i2].x==i&&players[i2].charname!=un&&players[i2].map==mapname&&players[i2].y==me.y&&players[i2].beeping==1)
-{
-m.add_item_tts(players[i2].charname,players[i2].charname);
-}
-}
-}
-int mres=m.run(pu.get_value("Selecione o jogador que deseja"),true);
-if(mres<=0)
-{
-speak(pu.get_value("Ninguém por perto."));
-return"";
-}
-else return m.get_item_name(mres);
-}
-string selecionar_jogador(){
-menusilent();
-for (uint i2=0; i2<players.length(); i2++){
-if(players[i2].beeping==1&&desenvolvedordm==0||desenvolvedordm==1)m.add_item_tts(players[i2].charname,players[i2].charname);
-}
-int mres=m.run(pu.get_value("Selecione o jogador que deseja"),true);
-if(mres<=0)
-{
-speak(pu.get_value("Ninguém por perto."));
-return"";
-}
-else return m.get_item_name(mres);
-}
-string telemenu(){
-if(!moveable)return "";
-menusilent();
-m.add_item_tts(pu.get_value("casa_de_intercâmbio"), "casa_de_intercâmbio");
-m.add_item_tts(pu.get_value("restaurante_vip"), "restaurante_vip");
-m.add_item_tts(pu.get_value("academia_de_monterrei"), "academia_de_monterrei");
-m.add_item_tts(pu.get_value("clube"), "clube");
-m.add_item_tts(pu.get_value("lanchonete"), "lanchonete");
-m.add_item_tts(pu.get_value("shopping"), "shopping");
-m.add_item_tts(pu.get_value("praça_da_cidade"), "praça_da_cidade");
-m.add_item_tts(pu.get_value("prédio_residencial"), "prédio_residencial");
-m.add_item_tts(pu.get_value("Voltar"), "voltar");
-int mres=m.run(pu.get_value("Escolha o mapa que deseja se teleportar."),true);
-if(mres<=0)
-{
-return"";
-}
-else return m.get_item_name(mres);
+	if (!moveable)
+		return "";
+	menusilent();
+	m.add_item_tts(pu.get_value("casa_de_intercâmbio"), "casa_de_intercâmbio");
+	m.add_item_tts(pu.get_value("restaurante_vip"), "restaurante_vip");
+	m.add_item_tts(pu.get_value("academia_de_monterrei"), "academia_de_monterrei");
+	m.add_item_tts(pu.get_value("clube"), "clube");
+	m.add_item_tts(pu.get_value("lanchonete"), "lanchonete");
+	m.add_item_tts(pu.get_value("shopping"), "shopping");
+	m.add_item_tts(pu.get_value("praça_da_cidade"), "praça_da_cidade");
+	m.add_item_tts(pu.get_value("prédio_residencial"), "prédio_residencial");
+	m.add_item_tts(pu.get_value("Voltar"), "voltar");
+	int mres = m.run(pu.get_value("Escolha o mapa que deseja se teleportar."), true);
+	if (mres <= 0)
+	{
+		return"";
+	}
+	else
+		return m.get_item_name(mres);
 }
 string idiomas()
 {
-string[] soundfiles=find_files("lang/*.lang");
-if(soundfiles.length<=0)
+	string[] soundfiles = find_files("lang/*.lang");
+	if (soundfiles.length <= 0)
+	{
+		speak(pu.get_value("Nenhum arquivo de idioma encontrado."));
+		return"";
+	}
+	setupmenu();
+	for (uint i = 0; i < soundfiles.length; i++)
+	{
+		m.add_item_tts(string_replace(soundfiles[i], ".lang", "", true), soundfiles[i]);
+	}
+	m.add_item_tts(pu.get_value("Voltar"), "back");
+	int mres = m.run(pu.get_value("Escolha o arquivo de idioma que deseja usar."), true);
+	if (m.get_item_name(mres) == "back")
+	{
+		return"";
+	}
+	else
+		return m.get_item_name(mres);
+}
+string comprarpa() //Comprar passagem para avião
 {
-speak(pu.get_value("Nenhum arquivo de idioma encontrado."));
-return"";
+	menusilent();
+	m.add_item_tts("monterréi", "monterréi");
+	m.add_item_tts("méxico", "cidade_de_méxico");
+	m.add_item_tts(pu.get_value("Voltar"), "back");
+	int mres = m.run(pu.get_value("Escolha para qual lugar você quer comprar a passagem."), true);
+	if (m.get_item_name(mres) == "back")
+		return"";
+	else
+		return m.get_item_name(mres);
 }
-setupmenu();
-for(uint i=0; i<soundfiles.length; i++)
+string comprarpa2() //Comprar passagem para avião
 {
-m.add_item_tts(string_replace(soundfiles[i],".lang","",true),soundfiles[i]);
+	menusilent();
+	m.add_item_tts("ciudade_de_guadalajara", "ciudade_de_guadalajara");
+	m.add_item_tts("ciudade_de_méxico", "ciudade_de_méxico");
+	m.add_item_tts(pu.get_value("Voltar"), "back");
+	int mres = m.run(pu.get_value("Escolha para qual lugar você quer comprar a passagem."), true);
+	if (m.get_item_name(mres) == "back")
+		return"";
+	else
+		return m.get_item_name(mres);
 }
-m.add_item_tts(pu.get_value("Voltar"), "back");
-int mres=m.run(pu.get_value("Escolha o arquivo de idioma que deseja usar."),true);
-if(m.get_item_name(mres)=="back")
+void convertermenu()
 {
-return"";
+	menusilent();
+	if (ausente || !moveable)
+		return;
+	m.add_item_tts(pu.get_value("Coins para reais"), "coinsparareais");
+	m.add_item_tts(pu.get_value("Reais para coins"), "reaisparacoins");
+	m.add_item_tts(pu.get_value("Voltar"), "back");
+	int mres = m.run(pu.get_value("O que deseja converter?"), true);
+	if (m.get_item_name(mres) == "back")
+	{
+	}
+	else if (m.get_item_name(mres) == "coinsparareais")
+	{
+		string colocar = v.input("quantos você quer converter?");
+		if (colocar != "")
+			send_reliable(peer_id, "coinsparareais " + colocar, 2);
+	}
+	else if (m.get_item_name(mres) == "reaisparacoins")
+	{
+		string colocar = v.input("quantos você quer converter?");
+		if (colocar != "")
+			send_reliable(peer_id, "reaisparacoins " + colocar, 2);
+	}
 }
-else return m.get_item_name(mres);
-}
-string comprarpa(){//Comprar passagem para avião
-menusilent();
-m.add_item_tts("monterréi", "monterréi");
-m.add_item_tts("méxico", "cidade_de_méxico");
-m.add_item_tts(pu.get_value("Voltar"), "back");
-int mres=m.run(pu.get_value("Escolha para qual lugar você quer comprar a passagem."), true);
-if(m.get_item_name(mres)=="back") return"";
-else return m.get_item_name(mres);
-}
-string comprarpa2(){//Comprar passagem para avião
-menusilent();
-m.add_item_tts("ciudade_de_guadalajara", "ciudade_de_guadalajara");
-m.add_item_tts("ciudade_de_méxico", "ciudade_de_méxico");
-m.add_item_tts(pu.get_value("Voltar"), "back");
-int mres=m.run(pu.get_value("Escolha para qual lugar você quer comprar a passagem."), true);
-if(m.get_item_name(mres)=="back") return"";
-else return m.get_item_name(mres);
-}
-void convertermenu(){
-menusilent();
-if(ausente||!moveable)return;
-m.add_item_tts(pu.get_value("Coins para reais"), "coinsparareais");
-m.add_item_tts(pu.get_value("Reais para coins"), "reaisparacoins");
-m.add_item_tts(pu.get_value("Voltar"),"back");
-int mres=m.run(pu.get_value("O que deseja converter?"), true);
-if(m.get_item_name(mres)=="back"){
-}
-else if(m.get_item_name(mres)=="coinsparareais"){
-string colocar=v.input("quantos você quer converter?");
-if(colocar!="") send_reliable(peer_id, "coinsparareais "+colocar, 2);
-}
-else if(m.get_item_name(mres)=="reaisparacoins"){
-string colocar=v.input("quantos você quer converter?");
-if(colocar!="") send_reliable(peer_id, "reaisparacoins "+colocar, 2);
-}
-}
-string frasesbarra(){
-menusilent();
-m.add_item("v"+voice+"ajuda1.ogg", "1");
-m.add_item("v"+voice+"ajuda2.ogg", "2");
-m.add_item_tts(pu.get_value("Voltar"), "voltar");
-int mres=m.run(pu.get_value("Escolha a frase que deseja usar para pedir ajuda."),true);
-if(mres<=0)
+string frasesbarra()
 {
-return"";
+	menusilent();
+	m.add_item("v" + voice + "ajuda1.ogg", "1");
+	m.add_item("v" + voice + "ajuda2.ogg", "2");
+	m.add_item_tts(pu.get_value("Voltar"), "voltar");
+	int mres = m.run(pu.get_value("Escolha a frase que deseja usar para pedir ajuda."), true);
+	if (mres <= 0)
+	{
+		return"";
+	}
+	else
+		return m.get_item_name(mres);
 }
-else return m.get_item_name(mres);
-}
-void explosivos(){
-menusilent();
-if(ausente||!moveable)return;
-m.add_item_tts(pu.get_value("mina")+" - 20 "+pu.get_value("reais"), "mina");
-m.add_item_tts(pu.get_value("bomba_relógio")+" - 100 "+pu.get_value("reais"), "bomba_relógio");
-m.add_item_tts(pu.get_value("bomba_remota")+" - 200 "+pu.get_value("reais"),"bomba_remota");
-m.add_item_tts(pu.get_value("míssil_teleguiado")+" - 200 "+pu.get_value("reais"),"míssil_teleguiado");
-m.add_item_tts(pu.get_value("max_bomba")+" - 250 "+pu.get_value("reais"),"max_bomba");
-m.add_item_tts(pu.get_value("bomba_de_fogo")+" - 250 "+pu.get_value("reais"),"bomba_de_fogo");
-m.add_item_tts(pu.get_value("bomba_atômica")+" - 300 "+pu.get_value("reais"),"bomba_atômica");
-m.add_item_tts(pu.get_value("uzi")+" - 1160","uzi");
-m.add_item_tts(pu.get_value("m4a1")+" - 200 "+pu.get_value("reais"),"m4a1");
-m.add_item_tts(pu.get_value("mp5")+" - 1150 "+pu.get_value("reais"),"mp5");
-m.add_item_tts(pu.get_value("m14")+" - 1400 "+pu.get_value("reais"),"m14");
-m.add_item_tts(pu.get_value("ar15")+" - 1800 "+pu.get_value("reais"),"ar15");
-m.add_item_tts(pu.get_value("m249")+" 2000 "+pu.get_value("reais"), "m249");
-m.add_item_tts(pu.get_value("ak47")+" 2300 "+pu.get_value("reais"), "ak47");
-m.add_item_tts(pu.get_value("sniper")+" 2500 "+pu.get_value("reais"), "sniper");
-m.add_item_tts(pu.get_value("m60")+" 2800 "+pu.get_value("reais"), "m60");
-m.add_item_tts(pu.get_value("m240")+" 3000 "+pu.get_value("reais"), "m240");
-m.add_item_tts(pu.get_value("m16")+" 3500 "+pu.get_value("reais"), "m16");
-m.add_item_tts(pu.get_value("mk1")+" 4879 "+pu.get_value("reais"), "mk1");
-m.add_item_tts(pu.get_value("mega_laser")+" 5000 "+pu.get_value("reais"), "mega_laser");
-m.add_item_tts(pu.get_value("lançador_de_granada")+" 8000 "+pu.get_value("reais"), "lançador_de_granada");
-m.add_item_tts(pu.get_value("granada")+" 10 "+pu.get_value("reais"), "granada");
-m.add_item_tts(pu.get_value("míssil")+" 15 "+pu.get_value("reais"), "míssil");
-m.add_item_tts(pu.get_value("laser")+" 5 "+pu.get_value("reais"), "laser");
-m.add_item_tts(pu.get_value("7.62mm")+" 3 "+pu.get_value("reais"), "7.62mm");
-m.add_item_tts(pu.get_value("5.56mm")+" 2 "+pu.get_value("reais"), "5.56mm");
-m.add_item_tts(pu.get_value("9mm")+" - 2 "+pu.get_value("reais"),"9mm");
-m.add_item_tts(pu.get_value("Voltar"),"0");
-int mres=m.run(pu.get_value("Escolha um item"),true);
-if(m.get_item_name(mres)=="0")
+void explosivos()
 {
+	menusilent();
+	if (ausente || !moveable)
+		return;
+	m.add_item_tts(pu.get_value("mina") + " - 20 " + pu.get_value("reais"), "mina");
+	m.add_item_tts(pu.get_value("bomba_relógio") + " - 100 " + pu.get_value("reais"), "bomba_relógio");
+	m.add_item_tts(pu.get_value("bomba_remota") + " - 200 " + pu.get_value("reais"), "bomba_remota");
+	m.add_item_tts(pu.get_value("míssil_teleguiado") + " - 200 " + pu.get_value("reais"), "míssil_teleguiado");
+	m.add_item_tts(pu.get_value("max_bomba") + " - 250 " + pu.get_value("reais"), "max_bomba");
+	m.add_item_tts(pu.get_value("bomba_de_fogo") + " - 250 " + pu.get_value("reais"), "bomba_de_fogo");
+	m.add_item_tts(pu.get_value("bomba_atômica") + " - 300 " + pu.get_value("reais"), "bomba_atômica");
+	m.add_item_tts(pu.get_value("uzi") + " - 1160", "uzi");
+	m.add_item_tts(pu.get_value("m4a1") + " - 200 " + pu.get_value("reais"), "m4a1");
+	m.add_item_tts(pu.get_value("mp5") + " - 1150 " + pu.get_value("reais"), "mp5");
+	m.add_item_tts(pu.get_value("m14") + " - 1400 " + pu.get_value("reais"), "m14");
+	m.add_item_tts(pu.get_value("ar15") + " - 1800 " + pu.get_value("reais"), "ar15");
+	m.add_item_tts(pu.get_value("m249") + " 2000 " + pu.get_value("reais"), "m249");
+	m.add_item_tts(pu.get_value("ak47") + " 2300 " + pu.get_value("reais"), "ak47");
+	m.add_item_tts(pu.get_value("sniper") + " 2500 " + pu.get_value("reais"), "sniper");
+	m.add_item_tts(pu.get_value("m60") + " 2800 " + pu.get_value("reais"), "m60");
+	m.add_item_tts(pu.get_value("m240") + " 3000 " + pu.get_value("reais"), "m240");
+	m.add_item_tts(pu.get_value("m16") + " 3500 " + pu.get_value("reais"), "m16");
+	m.add_item_tts(pu.get_value("mk1") + " 4879 " + pu.get_value("reais"), "mk1");
+	m.add_item_tts(pu.get_value("mega_laser") + " 5000 " + pu.get_value("reais"), "mega_laser");
+	m.add_item_tts(pu.get_value("lançador_de_granada") + " 8000 " + pu.get_value("reais"), "lançador_de_granada");
+	m.add_item_tts(pu.get_value("granada") + " 10 " + pu.get_value("reais"), "granada");
+	m.add_item_tts(pu.get_value("míssil") + " 15 " + pu.get_value("reais"), "míssil");
+	m.add_item_tts(pu.get_value("laser") + " 5 " + pu.get_value("reais"), "laser");
+	m.add_item_tts(pu.get_value("7.62mm") + " 3 " + pu.get_value("reais"), "7.62mm");
+	m.add_item_tts(pu.get_value("5.56mm") + " 2 " + pu.get_value("reais"), "5.56mm");
+	m.add_item_tts(pu.get_value("9mm") + " - 2 " + pu.get_value("reais"), "9mm");
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha um item"), true);
+	if (m.get_item_name(mres) == "0")
+	{
+	}
+	else if (mres > 0)
+	{
+		string valor = v.input(pu.get_value("Quanto você quer de") + " " + pu.get_value(m.get_item_name(mres)) + "?");
+		send_reliable(peer_id, "/buy2123321123 " + valor + " " + m.get_item_name(mres), 1);
+	}
 }
-else if(mres>0)
+void origem()
 {
-string valor=v.input(pu.get_value("Quanto você quer de")+" "+pu.get_value(m.get_item_name(mres))+"?");
-send_reliable(peer_id,"/buy2123321123 "+valor+" "+m.get_item_name(mres),1);
-}
-}
-void origem(){
-menusilent();
-m.add_item_tts(pu.get_value("Automático"), "auto");
-m.add_item_tts("Arabic", "ar");
-m.add_item_tts("Français", "fr");
-m.add_item_tts("English", "en");
-m.add_item_tts("Persian", "pl");
-m.add_item_tts("Português", "pt-br");
-m.add_item_tts("Spanish", "es");
-m.add_item_tts(pu.get_value("Voltar"), -1);
-int mres=m.run(pu.get_value("Selecione o arquivo de origem."), true);
-if(m.get_item_name(mres)<=0){
-optionsmenu2();
-}
-else{
-idiomaorigem=m.get_item_name(mres);
-writeprefs();
-optionsmenu2();
-}
+	menusilent();
+	m.add_item_tts(pu.get_value("Automático"), "auto");
+	m.add_item_tts("Arabic", "ar");
+	m.add_item_tts("Français", "fr");
+	m.add_item_tts("English", "en");
+	m.add_item_tts("Persian", "pl");
+	m.add_item_tts("Português", "pt-br");
+	m.add_item_tts("Spanish", "es");
+	m.add_item_tts(pu.get_value("Voltar"), -1);
+	int mres = m.run(pu.get_value("Selecione o arquivo de origem."), true);
+	if (m.get_item_name(mres) <= 0)
+	{
+		optionsmenu2();
+	}
+	else
+	{
+		idiomaorigem = m.get_item_name(mres);
+		writeprefs();
+		optionsmenu2();
+	}
 }
 void mtester(string mapas)
 {
-setupmenu();
-string[] mmapas=string_split(mapas,"\r\n",true);
-for (uint i=0; i<mmapas.length(); i++)
-{
-m.add_item_tts(string_replace(mmapas[i], ".map", "", true), string_replace(mmapas[i], ".map", "", true));
-}
-m.add_item_tts(pu.get_value("Voltar"), "0");
-int mres=m.run(pu.get_value("Escolha o mapa para se teleportar"), true);
-if(m.get_item_name(mres)!="0"){
-send_reliable(peer_id, "mtester "+m.get_item_name(mres), 0);
-}
+	setupmenu();
+	string[] mmapas = string_split(mapas, "\r\n", true);
+	for (uint i = 0; i < mmapas.length(); i++)
+	{
+		m.add_item_tts(string_replace(mmapas[i], ".map", "", true), string_replace(mmapas[i], ".map", "", true));
+	}
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha o mapa para se teleportar"), true);
+	if (m.get_item_name(mres) != "0")
+	{
+		send_reliable(peer_id, "mtester " + m.get_item_name(mres), 0);
+	}
 }
 void manimal(string animais)
 {
-setupmenu();
-string[] manimais=string_split(animais,"\r\n",true);
-for (uint i=0; i<manimais.length(); i++)
-{
-m.add_item_tts(manimais[i], manimais[i]);
-}
-m.add_item_tts(pu.get_value("Voltar"), "0");
-int mres=m.run(pu.get_value("Escolha o animal à spawnar"), true);
-if(m.get_item_name(mres)!="0"){
-string q=v.input(pu.get_value("Quantos?"));
-send_reliable(peer_id, "sanimal "+m.get_item_name(mres)+" "+q, 0);
-}
+	setupmenu();
+	string[] manimais = string_split(animais, "\r\n", true);
+	for (uint i = 0; i < manimais.length(); i++)
+	{
+		m.add_item_tts(manimais[i], manimais[i]);
+	}
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha o animal à spawnar"), true);
+	if (m.get_item_name(mres) != "0")
+	{
+		string q = v.input(pu.get_value("Quantos?"));
+		send_reliable(peer_id, "sanimal " + m.get_item_name(mres) + " " + q, 0);
+	}
 }
 void mmaquina(string animais)
 {
-setupmenu();
-string[] manimais=string_split(animais,"\r\n",true);
-for (uint i=0; i<manimais.length(); i++)
-{
-string[] z=string_split(manimais[i], ":", false);
-m.add_item_tts(pu.get_value(z[0]), z[1]);
-}
-m.add_item_tts(pu.get_value("Voltar"), "0");
-int mres=m.run(pu.get_value("Escolha o mundo que deseja tentar ir."), true);
-if(m.get_item_name(mres)!="0"){
-send_reliable(peer_id, "smaquina "+m.get_item_name(mres), 0);
-}
+	setupmenu();
+	string[] manimais = string_split(animais, "\r\n", true);
+	for (uint i = 0; i < manimais.length(); i++)
+	{
+		string[] z = string_split(manimais[i], ":", false);
+		m.add_item_tts(pu.get_value(z[0]), z[1]);
+	}
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha o mundo que deseja tentar ir."), true);
+	if (m.get_item_name(mres) != "0")
+	{
+		send_reliable(peer_id, "smaquina " + m.get_item_name(mres), 0);
+	}
 }
 void mnormal(string mensagem)
 {
-setupmenu();
-string[] mmensagem=string_split(mensagem,"\r\n",true);
-string[] bla=string_split(mmensagem[0], ":", false);
-for (uint i=1; i<mmensagem.length(); i++)
+	setupmenu();
+	string[] mmensagem = string_split(mensagem, "\r\n", true);
+	string[] bla = string_split(mmensagem[0], ":", false);
+	for (uint i = 1; i < mmensagem.length(); i++)
+	{
+		string[] z = string_split(mmensagem[i], ":", false);
+		m.add_item_tts(pu.get_value(z[0]), z[1]);
+	}
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value(bla[0]), true);
+	if (m.get_item_name(mres) != "0")
+	{
+		send_reliable(peer_id, bla[1] + " " + m.get_item_name(mres), 0);
+	}
+}
+void mnormal2(string mensagem)
 {
-string[] z=string_split(mmensagem[i], ":", false);
-m.add_item_tts(pu.get_value(z[0]), z[1]);
+	setupmenu();
+	string[] mmensagem = string_split(mensagem, "\r\n", true);
+	string[] bla = string_split(mmensagem[0], bell2, false);
+	for (uint i = 1; i < mmensagem.length(); i++)
+	{
+		string[] z = string_split(mmensagem[i], bell2, false);
+		if (z.length() > 1)
+			m.add_item_tts(pu.get_value(z[0]), z[1]);
+	}
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value(bla[0]), true);
+	if (m.get_item_name(mres) != "0")
+	{
+		send_reliable(peer_id, bla[1] + " " + m.get_item_name(mres), 0);
+	}
 }
-m.add_item_tts(pu.get_value("Voltar"), "0");
-int mres=m.run(pu.get_value(bla[0]), true);
-if(m.get_item_name(mres)!="0"){
-send_reliable(peer_id, bla[1]+" "+m.get_item_name(mres), 0);
-}
-}
-void mnormal2(string mensagem){
-setupmenu();
-string[] mmensagem=string_split(mensagem,"\r\n",true);
-string[] bla=string_split(mmensagem[0], bell2, false);
-for (uint i=1; i<mmensagem.length(); i++){
-string[] z=string_split(mmensagem[i], bell2, false);
-if(z.length()>1)m.add_item_tts(pu.get_value(z[0]), z[1]);
-}
-m.add_item_tts(pu.get_value("Voltar"), "0");
-int mres=m.run(pu.get_value(bla[0]), true);
-if(m.get_item_name(mres)!="0"){
-send_reliable(peer_id, bla[1]+" "+m.get_item_name(mres), 0);
-}
-}
-void armasbertalina(){
-menusilent();
-if(ausente||!moveable)return;
-m.add_item_tts(pu.get_value("espada")+" - 10 "+pu.get_value("reais"),"espada");
-m.add_item_tts(pu.get_value("rifle.45")+" - 162 "+pu.get_value("reais"),"rifle.45");
-m.add_item_tts(pu.get_value("remington")+" - 150 "+pu.get_value("reais"),"remington");
-m.add_item_tts(pu.get_value("doze")+" - 50 "+pu.get_value("reais"), "doze");
-m.add_item_tts(pu.get_value("benelli")+" - 100 "+pu.get_value("reais"), "benelli");
-m.add_item_tts(pu.get_value("12mm")+" - 2 "+pu.get_value("reais"), "12mm");
-m.add_item_tts(pu.get_value("30mm")+" - 2 "+pu.get_value("reais"), "30mm");
-m.add_item_tts(pu.get_value("Voltar"),"0");
-int mres=m.run(pu.get_value("Escolha um item"),true);
-if(m.get_item_name(mres)=="0")
+void armasbertalina()
 {
+	menusilent();
+	if (ausente || !moveable)
+		return;
+	m.add_item_tts(pu.get_value("espada") + " - 10 " + pu.get_value("reais"), "espada");
+	m.add_item_tts(pu.get_value("rifle.45") + " - 162 " + pu.get_value("reais"), "rifle.45");
+	m.add_item_tts(pu.get_value("remington") + " - 150 " + pu.get_value("reais"), "remington");
+	m.add_item_tts(pu.get_value("doze") + " - 50 " + pu.get_value("reais"), "doze");
+	m.add_item_tts(pu.get_value("benelli") + " - 100 " + pu.get_value("reais"), "benelli");
+	m.add_item_tts(pu.get_value("12mm") + " - 2 " + pu.get_value("reais"), "12mm");
+	m.add_item_tts(pu.get_value("30mm") + " - 2 " + pu.get_value("reais"), "30mm");
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha um item"), true);
+	if (m.get_item_name(mres) == "0")
+	{
+	}
+	else if (mres > 0)
+	{
+		string valor = v.input(pu.get_value("Quanto você quer de") + " " + pu.get_value(m.get_item_name(mres)) + "?");
+		send_reliable(peer_id, "/buy2123321123 " + valor + " " + m.get_item_name(mres), 1);
+	}
 }
-else if(mres>0)
+void pesca()
 {
-string valor=v.input(pu.get_value("Quanto você quer de")+" "+pu.get_value(m.get_item_name(mres))+"?");
-send_reliable(peer_id,"/buy2123321123 "+valor+" "+m.get_item_name(mres),1);
+	menusilent();
+	if (ausente || !moveable)
+		return;
+	m.add_item_tts(pu.get_value("lancha") + " - 30000 " + pu.get_value("reais"), "lancha");
+	m.add_item_tts(pu.get_value("galão_de_gasolina") + " - 40 " + pu.get_value("reais"), "galão_de_gasolina");
+	m.add_item_tts(pu.get_value("vara_de_pesca") + " - 50 " + pu.get_value("reais"), "vara_de_pesca");
+	m.add_item_tts(pu.get_value("minhoca") + " - 1 " + pu.get_value("real"), "minhoca");
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha um item"), true);
+	if (m.get_item_name(mres) == "0")
+	{
+	}
+	else if (mres > 0)
+	{
+		string valor = v.input(pu.get_value("Quanto você quer de") + " " + pu.get_value(m.get_item_name(mres)) + "?");
+		send_reliable(peer_id, "/buy2123321123 " + valor + " " + m.get_item_name(mres), 1);
+	}
 }
-}
-void pesca(){
-menusilent();
-if(ausente||!moveable)return;
-m.add_item_tts(pu.get_value("lancha")+" - 30000 "+pu.get_value("reais"),"lancha");
-m.add_item_tts(pu.get_value("galão_de_gasolina")+" - 40 "+pu.get_value("reais"),"galão_de_gasolina");
-m.add_item_tts(pu.get_value("vara_de_pesca")+" - 50 "+pu.get_value("reais"),"vara_de_pesca");
-m.add_item_tts(pu.get_value("minhoca")+" - 1 "+pu.get_value("real"),"minhoca");
-m.add_item_tts(pu.get_value("Voltar"),"0");
-int mres=m.run(pu.get_value("Escolha um item"),true);
-if(m.get_item_name(mres)=="0")
+void mtext(string mensagem)
 {
+	string[] mmensagem = string_split(mensagem, "\r\n", true);
+	string[] bla = string_split(mmensagem[0], ":", false);
+	string z = v.input(pu.get_value(bla[0]));
+	if (z != "")
+	{
+		send_reliable(peer_id, bla[1] + " " + z, 0);
+	}
 }
-else if(mres>0)
+void lanchonete()
 {
-string valor=v.input(pu.get_value("Quanto você quer de")+" "+pu.get_value(m.get_item_name(mres))+"?");
-send_reliable(peer_id,"/buy2123321123 "+valor+" "+m.get_item_name(mres),1);
-}
-}
-void mtext(string mensagem){
-string[] mmensagem=string_split(mensagem,"\r\n",true);
-string[] bla=string_split(mmensagem[0], ":", false);
-string z=v.input(pu.get_value(bla[0]));
-if(z!=""){
-send_reliable(peer_id, bla[1]+" "+z, 0);
-}
-}
-void lanchonete(){
-menusilent();
-if(ausente||!moveable)return;
-m.add_item_tts(pu.get_value("refrigerante")+" - 4 "+pu.get_value("coins"),"refrigerante");
-m.add_item_tts(pu.get_value("batata_frita")+" - 1 "+pu.get_value("real"),"batata_frita");
-m.add_item_tts(pu.get_value("torresmo")+" - 1 "+pu.get_value("real"),"torresmo");
-m.add_item_tts(pu.get_value("enroladinho")+" - 2 "+pu.get_value("reais"),"enroladinho");
-m.add_item_tts(pu.get_value("cochinha")+" - 2 "+pu.get_value("reais"),"cochinha");
-m.add_item_tts(pu.get_value("pastel_de_carne")+" - 4 "+pu.get_value("reais"),"pastel_de_carne");
-m.add_item_tts(pu.get_value("pastel_de_queijo")+" - 4 "+pu.get_value("reais"),"pastel_de_queijo");
-m.add_item_tts(pu.get_value("cachorro_quente")+" - 5 "+pu.get_value("reais"),"cachorro_quente");
-m.add_item_tts(pu.get_value("suco_de_caju")+" - 1 "+pu.get_value("real"),"suco_de_caju");
-m.add_item_tts(pu.get_value("suco_de_goiaba")+" - 1 "+pu.get_value("real"),"suco_de_goiaba");
-m.add_item_tts(pu.get_value("suco_de_pêssego")+" - 4 "+pu.get_value("reais"),"suco_de_pêssego");
-m.add_item_tts(pu.get_value("suco_de_morango")+" - 4 "+pu.get_value("reais"),"suco_de_morango");
-m.add_item_tts(pu.get_value("Voltar"),"0");
-int mres=m.run(pu.get_value("Escolha um item."),true);
-if(m.get_item_name(mres)=="0")
-{
-}
-else if(mres>0)
-{
-string valor=v.input(pu.get_value("Quanto você quer de")+" "+pu.get_value(m.get_item_name(mres))+"?");
-if(m.get_item_name(mres)!="refrigerante")send_reliable(peer_id,"/buy2123321123 "+valor+" "+m.get_item_name(mres),1);
-else send_reliable(peer_id,"/buy123321123 "+valor+" "+m.get_item_name(mres),1);
-}
+	menusilent();
+	if (ausente || !moveable)
+		return;
+	m.add_item_tts(pu.get_value("refrigerante") + " - 4 " + pu.get_value("coins"), "refrigerante");
+	m.add_item_tts(pu.get_value("batata_frita") + " - 1 " + pu.get_value("real"), "batata_frita");
+	m.add_item_tts(pu.get_value("torresmo") + " - 1 " + pu.get_value("real"), "torresmo");
+	m.add_item_tts(pu.get_value("enroladinho") + " - 2 " + pu.get_value("reais"), "enroladinho");
+	m.add_item_tts(pu.get_value("cochinha") + " - 2 " + pu.get_value("reais"), "cochinha");
+	m.add_item_tts(pu.get_value("pastel_de_carne") + " - 4 " + pu.get_value("reais"), "pastel_de_carne");
+	m.add_item_tts(pu.get_value("pastel_de_queijo") + " - 4 " + pu.get_value("reais"), "pastel_de_queijo");
+	m.add_item_tts(pu.get_value("cachorro_quente") + " - 5 " + pu.get_value("reais"), "cachorro_quente");
+	m.add_item_tts(pu.get_value("suco_de_caju") + " - 1 " + pu.get_value("real"), "suco_de_caju");
+	m.add_item_tts(pu.get_value("suco_de_goiaba") + " - 1 " + pu.get_value("real"), "suco_de_goiaba");
+	m.add_item_tts(pu.get_value("suco_de_pêssego") + " - 4 " + pu.get_value("reais"), "suco_de_pêssego");
+	m.add_item_tts(pu.get_value("suco_de_morango") + " - 4 " + pu.get_value("reais"), "suco_de_morango");
+	m.add_item_tts(pu.get_value("Voltar"), "0");
+	int mres = m.run(pu.get_value("Escolha um item."), true);
+	if (m.get_item_name(mres) == "0")
+	{
+	}
+	else if (mres > 0)
+	{
+		string valor = v.input(pu.get_value("Quanto você quer de") + " " + pu.get_value(m.get_item_name(mres)) + "?");
+		if (m.get_item_name(mres) != "refrigerante")
+			send_reliable(peer_id, "/buy2123321123 " + valor + " " + m.get_item_name(mres), 1);
+		else
+			send_reliable(peer_id, "/buy123321123 " + valor + " " + m.get_item_name(mres), 1);
+	}
 }

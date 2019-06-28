@@ -1,36 +1,38 @@
 class mina
 {
-int x,y;
-string id,map;
-mina(string mid, int mx, int my,string mm)
-{
-id=mid;
-x=mx;
-y=my;
-map=mm;
-}
+	int x, y;
+	string id, map;
+	mina(string mid, int mx, int my, string mm)
+	{
+		id = mid;
+		x = mx;
+		y = my;
+		map = mm;
+	}
 }
 mina@[] minas;
-void spawnmina(string id, int x, int y,string map) {
-mina m1(id,x,y,map);
-minas.insert_last(m1);
-if(map==mapname) p.play_2d("mineplace.ogg",me.x,me.y,x,y,false);
+void spawnmina(string id, int x, int y, string map)
+{
+	mina m1(id, x, y, map);
+	minas.insert_last(m1);
+	if (map == mapname)
+		p.play_2d("mineplace.ogg", me.x, me.y, x, y, false);
 }
 void destroymina(string id)
 {
-for(uint i=0; i<minas.length; i++)
-{
-if(minas[i].id==id)
-{
-minas.remove_at(i);
-continue;
-}
-}
+	for (uint i = 0; i < minas.length; i++)
+	{
+		if (minas[i].id == id)
+		{
+			minas.remove_at(i);
+			continue;
+		}
+	}
 }
 void destroyallminas()
 {
-for(uint i=0; i<minas.length; i++)
-{
-destroymina(minas[i].id);
-}
+	for (uint i = 0; i < minas.length; i++)
+	{
+		destroymina(minas[i].id);
+	}
 }
