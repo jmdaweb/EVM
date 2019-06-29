@@ -1,1 +1,25 @@
-pwall:97:0:50:wallnone
+map:oitava_caverna
+maxx:101
+maxy:20
+platform:1:100:20:wallnone
+platform:1:100:-1:wallnone
+wall:0:0:20:walldirt
+wall:101:0:20:walldirt
+platform:1:100:0:cement
+sound_source:0:101:0:20:caverna2.ogg
+zone:0:100:0:20:Dentro da caverna.
+zone:1:1:0:5:Passagem de saída.
+travelpoint:1:1:0:0:76:120:pré_história:Você sai da caverna.
+wall:10:0:3:wallbarricada
+wall:20:0:3:wallbarricada
+wall:30:0:3:wallbarricada
+wall:40:0:3:wallbarricada
+wall:50:0:3:wallbarricada
+wall:60:0:3:wallbarricada
+wall:70:0:3:wallbarricada
+wall:80:0:3:wallbarricada
+wall:90:0:3:wallbarricada
+teto:none
+desativar:bicicleta
+desativar:camera
+desativar:coordenadas

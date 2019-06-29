@@ -277,7 +277,7 @@ m.add_item_tts(pu.get_value("Activar / desactivar doble gold"),"dg");
 m.add_item_tts(pu.get_value("dar presentes"),"dr");
 m.add_item_tts(pu.get_value("Ver el estado del servidor"), "ss");
 m.add_item_tts(pu.get_value("Cerrar este menú"), "closemenu");
-int mres=m.run(pu.get_value("Mais opções"), true);
+int mres=m.run(pu.get_value("Menú administrativo, por favor use con cuidado."), true);
 /*if(mres==6) 
 {
 zoeiras(); // función sin revisar ni documentar
@@ -286,8 +286,8 @@ adminmenu();
 if(m.get_item_name(mres)=="dr")
 if(m.get_item_name(mres)=="dr")
 {
-string r1=v.input("escriva el item que dará a los jugadores, tenga cuidado al escrivir");
-string r2=v.input("acá, inserte el número de itens, aviso, solo números");
+string r1=v.input(pu.get_value("Escriva el item que dará a los jugadores, tenga cuidado al escrivir:"));
+string r2=v.input(pu.get_value("Escriba el número de itens, solo números:"));
 int cantidad;
 cantidad=string_to_number(r2);
 send_reliable(1, "/presente "+r1+" "+cantidad, 1);
@@ -307,21 +307,21 @@ adminmenu();
 if(m.get_item_name(mres)=="rs")
 {
 send_reliable(1, "/reboot", 1);
-adminmenu();
+return;
 }
 if(m.get_item_name(mres)=="cs")
 {
 send_reliable(1, "/clearserver", 1);
-mainloop();
+return;
 }
 if(m.get_item_name(mres)=="ss")
 {
 send_reliable(1, "/lcoisas", 1);
 adminmenu();
 }
-if(m.get_item_name(mres)=="closemenu")
+if(m.get_item_name(mres)=="closemenu" && mres==0)
 {
-mainloop();
+return;
 }
 }
 
