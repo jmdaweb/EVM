@@ -1,247 +1,215 @@
 obj@[] objs;
-class obj
-{
-string player;
-int num;
-string item;
-string map;
-int timeout=random(30000, 500000000);
-int x,y;
-timer timeouttimer;
-bool delete=false,obtainable=true;
-int tapagar=0;
-obj(int ox, int oy, string what, int amount, string m="",string who="", int oapagar=0)
-{
-player=who;
-map=m;
-if(ox==-1)
-{
-file f;
-f.open("maps/"+map+".map", "rb");
-string mdata=f.read();
-f.close();
-string[] p1=delinear(mdata);
-for(uint i=0; i<p1.length(); i++)
-{
-if (string_contains(p1[i],"maxx",1)>-1)
-{
-string[] s=string_split(p1[i],":",false);
-int maxx=string_to_number(s[1]);
-ox=random(2,(maxx-1));
-break;
+class obj{
+	string player;
+	int num;
+	string item;
+	string map;
+	int timeout=random(30000, 500000000);
+	int x,y;
+	timer timeouttimer;
+	bool delete=false,obtainable=true;
+	int tapagar=0;
+	obj(int ox, int oy, string what, int amount, string m="",string who="", int oapagar=0){
+		player=who;
+		map=m;
+		if(ox==-1){
+			file f;
+			f.open("maps/"+map+".map", "rb");
+			string mdata=f.read();
+			f.close();
+			string[] p1=delinear(mdata);
+			for(uint i=0; i<p1.length(); i++){
+				if (string_contains(p1[i],"maxx",1)>-1){
+					string[] s=string_split(p1[i],":",false);
+					int maxx=string_to_number(s[1]);
+					ox=random(2,(maxx-1));
+					break;
+				}
+			}
+		}
+		x=ox;
+		y=oy;
+		item=what;
+		num=amount;
+		tapagar=oapagar;
+	}
+	void get(int index){
+		if(item=="relógio"){
+			if(players[index].inv_item_number("relógio")<=0){
+				players[index].inv_add_item("relógio",1);
+				send_packet(0,"play getrelógio.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+				send_reliable(players[index].peer_id, "msgpegouitem 1 relógio", 0);
+			}
+		}
+		else if(item=="presente"){
+			players[index].inv_add_item("presente", 1);
+			send_reliable(players[index].peer_id, "ps papai"+players[index].idiomachat+".ogg", 0);
+		}
+		else if (item=="laser_rand"){
+			int a=random(2,6);
+			players[index].inv_add_item("laser",a);
+			send_packet(0,"play getammo.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+			send_reliable(players[index].peer_id, "msgpegouitem "+a+" lasers", 0);
+		}
+		else if (item=="antídoto-"){
+			players[index].inv_add_item("antídoto",1);
+			send_packet(0,"play drawantídoto.ogg "+players[index].x+" "+players[index].y,players[index].map);
+			send_reliable(players[index].peer_id, "msgpegouitem 1 antídoto", 0);
+		}
+		else if (item=="ovo_de_páscoa_"){
+			players[index].inv_add_item("ovo_de_páscoa",1);
+			send_packet(0,"play get_ovo_de_páscoa.ogg "+players[index].x+" "+players[index].y, players[index].map);
+			send_reliable(players[index].peer_id, "msgpegouitem 1 ovo_de_páscoa", 0);
+		}
+		else if(item=="ovo_de_ouro"){
+			players[index].inv_add_item("ovo_de_ouro", 1);
+			if(players[index].map=="galinheiro")tovo.restart();
+			send_packet(0,"play gift.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+		}
+		else if (item=="flecha_rand"){
+			int a=random(2,6);
+			players[index].inv_add_item("flecha",a);
+			send_packet(0,"play getflecha.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+			send_reliable(players[index].peer_id, "msgpegouitem "+a+" flechas", 0);
+		}
+		else if (item=="9mm_rand"){
+			int a=random(2,20);
+			players[index].inv_add_item("9mm",a);
+			send_packet(0,"play get9mm.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+			send_reliable(players[index].peer_id, "msgpegouitem "+a+" 9mm", 0);
+		}
+		else if (item=="12mm_rand"){
+			int a=random(2,10);
+			players[index].inv_add_item("12mm",a);
+			send_packet(0,"play get12mm.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+			send_reliable(players[index].peer_id, "msgpegouitem "+a+" 12mm", 0);
+		}
+		else if(item=="bandeira_desafio"){
+			if(players[index].equipedesafio==1&&players[index].equipemortal==0)spawn_obj(99, 0, "bandeira_desafio", 1, "desafio_constante");
+			else if(players[index].equipemortal==1&&players[index].equipedesafio==0){
+				players[index].inv_add_item("bandeira_desafio", 1);
+				send_reliable(0, "msgdepois "+players[index].charname+" pegou a bandeira Desafio!", 0);
+			}
+		}
+		else if(item=="bandeira_mortal"){
+			if(players[index].equipemortal==1&&players[index].equipedesafio==0)spawn_obj(1, 0, "bandeira_mortal", 1, "desafio_constante");
+			else if(players[index].equipedesafio==1&&players[index].equipemortal==0){
+				players[index].inv_add_item("bandeira_mortal", 1);
+				send_reliable(0, "msgdepois "+players[index].charname+" pegou a bandeira Mortal!", 0);
+			}
+		}
+		else if (item=="30mm_rand"){
+			int a=random(2,5);
+			players[index].inv_add_item("30mm",a);
+			send_packet(0,"play get30mm.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+			send_reliable(players[index].peer_id, "msgpegouitem "+a+" 30mm", 0);
+		}
+		else if (item=="5.56mm_rand"){
+			int a=random(2, 20);
+			players[index].inv_add_item("5.56mm",a);
+			send_packet(0,"play get5.56mm.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+			send_reliable(players[index].peer_id, "msgpegouitem "+a+" 5.56mm", 0);
+		}
+		else if (item=="7.62mm_rand"){
+			int a=random(2,20);
+			players[index].inv_add_item("7.62mm",a);
+			send_packet(0,"play get7.62mm.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+			send_reliable(players[index].peer_id, "msgpegouitem "+a+" 7.62mm", 0);
+		}
+		else if (item=="teleporter"||item=="teleporter2"){
+			if (num<=0) players[index].inv_add_item(item,1*(1+players[index].inv_item_number("modificador_de_itens")/5)); else players[index].inv_add_item(item,num);
+			send_packet(0,"play getteleporter.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+			send_reliable(players[index].peer_id, num+" teleporters", 0);
+		}
+		else if (item=="campo_estrelar"){
+			players[index].inv_add_item("campo_estrelar",1);
+			send_packet(0,"play getstar.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+		}
+		else if (item=="mana"){
+			if (num<=0)
+			players[index].inv_add_item("mana",1*(1+players[index].inv_item_number("modificador_de_itens")/5));
+			else
+			players[index].inv_add_item("mana",num);
+			send_packet(0,"play getmana.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+		}
+		else if (item=="coins_rand"){
+			int a=random(10, 50);
+			players[index].inv_add_item("coins",a);
+			send_reliable(players[index].peer_id, "msgpegouitem "+a+" coins", 0);
+			if(doublegold==1){
+				send_reliable(players[index].peer_id, "msgvocêganhamais "+a, 0);
+				players[index].inv_add_item("coins",a);
+			}
+			send_packet(0,"play getpoints.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+		}
+		else if (item=="comida"){
+			int amount;
+			if (num<=0)
+			amount=random(100,200);
+			else
+			amount=num;
+			players[index].inv_add_item("comida",amount);
+			send_packet(0,"play getcomida"+random(1, 6)+".ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+			send_reliable(players[index].peer_id,amount+" comida",4);
+		}
+		else if (item=="dano_para_mina_rand"){
+			int amount;
+			amount=1;
+			players[index].inv_add_item("dano_para_mina",amount);
+			send_packet(0,"play getstat.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+		}
+		else if (item=="saúde"||item=="velocidade"){
+			int amount;
+			if (num<=0)
+			amount=random(1,5);
+			else
+			amount=num;
+			players[index].inv_add_item(item,amount);
+			send_packet(0,"play getstat.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+		}
+		else if(item=="mina"){
+			if (num==0)
+			num=random(1,5);
+			players[index].inv_add_item(item,num);
+			send_reliable(players[index].peer_id,"msgpegouitem "+num+" mina",0);
+			send_packet(0,"play getmina.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+		}
+		else{
+			if (num==0)
+			num=random(1,5);
+			players[index].inv_add_item(item,num);
+			send_packet(0,"play get"+item+".ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
+			send_reliable(players[index].peer_id, "msgpegouitem "+num+" "+item, 0);
+		}
+	}
 }
+void spawn_obj(int x=random(0,200), int y=0, string what="knife", int amount=1,string map="", string who="", int apagar=0){
+	obj obj1(x,y,what,amount,map, apagar);
+	objs.insert_last(obj1);
+	int ie3=objs.length()-1;
+	send_packet(0,"spawn_obj "+objs[ie3].x+" "+objs[ie3].y+" "+objs[ie3].map+" "+objs[ie3].item+" "+objs[ie3].num,objs[ie3].map);
 }
+void objloop(){
+	netloop();
+	for (uint ie2=0; ie2<objs.length(); ie2++){
+		if (objs[ie2].delete==true){
+			send_packet(0,"getobj "+objs[ie2].x+" "+objs[ie2].y,objs[ie2].map);
+			objs.remove_at(ie2);
+			break;
+		}
+		if (objs[ie2].timeouttimer.elapsed>=objs[ie2].timeout&&objs[ie2].obtainable&&string_contains(objs[ie2].map,"apartamento",1)<0&&objs[ie2].tapagar==1){
+			objs[ie2].delete=true;
+		}
+		string t=get_tile_at(objs[ie2].x, objs[ie2].y, objs[ie2].map);
+		if(t==""){
+			objs[ie2].y-=1;
+		}
+	}
 }
-x=ox;
-y=oy;
-item=what;
-num=amount;
-tapagar=oapagar;
-}
-void get(int index)
-{
-if(item=="relógio"){
-if(players[index].inv_item_number("relógio")<=0){
-players[index].inv_add_item("relógio",1);
-send_packet(0,"play getrelógio.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem 1 relógio", 0);
-}
-}
-else if(item=="presente"){
-players[index].inv_add_item("presente", 1);
-send_reliable(players[index].peer_id, "ps papai"+players[index].idiomachat+".ogg", 0);
-}
-else if (item=="laser_rand")
-{
-int a=random(2,6);
-players[index].inv_add_item("laser",a);
-send_packet(0,"play getammo.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem "+a+" lasers", 0);
-}
-else if (item=="antídoto-"){
-players[index].inv_add_item("antídoto",1);
-send_packet(0,"play drawantídoto.ogg "+players[index].x+" "+players[index].y,players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem 1 antídoto", 0);
-}
-else if (item=="ovo_de_páscoa_"){
-players[index].inv_add_item("ovo_de_páscoa",1);
-send_packet(0,"play get_ovo_de_páscoa.ogg "+players[index].x+" "+players[index].y, players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem 1 ovo_de_páscoa", 0);
-}
-else if(item=="ovo_de_ouro"){
-players[index].inv_add_item("ovo_de_ouro", 1);
-if(players[index].map=="galinheiro")tovo.restart();
-send_packet(0,"play gift.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-}
-else if (item=="flecha_rand")
-{
-int a=random(2,6);
-players[index].inv_add_item("flecha",a);
-send_packet(0,"play getflecha.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem "+a+" flechas", 0);
-}
-else if (item=="9mm_rand")
-{
-int a=random(2,20);
-players[index].inv_add_item("9mm",a);
-send_packet(0,"play get9mm.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem "+a+" 9mm", 0);
-}
-else if (item=="12mm_rand")
-{
-int a=random(2,10);
-players[index].inv_add_item("12mm",a);
-send_packet(0,"play get12mm.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem "+a+" 12mm", 0);
-}
-else if(item=="bandeira_desafio"){
-if(players[index].equipedesafio==1&&players[index].equipemortal==0)spawn_obj(99, 0, "bandeira_desafio", 1, "desafio_constante");
-else if(players[index].equipemortal==1&&players[index].equipedesafio==0){
-players[index].inv_add_item("bandeira_desafio", 1);
-send_reliable(0, "msgdepois "+players[index].charname+" pegou a bandeira Desafio!", 0);
-}
-}
-else if(item=="bandeira_mortal"){
-if(players[index].equipemortal==1&&players[index].equipedesafio==0)spawn_obj(1, 0, "bandeira_mortal", 1, "desafio_constante");
-else if(players[index].equipedesafio==1&&players[index].equipemortal==0){
-players[index].inv_add_item("bandeira_mortal", 1);
-send_reliable(0, "msgdepois "+players[index].charname+" pegou a bandeira Mortal!", 0);
-}
-}
-else if (item=="30mm_rand")
-{
-int a=random(2,5);
-players[index].inv_add_item("30mm",a);
-send_packet(0,"play get30mm.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem "+a+" 30mm", 0);
-}
-else if (item=="5.56mm_rand")
-{
-int a=random(2, 20);
-players[index].inv_add_item("5.56mm",a);
-send_packet(0,"play get5.56mm.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem "+a+" 5.56mm", 0);
-}
-else if (item=="7.62mm_rand")
-{
-int a=random(2,20);
-players[index].inv_add_item("7.62mm",a);
-send_packet(0,"play get7.62mm.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem "+a+" 7.62mm", 0);
-}
-else if (item=="teleporter"||item=="teleporter2")
-{
-if (num<=0)
-players[index].inv_add_item(item,1*(1+players[index].inv_item_number("modificador_de_itens")/5));
-else
-players[index].inv_add_item(item,num);
-send_packet(0,"play getteleporter.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id, num+" teleporters", 0);
-}
-else if (item=="campo_estrelar")
-{
-players[index].inv_add_item("campo_estrelar",1);
-send_packet(0,"play getstar.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-}
-else if (item=="mana")
-{
-if (num<=0)
-players[index].inv_add_item("mana",1*(1+players[index].inv_item_number("modificador_de_itens")/5));
-else
-players[index].inv_add_item("mana",num);
-send_packet(0,"play getmana.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-}
-else if (item=="coins_rand")
-{
-int a=random(10, 50);
-players[index].inv_add_item("coins",a);
-send_reliable(players[index].peer_id, "msgpegouitem "+a+" coins", 0);
-if(doublegold==1){
-send_reliable(players[index].peer_id, "msgvocêganhamais "+a, 0);
-players[index].inv_add_item("coins",a);
-}
-send_packet(0,"play getpoints.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-}
-else if (item=="comida")
-{
-int amount;
-if (num<=0)
-amount=random(100,200);
-else
-amount=num;
-players[index].inv_add_item("comida",amount);
-send_packet(0,"play getcomida"+random(1, 6)+".ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id,amount+" comida",4);
-}
-else if (item=="dano_para_mina_rand")
-{
-int amount;
-amount=1;
-players[index].inv_add_item("dano_para_mina",amount);
-send_packet(0,"play getstat.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-}
-else if (item=="saúde"||item=="velocidade")
-{
-int amount;
-if (num<=0)
-amount=random(1,5);
-else
-amount=num;
-players[index].inv_add_item(item,amount);
-send_packet(0,"play getstat.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-}
-else if(item=="mina")
-{
-if (num==0)
-num=random(1,5);
-players[index].inv_add_item(item,num);
-send_reliable(players[index].peer_id,"msgpegouitem "+num+" mina",0);
-send_packet(0,"play getmina.ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-}
-else
-{
-if (num==0)
-num=random(1,5);
-players[index].inv_add_item(item,num);
-send_packet(0,"play get"+item+".ogg "+players[index].x+" "+players[index].y+" "+players[index].map,players[index].map);
-send_reliable(players[index].peer_id, "msgpegouitem "+num+" "+item, 0);
-}
-}
-}
-void spawn_obj(int x=random(0,200), int y=0, string what="knife", int amount=1,string map="", string who="", int apagar=0)
-{
-obj obj1(x,y,what,amount,map, apagar);
-objs.insert_last(obj1);
-int ie3=objs.length()-1;
-send_packet(0,"spawn_obj "+objs[ie3].x+" "+objs[ie3].y+" "+objs[ie3].map+" "+objs[ie3].item+" "+objs[ie3].num,objs[ie3].map);
-}
-void objloop()
-{
-netloop();
-for (uint ie2=0; ie2<objs.length(); ie2++)
-{
-if (objs[ie2].delete==true)
-{
-send_packet(0,"getobj "+objs[ie2].x+" "+objs[ie2].y,objs[ie2].map);
-objs.remove_at(ie2);
-break;
-}
-if (objs[ie2].timeouttimer.elapsed>=objs[ie2].timeout&&objs[ie2].obtainable&&string_contains(objs[ie2].map,"apartamento",1)<0&&objs[ie2].tapagar==1)
-{
-objs[ie2].delete=true;
-}
-string t=get_tile_at(objs[ie2].x, objs[ie2].y, objs[ie2].map);
-if(t==""){
-objs[ie2].y-=1;
-}
-}
-}
-bool item_exists(string name)
-{
-for (uint ie2=0; ie2<objs.length(); ie2++)
-{
-if (objs[ie2].item==name)
-return true;
-}
-return false;
+bool item_exists(string name){
+	for (uint ie2=0; ie2<objs.length(); ie2++){
+		if (objs[ie2].item==name)
+		return true;
+	}
+	return false;
 }
