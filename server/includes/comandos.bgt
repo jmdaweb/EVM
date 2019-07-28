@@ -608,7 +608,7 @@ void zumbiloop(){
 			}
 			if(i2<0)break;
 			int andar=1;
-			if(g_zumbi(zumbis[i], players[i2])>-1&&g_zumbi(zumbis[i], players[i2])<=2&&players[i2].afk==false&&players[i2].pacifico==0&&get_safezone_at(players[i2].x, players[i2].y, layers[i2].map)==false){
+			if(g_zumbi(zumbis[i], players[i2])>-1&&g_zumbi(zumbis[i], players[i2])<=2&&players[i2].afk==false&&players[i2].pacifico==0&&get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==false){
 				andar=0;
 				int r=refletir(i2, "zumbi", zumbis[i].x, zumbis[i].y, random(300, 400));
 				if(r>0){zumbis[i].vida-=r;zumbis[i].golpeado=players[i2].charname;break;}

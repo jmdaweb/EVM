@@ -1,6 +1,5 @@
 player@[] players(0);
-class player
-{
+class player{
 	bool moderador=false, achuva=false;
 	int nchuva=600000, ncaverna=-1;
 	timer tempoveneno2, tlutar, tszona, tvelocidade, idletimer;
