@@ -5,70 +5,60 @@ const string filename=SOUND_STORAGE;
 const string decryption_key=SOUND_ENCRYPTION_KEY;
 const string end="";
 pack_file pfile;
-void main()
-{
-if (get_last_error()==-12)
-{
-alert("error","an error has caused the program to fail the extraction. exiting");
-exit();
-}
-pfile.open(filename);
-contents=pfile.list_files();
-alert("get ready",contents.length()+" files are about to be extracted!");
-if (!directory_exists("sounds"))
-{
-directory_create("sounds");
-}
-if (!directory_exists("sounds/"+filename))
-{
-directory_create("sounds/"+filename);
-}
-if (!directory_exists("sounds/"+filename+"/decrypted"))
-{
-directory_create("sounds/"+filename+"/decrypted");
-}
-string output;
-double temp=-1;
-show_game_window("working");
-for (double i=0; i<contents.length(); i++)
-{
-double percent=(i+1)/contents.length()*100.0;
-percent=round(percent,0);
-if(percent!=temp)
-{
-beep_percentage(percent);
-temp=percent;
-}
-output+=contents[i]+"\r\n";
-pfile.extract_file(contents[i], "sounds/"+filename+"/"+string2file(contents[i])+end);
-if(decryption_key!="") 
-{
-file_decrypt("sounds/"+filename+"/"+string2file(contents[i]), "sounds/"+filename+"/decrypted/"+string2file(contents[i])+end, decryption_key);
-file_copy("sounds/"+filename+"/decrypted/"+string2file(contents[i])+end, "sounds/"+filename+"/"+string2file(contents[i])+end, true);
-file_delete("sounds/"+filename+"/decrypted/"+string2file(contents[i]));
-}
-}
-directory_delete("sounds/"+filename+"/decrypted");
-alert("success",filename+" has been extracted. stats: "+contents.length()+" files are now in sounds/"+filename);
+void main(){
+	if (get_last_error()==-12){
+		alert("error","an error has caused the program to fail the extraction. exiting");
+		exit();
+	}
+	pfile.open(filename);
+	contents=pfile.list_files();
+	alert("get ready",contents.length()+" files are about to be extracted!");
+	if (!directory_exists("sounds")){
+		directory_create("sounds");
+	}
+	if (!directory_exists("sounds/"+filename)){
+		directory_create("sounds/"+filename);
+	}
+	if (!directory_exists("sounds/"+filename+"/decrypted")){
+		directory_create("sounds/"+filename+"/decrypted");
+	}
+	string output;
+	double temp=-1;
+	show_game_window("working");
+	for (double i=0; i<contents.length(); i++){
+		double percent=(i+1)/contents.length()*100.0;
+		percent=round(percent,0);
+		if(percent!=temp){
+			beep_percentage(percent);
+			temp=percent;
+		}
+		output+=contents[i]+"\r\n";
+		pfile.extract_file(contents[i], "sounds/"+filename+"/"+string2file(contents[i])+end);
+		if(decryption_key!="") {
+			file_decrypt("sounds/"+filename+"/"+string2file(contents[i]), "sounds/"+filename+"/decrypted/"+string2file(contents[i])+end, decryption_key);
+			file_copy("sounds/"+filename+"/decrypted/"+string2file(contents[i])+end, "sounds/"+filename+"/"+string2file(contents[i])+end, true);
+			file_delete("sounds/"+filename+"/decrypted/"+string2file(contents[i]));
+		}
+	}
+	directory_delete("sounds/"+filename+"/decrypted");
+	alert("success",filename+" has been extracted. stats: "+contents.length()+" files are now in sounds/"+filename);
 }
 tone_synth progress_synth;
 sound@ progress_sound;
-void beep_percentage(double val)
-{
-val=round(val,0);
-if(val<0) val=0;
-if(val>100) val=100;
-double freq=110*2**(val/25);
-progress_synth.waveform_type=4;
-progress_synth.set_edge_fades(1,1);
-progress_synth.freq_ms(""+freq,40);
-@progress_sound=progress_synth.write_wave_sound();
-progress_synth.reset();
-progress_sound.play();
+void beep_percentage(double val){
+	val=round(val,0);
+	if(val<0) val=0;
+	if(val>100) val=100;
+	double freq=110*2**(val/25);
+	progress_synth.waveform_type=4;
+	progress_synth.set_edge_fades(1,1);
+	progress_synth.freq_ms(""+freq,40);
+	@progress_sound=progress_synth.write_wave_sound();
+	progress_synth.reset();
+	progress_sound.play();
 }
-string string2file(string thing)
-{
-thing=string_replace(thing,"\\","/",true);
-thing=string_replace(thing,"/"," ",true);
-return thing;
+string string2file(string thing){
+	thing=string_replace(thing,"\\","/",true);
+	thing=string_replace(thing,"/"," ",true);
+	return thing;
 }

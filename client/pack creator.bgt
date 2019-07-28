@@ -6,25 +6,21 @@ const string nomearquivo=SOUND_STORAGE;
 const string nomepasta="sounds";
 string[] todos;
 
-void main()
-{
-if(!directory_exists(nomepasta))
-{
-alert("erro", "a pasta informada não existe");
-exit();
-}
-if(encriptar==true && !directory_exists(nomepasta+"/encriptados")) directory_create(nomepasta+"/encriptados");
-todos=find_files(nomepasta+"/*");
-alert("Encriptador de arquivos", "Tem na pasta "+todos.length()+" arquivos para serem adicionados no pacote. Pressione enter para iniciar a adição.");
-parquivo.create(nomearquivo);
-for(uint i=0; i<todos.length(); i++)
-{
-show_game_window("adicionando arquivo "+i+" de "+todos.length());
-if(encriptar)
-{
-file_encrypt(nomepasta+"/"+todos[i], nomepasta+"/encriptados/"+todos[i], senha);
-parquivo.add_file(nomepasta+"/encriptados/"+todos[i], todos[i]);
-}
-}
-if(encriptar==true) directory_delete(nomepasta+"/encriptados");
+void main(){
+	if(!directory_exists(nomepasta)){
+		alert("erro", "a pasta informada não existe");
+		exit();
+	}
+	if(encriptar==true && !directory_exists(nomepasta+"/encriptados")) directory_create(nomepasta+"/encriptados");
+	todos=find_files(nomepasta+"/*");
+	alert("Encriptador de arquivos", "Tem na pasta "+todos.length()+" arquivos para serem adicionados no pacote. Pressione enter para iniciar a adição.");
+	parquivo.create(nomearquivo);
+	for(uint i=0; i<todos.length(); i++){
+		show_game_window("adicionando arquivo "+i+" de "+todos.length());
+		if(encriptar){
+			file_encrypt(nomepasta+"/"+todos[i], nomepasta+"/encriptados/"+todos[i], senha);
+			parquivo.add_file(nomepasta+"/encriptados/"+todos[i], todos[i]);
+		}
+	}
+	if(encriptar==true) directory_delete(nomepasta+"/encriptados");
 }
