@@ -1,56 +1,55 @@
 bool emoving;
 elevador@[] elevadors;
-class elevador
-{
-int s, x, y, fx, fy;
-bool moving=false;
-timer movetimer;
-elevador(int ex, int ey, int efx, int efy){
-fx=efx;
-fy=efy;
-x=ex;
-y=ey;
-}
+class elevador{
+	int s, x, y, fx, fy;
+	bool moving=false;
+	timer movetimer;
+	elevador(int ex, int ey, int efx, int efy){
+		fx=efx;
+		fy=efy;
+		x=ex;
+		y=ey;
+	}
 }
 void elevadorloop(){
-for (uint i=0; i<elevadors.length(); i++){
-if(elevadors[i].fx==me.x&&elevadors[i].fy==me.y&&elevadors[i].moving==true){
-emoving=false;
-elevadors[i].moving=false;
-moveable=true;
-p2.destroy_sound(elevadors[i].s);
-break;
-}
-else if (elevadors[i].moving==true&&elevadors[i].movetimer.elapsed>=250){
-elevadors[i].movetimer.restart();
-moveable=false;
-p2.update_sound_2d(elevadors[i].s,me.x,me.y);
-if (me.x>elevadors[i].fx){
-me.x-=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-else if (me.x<elevadors[i].fx){
-me.x+=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-else if (me.y>elevadors[i].fy){
-me.y-=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-else if (me.y<elevadors[i].fy){
-me.y+=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-}
-}
+	for (uint i=0; i<elevadors.length(); i++){
+		if(elevadors[i].fx==me.x&&elevadors[i].fy==me.y&&elevadors[i].moving==true){
+			emoving=false;
+			elevadors[i].moving=false;
+			moveable=true;
+			p2.destroy_sound(elevadors[i].s);
+			break;
+		}
+		else if (elevadors[i].moving==true&&elevadors[i].movetimer.elapsed>=250){
+			elevadors[i].movetimer.restart();
+			moveable=false;
+			p2.update_sound_2d(elevadors[i].s,me.x,me.y);
+			if (me.x>elevadors[i].fx){
+				me.x-=1;
+				send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+			}
+			else if (me.x<elevadors[i].fx){
+				me.x+=1;
+				send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+			}
+			else if (me.y>elevadors[i].fy){
+				me.y-=1;
+				send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+			}
+			else if (me.y<elevadors[i].fy){
+				me.y+=1;
+				send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+			}
+		}
+	}
 }
 void destroy_all_elevadors(){
-for(uint i=0; i<elevadors.length(); i++){
-p2.destroy_sound(elevadors[i].s);
-}
-elevadors.resize(0);
+	for(uint i=0; i<elevadors.length(); i++){
+		p2.destroy_sound(elevadors[i].s);
+	}
+	elevadors.resize(0);
 }
 void spawn_elevador(int x, int y, int fx, int fy){
-elevador elevador1(x, y, fx, fy);
-elevadors.insert_last(elevador1);
+	elevador elevador1(x, y, fx, fy);
+	elevadors.insert_last(elevador1);
 }

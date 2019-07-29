@@ -1,32 +1,32 @@
 source@[] sources;
 sound_pool sourcepool;
 class source{
-int source_sound, lx, rx, miny, maxy;
-string id, soundfile;
-source(int source_lx, int source_rx, int source_miny, int source_maxy, string file, string sid){
-id=sid;
-lx=source_lx;
-rx = source_rx;
-miny=source_miny;
-maxy= source_maxy;
-soundfile=file;
-source_sound=sourcepool.play_2d(soundfile, me.x, me.y, lx, miny, true);
-sourcepool.update_sound_range_2d(source_sound, (me.x-lx), (rx-lx), (me.y-miny), (maxy-miny));
-}
+	int source_sound, lx, rx, miny, maxy;
+	string id, soundfile;
+	source(int source_lx, int source_rx, int source_miny, int source_maxy, string file, string sid){
+		id=sid;
+		lx=source_lx;
+		rx = source_rx;
+		miny=source_miny;
+		maxy= source_maxy;
+		soundfile=file;
+		source_sound=sourcepool.play_2d(soundfile, me.x, me.y, lx, miny, true);
+		sourcepool.update_sound_range_2d(source_sound, (me.x-lx), (rx-lx), (me.y-miny), (maxy-miny));
+	}
 }
 void sourcecheckloop(){
-for (uint i=0; i<sources.length(); i++){
-sourcepool.update_sound_2d(sources[i].source_sound, sources[i].lx, sources[i].miny);
-sourcepool.update_sound_range_2d(sources[i].source_sound, (me.x-sources[i].lx), (sources[i].rx-sources[i].lx), (me.y-sources[i].miny), (sources[i].maxy-sources[i].miny));
-}
+	for (uint i=0; i<sources.length(); i++){
+		sourcepool.update_sound_2d(sources[i].source_sound, sources[i].lx, sources[i].miny);
+		sourcepool.update_sound_range_2d(sources[i].source_sound, (me.x-sources[i].lx), (sources[i].rx-sources[i].lx), (me.y-sources[i].miny), (sources[i].maxy-sources[i].miny));
+	}
 }
 void destroy_all_sources(bool delete=true){
-for(uint i=0; i<sources.length(); i++){
-sourcepool.destroy_sound(sources[i].source_sound);
-}
-sources.resize(0);
+	for(uint i=0; i<sources.length(); i++){
+		sourcepool.destroy_sound(sources[i].source_sound);
+	}
+	sources.resize(0);
 }
 void spawn_source(int source_lx, int source_rx, int source_miny, int source_maxy, string soundfile,string id){
-source source1(source_lx, source_rx, source_miny, source_maxy, soundfile,id);
-sources.insert_last(source1);
+	source source1(source_lx, source_rx, source_miny, source_maxy, soundfile,id);
+	sources.insert_last(source1);
 }

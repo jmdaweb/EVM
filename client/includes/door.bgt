@@ -1,76 +1,70 @@
 bool dmoving;
 door@[] doors;
 class door{
-string ds, ds2, ds3, ds4;
-int doorsound, doorsound2, dx, dy, finishx, finishy, movetime=150, s1, s2;
-bool moving;
-timer movetimer;
-door(int doorx, int doory, int doorfinishx, int doorfinishy, int velocidade, string doorsnd, string doorsnd2, string doorsnd3, string doorsnd4){
-ds=doorsnd;
-ds2=doorsnd2;
-ds3=doorsnd3;
-ds4=doorsnd4;
-dx=doorx;
-dy=doory;
-finishx=doorfinishx;
-finishy=doorfinishy;
-//movetime=velocidade;
-movetime=1;
-}
+	string ds, ds2, ds3, ds4;
+	int doorsound, doorsound2, dx, dy, finishx, finishy, movetime=150, s1, s2;
+	bool moving;
+	timer movetimer;
+	door(int doorx, int doory, int doorfinishx, int doorfinishy, int velocidade, string doorsnd, string doorsnd2, string doorsnd3, string doorsnd4){
+		ds=doorsnd;
+		ds2=doorsnd2;
+		ds3=doorsnd3;
+		ds4=doorsnd4;
+		dx=doorx;
+		dy=doory;
+		finishx=doorfinishx;
+		finishy=doorfinishy;
+		movetime=1;
+	}
 }
 void doorcheckloop(){
-for (uint i=0; i<doors.length(); i++){
-if (doors[i].finishx==me.x&&doors[i].finishy==me.y&&doors[i].moving==true){
-if (doors[i].ds2!="none")p2.destroy_sound(doors[i].doorsound2);
-send_reliable(peer_id,"draw "+doors[i].ds4,0);
-sound s;
-s.load(doors[i].ds4);
-s.play();
-while(s.playing){
-wait(5);
-mainloop();
+	for (uint i=0; i<doors.length(); i++){
+		if (doors[i].finishx==me.x&&doors[i].finishy==me.y&&doors[i].moving==true){
+			if (doors[i].ds2!="none")p2.destroy_sound(doors[i].doorsound2);
+			send_reliable(peer_id,"draw "+doors[i].ds4,0);
+			sound s;
+			s.load(doors[i].ds4);
+			s.play();
+			while(s.playing){
+				wait(5);
+				mainloop();
+			}
+			dmoving=false;
+			doors[i].moving=false;
+			break;
+		}
+		else if (doors[i].moving==true){
+			doors[i].movetimer.restart();
+			if (me.x>doors[i].finishx){
+				me.x-=1;
+				send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+			}
+			else if (me.x<doors[i].finishx){
+				me.x+=1;
+				send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+			}
+			if (me.y>doors[i].finishy){
+				me.y-=1;
+				send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+			}
+			else if (me.y<doors[i].finishy){
+				me.y+=1;
+				send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+			}
+		}
+	}
 }
-dmoving=false;
-doors[i].moving=false;
-break;
+void destroy_door(int d){
+	p2.destroy_sound(doors[d].doorsound);
+	doors.remove_at(d);
 }
-else if (doors[i].moving==true){
-//&&doors[i].movetimer.elapsed>=doors[i].movetime){
-doors[i].movetimer.restart();
-if (me.x>doors[i].finishx){
-me.x-=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+void destroy_all_doors(){
+	for(uint i=0; i<doors.length(); i++){
+		p2.destroy_sound(doors[i].doorsound);
+	}
+	doors.resize(0);
 }
-else if (me.x<doors[i].finishx){
-me.x+=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-if (me.y>doors[i].finishy){
-me.y-=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-else if (me.y<doors[i].finishy){
-me.y+=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-}
-}
-}
-void destroy_door(int d)
-{
-p2.destroy_sound(doors[d].doorsound);
-doors.remove_at(d);
-}
-void destroy_all_doors()
-{
-for(uint i=0; i<doors.length(); i++)
-{
-p2.destroy_sound(doors[i].doorsound);
-}
-doors.resize(0);
-}
-void spawn_door(int doorx, int doory, int finishx, int finishy, int velocidade, string doorsnd, string doorsnd2, string doorsnd3, string doorsnd4)
-{
-door door1(doorx, doory, finishx, finishy, velocidade, doorsnd, doorsnd2, doorsnd3, doorsnd4);
-doors.insert_last(door1);
+void spawn_door(int doorx, int doory, int finishx, int finishy, int velocidade, string doorsnd, string doorsnd2, string doorsnd3, string doorsnd4){
+	door door1(doorx, doory, finishx, finishy, velocidade, doorsnd, doorsnd2, doorsnd3, doorsnd4);
+	doors.insert_last(door1);
 }

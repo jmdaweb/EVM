@@ -1,53 +1,53 @@
 desc@[] descs;
 class desc{
-string texto;
-int minx, maxx, miny, maxy;
-desc(int dminx, int dmaxx, int dminy, int dmaxy, string tx){
-minx=dminx;
-maxx=dmaxx;
-miny=dminy;
-maxy=dmaxy;
-texto=tx;
-}
+	string texto;
+	int minx, maxx, miny, maxy;
+	desc(int dminx, int dmaxx, int dminy, int dmaxy, string tx){
+		minx=dminx;
+		maxx=dmaxx;
+		miny=dminy;
+		maxy=dmaxy;
+		texto=tx;
+	}
 }
 void destroy_all_descs(){
-descs.resize(0);
+	descs.resize(0);
 }
 void colocar_desc(int minx, int maxx, int miny, int maxy, string texto){
-desc desc1(minx, maxx, miny, maxy, texto);
-descs.insert_last(desc1);
+	desc desc1(minx, maxx, miny, maxy, texto);
+	descs.insert_last(desc1);
 }
 void checkdesc(){
-for (uint i=0; i<descs.length(); i++){
-if (descs[i].minx<=me.x&&descs[i].maxy<=me.x&&descs[i].miny<=me.y&&descs[i].maxy<=me.y){
-speak(pu.get_value(descs[i].texto));
-break;
-}
-}
+	for (uint i=0; i<descs.length(); i++){
+		if (descs[i].minx<=me.x&&descs[i].maxy<=me.x&&descs[i].miny<=me.y&&descs[i].maxy<=me.y){
+			speak(pu.get_value(descs[i].texto));
+			break;
+		}
+	}
 }
 txt@[] txts;
 class txt{
-string text;
-int dx;
-int dy;
-txt(int txtx, int txty, string tx){
-dx=txtx;
-dy=txty;
-text=tx;
-}
+	string text;
+	int dx;
+	int dy;
+	txt(int txtx, int txty, string tx){
+		dx=txtx;
+		dy=txty;
+		text=tx;
+	}
 }
 void destroy_all_txts(){
-txts.resize(0);
+	txts.resize(0);
 }
 void spawn_txt(int txtx, int txty, string text){
-txt txt1(txtx, txty, text);
-txts.insert_last(txt1);
+	txt txt1(txtx, txty, text);
+	txts.insert_last(txt1);
 }
 void checktxt(){
-for (uint i=0; i<txts.length(); i++){
-if (txts[i].dx==me.x&&txts[i].dy==me.y){
-speak(pu.get_value("Você lê:")+" "+pu.get_value(txts[i].text));
-break;
-}
-}
+	for (uint i=0; i<txts.length(); i++){
+		if (txts[i].dx==me.x&&txts[i].dy==me.y){
+			speak(pu.get_value("Você lê:")+" "+pu.get_value(txts[i].text));
+			break;
+		}
+	}
 }

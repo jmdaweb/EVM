@@ -1,32 +1,25 @@
-void togglewine()
-{
-if (!file_exists(DIRECTORY_TEMP+"/zsap.id"))
-{
-file f;
-f.open(DIRECTORY_TEMP+"/zsap.id","wb");
-f.close();
+void togglewine(){
+	if (!file_exists(DIRECTORY_TEMP+"/zsap.id")){
+		file f;
+		f.open(DIRECTORY_TEMP+"/zsap.id","wb");
+		f.close();
+	}
+	else{
+		file_delete(DIRECTORY_TEMP+"/zsap.id");
+	}
 }
-else
-{
-file_delete(DIRECTORY_TEMP+"/zsap.id");
+bool wine(){
+	if (file_exists(DIRECTORY_TEMP+"/zsap.id")){
+		return true;
+	}
+	return false;
 }
-}
-bool wine()
-{
-if (file_exists(DIRECTORY_TEMP+"/zsap.id"))
-{
-return true;
-}
-return false;
-}
-void wine_ask(int asked=0)
-{
-if (asked==0)
-{
-tts_voice tts;
-int w=question(pu.get_value("Você deseja usar fala sape?"),"");
-                if (w==1)
-togglewine();
-asked=1;
-}
+void wine_ask(int asked=0){
+	if (asked==0){
+		tts_voice tts;
+		int w=question(pu.get_value("Você deseja usar fala sape?"),"");
+		if (w==1)
+		togglewine();
+		asked=1;
+	}
 }

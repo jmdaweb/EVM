@@ -1,24 +1,23 @@
 //DJT
 class bass{
-library bass;
-long init_bass(){
-bass.load("bass.dll");
-dictionary s=bass.call("void BASS_Init(long, long, long, float, float);",-1, 44100, 0, 0, 0);
-long handle;
-s.get("0",handle);
-return handle;
-}
-long load(string url)
-{
-dictionary s=bass.call("long BASS_StreamCreateURL(char*,long,long,int,int);",url,0,0,0,0);
-long h;
-s.get(0,h);
-return h;
-}
-void play(long handle){
-bass.call("void BASS_ChannelPlay(long,long);",handle,0);
-}
-void stop(long handle){
-bass.call("void BASS_ChannelStop(long);",handle);
-}
+	library bass;
+	long init_bass(){
+		bass.load("bass.dll");
+		dictionary s=bass.call("void BASS_Init(long, long, long, float, float);",-1, 44100, 0, 0, 0);
+		long handle;
+		s.get("0",handle);
+		return handle;
+	}
+	long load(string url){
+		dictionary s=bass.call("long BASS_StreamCreateURL(char*,long,long,int,int);",url,0,0,0,0);
+		long h;
+		s.get(0,h);
+		return h;
+	}
+	void play(long handle){
+		bass.call("void BASS_ChannelPlay(long,long);",handle,0);
+	}
+	void stop(long handle){
+		bass.call("void BASS_ChannelStop(long);",handle);
+	}
 }

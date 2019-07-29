@@ -1,30 +1,30 @@
 obj@[] objs;
 class obj{
-int num;
-string item;
-string map;
-int x,y;
-timer looptimer;
-int loop=random(1000, 2000);
-obj(int ox, int oy, string what, int amount){
-x=ox;
-y=oy;
-item=what;
-num=amount;
-}
+	int num;
+	string item;
+	string map;
+	int x,y;
+	timer looptimer;
+	int loop=random(1000, 2000);
+	obj(int ox, int oy, string what, int amount){
+		x=ox;
+		y=oy;
+		item=what;
+		num=amount;
+	}
 }
 void spawn_obj(int x=random(0,200), int y=0, string what="knife", int amount=1){
-if (objs.length()<=600){
-obj obj1(x,y,what,amount);
-objs.insert_last(obj1);
-}
+	if (objs.length()<=600){
+		obj obj1(x,y,what,amount);
+		objs.insert_last(obj1);
+	}
 }
 void objsloop(){
-for(uint i=0;i<objs.length();i++){
-if(get_tile_at(objs[i].x, objs[i].y)==""||string_contains(get_tile_at(objs[i].x, objs[i].y), "branch", 1)>-1&&objs[i].y>0) objs[i].y--;
-if (objs[i].x>=me.x-15&&objs[i].x<=me.x+15&&objs[i].looptimer.elapsed>=objs[i].loop){
-objs[i].looptimer.restart();
-pobjs.play_extended_2d("item.ogg",me.x,me.y,objs[i].x,objs[i].y,0,0,0,0,false,0,0,0, random(50, 80));
-}
-}
+	for(uint i=0;i<objs.length();i++){
+		if(get_tile_at(objs[i].x, objs[i].y)==""||string_contains(get_tile_at(objs[i].x, objs[i].y), "branch", 1)>-1&&objs[i].y>0) objs[i].y--;
+		if (objs[i].x>=me.x-15&&objs[i].x<=me.x+15&&objs[i].looptimer.elapsed>=objs[i].loop){
+			objs[i].looptimer.restart();
+			pobjs.play_extended_2d("item.ogg",me.x,me.y,objs[i].x,objs[i].y,0,0,0,0,false,0,0,0, random(50, 80));
+		}
+	}
 }

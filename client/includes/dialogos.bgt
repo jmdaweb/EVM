@@ -1,28 +1,28 @@
 sound dlgaudio;
 void dlgplay(string dlgsound, bool dlgfade=false, int fadespeed=30){
-dlgaudio.load(dlgsound);
-dlgaudio.play();
-while(dlgaudio.playing){
-wait(5);
-mainloop();
-if(key_pressed(KEY_RETURN)){
-if (dlgfade==true)fade(dlgaudio, -80, fadespeed);
-dlgaudio.stop();
-break;
-}
-}
+	dlgaudio.load(dlgsound);
+	dlgaudio.play();
+	while(dlgaudio.playing){
+		wait(5);
+		mainloop();
+		if(key_pressed(KEY_RETURN)){
+			if (dlgfade==true)fade(dlgaudio, -80, fadespeed);
+			dlgaudio.stop();
+			break;
+		}
+	}
 }
 void dlg(string message){
-speak(pu.get_value(message));
-emchat=true;
-while(true){
-wait(5);
-mainloop();
-if (key_pressed(KEY_LEFT)||key_pressed(KEY_RIGHT)||key_pressed(KEY_UP)||key_pressed(KEY_DOWN))speak(pu.get_value(message)+"\r\n"+pu.get_value("Pressione enter para continuar."));
-if(key_pressed(KEY_C)) clipboard_copy_text(message);
-if (key_pressed(KEY_RETURN)||key_pressed(KEY_ESCAPE)||key_pressed(KEY_SPACE)){
-emchat=false;
-break;
-}
-}
+	speak(pu.get_value(message));
+	emchat=true;
+	while(true){
+		wait(5);
+		mainloop();
+		if (key_pressed(KEY_LEFT)||key_pressed(KEY_RIGHT)||key_pressed(KEY_UP)||key_pressed(KEY_DOWN))speak(pu.get_value(message)+"\r\n"+pu.get_value("Pressione enter para continuar."));
+		if(key_pressed(KEY_C)) clipboard_copy_text(message);
+		if (key_pressed(KEY_RETURN)||key_pressed(KEY_ESCAPE)||key_pressed(KEY_SPACE)){
+			emchat=false;
+			break;
+		}
+	}
 }

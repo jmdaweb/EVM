@@ -1,38 +1,32 @@
-void batualizacao(bool avisa)
-{
-latest=url_get(UPDATE_URL);
-if(string_contains(latest, "versão:", 1)==-1)
-{
-dlg(pu.get_value("Erro ao checar por atualizações. Os motivos podem ser que você esteja usando uma versão beta, ou o servidor não pode ser carregado."));
-menuprincipal();
+void batualizacao(bool avisa){
+	latest=url_get(UPDATE_URL);
+	if(string_contains(latest, "versão:", 1)==-1){
+		dlg(pu.get_value("Erro ao checar por atualizações. Os motivos podem ser que você esteja usando uma versão beta, ou o servidor não pode ser carregado."));
+		menuprincipal();
+	}
+	latest=string_replace(latest, "versão:", "", true);
+	if((latest==ver)&&(avisa==false)){
+		dlg(pu.get_value("Nenhuma atualização até o momento."));
+		menuprincipal();
+	}
+	else if(latest!=ver){
+		vernova=latest;
+		updatefound.play_wait();
+		updatemenu();
+	}
 }
-latest=string_replace(latest, "versão:", "", true);
-if((latest==ver)&&(avisa==false))
-{
-dlg(pu.get_value("Nenhuma atualização até o momento."));
-menuprincipal();
-}
-else if(latest!=ver)
-{
-vernova=latest;
-updatefound.play_wait();
-updatemenu();
-}
-}
-void atualizarv()
-{
-speak(pu.get_value("Iniciando o processo de atualização..."));
-sound updating;
-updating.stream("update_starting.ogg");
-updating.play_wait();
-string status=dl_file(DOWNLOAD_URL, INSTALLER_NAME);
-if(status=="finished")
-{
-updatemus.stop();
-updatedone.play_wait();
-speak(nomejogo+" "+vernova+" "+pu.get_value("Acabou de ser baixado!"));
-wait(1000);
-run(INSTALLER_NAME, "", false, false);
-exit();
-}
+void atualizarv(){
+	speak(pu.get_value("Iniciando o processo de atualização..."));
+	sound updating;
+	updating.stream("update_starting.ogg");
+	updating.play_wait();
+	string status=dl_file(DOWNLOAD_URL, INSTALLER_NAME);
+	if(status=="finished"){
+		updatemus.stop();
+		updatedone.play_wait();
+		speak(nomejogo+" "+vernova+" "+pu.get_value("Acabou de ser baixado!"));
+		wait(1000);
+		run(INSTALLER_NAME, "", false, false);
+		exit();
+	}
 }

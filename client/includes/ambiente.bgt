@@ -1,43 +1,42 @@
 ambiente@[] ambientes;
 sound_pool ambientepool;
 class ambiente{
-string id;
-int ambiente_sound;
-int lx;
-int rx;
-int miny;
-int maxy;
-string soundfile;
-ambiente(int ambiente_lx, int ambiente_rx, int ambiente_miny, int ambiente_maxy, string file, string sid){
-id=sid;
-lx=ambiente_lx;
-rx = ambiente_rx;
-miny=ambiente_miny;
-maxy= ambiente_maxy;
-soundfile=file;
-ambiente_sound=ambientepool.play_2d(soundfile, me.x, me.y, lx, miny, true);
-ambientepool.update_sound_range_2d(ambiente_sound, (me.x-lx), (rx-lx), (me.y-miny), (maxy-miny));
-}
+	string id;
+	int ambiente_sound;
+	int lx;
+	int rx;
+	int miny;
+	int maxy;
+	string soundfile;
+	ambiente(int ambiente_lx, int ambiente_rx, int ambiente_miny, int ambiente_maxy, string file, string sid){
+		id=sid;
+		lx=ambiente_lx;
+		rx = ambiente_rx;
+		miny=ambiente_miny;
+		maxy= ambiente_maxy;
+		soundfile=file;
+		ambiente_sound=ambientepool.play_2d(soundfile, me.x, me.y, lx, miny, true);
+		ambientepool.update_sound_range_2d(ambiente_sound, (me.x-lx), (rx-lx), (me.y-miny), (maxy-miny));
+	}
 }
 void ambientecheckloop(){
-for (uint i=0; i<ambientes.length(); i++){
-ambientepool.update_sound_2d(ambientes[i].ambiente_sound, ambientes[i].lx, ambientes[i].miny);
-ambientepool.update_sound_range_2d(ambientes[i].ambiente_sound, (me.x-ambientes[i].lx), (ambientes[i].rx-ambientes[i].lx), (me.y-ambientes[i].miny), (ambientes[i].maxy-ambientes[i].miny));
+	for (uint i=0; i<ambientes.length(); i++){
+		ambientepool.update_sound_2d(ambientes[i].ambiente_sound, ambientes[i].lx, ambientes[i].miny);
+		ambientepool.update_sound_range_2d(ambientes[i].ambiente_sound, (me.x-ambientes[i].lx), (ambientes[i].rx-ambientes[i].lx), (me.y-ambientes[i].miny), (ambientes[i].maxy-ambientes[i].miny));
+	}
 }
-}
-void destroy_ambiente(int s)
-{
-ambientepool.destroy_sound(ambientes[s].ambiente_sound);
-ambientes.remove_at(s);
+void destroy_ambiente(int s){
+	ambientepool.destroy_sound(ambientes[s].ambiente_sound);
+	ambientes.remove_at(s);
 }
 void destroy_all_ambientes(bool delete=true){
-for(uint i=0; i<ambientes.length(); i++){
-ambientepool.destroy_sound(ambientes[i].ambiente_sound);
-}
-ambientes.resize(0);
+	for(uint i=0; i<ambientes.length(); i++){
+		ambientepool.destroy_sound(ambientes[i].ambiente_sound);
+	}
+	ambientes.resize(0);
 }
 void spawn_ambiente(int ambiente_lx, int ambiente_rx, int ambiente_miny, int ambiente_maxy, string soundfile,string id){
-soundfile=string_replace(soundfile,".ogg",".ogg",true);
-ambiente ambiente1(ambiente_lx, ambiente_rx, ambiente_miny, ambiente_maxy, soundfile,id);
-ambientes.insert_last(ambiente1);
+	soundfile=string_replace(soundfile,".ogg",".ogg",true);
+	ambiente ambiente1(ambiente_lx, ambiente_rx, ambiente_miny, ambiente_maxy, soundfile,id);
+	ambientes.insert_last(ambiente1);
 }

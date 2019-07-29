@@ -1,45 +1,43 @@
 class parsed_data{
-private string[] linhas;
-private string[] valores;
-private string arquivo;
-private string texto;
-bool set_arquivo(string arquivo){
-valores.resize(0);
-linhas.resize(0);
-this.arquivo=arquivo;
-file f;
-bool abrir=f.open(arquivo,"r");
-if(!abrir){
-alert("Erro ao abrir o arquivo", "");
-return this.arquivo!="";
-}
-else{
-string d;
-d=f.read();
-string[] parseddata=string_split(d,"\r\n",false);
-for(int i=0; i<parseddata.length; i++){
-string[] parseddata2=string_split(parseddata[i],"=",false);
-if(parseddata2.length!=2)continue;
-else{
-//alert(parseddata2[0], "");
-linhas.insert_last(parseddata2[0]);
-valores.insert_last(parseddata2[1]);
-}
-}
-}
-return this.arquivo!="";
-}
-string get_value(string linha){
-for(uint i=0;i<linhas.length();i++){
-if(linhas[i]==linha){
-for(uint i2=0;i2<valores.length();i2++){
-if(i==i2){
-return valores[i2];
-}
-}
-}
-}
-//if(linhas.find(linha)>-1)return valores[linhas.find(linha)];
-return linha;
-}
+	private string[] linhas;
+	private string[] valores;
+	private string arquivo;
+	private string texto;
+	bool set_arquivo(string arquivo){
+		valores.resize(0);
+		linhas.resize(0);
+		this.arquivo=arquivo;
+		file f;
+		bool abrir=f.open(arquivo,"r");
+		if(!abrir){
+			alert("Erro ao abrir o arquivo", "");
+			return this.arquivo!="";
+		}
+		else{
+			string d;
+			d=f.read();
+			string[] parseddata=string_split(d,"\r\n",false);
+			for(int i=0; i<parseddata.length; i++){
+				string[] parseddata2=string_split(parseddata[i],"=",false);
+				if(parseddata2.length!=2)continue;
+				else{
+					linhas.insert_last(parseddata2[0]);
+					valores.insert_last(parseddata2[1]);
+				}
+			}
+		}
+		return this.arquivo!="";
+	}
+	string get_value(string linha){
+		for(uint i=0;i<linhas.length();i++){
+			if(linhas[i]==linha){
+				for(uint i2=0;i2<valores.length();i2++){
+					if(i==i2){
+						return valores[i2];
+					}
+				}
+			}
+		}
+		return linha;
+	}
 }

@@ -1,81 +1,81 @@
 int addpos;
 add@[] adds;
 class add{
-int active=1;
-int pos;
-string name;
-string[] items;
-add(string n){
-name=n;
-}
+	int active=1;
+	int pos;
+	string name;
+	string[] items;
+	add(string n){
+		name=n;
+	}
 }
 void create_add(string bname){
-add b1(bname);
-adds.insert_last(b1);
+	add b1(bname);
+	adds.insert_last(b1);
 }
 void firstadd(){
-addpos=0;
-speakfocusedadd();
+	addpos=0;
+	speakfocusedadd();
 }
 void lastadd(){
-addpos=adds.length()-1;
-speakfocusedadd();
+	addpos=adds.length()-1;
+	speakfocusedadd();
 }
 void addleft(){
-if (addpos<=0)addpos=0;
-else{
-addpos-=1;
-speakfocusedadd();
-}
+	if (addpos<=0)addpos=0;
+	else{
+		addpos-=1;
+		speakfocusedadd();
+	}
 }
 void addright(){
-if (addpos>=(adds.length()-1)){
-if (adds.length()>0)addpos=adds.length()-1;
-}
-else{
-addpos+=1;
-speakfocusedadd();
-}
+	if (addpos>=(adds.length()-1)){
+		if (adds.length()>0)addpos=adds.length()-1;
+	}
+	else{
+		addpos+=1;
+		speakfocusedadd();
+	}
 }
 void nextadditem(){
-if (adds[addpos].pos<(adds[addpos].items.length()-1)){
-adds[addpos].pos+=1;
-speak(pu.get_value(adds[addpos].items[adds[addpos].pos]));
-}
+	if (adds[addpos].pos<(adds[addpos].items.length()-1)){
+		adds[addpos].pos+=1;
+		speak(pu.get_value(adds[addpos].items[adds[addpos].pos]));
+	}
 }
 void prevadditem(){
-if (adds[addpos].pos>0){
-adds[addpos].pos-=1;
-speak(pu.get_value(adds[addpos].items[adds[addpos].pos]));
-}
+	if (adds[addpos].pos>0){
+		adds[addpos].pos-=1;
+		speak(pu.get_value(adds[addpos].items[adds[addpos].pos]));
+	}
 }
 void topadditem(){
-if (adds[addpos].items.length()>0){
-adds[addpos].pos=0;
-speak(pu.get_value(adds[addpos].items[adds[addpos].pos]));
-}
+	if (adds[addpos].items.length()>0){
+		adds[addpos].pos=0;
+		speak(pu.get_value(adds[addpos].items[adds[addpos].pos]));
+	}
 }
 void bottomadditem(){
-if (adds[addpos].items.length()>0){
-adds[addpos].pos=(adds[addpos].items.length()-1);
-speak(pu.get_value(adds[addpos].items[adds[addpos].pos]));
-}
+	if (adds[addpos].items.length()>0){
+		adds[addpos].pos=(adds[addpos].items.length()-1);
+		speak(pu.get_value(adds[addpos].items[adds[addpos].pos]));
+	}
 }
 void add_add_item(string addname, string item,bool speakitem=true){
-for (uint i=0; i<adds.length(); i++) {
-if (adds[i].name==addname||adds[i].name=="tudo"){
-if (speakitem&&adds[i].name!="tudo")speak(item, 0);
-adds[i].items.insert_last(item);
-}
-}
+	for (uint i=0; i<adds.length(); i++) {
+		if (adds[i].name==addname||adds[i].name=="tudo"){
+			if (speakitem&&adds[i].name!="tudo")speak(item, 0);
+			adds[i].items.insert_last(item);
+		}
+	}
 }
 void speakfocusedadd(){
-if (adds[addpos].items.length()>0)speak(pu.get_value(adds[addpos].name)+". "+(adds[addpos].pos+1)+" "+pu.get_value("de")+" "+adds[addpos].items.length()+".");
-else speak(pu.get_value(adds[addpos].name)+". "+pu.get_value("Vazio."));
+	if (adds[addpos].items.length()>0)speak(pu.get_value(adds[addpos].name)+". "+(adds[addpos].pos+1)+" "+pu.get_value("de")+" "+adds[addpos].items.length()+".");
+	else speak(pu.get_value(adds[addpos].name)+". "+pu.get_value("Vazio."));
 }
 int add_active(string addname){
-for (uint i=0; i<adds.length(); i++){
-if (adds[i].name==addname)return adds[i].active;
-}
-return 0;
+	for (uint i=0; i<adds.length(); i++){
+		if (adds[i].name==addname)return adds[i].active;
+	}
+	return 0;
 }

@@ -1,38 +1,36 @@
-void dispositivosai()
-{
-string [] dispositivos;
-dynamic_menu_pro meumenu;
-int resultadomenu;
-dispositivos=list_sound_devices();
-if (dispositivos.length()==0){
-alert (pu.get_value("Erro!"),pu.get_value("Nenhum dispositivo de áudio encontrado."));
-exit();
-}
-else if (dispositivos.length()==1){
-alert (pu.get_value("Informação"),pu.get_value("Só existe um dispositivo de áudio ativo e este continuará sendo usado"));
-exit();
-}
-else
-{
-setupmenu();
-uint contador=0;
-while (contador<dispositivos.length()){
-m.add_item_tts(dispositivos[contador]);
-contador++;
-}
-resultadomenu=m.run(pu.get_value("Escolha um dispositivo de saída de áudio"),true);
-numero_dispositivo=resultadomenu-1;
-if (resultadomenu==-1){
-speak(pu.get_value("Erro ao exibir o menú"));
-exit();
-}
-else if (resultadomenu==0){
-speak(pu.get_value("Cancelado"));
-exit();
-}
-writeprefs();
-dlg(pu.get_value("O jogo precisa ser reiniciado para novas alterações."));
-run("Desafio Mortal.exe", "", false, false);
-exit();
-}
+void dispositivosai(){
+	string [] dispositivos;
+	dynamic_menu_pro meumenu;
+	int resultadomenu;
+	dispositivos=list_sound_devices();
+	if (dispositivos.length()==0){
+		alert (pu.get_value("Erro!"),pu.get_value("Nenhum dispositivo de áudio encontrado."));
+		exit();
+	}
+	else if (dispositivos.length()==1){
+		alert (pu.get_value("Informação"),pu.get_value("Só existe um dispositivo de áudio ativo e este continuará sendo usado"));
+		exit();
+	}
+	else{
+		setupmenu();
+		uint contador=0;
+		while (contador<dispositivos.length()){
+			m.add_item_tts(dispositivos[contador]);
+			contador++;
+		}
+		resultadomenu=m.run(pu.get_value("Escolha um dispositivo de saída de áudio"),true);
+		numero_dispositivo=resultadomenu-1;
+		if (resultadomenu==-1){
+			speak(pu.get_value("Erro ao exibir o menú"));
+			exit();
+		}
+		else if (resultadomenu==0){
+			speak(pu.get_value("Cancelado"));
+			exit();
+		}
+		writeprefs();
+		dlg(pu.get_value("O jogo precisa ser reiniciado para novas alterações."));
+		run("Desafio Mortal.exe", "", false, false);
+		exit();
+	}
 }

@@ -1,16 +1,16 @@
 void puerta() {
-string r1=v.input("cordenada x");
-int n1;
-n1=string_to_number(r1);
-string r2=v.input("cordenada y");
-int n2=string_to_number(r2);
-string r3=v.input("cordenada x de destino");
-int n3=string_to_number(r3);
-string r4=v.input("cordenada y de destino");
-int n4=string_to_number(r4);
-string s1=v.input("sonido de entrada");
-string s2=v.input("sonido de salida");
-int so1=string_to_number(s1);
-int so2=v.input(s2);
-send_reliable(1, "/rawdata door:"+n1+":"+n2+":"+n3+":"+n4+"200:door.ogg:none:"+so1+":"+so2+", 1);
+	string r1=v.input("cordenada x");
+	int n1;
+	n1=string_to_number(r1);
+	string r2=v.input("cordenada y");
+	int n2=string_to_number(r2);
+	string r3=v.input("cordenada x de destino");
+	int n3=string_to_number(r3);
+	string r4=v.input("cordenada y de destino");
+	int n4=string_to_number(r4);
+	string s1=v.input("sonido de entrada");
+	string s2=v.input("sonido de salida");
+	int so1=string_to_number(s1);
+	int so2=v.input(s2);
+	send_reliable(1, "/rawdata door:"+n1+":"+n2+":"+n3+":"+n4+"200:door.ogg:none:"+so1+":"+so2+", 1);
 }
