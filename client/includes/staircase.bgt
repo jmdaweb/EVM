@@ -2,82 +2,82 @@ int abletojump2;
 staircase@[] staircases;
 bool onstaircase;
 class staircase{
-bool abletojump;
-int minx, maxx, miny, maxy;
-string tile;
-int staircasesound;
-staircase(int cx, int cx2, int fminy,int fmaxy,string playsound){
-minx=cx;
-maxx=cx2;
-miny=fminy;
-maxy=fmaxy;
-tile=playsound;
-spawn_tiles(minx,maxx,miny,maxy,tile);
-}
+	bool abletojump;
+	int minx, maxx, miny, maxy;
+	string tile;
+	int staircasesound;
+	staircase(int cx, int cx2, int fminy,int fmaxy,string playsound){
+		minx=cx;
+		maxx=cx2;
+		miny=fminy;
+		maxy=fmaxy;
+		tile=playsound;
+		spawn_tiles(minx,maxx,miny,maxy,tile);
+	}
 }
 void staircasecheckloop(){
-for (uint i=0; i<staircases.length(); i++){
-if (me.x>=staircases[i].minx&&me.x<=staircases[i].maxx&&me.y>=staircases[i].miny&&me.y<=staircases[i].maxy){
-onstaircase=true;
-if (me.y==staircases[i].maxy)staircases[i].abletojump=true;
-else staircases[i].abletojump=false;
-}
-else{
-onstaircase=false;
-staircases[i].abletojump=true;
-}
-if(key_down(KEY_UP)&&moveable&&key_down(KEY_G)==false&&key_down(KEY_LSHIFT)==false&&key_down(KEY_RSHIFT)==false&&!centado&&!key_down(KEY_F)){
-if (onstaircase==true&&walktimer.elapsed>=walkvelocidade&&me.y<staircases[i].maxy){
-walktimer.restart();
-p.play_stationary(staircases[i].tile+"step"+random(1,5)+".ogg", false);
-me.y+=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-if(string_contains(get_tile_at(me.x, me.y), "mud", 1)>-1){
-int vv=random(0, 1);
-if(vv==1)me.y--;
-}
-}
-}
-if (key_down(KEY_DOWN)&&moveable&&key_down(KEY_G)==false&&key_down(KEY_RSHIFT)==false&&key_down(KEY_LSHIFT)==false&&!centado&&!key_down(KEY_F)){
-if (onstaircase==true&&walktimer.elapsed>=walkvelocidade&&me.y>staircases[i].miny){
-walktimer.restart();
-p.play_stationary(staircases[i].tile+"step"+random(1,5)+".ogg", false);
-me.y-=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-if(string_contains(get_tile_at(me.x, me.y), "mud", 1)>-1){
-int vv=random(0, 1);
-if(vv==1)me.y++;
-}
-}
-}
-}
+	for (uint i=0; i<staircases.length(); i++){
+		if (me.x>=staircases[i].minx&&me.x<=staircases[i].maxx&&me.y>=staircases[i].miny&&me.y<=staircases[i].maxy){
+			onstaircase=true;
+			if (me.y==staircases[i].maxy)staircases[i].abletojump=true;
+			else staircases[i].abletojump=false;
+		}
+		else{
+			onstaircase=false;
+			staircases[i].abletojump=true;
+		}
+		if(key_down(KEY_UP)&&moveable&&key_down(KEY_G)==false&&key_down(KEY_LSHIFT)==false&&key_down(KEY_RSHIFT)==false&&!centado&&!key_down(KEY_F)){
+			if (onstaircase==true&&walktimer.elapsed>=walkvelocidade&&me.y<staircases[i].maxy){
+				walktimer.restart();
+				p.play_stationary(staircases[i].tile+"step"+random(1,5)+".ogg", false);
+				me.y+=1;
+				send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+				if(string_contains(get_tile_at(me.x, me.y), "mud", 1)>-1){
+					int vv=random(0, 1);
+					if(vv==1)me.y--;
+				}
+			}
+		}
+		if (key_down(KEY_DOWN)&&moveable&&key_down(KEY_G)==false&&key_down(KEY_RSHIFT)==false&&key_down(KEY_LSHIFT)==false&&!centado&&!key_down(KEY_F)){
+			if (onstaircase==true&&walktimer.elapsed>=walkvelocidade&&me.y>staircases[i].miny){
+				walktimer.restart();
+				p.play_stationary(staircases[i].tile+"step"+random(1,5)+".ogg", false);
+				me.y-=1;
+				send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+				if(string_contains(get_tile_at(me.x, me.y), "mud", 1)>-1){
+					int vv=random(0, 1);
+					if(vv==1)me.y++;
+				}
+			}
+		}
+	}
 }
 void spawn_staircase(int fminx, int fmaxx, int fminy, int fmaxy,string stile, string id){
-staircase staircase1(fminx,fmaxx,fminy, fmaxy,stile);
-staircases.insert_last(staircase1);
+	staircase staircase1(fminx,fmaxx,fminy, fmaxy,stile);
+	staircases.insert_last(staircase1);
 }
 void destroy_all_staircases(){
-staircases.resize(0);
+	staircases.resize(0);
 }
 void sjumpcheck(){
-if (staircases.length()<=0)abletojump2=1;
-else{
-for (uint i=0; i<staircases.length(); i++){
-if (staircases[i].abletojump==false){
-abletojump2=0;
-break;
-}
-else if (staircases[i].abletojump==true||onstaircase==false){
-abletojump2+=1;
-}
-else if (i>=staircases.length()-1&&staircases.length()>0&&staircases[i].abletojump==true){
-abletojump2=1;
-break;
-}
-else if (i>=staircases.length()-1&&staircases.length()>0&&staircases[i].abletojump==false){
-abletojump2=0;
-break;
-}
-}
-}
+	if (staircases.length()<=0)abletojump2=1;
+	else{
+		for (uint i=0; i<staircases.length(); i++){
+			if (staircases[i].abletojump==false){
+				abletojump2=0;
+				break;
+			}
+			else if (staircases[i].abletojump==true||onstaircase==false){
+				abletojump2+=1;
+			}
+			else if (i>=staircases.length()-1&&staircases.length()>0&&staircases[i].abletojump==true){
+				abletojump2=1;
+				break;
+			}
+			else if (i>=staircases.length()-1&&staircases.length()>0&&staircases[i].abletojump==false){
+				abletojump2=0;
+				break;
+			}
+		}
+	}
 }

@@ -1,297 +1,285 @@
 class lancha{
-int x, y, saindo=0;
-int nalancha=0;
-timer tligando, tandar;
-sound liga, loops, desliga;
-string id;
-int andando=0;
-bool ligando=false, desligando=false, ligou=false;
-void sair(){
-send_reliable(peer_id, "lancha d", 0);
-desliga.play();
-while(desliga.playing){
-wait(5);
-mainloop();
+	int x, y, saindo=0;
+	int nalancha=0;
+	timer tligando, tandar;
+	sound liga, loops, desliga;
+	string id;
+	int andando=0;
+	bool ligando=false, desligando=false, ligou=false;
+	void sair(){
+		send_reliable(peer_id, "lancha d", 0);
+		desliga.play();
+		while(desliga.playing){
+			wait(5);
+			mainloop();
+		}
+	}
+	void loop(){
+		nalancha=1;
+		liga.load("lanchal.ogg");
+		desliga.load("lanchad.ogg");
+		loops.load("lanchaloop.ogg");
+		liga.volume=-100;
+		andando=0;
+		send_reliable(peer_id, "lancha n", 0);
+		while(true){
+			wait(5);
+			if(saindo==1){
+				saindo=0;
+				nalancha=0;
+				break;
+			}
+			mainloop();
+			secundario();
+			if(key_pressed(KEY_ESCAPE)&&!desligando&&!ligou){
+				nalancha=0;
+				saindo=1;
+				break;
+			}
+			if(key_pressed(KEY_S))send_reliable(peer_id, "lancha s", 0);
+			if(key_pressed(KEY_H))send_reliable(peer_id, "uitem r2", 0);
+			if(key_down(KEY_RIGHT))facing=Right;
+			if(key_down(KEY_LEFT))facing=Left;
+			if(key_pressed(KEY_E)&&get_tile_at(me.x, me.y)!="water2"){
+				if(tenter.elapsed>=2500||mapname=="mina_de_ouro"&&tenter.elapsed>=410||mapname=="pesqueiro"&&tenter.elapsed>=1000){
+					tenter.restart();
+					send_reliable(peer_id, "imenu", 0);
+				}
+			}
+			for(uint i=0;i<msounds.length();i++){
+				if(msounds[i].id==id){
+					p.update_sound_2d(msounds[i].loopint,me.x,me.y);
+				}
+			}
+			if(key_pressed(KEY_UP)&&!desligando){
+				if(!ligou){
+					send_reliable(peer_id, "lancha l", 0);
+					liga.play();
+					tligando.restart();
+					ligando=true;
+					desligando=false;
+					while(liga.playing){
+						wait(5);
+						if(tligando.elapsed>=7184){
+							send_reliable(peer_id, "lancha ll", 0);
+							tligando.force(0);
+							tligando.pause();
+						}
+						mainloop();
+					}
+					ligou=true;
+				}
+				else if(andando==0)andando=1;
+			}
+			if(key_pressed(KEY_DOWN)&&!liga.playing){
+				if(andando==1)andando=0;
+				else if(ligou){
+					send_reliable(peer_id, "lancha d", 0);
+					desliga.play();
+					while(desliga.playing){
+						wait(5);
+						mainloop();
+					}
+					ligou=false;
+				}
+			}
+			if(ligou){
+				if(tandar.elapsed>=150&&andando==1){
+					if(facing==Right){
+						string d=get_tile_at(me.x+1, me.y);
+						if(d!=""&&string_contains(d, "mud", 1)<0){
+							tandar.restart();
+							me.x++;
+							send_reliable(peer_id, "move3 "+me.x+" "+me.y, 0);
+						}
+					}
+					else if(facing==Left){
+						string d=get_tile_at(me.x-1, me.y);
+						if(d!=""&&string_contains(d, "mud", 1)<0){
+							tandar.restart();
+							me.x--;
+							send_reliable(peer_id, "move3 "+me.x+" "+me.y, 0);
+						}
+					}
+				}
+			}
+		}
+	}
 }
-}
-void loop(){
-nalancha=1;
-liga.load("lanchal.ogg");
-desliga.load("lanchad.ogg");
-loops.load("lanchaloop.ogg");
-liga.volume=-100;
-andando=0;
-send_reliable(peer_id, "lancha n", 0);
-while(true){
-wait(5);
-if(saindo==1){
-saindo=0;
-nalancha=0;
-break;
-}
-mainloop();
-secundario();
-if(key_pressed(KEY_ESCAPE)&&!desligando&&!ligou){
-nalancha=0;
-saindo=1;
-break;
-}
-if(key_pressed(KEY_S))send_reliable(peer_id, "lancha s", 0);
-if(key_pressed(KEY_H))send_reliable(peer_id, "uitem r2", 0);
-if(key_down(KEY_RIGHT))facing=Right;
-if(key_down(KEY_LEFT))facing=Left;
-if(key_pressed(KEY_E)&&get_tile_at(me.x, me.y)!="water2"){
-if(tenter.elapsed>=2500||mapname=="mina_de_ouro"&&tenter.elapsed>=410||mapname=="pesqueiro"&&tenter.elapsed>=1000){
-tenter.restart();
-send_reliable(peer_id, "imenu", 0);
-}
-}
-for(uint i=0;i<msounds.length();i++){
-if(msounds[i].id==id){
-p.update_sound_2d(msounds[i].loopint,me.x,me.y);
-}
-}
-if(key_pressed(KEY_UP)&&!desligando){
-if(!ligou){
-send_reliable(peer_id, "lancha l", 0);
-liga.play();
-tligando.restart();
-ligando=true;
-desligando=false;
-while(liga.playing){
-wait(5);
-if(tligando.elapsed>=7184){
-send_reliable(peer_id, "lancha ll", 0);
-tligando.force(0);
-tligando.pause();
-}
-mainloop();
-}
-ligou=true;
-}
-else if(andando==0)andando=1;
-}
-if(key_pressed(KEY_DOWN)&&!liga.playing){
-if(andando==1)andando=0;
-else if(ligou){
-send_reliable(peer_id, "lancha d", 0);
-desliga.play();
-while(desliga.playing){
-wait(5);
-mainloop();
-}
-ligou=false;
-}
-}
-if(ligou){
-if(tandar.elapsed>=150&&andando==1){
-if(facing==Right){
-string d=get_tile_at(me.x+1, me.y);
-if(d!=""&&string_contains(d, "mud", 1)<0){
-tandar.restart();
-me.x++;
-send_reliable(peer_id, "move3 "+me.x+" "+me.y, 0);
-}
-}
-else if(facing==Left){
-string d=get_tile_at(me.x-1, me.y);
-if(d!=""&&string_contains(d, "mud", 1)<0){
-tandar.restart();
-me.x--;
-send_reliable(peer_id, "move3 "+me.x+" "+me.y, 0);
-}
-}
-}
-}
-}
-}
-}
-class telefone
-{
-string input(string text)
-{
-int cursor;
-bool caiu;
-string message;
-if(text!="")speak(pu.get_value(text));
-cursor=0;
-caiu=false;
-string[] ms;
-get_characters();
-sound telefonecaiu;
-telefonecaiu.load("telefone2.ogg");
-send_reliable(peer_id, "playsocial telefonetirandogancho.ogg", 0);
-while(true)
-{
-mainloop();
-if(caiu==true){
-telefonecaiu.play_looped();
-}
-string char=get_characters();
-for (uint i=0; i<char.length(); i++) {
-string chars=char[i];
-if(chars!=""&&chars!="1"&&chars!="2"&&chars!="3"&&chars!="4"&&chars!="5"&&chars!="6"&&chars!="7"&&chars!="8"&&chars!="9"&&chars!="0"&&chars!="-"&&chars!="#"&&chars!="*"&&caiu==false){
-caiu=true;
-}
-else if(caiu==false){
-if(chars=="1")
-p.play_stationary("1.ogg", false);
-if(chars=="2")
-p.play_stationary("2.ogg", false);
-if(chars=="3")
-p.play_stationary("3.ogg", false);
-if(chars=="4")
-p.play_stationary("4.ogg", false);
-if(chars=="5")
-p.play_stationary("5.ogg", false);
-if(chars=="6")
-p.play_stationary("6.ogg", false);
-if(chars=="7")
-p.play_stationary("7.ogg", false);
-if(chars=="8")
-p.play_stationary("8.ogg", false);
-if(chars=="9")
-p.play_stationary("9.ogg", false);
-if(chars=="0")
-p.play_stationary("0.ogg", false);
-if(chars=="*")
-p.play_stationary("asterisco.ogg", false);
-if(chars=="#")
-p.play_stationary("#.ogg", false);
-ms.insert_at(cursor,char);
-cursor+=1;
-}
-}
-if(key_pressed(KEY_ESCAPE))
-{
-send_reliable(peer_id, "playsocial telefonecolocandogancho.ogg", 0);
-return "";
-}
-else if(key_pressed(KEY_RETURN))
-{
-if (ms.length() > 0)
-{
-sound s;
-for (uint i=0; i<ms.length(); i++)
-{
-message+=ms[i];
-s.load(ms[i]+".ogg");
-s.play_wait();
-}
-return message;
-}
-else if (ms.length()==0)
-{
-send_reliable(peer_id, "playsocial telefonecolocandogancho.ogg", 0);
-return "";
-}
-}
-}
-return "";
-}
+class telefone{
+	string input(string text){
+		int cursor;
+		bool caiu;
+		string message;
+		if(text!="")speak(pu.get_value(text));
+		cursor=0;
+		caiu=false;
+		string[] ms;
+		get_characters();
+		sound telefonecaiu;
+		telefonecaiu.load("telefone2.ogg");
+		send_reliable(peer_id, "playsocial telefonetirandogancho.ogg", 0);
+		while(true){
+			mainloop();
+			if(caiu==true){
+				telefonecaiu.play_looped();
+			}
+			string char=get_characters();
+			for (uint i=0; i<char.length(); i++) {
+				string chars=char[i];
+				if(chars!=""&&chars!="1"&&chars!="2"&&chars!="3"&&chars!="4"&&chars!="5"&&chars!="6"&&chars!="7"&&chars!="8"&&chars!="9"&&chars!="0"&&chars!="-"&&chars!="#"&&chars!="*"&&caiu==false){
+					caiu=true;
+				}
+				else if(caiu==false){
+					if(chars=="1")
+					p.play_stationary("1.ogg", false);
+					if(chars=="2")
+					p.play_stationary("2.ogg", false);
+					if(chars=="3")
+					p.play_stationary("3.ogg", false);
+					if(chars=="4")
+					p.play_stationary("4.ogg", false);
+					if(chars=="5")
+					p.play_stationary("5.ogg", false);
+					if(chars=="6")
+					p.play_stationary("6.ogg", false);
+					if(chars=="7")
+					p.play_stationary("7.ogg", false);
+					if(chars=="8")
+					p.play_stationary("8.ogg", false);
+					if(chars=="9")
+					p.play_stationary("9.ogg", false);
+					if(chars=="0")
+					p.play_stationary("0.ogg", false);
+					if(chars=="*")
+					p.play_stationary("asterisco.ogg", false);
+					if(chars=="#")
+					p.play_stationary("#.ogg", false);
+					ms.insert_at(cursor,char);
+					cursor+=1;
+				}
+			}
+			if(key_pressed(KEY_ESCAPE)){
+				send_reliable(peer_id, "playsocial telefonecolocandogancho.ogg", 0);
+				return "";
+			}
+			else if(key_pressed(KEY_RETURN)){
+				if (ms.length() > 0){
+					sound s;
+					for (uint i=0; i<ms.length(); i++){
+						message+=ms[i];
+						s.load(ms[i]+".ogg");
+						s.play_wait();
+					}
+					return message;
+				}
+				else if (ms.length()==0){
+					send_reliable(peer_id, "playsocial telefonecolocandogancho.ogg", 0);
+					return "";
+				}
+			}
+		}
+		return "";
+	}
 }
 areia_movedissa@[] areia_movedissas;
 class areia_movedissa{
-int x, y, som;
-string mapa;
-bool foi=false;
-areia_movedissa(int cx, int cy, string cmapa){
-x=cx;
-y=cy;
-mapa=cmapa;
-som=p.play_2d("areia_movedissaloop.ogg", me.x, me.y, x, y, true);
-}
+	int x, y, som;
+	string mapa;
+	bool foi=false;
+	areia_movedissa(int cx, int cy, string cmapa){
+		x=cx;
+		y=cy;
+		mapa=cmapa;
+		som=p.play_2d("areia_movedissaloop.ogg", me.x, me.y, x, y, true);
+	}
 }
 void colocar_areia_movedissa(int x, int y, string mapa){
-areia_movedissa c(x, y, mapa);
-areia_movedissas.insert_last(c);
+	areia_movedissa c(x, y, mapa);
+	areia_movedissas.insert_last(c);
 }
 void destruir_areias_movedissas(){
-for(uint i=0;i<areia_movedissas.length();i++){
-p.destroy_sound(areia_movedissas[i].som);
-areia_movedissas.remove_at(i);
-}
+	for(uint i=0;i<areia_movedissas.length();i++){
+		p.destroy_sound(areia_movedissas[i].som);
+		areia_movedissas.remove_at(i);
+	}
 }
 void areia_movedissaloop(){
-for(uint i=0;i<areia_movedissas.length();i++){
-if(me.x==areia_movedissas[i].x&&me.y==areia_movedissas[i].y&&areia_movedissas[i].mapa==mapname&&areia_movedissas[i].foi==false){
-sound s;
-moveable=false;
-s.load("morrendo_areia.ogg");
-send_reliable(peer_id, "draw morrendo_areia.ogg", 0);
-s.play_wait();
-while(s.playing){
-wait(5);
-mainloop();
-}
-send_reliable(peer_id, "morreu na areia movediça!", 0);
-areia_movedissas[i].foi=true;
-break;
-}
-}
+	for(uint i=0;i<areia_movedissas.length();i++){
+		if(me.x==areia_movedissas[i].x&&me.y==areia_movedissas[i].y&&areia_movedissas[i].mapa==mapname&&areia_movedissas[i].foi==false){
+			sound s;
+			moveable=false;
+			s.load("morrendo_areia.ogg");
+			send_reliable(peer_id, "draw morrendo_areia.ogg", 0);
+			s.play_wait();
+			while(s.playing){
+				wait(5);
+				mainloop();
+			}
+			send_reliable(peer_id, "morreu na areia movediça!", 0);
+			areia_movedissas[i].foi=true;
+			break;
+		}
+	}
 }
 computador@[] computadors;
 class computador{
-int x,y, som;
-string id,map;
-int ligada=0;
-computador(string mid, int mx, int my,string mm, int cligada){
-id=mid;
-x=mx;
-y=my;
-map=mm;
-ligada=cligada;
-if(cligada==1&&mapname==map) som=pcomputador.play_2d("desktop1.ogg", me.x, me.y, mx, my, true);
-}
+	int x,y, som;
+	string id,map;
+	int ligada=0;
+	computador(string mid, int mx, int my,string mm, int cligada){
+		id=mid;
+		x=mx;
+		y=my;
+		map=mm;
+		ligada=cligada;
+		if(cligada==1&&mapname==map) som=pcomputador.play_2d("desktop1.ogg", me.x, me.y, mx, my, true);
+	}
 }
 void colocar_computador(string id, int x, int y,string map, int ligada) {
-computador m1(id,x,y,map, ligada);
-computadors.insert_last(m1);
+	computador m1(id,x,y,map, ligada);
+	computadors.insert_last(m1);
 }
 void destruir_computadores(){
-for(uint i=0;i<computadors.length();i++){
-pcomputador.destroy_sound(computadors[i].som);
-computadors.remove_at(i);
+	for(uint i=0;i<computadors.length();i++){
+		pcomputador.destroy_sound(computadors[i].som);
+		computadors.remove_at(i);
+	}
 }
-}
-class maquinatempo
-{
-int x,y, som;
-string id,map;
-int ligada=0;
-timer tligar;
-sound sligada, sdesligada;
-maquinatempo(string mid, int mx, int my,string mm, int cligada)
-{
-id=mid;
-x=mx;
-y=my;
-map=mm;
-ligada=cligada;
-}
+class maquinatempo{
+	int x,y, som;
+	string id,map;
+	int ligada=0;
+	timer tligar;
+	sound sligada, sdesligada;
+	maquinatempo(string mid, int mx, int my,string mm, int cligada){
+		id=mid;
+		x=mx;
+		y=my;
+		map=mm;
+		ligada=cligada;
+	}
 }
 maquinatempo@[] maquinatempos;
 void spawnmaquinatempo(string id, int x, int y,string map, int ligada) {
-maquinatempo m1(id,x,y,map, ligada);
-maquinatempos.insert_last(m1);
-if(ligada==1&&mapname==map){
-maquinatempos[maquinatempos.length()-1].som=pobjs.play_2d("geradorloop.ogg", me.x, me.y, x, y, true);
+	maquinatempo m1(id,x,y,map, ligada);
+	maquinatempos.insert_last(m1);
+	if(ligada==1&&mapname==map){
+		maquinatempos[maquinatempos.length()-1].som=pobjs.play_2d("geradorloop.ogg", me.x, me.y, x, y, true);
+	}
 }
-}
-void destroyallmaquinatempos()
-{
-for(uint i=0; i<maquinatempos.length; i++)
-{
-maquinatempos.resize(0);
-}
-pobjs.destroy_all();
+void destroyallmaquinatempos(){
+	for(uint i=0; i<maquinatempos.length; i++){
+		maquinatempos.resize(0);
+	}
+	pobjs.destroy_all();
 }
 void maquinatempoloop(){
-for(uint i=0;i<maquinatempos.length();i++){
-if(maquinatempos[i].tligar.elapsed>=3900&&maquinatempos[i].ligada==1&&maquinatempos[i].map==mapname){
-maquinatempos[i].tligar.force(0);
-maquinatempos[i].tligar.pause();
-maquinatempos[i].som=pobjs.play_2d("geradorloop.ogg", me.x, me.y, maquinatempos[i].x, maquinatempos[i].y, true);
-}
-}
+	for(uint i=0;i<maquinatempos.length();i++){
+		if(maquinatempos[i].tligar.elapsed>=3900&&maquinatempos[i].ligada==1&&maquinatempos[i].map==mapname){
+			maquinatempos[i].tligar.force(0);
+			maquinatempos[i].tligar.pause();
+			maquinatempos[i].som=pobjs.play_2d("geradorloop.ogg", me.x, me.y, maquinatempos[i].x, maquinatempos[i].y, true);
+		}
+	}
 }

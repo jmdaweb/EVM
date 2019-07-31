@@ -1,75 +1,71 @@
 enum NSSpeechParams{
-NSSP_VOLUME, NSSP_VOLUME_MAX, NSSP_VOLUME_MIN,  NSSP_VOLUME_SUPPORTED,
-NSSP_RATE, NSSP_RATE_MAX, NSSP_RATE_MIN, NSSP_RATE_SUPPORTED,
-NSSP_PITCH, NSSP_PITCH_MAX, NSSP_PITCH_MIN, NSSP_PITCH_SUPPORTED,
-NSSP_INFLEXION, NSSP_INFLEXION_MAX, NSSP_INFLEXION_MIN, NSSP_INFLEXION_SUPPORTED,
-NSSP_PAUSED, NSSP_PAUSE_SUPPORTED, 
-NSSP_BUSY, NSSP_BUSY_SUPPORTED, 
-NSSP_WAIT, NSSP_WAIT_SUPPORTED,
-NSSP_ENABLE_NATIVE_SPEECH = 0xFFFF, 
-NSSP_VOICE = 0x10000,
-NSSP_LANGUAGE = 0x20000,
-NSSP_SUBENGINE = 0x30000,
-NSSP_ENGINE = 0x40000,
-NSSP_ENGINE_AVAILABLE = 0x50000,
-NSSP_AUTO_ENGINE = 0xFFFE,
-NSSP_USER_PARAM = 0x1000000
+	NSSP_VOLUME, NSSP_VOLUME_MAX, NSSP_VOLUME_MIN,  NSSP_VOLUME_SUPPORTED,
+	NSSP_RATE, NSSP_RATE_MAX, NSSP_RATE_MIN, NSSP_RATE_SUPPORTED,
+	NSSP_PITCH, NSSP_PITCH_MAX, NSSP_PITCH_MIN, NSSP_PITCH_SUPPORTED,
+	NSSP_INFLEXION, NSSP_INFLEXION_MAX, NSSP_INFLEXION_MIN, NSSP_INFLEXION_SUPPORTED,
+	NSSP_PAUSED, NSSP_PAUSE_SUPPORTED, 
+	NSSP_BUSY, NSSP_BUSY_SUPPORTED, 
+	NSSP_WAIT, NSSP_WAIT_SUPPORTED,
+	NSSP_ENABLE_NATIVE_SPEECH = 0xFFFF, 
+	NSSP_VOICE = 0x10000,
+	NSSP_LANGUAGE = 0x20000,
+	NSSP_SUBENGINE = 0x30000,
+	NSSP_ENGINE = 0x40000,
+	NSSP_ENGINE_AVAILABLE = 0x50000,
+	NSSP_AUTO_ENGINE = 0xFFFE,
+	NSSP_USER_PARAM = 0x1000000
 };
-
-
 class nss_speech {
-library dll;
-string strip, speak, display, enablesapi, swait, setval, sstop, swaittime;
-
-nss_speech() {
-strip=SCRIPT_EXECUTABLE;
-string[] stripout=string_split(strip, "\\", true);
-strip=string_replace(stripout[stripout.length()-1], ".exe","", true);
-speak="int speechSayA(char*, int);";
-display="int brailleDisplayA(char*);";
-enablesapi="int speechSetValue (int, int);";
-swait="int speechSetValue (int, int);";
-swaittime="int speechGetValue(int);";
-setval="int speechSetValue (int, int);";
-sstop="int speechStop();";
-if (!file_exists("leitura/UniversalSpeech.dll")) {
-alert("erro", "Os componentes vitais estão faltando.");
-exit();
-}
-if (!dll.load("leitura/UniversalSpeech.dll")) {
-alert ("erro","Não é possível inicializar componentes vitais.");
-exit();
-}
-dll.call(enablesapi, NSSP_ENABLE_NATIVE_SPEECH, 1);
-}
-void say(string s, bool interrupt=false, bool sapiwait=false) {
-dll.call(speak, s, interrupt);
-dll.call(display, s);
-if (sapiwait) {
-dll.call(swait, NSSP_WAIT, gwt());
-}
-}
-void braille(string s) {
-dll.call(display, s);
-}
-void pause() {
-dll.call(setval, NSSP_PAUSED, 1);
-}
-void unpause() {
-dll.call(setval, NSSP_PAUSED, 0);
-}
-void stop() {
-if (screen_reader_is_running(1))
-say("", true);
-else
-dll.call(sstop);
-}
-
-int gwt() {
-dictionary waitrez;
-waitrez=dll.call(swaittime, NSSP_WAIT);
-int o;
-waitrez.get("0", o);
-return o;
-}
+	library dll;
+	string strip, speak, display, enablesapi, swait, setval, sstop, swaittime;
+	nss_speech() {
+		strip=SCRIPT_EXECUTABLE;
+		string[] stripout=string_split(strip, "\\", true);
+		strip=string_replace(stripout[stripout.length()-1], ".exe","", true);
+		speak="int speechSayA(char*, int);";
+		display="int brailleDisplayA(char*);";
+		enablesapi="int speechSetValue (int, int);";
+		swait="int speechSetValue (int, int);";
+		swaittime="int speechGetValue(int);";
+		setval="int speechSetValue (int, int);";
+		sstop="int speechStop();";
+		if (!file_exists("leitura/UniversalSpeech.dll")) {
+			alert("erro", "Os componentes vitais estão faltando.");
+			exit();
+		}
+		if (!dll.load("leitura/UniversalSpeech.dll")) {
+			alert ("erro","Não é possível inicializar componentes vitais.");
+			exit();
+		}
+		dll.call(enablesapi, NSSP_ENABLE_NATIVE_SPEECH, 1);
+	}
+	void say(string s, bool interrupt=false, bool sapiwait=false) {
+		dll.call(speak, s, interrupt);
+		dll.call(display, s);
+		if (sapiwait) {
+			dll.call(swait, NSSP_WAIT, gwt());
+		}
+	}
+	void braille(string s) {
+		dll.call(display, s);
+	}
+	void pause() {
+		dll.call(setval, NSSP_PAUSED, 1);
+	}
+	void unpause() {
+		dll.call(setval, NSSP_PAUSED, 0);
+	}
+	void stop() {
+		if (screen_reader_is_running(1))
+		say("", true);
+		else
+		dll.call(sstop);
+	}
+	int gwt() {
+		dictionary waitrez;
+		waitrez=dll.call(swaittime, NSSP_WAIT);
+		int o;
+		waitrez.get("0", o);
+		return o;
+	}
 }

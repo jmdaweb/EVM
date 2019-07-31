@@ -1,87 +1,87 @@
 player@[] players;
 class player{
-string map, charname;
-timer beacontimer;
-int beacontime=random(1000,1500), x=1, y=0, beeping=1, pacifico=0;
-player(string cn, int cx, int cy){
-x=cx;
-y=cy;
-charname=cn;
-}
+	string map, charname;
+	timer beacontimer;
+	int beacontime=random(1000,1500), x=1, y=0, beeping=1, pacifico=0;
+	player(string cn, int cx, int cy){
+		x=cx;
+		y=cy;
+		charname=cn;
+	}
 }
 void newplayer(string chn, int chx, int chy){
-int t=0;
-for(uint i=0;i<players.length();i++){
-if(players[i].charname==chn){
-t=1;
-break;
-}
-}
-if(t==0){
-player p1(chn, chx, chy);
-players.insert_last(p1);
-}
+	int t=0;
+	for(uint i=0;i<players.length();i++){
+		if(players[i].charname==chn){
+			t=1;
+			break;
+		}
+	}
+	if(t==0){
+		player p1(chn, chx, chy);
+		players.insert_last(p1);
+	}
 }
 void update_player(string name, int x, int y,string map){
-for (uint i=0; i<players.length(); i++){
-if (players[i].charname==name){
-players[i].map=map;
-players[i].x=x;
-players[i].y=y;
-}
-}
+	for (uint i=0; i<players.length(); i++){
+		if (players[i].charname==name){
+			players[i].map=map;
+			players[i].x=x;
+			players[i].y=y;
+		}
+	}
 }
 void update_player2(string name, int x, int y,string map){
-for (uint i=0; i<players.length(); i++){
-if (players[i].charname==name){
-players[i].map=map;
-players[i].x=x;
-players[i].y=y;
-}
-}
-if(un==name){
-me.x=x;
-me.y=y;
-}
+	for (uint i=0; i<players.length(); i++){
+		if (players[i].charname==name){
+			players[i].map=map;
+			players[i].x=x;
+			players[i].y=y;
+		}
+	}
+	if(un==name){
+		me.x=x;
+		me.y=y;
+	}
 }
 void remplayer(string who){
-for (uint i=0; i<players.length(); i++){
-if (players[i].charname==who){
-if(playertrack==who)playertrack="";
-players.remove_at(i);
-}
-}
+	for (uint i=0; i<players.length(); i++){
+		if (players[i].charname==who){
+			if(playertrack==who)playertrack="";
+			players.remove_at(i);
+		}
+	}
 }
 void remplayer2(string who){
-for (uint i=0; i<players.length(); i++){
-if (players[i].charname==who){
-if(playertrack==who)playertrack="";
-players.remove_at(i);
-}
-}
+	for (uint i=0; i<players.length(); i++){
+		if (players[i].charname==who){
+			if(playertrack==who)playertrack="";
+			players.remove_at(i);
+		}
+	}
 }
 void beaconloop(){
-for (uint i=0; i<players.length(); i++){
-if(players[i].map=="túnel"||players[i].map=="quadro")continue;
-if (players[i].beacontimer.elapsed>=players[i].beacontime&&players[i].map==mapname&&players[i].beeping==1&&players[i].charname!=un){
-players[i].beacontimer.restart();
-if(playertrack!=players[i].charname){
-if(players[i].pacifico==0)p.play_2d("beacon.ogg",me.x,me.y,players[i].x,players[i].y,false);
-else if(players[i].pacifico==1)p.play_2d("bip.ogg",me.x,me.y,players[i].x,players[i].y,false);
-}
-else p.play_2d("beacon2.ogg",me.x,me.y,players[i].x,players[i].y,false);
-}
-}
+	for (uint i=0; i<players.length(); i++){
+		if(players[i].map=="túnel"||players[i].map=="quadro")continue;
+		if (players[i].beacontimer.elapsed>=players[i].beacontime&&players[i].map==mapname&&players[i].beeping==1&&players[i].charname!=un){
+			players[i].beacontimer.restart();
+			if(playertrack!=players[i].charname){
+				if(players[i].pacifico==0)p.play_2d("beacon.ogg",me.x,me.y,players[i].x,players[i].y,false);
+				else if(players[i].pacifico==1)p.play_2d("bip.ogg",me.x,me.y,players[i].x,players[i].y,false);
+			}
+			else p.play_2d("beacon2.ogg",me.x,me.y,players[i].x,players[i].y,false);
+		}
+	}
 }
 int get_player(string name){
-for (uint i=0; i<players.length(); i++){
-if (players[i].charname==name)return i;
-}
-return -1;
+	for (uint i=0; i<players.length(); i++){
+		if (players[i].charname==name)return i;
+	}
+	return -1;
 }
 int gpi(string n){
-for (uint i=0; i<players.length(); i++){
-if (players[i].charname==n)return i;
-}
-return -1;
+	for (uint i=0; i<players.length(); i++){
+		if (players[i].charname==n)return i;
+	}
+	return -1;
 }

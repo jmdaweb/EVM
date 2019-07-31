@@ -5,125 +5,119 @@ double idversion=1.0;
 uint peer_id=0;
 int connecttime=10000;
 timer connecttimer;
-void create()
-{
-string us=v.input(pu.get_value("Por favor digite o nome para seu novo personagem (Espaços não são aceitos)."));
-if(msginvalida(us)){
-creating=false;
-menuprincipal();
-}
-string e_mail=v.input(pu.get_value("Porfavor digite seu e-mail."));
-if(e_mail==""||msginvalida(e_mail)||string_contains(e_mail, "@", 1)<0){
-dlg(pu.get_value("E-mail em branco ou inválido."));
-creating=false;
-menuprincipal();
-}
-string seap=v.input(pu.get_value("Por favor digite a senha para este personagem, espaços não são aceitos.")+"\n"+pu.get_value("Ela tem que ter, no mínimo, oito caractéres entre letras e números."));
-if(msginvalida(seap)||seap.length()<8){
-creating=false;
-dlg(pu.get_value("Senha inválida. Isso pode ser porque ela contém menos de 8 caracteres, tenha símbolos especiais ou espaços."));
-menuprincipal();
-}
-menusilent();
-m.add_item_tts(pu.get_value("Mulher"), "0");
-m.add_item_tts(pu.get_value("Homem"), "1");
-int mres=m.run(pu.get_value("Você é homem ou mulher?"), true);
-if(m.get_item_name(mres)>=0){
-speak(pu.get_value("Conectando..."));
-p.play_stationary("conectando.ogg", false);
-network net2;
-network_event event2;
-net2.setup_client(4, 100);
-net2.connect(serveraddress, serverport);
-connecttimer.restart();
-while(true)
-{
-event2=net2.request();
-if (key_pressed(KEY_ESCAPE))
-{
-reset();
-menuprincipal();
-}
-if(event2.type==event_connect&&connected==false)
-{
-peer_id=event2.peer_id;
-net2.send_reliable(peer_id, enviar("xt55 "+us+" "+seap+" "+e_mail+" "+m.get_item_name(mres)), 0);
-}
-else if(event2.type==event_receive&&receber(event2.message)=="created"){
-creating=false;
-dlg(pu.get_value("Conta criada com sucesso! Pressione  enter para logar-se."));
-un=us;
-pw=seap;
-writeprefs();
-reset();
-logar();
-}
-else if(event2.type==event_receive&&string_contains(receber(event2.message),"Erro",1)>-1)
-{
-dlg(pu.get_value(receber(event2.message)));
-reset();
-creating=false;
-menuprincipal();
-}
-if(connecttimer.elapsed>=connecttime)
-{
-dlg(pu.get_value("Servidor indisponível"));
-reset();
-menuprincipal();
-}
-}
-}
+void create(){
+	string us=v.input(pu.get_value("Por favor digite o nome para seu novo personagem (Espaços não são aceitos)."));
+	if(msginvalida(us)){
+		creating=false;
+		menuprincipal();
+	}
+	string e_mail=v.input(pu.get_value("Porfavor digite seu e-mail."));
+	if(e_mail==""||msginvalida(e_mail)||string_contains(e_mail, "@", 1)<0){
+		dlg(pu.get_value("E-mail em branco ou inválido."));
+		creating=false;
+		menuprincipal();
+	}
+	string seap=v.input(pu.get_value("Por favor digite a senha para este personagem, espaços não são aceitos.")+"\n"+pu.get_value("Ela tem que ter, no mínimo, oito caractéres entre letras e números."));
+	if(msginvalida(seap)||seap.length()<8){
+		creating=false;
+		dlg(pu.get_value("Senha inválida. Isso pode ser porque ela contém menos de 8 caracteres, tenha símbolos especiais ou espaços."));
+		menuprincipal();
+	}
+	menusilent();
+	m.add_item_tts(pu.get_value("Mulher"), "0");
+	m.add_item_tts(pu.get_value("Homem"), "1");
+	int mres=m.run(pu.get_value("Você é homem ou mulher?"), true);
+	if(m.get_item_name(mres)>=0){
+		speak(pu.get_value("Conectando..."));
+		p.play_stationary("conectando.ogg", false);
+		network net2;
+		network_event event2;
+		net2.setup_client(4, 100);
+		net2.connect(serveraddress, serverport);
+		connecttimer.restart();
+		while(true){
+			event2=net2.request();
+			if (key_pressed(KEY_ESCAPE)){
+				reset();
+				menuprincipal();
+			}
+			if(event2.type==event_connect&&connected==false){
+				peer_id=event2.peer_id;
+				net2.send_reliable(peer_id, enviar("xt55 "+us+" "+seap+" "+e_mail+" "+m.get_item_name(mres)), 0);
+			}
+			else if(event2.type==event_receive&&receber(event2.message)=="created"){
+				creating=false;
+				dlg(pu.get_value("Conta criada com sucesso! Pressione  enter para logar-se."));
+				un=us;
+				pw=seap;
+				writeprefs();
+				reset();
+				logar();
+			}
+			else if(event2.type==event_receive&&string_contains(receber(event2.message),"Erro",1)>-1){
+				dlg(pu.get_value(receber(event2.message)));
+				reset();
+				creating=false;
+				menuprincipal();
+			}
+			if(connecttimer.elapsed>=connecttime){
+				dlg(pu.get_value("Servidor indisponível"));
+				reset();
+				menuprincipal();
+			}
+		}
+	}
 }
 void logar(bool localhost=false){
-if (un=="" or pw==""){
-un=v.input(pu.get_value("Digite seu nome de usuário"));
-pw=v.input(pu.get_value("Digite a senha para sua conta"));
-writeprefs();
-logar();
-}
-else{
-net.connect(serveraddress, serverport);
-connecttimer.restart();
-while(true){
-wait(5);
-if (key_pressed(KEY_ESCAPE)){
-reset();
-menuprincipal();
-}
-event=net.request();
-if(event.type==event_disconnect||connected==false&&connecttimer.elapsed>=connecttime){
-string reason=url_get("http://dbproduction.net/updaternotify/idq.txt");
-if(get_last_error()==-29) reason="Sua internet ou o servidor caiu.";
-dlg(pu.get_value("Erro: Servidor caiu. Motivos por isso:")+" "+pu.get_value(reason));
-reset();
-menuprincipal();
-}
-if(event.type==event_connect and connected==false){
-peer_id=event.peer_id;
-send_reliable(peer_id, "h33j "+un+" "+pw+" "+gversion+" "+banned, 0);
-}
-if(event.type==event_receive){
-string[] parsed=string_split(pegar_mensagem(), " ", false);
-if(parsed[0]=="x") me.x=string_to_number(parsed[1]);
-if(parsed[0]=="y") me.y=string_to_number(parsed[1]);
-if(parsed[0]=="changemap"){
-load_map(string_replace(pegar_mensagem(), "changemap ", "", false));
-}
-if (parsed[0]=="usarcolete") salvavida=1;
-if(string_contains(pegar_mensagem(), "loggedin", 1)>-1){
-username=un;
-game();
-}
-if(parsed[0]=="updatenow"){
-dlg(pu.get_value("Erro: Você precisa da última versão para poder jogar. Por favor atualiza para a última versão em checar por atualizações, ou visite")+"http://www.desafiomortal.megadimensao.com.br");
-menuprincipal();
-}
-if(string_contains(string_to_lower_case(pegar_mensagem()),"erro",1)>-1){
-dlg(pu.get_value(pegar_mensagem()));
-reset();
-menuprincipal();
-}
-}
-}
-}
+	if (un=="" or pw==""){
+		un=v.input(pu.get_value("Digite seu nome de usuário"));
+		pw=v.input(pu.get_value("Digite a senha para sua conta"));
+		writeprefs();
+		logar();
+	}
+	else{
+		net.connect(serveraddress, serverport);
+		connecttimer.restart();
+		while(true){
+			wait(5);
+			if (key_pressed(KEY_ESCAPE)){
+				reset();
+				menuprincipal();
+			}
+			event=net.request();
+			if(event.type==event_disconnect||connected==false&&connecttimer.elapsed>=connecttime){
+				string reason=url_get("http://dbproduction.net/updaternotify/idq.txt");
+				if(get_last_error()==-29) reason="Sua internet ou o servidor caiu.";
+				dlg(pu.get_value("Erro: Servidor caiu. Motivos por isso:")+" "+pu.get_value(reason));
+				reset();
+				menuprincipal();
+			}
+			if(event.type==event_connect and connected==false){
+				peer_id=event.peer_id;
+				send_reliable(peer_id, "h33j "+un+" "+pw+" "+gversion+" "+banned, 0);
+			}
+			if(event.type==event_receive){
+				string[] parsed=string_split(pegar_mensagem(), " ", false);
+				if(parsed[0]=="x") me.x=string_to_number(parsed[1]);
+				if(parsed[0]=="y") me.y=string_to_number(parsed[1]);
+				if(parsed[0]=="changemap"){
+					load_map(string_replace(pegar_mensagem(), "changemap ", "", false));
+				}
+				if (parsed[0]=="usarcolete") salvavida=1;
+				if(string_contains(pegar_mensagem(), "loggedin", 1)>-1){
+					username=un;
+					game();
+				}
+				if(parsed[0]=="updatenow"){
+					dlg(pu.get_value("Erro: Você precisa da última versão para poder jogar. Por favor atualiza para a última versão em checar por atualizações, ou visite")+"http://www.desafiomortal.megadimensao.com.br");
+					menuprincipal();
+				}
+				if(string_contains(string_to_lower_case(pegar_mensagem()),"erro",1)>-1){
+					dlg(pu.get_value(pegar_mensagem()));
+					reset();
+					menuprincipal();
+				}
+			}
+		}
+	}
 }

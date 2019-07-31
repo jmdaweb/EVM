@@ -1,194 +1,159 @@
-class virtualizer
-{
-string input(string text)
-{
-emchat=true;
-int cursor;
-string message;
-speak(pu.get_value(text));
-cursor=0;
-string[] ms;
-get_characters();
-while(true)
-{
-wait(5);
-if(ausente){
-emchat=false;
-break;
-}
-if(connected) mainloop();
-string char=get_characters();
-if (key_down(KEY_LCONTROL) or key_down(KEY_RCONTROL))
-{
-if (key_pressed(KEY_V))
-{
-speak(pu.get_value("Texto colado"));
-string cl=clipboard_read_text();
-for (uint i=0; i<cl.length(); i++)
-{
-ms.insert_at(cursor,cl[i]);
-cursor+=1;
-}
-}
-if (key_pressed(KEY_C))
-{
-string a;
-for (uint i=0; i<ms.length(); i++)
-{
-a+=ms[i];
-}
-speak(pu.get_value("texto Copiado"));
-clipboard_copy_text(a);
-}
-}
-if (key_pressed(KEY_F2))
-{
-if(falarteclas==1)
-{
-speak(pu.get_value("não falando teclas digitadas."));
-falarteclas=0;
-}
-else
-{
-speak(pu.get_value("falando teclas digitadas."));
-falarteclas=1;
-}
-}
-if(char!="")
-{
-if(char==" ")
-spool.play_stationary("keyspace.ogg", false);
-else
-spool.play_stationary("key"+random(1, 5)+".ogg", false);
-if(falarteclas==1)
-{
-speak(char);
-}
-ms.insert_at(cursor,char);
-cursor+=1;
-}
-if(key_pressed(KEY_BACK) and ms.length() > 0 and cursor>=1)
-{
-if(key_down(KEY_LSHIFT)||key_down(KEY_RSHIFT))
-{
-ms.resize(0);
-cursor=0;
-speak(pu.get_value("texto limpo"));
-}
-else
-{
-spool.play_stationary("keydelete.ogg", false);
-string char=ms[cursor-1];
-speak(char);
-ms.remove_at(cursor-1);
-cursor-=1;
-}
-}
-if(key_pressed(KEY_TAB))
-{
-ms.resize(0);
-cursor=0;
-speak(pu.get_value("texto limpo"));
-}
-if(key_pressed(KEY_DELETE) and ms.length() > 0 and cursor>=0 and cursor<ms.length())
-{
-spool.play_stationary("keydelete.ogg", false);
-string char=ms[cursor];
-speak(char);
-ms.remove_at(cursor);
-}
-if(key_pressed(KEY_DOWN) or key_pressed(KEY_UP))
-{
-string a;
-for (uint i=0; i<ms.length(); i++)
-{
-a+=ms[i];
-}
-speak(a);
-}
-if(key_pressed(KEY_LEFT) and cursor>0)
-{
-if(ms.length()>0)
-{
-cursor-=1;
-if (cursor>=ms.length())
-{
-speak(pu.get_value("em branco"));
-}
-else
-{
-speak(ms[cursor]);
-}
-}
-else
-speak(pu.get_value("em branco"));
-}
-if(key_pressed(KEY_RIGHT) and cursor<ms.length())
-{
-if(ms.length() > 0)
-{
-cursor+=1;
-if (cursor>=ms.length())
-speak(pu.get_value("em branco"));
-else
-speak(ms[cursor]);
-}
-else
-speak(pu.get_value("em branco"));
-}
-if(key_pressed(KEY_HOME))
-{
-if(ms.length() > 0)
-{
-cursor=0;
-if (cursor>=ms.length())
-speak(pu.get_value("em branco"));
-else
-speak(ms[cursor]);
-}
-else
-speak(pu.get_value("em branco"));
-}
-if(key_pressed(KEY_END))
-{
-if(ms.length() > 0)
-{
-cursor=ms.length();
-if (cursor>=ms.length())
-speak(pu.get_value("em branco"));
-else
-speak(ms[cursor]);
-}
-else
-speak(pu.get_value("em branco"));
-}
-if(key_pressed(KEY_ESCAPE))
-{
-speak(pu.get_value("Cancelado."));
-emchat=false;
-return "";
-}
-else if(key_pressed(KEY_RETURN))
-{
-if (ms.length() > 0)
-{
-for (uint i=0; i<ms.length(); i++)
-{
-message+=ms[i];
-}
-spool.play_stationary("keyreturn.ogg", false);
-emchat=false;
-return message;
-}
-else if (ms.length()==0)
-{
-speak(pu.get_value("cancelado"));
-emchat=false;
-return "";
-}
-}
-}
-emchat=false;
-return "";
-}
+class virtualizer{
+	string input(string text){
+		emchat=true;
+		int cursor;
+		string message;
+		speak(pu.get_value(text));
+		cursor=0;
+		string[] ms;
+		get_characters();
+		while(true){
+			wait(5);
+			if(ausente){
+				emchat=false;
+				break;
+			}
+			if(connected) mainloop();
+			string char=get_characters();
+			if (key_down(KEY_LCONTROL) or key_down(KEY_RCONTROL)){
+				if (key_pressed(KEY_V)){
+					speak(pu.get_value("Texto colado"));
+					string cl=clipboard_read_text();
+					for (uint i=0; i<cl.length(); i++){
+						ms.insert_at(cursor,cl[i]);
+						cursor+=1;
+					}
+				}
+				if (key_pressed(KEY_C)){
+					string a;
+					for (uint i=0; i<ms.length(); i++){
+						a+=ms[i];
+					}
+					speak(pu.get_value("texto Copiado"));
+					clipboard_copy_text(a);
+				}
+			}
+			if (key_pressed(KEY_F2)){
+				if(falarteclas==1){
+					speak(pu.get_value("não falando teclas digitadas."));
+					falarteclas=0;
+				}
+				else{
+					speak(pu.get_value("falando teclas digitadas."));
+					falarteclas=1;
+				}
+			}
+			if(char!=""){
+				if(char==" ")
+				spool.play_stationary("keyspace.ogg", false);
+				else
+				spool.play_stationary("key"+random(1, 5)+".ogg", false);
+				if(falarteclas==1){
+					speak(char);
+				}
+				ms.insert_at(cursor,char);
+				cursor+=1;
+			}
+			if(key_pressed(KEY_BACK) and ms.length() > 0 and cursor>=1){
+				if(key_down(KEY_LSHIFT)||key_down(KEY_RSHIFT)){
+					ms.resize(0);
+					cursor=0;
+					speak(pu.get_value("texto limpo"));
+				}
+				else{
+					spool.play_stationary("keydelete.ogg", false);
+					string char=ms[cursor-1];
+					speak(char);
+					ms.remove_at(cursor-1);
+					cursor-=1;
+				}
+			}
+			if(key_pressed(KEY_TAB)){
+				ms.resize(0);
+				cursor=0;
+				speak(pu.get_value("texto limpo"));
+			}
+			if(key_pressed(KEY_DELETE) and ms.length() > 0 and cursor>=0 and cursor<ms.length()){
+				spool.play_stationary("keydelete.ogg", false);
+				string char=ms[cursor];
+				speak(char);
+				ms.remove_at(cursor);
+			}
+			if(key_pressed(KEY_DOWN) or key_pressed(KEY_UP)){
+				string a;
+				for (uint i=0; i<ms.length(); i++){
+					a+=ms[i];
+				}
+				speak(a);
+			}
+			if(key_pressed(KEY_LEFT) and cursor>0){
+				if(ms.length()>0){
+					cursor-=1;
+					if (cursor>=ms.length()){
+						speak(pu.get_value("em branco"));
+					}
+					else{
+						speak(ms[cursor]);
+					}
+				}
+				else
+				speak(pu.get_value("em branco"));
+			}
+			if(key_pressed(KEY_RIGHT) and cursor<ms.length()){
+				if(ms.length() > 0){
+					cursor+=1;
+					if (cursor>=ms.length())
+					speak(pu.get_value("em branco"));
+					else
+					speak(ms[cursor]);
+				}
+				else
+				speak(pu.get_value("em branco"));
+			}
+			if(key_pressed(KEY_HOME)){
+				if(ms.length() > 0){
+					cursor=0;
+					if (cursor>=ms.length())
+					speak(pu.get_value("em branco"));
+					else
+					speak(ms[cursor]);
+				}
+				else
+				speak(pu.get_value("em branco"));
+			}
+			if(key_pressed(KEY_END)){
+				if(ms.length() > 0){
+					cursor=ms.length();
+					if (cursor>=ms.length())
+					speak(pu.get_value("em branco"));
+					else
+					speak(ms[cursor]);
+				}
+				else
+				speak(pu.get_value("em branco"));
+			}
+			if(key_pressed(KEY_ESCAPE)){
+				speak(pu.get_value("Cancelado."));
+				emchat=false;
+				return "";
+			}
+			else if(key_pressed(KEY_RETURN)){
+				if (ms.length() > 0){
+					for (uint i=0; i<ms.length(); i++){
+						message+=ms[i];
+					}
+					spool.play_stationary("keyreturn.ogg", false);
+					emchat=false;
+					return message;
+				}
+				else if (ms.length()==0){
+					speak(pu.get_value("cancelado"));
+					emchat=false;
+					return "";
+				}
+			}
+		}
+		emchat=false;
+		return "";
+	}
 }
