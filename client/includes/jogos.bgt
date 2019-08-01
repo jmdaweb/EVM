@@ -1,916 +1,885 @@
 class jogoparouimpar{
-int moedas, quantidade;
-string tescolha;;
-sound s, ambiente;
-void fim(){
-s.close();
-ambiente.close();
-}
-void jogar(){
-if(ausente)return;
-if(inv_item_number("coins")<500) return;
-add_add_item("variado", pu.get_value("Par ou ímpar!"));
-ambiente.load("musica14.ogg");
-ambiente.volume=-20;
-ambiente.play_looped();
-while(true){
-mainloop();
-if(ausente){
-fim();
-break;
-}
-moedas=inv_item_number("coins");
-if(moedas<=0){
-p.play_stationary("notify_died.ogg", false);
-send_reliable(0, "draw notify_died.ogg", 0);
-fim();
-break;
-}
-if(key_pressed(KEY_ESCAPE)){
-p.play_stationary("menuvolta.ogg", false);
-fim();
-break;
-}
-if(key_pressed(KEY_H)){
-add_add_item("variado", pu.get_value("Para definir a quantidade de coins que deseja apostar, pressione 1, digite o valor e enter."));
-}
-if(key_pressed(KEY_C)) add_add_item("variado", pu.get_value("Você tem")+" "+moedas+" "+pu.get_value("coins para apostar."));
-if(key_pressed(KEY_1)){
-string quanto=v.input("Quantos coins você quer apostar?");
-quantidade=string_to_number(quanto);
-if(quantidade>moedas){
-add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
-quantidade=0;
-}
-if(quantidade<500||quantidade>1000){
-add_add_item("variado", pu.get_value("O valor para apostar tem que ser de 500 à 1000."));
-quantidade=0;
-}
-}
-if(key_pressed(KEY_2)){
-setupmenu();
-m.add_item_tts(pu.get_value("Par"), "Par");
-m.add_item_tts(pu.get_value("Ímpar"), "Ímpar");
-m.add_item_tts(pu.get_value("Voltar"), "voltar");
-int mres=m.run(pu.get_value("Escolha o tipo  de número que deseja apostar."), true);
-if(m.get_item_name(mres)!="voltar") tescolha=m.get_item_name(mres);
-}
-if(key_pressed(KEY_RETURN))
-{
-if(quantidade<500||quantidade>1000 || tescolha=="") add_add_item("variado", pu.get_value("Você deve definir a quantia e escolher o tipo de número que irá apostar!"));
-else
-{
-add_add_item("variado", pu.get_value("Randomisando os números de 1 à 10..."));
-s.close();
-s.load("dado1.ogg");
-s.play();
-send_reliable(0, "draw dado1.ogg", 0);
-while(s.playing)
-{
-wait(5);
-mainloop();
-}
-int resultado=random(1, 10);
-if(resultado==1||resultado==3||resultado==5||resultado==7||resultado==9)
-{
-if(tescolha=="Ímpar")
-{
-add_add_item("variado", pu.get_value("Boa, o número é ímpar!"));
-send_reliable(0, "acoins "+quantidade, 2);
-tescolha="";
-fim();
-break;
-}
-else if(tescolha=="Par")
-{
-add_add_item("variado", pu.get_value("O número é ímpar, eu ganhei!"));
-send_reliable(0, "acoins -"+quantidade, 2);
-tescolha="";
-fim();
-break;
-}
-}
-else if(resultado==2||resultado==4||resultado==6||resultado==8||resultado==10)
-{
-if(tescolha=="Par")
-{
-add_add_item("variado", pu.get_value("Boa, o número é par!"));
-send_reliable(0, "acoins "+quantidade, 2);
-tescolha="";
-fim();
-break;
-}
-else if(tescolha=="Ímpar")
-{
-add_add_item("variado", pu.get_value("O número é par, eu ganhei!"));
-send_reliable(0, "acoins -"+quantidade, 2);
-tescolha="";
-fim();
-break;
-}
-}
-}
-}
-}//fim do while
-}//Fim do void
+	int moedas, quantidade;
+	string tescolha;
+	sound s, ambiente;
+	void fim(){
+		s.close();
+		ambiente.close();
+	}
+	void jogar(){
+		if(ausente)return;
+		if(inv_item_number("coins")<500) return;
+		add_add_item("variado", pu.get_value("Par ou ímpar!"));
+		ambiente.load("musica14.ogg");
+		ambiente.volume=-20;
+		ambiente.play_looped();
+		while(true){
+			mainloop();
+			if(ausente){
+				fim();
+				break;
+			}
+			moedas=inv_item_number("coins");
+			if(moedas<=0){
+				p.play_stationary("notify_died.ogg", false);
+				send_reliable(0, "draw notify_died.ogg", 0);
+				fim();
+				break;
+			}
+			if(key_pressed(KEY_ESCAPE)){
+				p.play_stationary("menuvolta.ogg", false);
+				fim();
+				break;
+			}
+			if(key_pressed(KEY_H)){
+				add_add_item("variado", pu.get_value("Para definir a quantidade de coins que deseja apostar, pressione 1, digite o valor e enter."));
+			}
+			if(key_pressed(KEY_C)) add_add_item("variado", pu.get_value("Você tem")+" "+moedas+" "+pu.get_value("coins para apostar."));
+			if(key_pressed(KEY_1)){
+				string quanto=v.input("Quantos coins você quer apostar?");
+				quantidade=string_to_number(quanto);
+				if(quantidade>moedas){
+					add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
+					quantidade=0;
+				}
+				if(quantidade<500||quantidade>1000){
+					add_add_item("variado", pu.get_value("O valor para apostar tem que ser de 500 à 1000."));
+					quantidade=0;
+				}
+			}
+			if(key_pressed(KEY_2)){
+				setupmenu();
+				m.add_item_tts(pu.get_value("Par"), "Par");
+				m.add_item_tts(pu.get_value("Ímpar"), "Ímpar");
+				m.add_item_tts(pu.get_value("Voltar"), "voltar");
+				int mres=m.run(pu.get_value("Escolha o tipo  de número que deseja apostar."), true);
+				if(m.get_item_name(mres)!="voltar") tescolha=m.get_item_name(mres);
+			}
+			if(key_pressed(KEY_RETURN)){
+				if(quantidade<500||quantidade>1000 || tescolha=="") add_add_item("variado", pu.get_value("Você deve definir a quantia e escolher o tipo de número que irá apostar!"));
+				else{
+					add_add_item("variado", pu.get_value("Randomisando os números de 1 à 10..."));
+					s.close();
+					s.load("dado1.ogg");
+					s.play();
+					send_reliable(0, "draw dado1.ogg", 0);
+					while(s.playing){
+						wait(5);
+						mainloop();
+					}
+					int resultado=random(1, 10);
+					if(resultado==1||resultado==3||resultado==5||resultado==7||resultado==9){
+						if(tescolha=="Ímpar"){
+							add_add_item("variado", pu.get_value("Boa, o número é ímpar!"));
+							send_reliable(0, "acoins "+quantidade, 2);
+							tescolha="";
+							fim();
+							break;
+						}
+						else if(tescolha=="Par"){
+							add_add_item("variado", pu.get_value("O número é ímpar, eu ganhei!"));
+							send_reliable(0, "acoins -"+quantidade, 2);
+							tescolha="";
+							fim();
+							break;
+						}
+					}
+					else if(resultado==2||resultado==4||resultado==6||resultado==8||resultado==10){
+						if(tescolha=="Par"){
+							add_add_item("variado", pu.get_value("Boa, o número é par!"));
+							send_reliable(0, "acoins "+quantidade, 2);
+							tescolha="";
+							fim();
+							break;
+						}
+						else if(tescolha=="Ímpar"){
+							add_add_item("variado", pu.get_value("O número é par, eu ganhei!"));
+							send_reliable(0, "acoins -"+quantidade, 2);
+							tescolha="";
+							fim();
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 class dadodasorte{
-int chances=0, moedas, quantidade, nescolhido;
-sound s, ambiente;
-void fim(){
-s.close();
-ambiente.close();
-}
-void jogar(){
-if(inv_item_number("coins")<500) return;
-add_add_item("variado", pu.get_value("Bem-vindo ao dado da sorte!"));
-nescolhido=random(1, 6);
-add_add_item("variado", pu.get_value("O número que terá que acertar será:")+" "+nescolhido);
-chances=2;
-ambiente.load("musica14.ogg");
-ambiente.volume=-20;
-ambiente.play_looped();
-while(true){
-mainloop();
-if(ausente){
-fim();
-break;
-}
-moedas=inv_item_number("coins");
-if(moedas<=0){
-p.play_stationary("notify_died.ogg", false);
-send_reliable(0, "draw notify_died.ogg", 0);
-fim();
-break;
-}
-if(key_pressed(KEY_ESCAPE)){
-p.play_stationary("menuvolta.ogg", false);
-fim();
-break;
-}
-if(key_pressed(KEY_H)){
-add_add_item("variado", pu.get_value("Para definir a quantidade de coins que deseja apostar, pressione 1, digite o valor e enter."));
-}
-if(key_pressed(KEY_C)) add_add_item("variado", pu.get_value("Você tem")+" "+moedas+" "+pu.get_value("coins para apostar."));
-if(key_pressed(KEY_1)){
-string quanto=v.input("Quantos coins você quer apostar?");
-quantidade=string_to_number(quanto);
-if(quantidade>moedas){
-add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
-quantidade=0;
-}
-if(quantidade<500||quantidade>1000){
-add_add_item("variado", pu.get_value("O valor para apostar tem que ser de 500 à 1000."));
-quantidade=0;
-}
-}
-if(key_pressed(KEY_RETURN)){
-if(quantidade<500||quantidade>1000) add_add_item("variado", pu.get_value("Você deve definir a quantia que irá apostar!"));
-else{
-add_add_item("variado", pu.get_value("Lançando os dados..."));
-s.close();
-s.load("dado1.ogg");
-s.play();
-send_reliable(0, "draw dado1.ogg", 0);
-while(s.playing){
-wait(5);
-mainloop();
-}
-int resultado=random(1, 6);
-add_add_item("variado", pu.get_value(resultado));
-if(resultado==nescolhido)
-{
-s.close();
-s.load("dado2.ogg");
-s.play();
-add_add_item("variado", pu.get_value("Boa! Você acertou!"));
-send_reliable(0, "acoins "+quantidade, 2);
-p.play_stationary("menuvolta.ogg", false);
-wait(200);
-fim();
-break;
-}
-else if(resultado!=nescolhido){
-s.close();
-s.load("dado2.ogg");
-s.play();
-add_add_item("variado", pu.get_value("Você errou!"));
-if(chances>0){
-add_add_item("variado", pu.get_value("Você tem outra chance."));
-chances-=1;
-}
-else if(chances<=0){
-add_add_item("variado", pu.get_value("Você não tem outra chance."));
-send_reliable(0, "acoins -"+quantidade, 2);
-quantidade=0;
-p.play_stationary("menuvolta.ogg", false);
-wait(200);
-fim();
-break;
-}
-}
-
-}
-}
-}//fim do while
-}//Fim do void
+	int chances=0, moedas, quantidade, nescolhido;
+	sound s, ambiente;
+	void fim(){
+		s.close();
+		ambiente.close();
+	}
+	void jogar(){
+		if(inv_item_number("coins")<500) return;
+		add_add_item("variado", pu.get_value("Bem-vindo ao dado da sorte!"));
+		nescolhido=random(1, 6);
+		add_add_item("variado", pu.get_value("O número que terá que acertar será:")+" "+nescolhido);
+		chances=2;
+		ambiente.load("musica14.ogg");
+		ambiente.volume=-20;
+		ambiente.play_looped();
+		while(true){
+			mainloop();
+			if(ausente){
+				fim();
+				break;
+			}
+			moedas=inv_item_number("coins");
+			if(moedas<=0){
+				p.play_stationary("notify_died.ogg", false);
+				send_reliable(0, "draw notify_died.ogg", 0);
+				fim();
+				break;
+			}
+			if(key_pressed(KEY_ESCAPE)){
+				p.play_stationary("menuvolta.ogg", false);
+				fim();
+				break;
+			}
+			if(key_pressed(KEY_H)){
+				add_add_item("variado", pu.get_value("Para definir a quantidade de coins que deseja apostar, pressione 1, digite o valor e enter."));
+			}
+			if(key_pressed(KEY_C)) add_add_item("variado", pu.get_value("Você tem")+" "+moedas+" "+pu.get_value("coins para apostar."));
+			if(key_pressed(KEY_1)){
+				string quanto=v.input("Quantos coins você quer apostar?");
+				quantidade=string_to_number(quanto);
+				if(quantidade>moedas){
+					add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
+					quantidade=0;
+				}
+				if(quantidade<500||quantidade>1000){
+					add_add_item("variado", pu.get_value("O valor para apostar tem que ser de 500 à 1000."));
+					quantidade=0;
+				}
+			}
+			if(key_pressed(KEY_RETURN)){
+				if(quantidade<500||quantidade>1000) add_add_item("variado", pu.get_value("Você deve definir a quantia que irá apostar!"));
+				else{
+					add_add_item("variado", pu.get_value("Lançando os dados..."));
+					s.close();
+					s.load("dado1.ogg");
+					s.play();
+					send_reliable(0, "draw dado1.ogg", 0);
+					while(s.playing){
+						wait(5);
+						mainloop();
+					}
+					int resultado=random(1, 6);
+					add_add_item("variado", pu.get_value(resultado));
+					if(resultado==nescolhido){
+						s.close();
+						s.load("dado2.ogg");
+						s.play();
+						add_add_item("variado", pu.get_value("Boa! Você acertou!"));
+						send_reliable(0, "acoins "+quantidade, 2);
+						p.play_stationary("menuvolta.ogg", false);
+						wait(200);
+						fim();
+						break;
+					}
+					else if(resultado!=nescolhido){
+						s.close();
+						s.load("dado2.ogg");
+						s.play();
+						add_add_item("variado", pu.get_value("Você errou!"));
+						if(chances>0){
+							add_add_item("variado", pu.get_value("Você tem outra chance."));
+							chances-=1;
+						}
+						else if(chances<=0){
+							add_add_item("variado", pu.get_value("Você não tem outra chance."));
+							send_reliable(0, "acoins -"+quantidade, 2);
+							quantidade=0;
+							p.play_stationary("menuvolta.ogg", false);
+							wait(200);
+							fim();
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 class jogoroletadasorte{
-int moedas, quantidade;
-string animalapostar;
-sound s, ambiente;
-void fim(){
-s.close();
-ambiente.close();
-//animais.resize(0);
-}
-void jogar(){
-if(inv_item_number("coins")<1000) return;
-string[] animais2;
-string[] animais(51);
-animais2.insert_last("cachorro");
-animais2.insert_last("gato");
-animais2.insert_last("pavão");
-animais2.insert_last("pomba");
-animais2.insert_last("peixe");
-animais2.insert_last("ganso");
-animais2.insert_last("papagaio");
-animais2.insert_last("ovelha");
-animais2.insert_last("gavião");
-animais2.insert_last("gaivota");
-animais2.insert_last("baleia");
-animais2.insert_last("cavalo");
-animais2.insert_last("leão");
-animais2.insert_last("tigre");
-animais2.insert_last("onsa");
-animais2.insert_last("urubú");
-animais2.insert_last("jacaré");
-animais[0]="cachorro";
-animais[1]="cachorro";
-animais[2]="cachorro";
-animais[3]="gato";
-animais[4]="gato";
-animais[5]="gato";
-animais[6]="pavão";
-animais[7]="pavão";
-animais[8]="pavão";
-animais[9]="pomba";
-animais[10]="pomba";
-animais[11]="pomba";
-animais[12]="peixe";
-animais[13]="peixe";
-animais[14]="peixe";
-animais[15]="ganso";
-animais[16]="ganso";
-animais[17]="ganso";
-animais[18]="papagaio";
-animais[19]="papagaio";
-animais[20]="papagaio";
-animais[21]="ovelha";
-animais[22]="ovelha";
-animais[23]="ovelha";
-animais[24]="gavião";
-animais[25]="gavião";
-animais[26]="gavião";
-animais[27]="gaivota";
-animais[28]="gaivota";
-animais[29]="gaivota";
-animais[30]="baleia";
-animais[31]="baleia";
-animais[32]="baleia";
-animais[33]="cavalo";
-animais[34]="cavalo";
-animais[35]="cavalo";
-animais[36]="leão";
-animais[37]="leão";
-animais[38]="leão";
-animais[39]="tigre";
-animais[40]="tigre";
-animais[41]="tigre";
-animais[42]="onsa";
-animais[43]="onsa";
-animais[44]="onsa";
-animais[45]="urubú";
-animais[46]="urubú";
-animais[47]="urubú";
-animais[48]="jacaré";
-animais[49]="jacaré";
-animais[50]="jacaré";
-add_add_item("variado", pu.get_value("Bem-vindo ao jogo dos animais! aposte, gire a roleta e conte com a sorte!"));
-ambiente.load("musica14.ogg");
-ambiente.volume=-20;
-ambiente.play_looped();
-while(true){
-mainloop();
-if(ausente){
-fim();
-break;
-}
-moedas=inv_item_number("coins");
-if(moedas<=0){
-p.play_stationary("notify_died.ogg", false);
-send_reliable(0, "draw notify_died.ogg", 0);
-fim();
-break;
-}
-if(key_pressed(KEY_ESCAPE)){
-p.play_stationary("menuvolta.ogg", false);
-fim();
-break;
-}
-if(key_pressed(KEY_H)){
-add_add_item("variado", pu.get_value("Para definir a quantidade de coins que deseja apostar, pressione 1, digite o valor e enter. Para escolher o animal que irá jogar, pressione 2, escolha com as setas o animal e tecle enter."));
-}
-if(key_pressed(KEY_C)) add_add_item("variado", pu.get_value("Você tem")+" "+moedas+" "+pu.get_value("coins para apostar."));
-if(key_pressed(KEY_1)){
-string quanto=v.input("Quantos coins você quer apostar?");
-quantidade=string_to_number(quanto);
-if(quantidade>moedas){
-add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
-quantidade=0;
-}
-if(quantidade<1000||quantidade>5000){
-add_add_item("variado", pu.get_value("O valor para apostar tem que ser de 1000 à 5000."));
-quantidade=0;
-}
-}
-if(key_pressed(KEY_2)){
-setupmenu();
-for(uint i=0;i<animais2.length();i++){
-m.add_item_tts(pu.get_value(animais2[i]), animais2[i]);
-}
-m.add_item_tts(pu.get_value("Voltar"), "voltar");
-int mres=m.run(pu.get_value("Escolha o animal que deseja apostar."), true);
-if(m.get_item_name(mres)!="voltar") animalapostar=m.get_item_name(mres);
-}
-if(key_pressed(KEY_RETURN)){
-if(animalapostar=="" || quantidade<1000||quantidade>5000) add_add_item("variado", pu.get_value("Você deve escolher um animal e definir a quantia que irá apostar!"));
-else{
-add_add_item("variado", pu.get_value("Girando a roleta..."));
-s.close();
-s.load("roleta.ogg");
-s.play();
-send_reliable(0, "draw roleta.ogg", 0);
-while(s.playing){
-wait(5);
-mainloop();
-}
-int resultado=random(0, animais.length()-1);
-add_add_item("variado", pu.get_value(animais[resultado]));
-if(animais[resultado]==animalapostar)
-{
-s.close();
-s.load("acerto1.ogg");
-s.play();
-add_add_item("variado", pu.get_value("Boa! Você acertou!"));
-send_reliable(0, "acoins "+quantidade, 2);
-}
-else if(animais[resultado]!=animalapostar){
-s.close();
-s.load("errou.ogg");
-s.play();
-send_reliable(0, "acoins -"+quantidade, 2);
-}
-animalapostar="";
-quantidade=0;
-}
-}
-}//fim do while
-}//Fim do void
+	int moedas, quantidade;
+	string animalapostar;
+	sound s, ambiente;
+	void fim(){
+		s.close();
+		ambiente.close();
+	}
+	void jogar(){
+		if(inv_item_number("coins")<1000) return;
+		string[] animais2;
+		string[] animais(51);
+		animais2.insert_last("cachorro");
+		animais2.insert_last("gato");
+		animais2.insert_last("pavão");
+		animais2.insert_last("pomba");
+		animais2.insert_last("peixe");
+		animais2.insert_last("ganso");
+		animais2.insert_last("papagaio");
+		animais2.insert_last("ovelha");
+		animais2.insert_last("gavião");
+		animais2.insert_last("gaivota");
+		animais2.insert_last("baleia");
+		animais2.insert_last("cavalo");
+		animais2.insert_last("leão");
+		animais2.insert_last("tigre");
+		animais2.insert_last("onsa");
+		animais2.insert_last("urubú");
+		animais2.insert_last("jacaré");
+		animais[0]="cachorro";
+		animais[1]="cachorro";
+		animais[2]="cachorro";
+		animais[3]="gato";
+		animais[4]="gato";
+		animais[5]="gato";
+		animais[6]="pavão";
+		animais[7]="pavão";
+		animais[8]="pavão";
+		animais[9]="pomba";
+		animais[10]="pomba";
+		animais[11]="pomba";
+		animais[12]="peixe";
+		animais[13]="peixe";
+		animais[14]="peixe";
+		animais[15]="ganso";
+		animais[16]="ganso";
+		animais[17]="ganso";
+		animais[18]="papagaio";
+		animais[19]="papagaio";
+		animais[20]="papagaio";
+		animais[21]="ovelha";
+		animais[22]="ovelha";
+		animais[23]="ovelha";
+		animais[24]="gavião";
+		animais[25]="gavião";
+		animais[26]="gavião";
+		animais[27]="gaivota";
+		animais[28]="gaivota";
+		animais[29]="gaivota";
+		animais[30]="baleia";
+		animais[31]="baleia";
+		animais[32]="baleia";
+		animais[33]="cavalo";
+		animais[34]="cavalo";
+		animais[35]="cavalo";
+		animais[36]="leão";
+		animais[37]="leão";
+		animais[38]="leão";
+		animais[39]="tigre";
+		animais[40]="tigre";
+		animais[41]="tigre";
+		animais[42]="onsa";
+		animais[43]="onsa";
+		animais[44]="onsa";
+		animais[45]="urubú";
+		animais[46]="urubú";
+		animais[47]="urubú";
+		animais[48]="jacaré";
+		animais[49]="jacaré";
+		animais[50]="jacaré";
+		add_add_item("variado", pu.get_value("Bem-vindo ao jogo dos animais! aposte, gire a roleta e conte com a sorte!"));
+		ambiente.load("musica14.ogg");
+		ambiente.volume=-20;
+		ambiente.play_looped();
+		while(true){
+			mainloop();
+			if(ausente){
+				fim();
+				break;
+			}
+			moedas=inv_item_number("coins");
+			if(moedas<=0){
+				p.play_stationary("notify_died.ogg", false);
+				send_reliable(0, "draw notify_died.ogg", 0);
+				fim();
+				break;
+			}
+			if(key_pressed(KEY_ESCAPE)){
+				p.play_stationary("menuvolta.ogg", false);
+				fim();
+				break;
+			}
+			if(key_pressed(KEY_H)){
+				add_add_item("variado", pu.get_value("Para definir a quantidade de coins que deseja apostar, pressione 1, digite o valor e enter. Para escolher o animal que irá jogar, pressione 2, escolha com as setas o animal e tecle enter."));
+			}
+			if(key_pressed(KEY_C)) add_add_item("variado", pu.get_value("Você tem")+" "+moedas+" "+pu.get_value("coins para apostar."));
+			if(key_pressed(KEY_1)){
+				string quanto=v.input("Quantos coins você quer apostar?");
+				quantidade=string_to_number(quanto);
+				if(quantidade>moedas){
+					add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
+					quantidade=0;
+				}
+				if(quantidade<1000||quantidade>5000){
+					add_add_item("variado", pu.get_value("O valor para apostar tem que ser de 1000 à 5000."));
+					quantidade=0;
+				}
+			}
+			if(key_pressed(KEY_2)){
+				setupmenu();
+				for(uint i=0;i<animais2.length();i++){
+					m.add_item_tts(pu.get_value(animais2[i]), animais2[i]);
+				}
+				m.add_item_tts(pu.get_value("Voltar"), "voltar");
+				int mres=m.run(pu.get_value("Escolha o animal que deseja apostar."), true);
+				if(m.get_item_name(mres)!="voltar") animalapostar=m.get_item_name(mres);
+			}
+			if(key_pressed(KEY_RETURN)){
+				if(animalapostar=="" || quantidade<1000||quantidade>5000) add_add_item("variado", pu.get_value("Você deve escolher um animal e definir a quantia que irá apostar!"));
+				else{
+					add_add_item("variado", pu.get_value("Girando a roleta..."));
+					s.close();
+					s.load("roleta.ogg");
+					s.play();
+					send_reliable(0, "draw roleta.ogg", 0);
+					while(s.playing){
+						wait(5);
+						mainloop();
+					}
+					int resultado=random(0, animais.length()-1);
+					add_add_item("variado", pu.get_value(animais[resultado]));
+					if(animais[resultado]==animalapostar){
+						s.close();
+						s.load("acerto1.ogg");
+						s.play();
+						add_add_item("variado", pu.get_value("Boa! Você acertou!"));
+						send_reliable(0, "acoins "+quantidade, 2);
+					}
+					else if(animais[resultado]!=animalapostar){
+						s.close();
+						s.load("errou.ogg");
+						s.play();
+						send_reliable(0, "acoins -"+quantidade, 2);
+					}
+					animalapostar="";
+					quantidade=0;
+				}
+			}
+		}
+	}
 }
 class jogopoker{
-int num1,num2, quantidade=0, moedas;
-bool at=true;
-sound s;
-void jogar(){
-s.load("musica11.ogg");
-s.play_looped();
-add_add_item("variado", pu.get_value("Escolha 1 para pedra, 2 para papel, 3 para tesoura ou ESC para sair. Espaço para definir a quantidade que irá apostar, entre 100 à 1000 coins."));
-while(true){
-wait(5);
-mainloop();
-if(ausente){
-break;
-}
-moedas=inv_item_number("coins");
-if(at==true){
-num2=random(1,3);
-at=false;
-}
-if(key_pressed(KEY_ESCAPE)){
-s.close();
-p.play_stationary("menuvolta.ogg", false);
-break;
-}
-if(key_pressed(KEY_SPACE)&&quantidade<=0){
-string quanto=v.input(pu.get_value("Quantos coins você quer apostar?"));
-quantidade=string_to_number(quanto);
-if(quantidade<100||quantidade>1000){
-add_add_item("variado", pu.get_value("O valor para apostar tem que ser de")+" 100 "+pu.get_value("até")+" 1000.");
-quantidade=0;
-}
-if(quantidade>moedas){
-add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
-quantidade=0;
-}
-}
-if(key_pressed(KEY_1)&&quantidade>0){
-num1=1;
-checar();
-}
-else if(key_pressed(KEY_2)&&quantidade>0){
-num1=2;
-checar();
-}
-else if(key_pressed(KEY_3)&&quantidade>0){
-num1=3;
-checar();
-}
-}
-}
-void checar(){
-if(num1==1&&num2==1)
-{
-add_add_item("variado", pu.get_value("Uou! pedra e pedra! é um impate!"));
-}
-else if(num1==2&&num2==2)
-{
-add_add_item("variado", pu.get_value("Uou! papel e papel! é um impate!"));
-}
-else if(num1==3&&num2==3)
-{
-add_add_item("variado", pu.get_value("Uou! tesoura e tesoura! é um impate!"));
-}
-else
-{
-if(num1==1)
-{
-if(num2==2)
-{
-add_add_item("variado", pu.get_value("Rá! papel embrulha pedra! eu ganhei! você não é de nada!"));
-send_reliable(0, "acoins -"+quantidade, 2);
-}
-else if(num2==3)
-{
-add_add_item("variado", pu.get_value("Ops, pedra quebra tesoura, parabéns, você ganhou!"));
-send_reliable(0, "acoins "+quantidade, 0);
-}
-}
-if(num1==2)
-{
-if(num2==1)
-{
-add_add_item("variado", pu.get_value("Ops, papel embrulha pedra, parabéns! você ganhou!"));
-send_reliable(0, "acoins "+quantidade, 2);
-}
-else if(num2==3)
-{
-add_add_item("variado", pu.get_value("Rá! tesoura corta papel! eu ganhei! você não é de nada!"));
-send_reliable(0, "acoins -"+quantidade, 2);
-}
-}
-else if(num1==3)
-{
-if(num2==1)
-{
-add_add_item("variado", pu.get_value("Rá! pedra quebra tesoura! eu ganhei! você não é de nada!"));
-send_reliable(0, "acoins -"+quantidade, 2);
-}
-else if(num2==2)
-{
-add_add_item("variado", pu.get_value("Ops, tesoura corta papel, parabéns, você ganhou!"));
-send_reliable(0, "acoins "+quantidade, 2);
-}
-}
-}
-at=true;
-}
+	int num1,num2, quantidade=0, moedas;
+	bool at=true;
+	sound s;
+	void jogar(){
+		s.load("musica11.ogg");
+		s.play_looped();
+		add_add_item("variado", pu.get_value("Escolha 1 para pedra, 2 para papel, 3 para tesoura ou ESC para sair. Espaço para definir a quantidade que irá apostar, entre 100 à 1000 coins."));
+		while(true){
+			wait(5);
+			mainloop();
+			if(ausente){
+				break;
+			}
+			moedas=inv_item_number("coins");
+			if(at==true){
+				num2=random(1,3);
+				at=false;
+			}
+			if(key_pressed(KEY_ESCAPE)){
+				s.close();
+				p.play_stationary("menuvolta.ogg", false);
+				break;
+			}
+			if(key_pressed(KEY_SPACE)&&quantidade<=0){
+				string quanto=v.input(pu.get_value("Quantos coins você quer apostar?"));
+				quantidade=string_to_number(quanto);
+				if(quantidade<100||quantidade>1000){
+					add_add_item("variado", pu.get_value("O valor para apostar tem que ser de")+" 100 "+pu.get_value("até")+" 1000.");
+					quantidade=0;
+				}
+				if(quantidade>moedas){
+					add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
+					quantidade=0;
+				}
+			}
+			if(key_pressed(KEY_1)&&quantidade>0){
+				num1=1;
+				checar();
+			}
+			else if(key_pressed(KEY_2)&&quantidade>0){
+				num1=2;
+				checar();
+			}
+			else if(key_pressed(KEY_3)&&quantidade>0){
+				num1=3;
+				checar();
+			}
+		}
+	}
+	void checar(){
+		if(num1==1&&num2==1){
+			add_add_item("variado", pu.get_value("Uou! pedra e pedra! é um impate!"));
+		}
+		else if(num1==2&&num2==2){
+			add_add_item("variado", pu.get_value("Uou! papel e papel! é um impate!"));
+		}
+		else if(num1==3&&num2==3){
+			add_add_item("variado", pu.get_value("Uou! tesoura e tesoura! é um impate!"));
+		}
+		else{
+			if(num1==1){
+				if(num2==2){
+					add_add_item("variado", pu.get_value("Rá! papel embrulha pedra! eu ganhei! você não é de nada!"));
+					send_reliable(0, "acoins -"+quantidade, 2);
+				}
+				else if(num2==3){
+					add_add_item("variado", pu.get_value("Ops, pedra quebra tesoura, parabéns, você ganhou!"));
+					send_reliable(0, "acoins "+quantidade, 0);
+				}
+			}
+			if(num1==2){
+				if(num2==1){
+					add_add_item("variado", pu.get_value("Ops, papel embrulha pedra, parabéns! você ganhou!"));
+					send_reliable(0, "acoins "+quantidade, 2);
+				}
+				else if(num2==3){
+					add_add_item("variado", pu.get_value("Rá! tesoura corta papel! eu ganhei! você não é de nada!"));
+					send_reliable(0, "acoins -"+quantidade, 2);
+				}
+			}
+			else if(num1==3){
+				if(num2==1){
+					add_add_item("variado", pu.get_value("Rá! pedra quebra tesoura! eu ganhei! você não é de nada!"));
+					send_reliable(0, "acoins -"+quantidade, 2);
+				}
+				else if(num2==2){
+					add_add_item("variado", pu.get_value("Ops, tesoura corta papel, parabéns, você ganhou!"));
+					send_reliable(0, "acoins "+quantidade, 2);
+				}
+			}
+		}
+		at=true;
+	}
 }
 class jogofarkle{
-bool iniciou=false, turno1=false, vaijogar=false;//Não iniciou ainda, nenhum turno aconteceu e ninguém vai jogar
-int seudado=0, dadocomputador=0, quemjoga=0, ganhou=0;//Seu dado, o dádo da máquina, quem joga e ganhou em zero.
-int quantidade=0, moedas;
-sound ambiente;
-void fim(){
-ambiente.close();
-}
-void jogar(){
-sound d1, d2, d3;
-d1.load("dado1.ogg");
-d2.load("dado2.ogg");
-d3.load("dado3.ogg");
-ambiente.load("musica12.ogg");
-ambiente.volume=-15;
-ambiente.play_looped();
-while(true){
-wait(5);
-mainloop();
-if(ausente){
-fim();
-break;
-}
-moedas=inv_item_number("coins");
-if(moedas<=0){
-p.play_stationary("notify_died.ogg", false);
-send_reliable(0, "draw notify_died.ogg", 0);
-fim();
-break;
-}
-if(key_pressed(KEY_ESCAPE)){
-fim();
-p.play_stationary("menuvolta.ogg", false);
-break;
-}
-if(key_pressed(KEY_1)){
-string quanto=v.input("Quantos coins você quer apostar?");
-quantidade=string_to_number(quanto);
-if(quantidade>moedas){
-add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
-quantidade=0;
-}
-if(quantidade<1000||quantidade>5000){
-add_add_item("variado", pu.get_value("O valor para apostar tem que ser de")+" 1000 "+pu.get_value("até")+" 5000.");
-quantidade=0;
-}
-}
-if(key_pressed(KEY_RETURN)){
-if(quantidade<=0)add_add_item("variado", pu.get_value("Defina a quantidade que vai apostar primeiro!"));
-else{
-if(!iniciou){//Se não jogou ainda
-add_add_item("variado", pu.get_value("Jogo dos dados. Jogue contra mim e veja se é forte o suficiente para vencer esta batalha!"));
-iniciou=true;//define que o jogo iniciou.
-}
-}
-}
-if(iniciou&&!turno1){
-turno1=true;
-add_add_item("variado", pu.get_value("Atenção! Chegou a hora de decidir quem irá começar..."));
-wait(2000);
-p.play_stationary("dado3.ogg", false);
-wait(300);
-p.play_stationary("dado3.ogg", false);
-wait(100);
-p.play_stationary("dado3.ogg", false);
-int a=random(1, 2);
-if(a==1){
-add_add_item("variado", pu.get_value("Você começa!"));
-quemjoga=1;
-}
-else if(a==2){
-add_add_item("variado", pu.get_value("Eu começo!"));
-quemjoga=2;
-}
-vaijogar=true;
-}
-if(vaijogar==true){
-if(quemjoga==1){
-add_add_item("variado", pu.get_value("Sua vez."));
-while(true){
-wait(5);
-if(ausente){
-fim();
-break;
-}
-moedas=inv_item_number("coins");
-mainloop();
-if(moedas<=0){
-p.play_stationary("notify_died.ogg", false);
-send_reliable(0, "draw notify_died.ogg", 0);
-fim();
-break;
-}
-if(key_pressed(KEY_ESCAPE)){
-fim();
-p.play_stationary("menuvolta.ogg", false);
-return;
-}
-if(key_pressed(KEY_RETURN)&&ganhou<=0){
-int a=random(1, 6);
-send_reliable(0, "draw dado1.ogg", 0);
-d1.play_wait();
-d2.play();
-add_add_item("variado", pu.get_value("Você lançou o dado, e caiu em")+" "+a+". "+pu.get_value("Anda")+" "+a+".");
-wait(1000);
-for(uint i=0;i<a;i++){
-d3.play_wait();
-wait(300);
-}
-seudado+=a;
-if(seudado>50)seudado=50;
-add_add_item("variado", pu.get_value("Você está em")+" "+seudado+".");
-if(seudado==50){
-send_reliable(0, "acoins "+quantidade, 2);
-add_add_item("variado", pu.get_value("Você ganhou o jogo!!!"));
-ganhou=1;
-}
-quemjoga=2;
-break;
-}
-}
-if(ganhou>0){
-fim();
-break;
-}
-}
-if(quemjoga==2&&ganhou<=0){
-add_add_item("variado", pu.get_value("Minha vez..."));
-wait(1000);
-int a=random(1, 6);
-send_reliable(0, "draw dado1.ogg", 0);
-d1.play_wait();
-d2.play();
-add_add_item("variado", pu.get_value("Eu joguei o dado, e caiu em")+" "+a+". "+pu.get_value("Ando")+" "+a+".");
-for(uint i=0;i<a;i++){
-d3.play_wait();
-wait(300);
-}
-dadocomputador+=a;
-if(dadocomputador>50)dadocomputador=50;
-add_add_item("variado", pu.get_value("Estou em")+" "+dadocomputador+".");
-if(dadocomputador==50){
-send_reliable(0, "acoins -"+quantidade, 2);
-add_add_item("variado", pu.get_value("Eu ganhei mais uma vez... Como eu disse, você não é de nada!!!"));
-ganhou=2;
-}
-quemjoga=1;
-}
-if(ganhou>0){
-fim();
-break;
-}
-}
-}
-}
+	bool iniciou=false, turno1=false, vaijogar=false;//Não iniciou ainda, nenhum turno aconteceu e ninguém vai jogar
+	int seudado=0, dadocomputador=0, quemjoga=0, ganhou=0;//Seu dado, o dádo da máquina, quem joga e ganhou em zero.
+	int quantidade=0, moedas;
+	sound ambiente;
+	void fim(){
+		ambiente.close();
+	}
+	void jogar(){
+		sound d1, d2, d3;
+		d1.load("dado1.ogg");
+		d2.load("dado2.ogg");
+		d3.load("dado3.ogg");
+		ambiente.load("musica12.ogg");
+		ambiente.volume=-15;
+		ambiente.play_looped();
+		while(true){
+			wait(5);
+			mainloop();
+			if(ausente){
+				fim();
+				break;
+			}
+			moedas=inv_item_number("coins");
+			if(moedas<=0){
+				p.play_stationary("notify_died.ogg", false);
+				send_reliable(0, "draw notify_died.ogg", 0);
+				fim();
+				break;
+			}
+			if(key_pressed(KEY_ESCAPE)){
+				fim();
+				p.play_stationary("menuvolta.ogg", false);
+				break;
+			}
+			if(key_pressed(KEY_1)){
+				string quanto=v.input("Quantos coins você quer apostar?");
+				quantidade=string_to_number(quanto);
+				if(quantidade>moedas){
+					add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
+					quantidade=0;
+				}
+				if(quantidade<1000||quantidade>5000){
+					add_add_item("variado", pu.get_value("O valor para apostar tem que ser de")+" 1000 "+pu.get_value("até")+" 5000.");
+					quantidade=0;
+				}
+			}
+			if(key_pressed(KEY_RETURN)){
+				if(quantidade<=0)add_add_item("variado", pu.get_value("Defina a quantidade que vai apostar primeiro!"));
+				else{
+					if(!iniciou){
+						add_add_item("variado", pu.get_value("Jogo dos dados. Jogue contra mim e veja se é forte o suficiente para vencer esta batalha!"));
+						iniciou=true;//define que o jogo iniciou.
+					}
+				}
+			}
+			if(iniciou&&!turno1){
+				turno1=true;
+				add_add_item("variado", pu.get_value("Atenção! Chegou a hora de decidir quem irá começar..."));
+				wait(2000);
+				p.play_stationary("dado3.ogg", false);
+				wait(300);
+				p.play_stationary("dado3.ogg", false);
+				wait(100);
+				p.play_stationary("dado3.ogg", false);
+				int a=random(1, 2);
+				if(a==1){
+					add_add_item("variado", pu.get_value("Você começa!"));
+					quemjoga=1;
+				}
+				else if(a==2){
+					add_add_item("variado", pu.get_value("Eu começo!"));
+					quemjoga=2;
+				}
+				vaijogar=true;
+			}
+			if(vaijogar==true){
+				if(quemjoga==1){
+					add_add_item("variado", pu.get_value("Sua vez."));
+					while(true){
+						wait(5);
+						if(ausente){
+							fim();
+							break;
+						}
+						moedas=inv_item_number("coins");
+						mainloop();
+						if(moedas<=0){
+							p.play_stationary("notify_died.ogg", false);
+							send_reliable(0, "draw notify_died.ogg", 0);
+							fim();
+							break;
+						}
+						if(key_pressed(KEY_ESCAPE)){
+							fim();
+							p.play_stationary("menuvolta.ogg", false);
+							return;
+						}
+						if(key_pressed(KEY_RETURN)&&ganhou<=0){
+							int a=random(1, 6);
+							send_reliable(0, "draw dado1.ogg", 0);
+							d1.play_wait();
+							d2.play();
+							add_add_item("variado", pu.get_value("Você lançou o dado, e caiu em")+" "+a+". "+pu.get_value("Anda")+" "+a+".");
+							wait(1000);
+							for(uint i=0;i<a;i++){
+								d3.play_wait();
+								wait(300);
+							}
+							seudado+=a;
+							if(seudado>50)seudado=50;
+							add_add_item("variado", pu.get_value("Você está em")+" "+seudado+".");
+							if(seudado==50){
+								send_reliable(0, "acoins "+quantidade, 2);
+								add_add_item("variado", pu.get_value("Você ganhou o jogo!!!"));
+								ganhou=1;
+							}
+							quemjoga=2;
+							break;
+						}
+					}
+					if(ganhou>0){
+						fim();
+						break;
+					}
+				}
+				if(quemjoga==2&&ganhou<=0){
+					add_add_item("variado", pu.get_value("Minha vez..."));
+					wait(1000);
+					int a=random(1, 6);
+					send_reliable(0, "draw dado1.ogg", 0);
+					d1.play_wait();
+					d2.play();
+					add_add_item("variado", pu.get_value("Eu joguei o dado, e caiu em")+" "+a+". "+pu.get_value("Ando")+" "+a+".");
+					for(uint i=0;i<a;i++){
+						d3.play_wait();
+						wait(300);
+					}
+					dadocomputador+=a;
+					if(dadocomputador>50)dadocomputador=50;
+					add_add_item("variado", pu.get_value("Estou em")+" "+dadocomputador+".");
+					if(dadocomputador==50){
+						send_reliable(0, "acoins -"+quantidade, 2);
+						add_add_item("variado", pu.get_value("Eu ganhei mais uma vez... Como eu disse, você não é de nada!!!"));
+						ganhou=2;
+					}
+					quemjoga=1;
+				}
+				if(ganhou>0){
+					fim();
+					break;
+				}
+			}
+		}
+	}
 }
 class jogoblackjack{
-string[] cartas;//Matriz de cartas
-int seuspontos=0, pontoscomputador=0, quemjoga=0, ganhou=0, quantidade=0;//Variáveis em zero pois não começou nada
-int vparou=0, pparou=0;//Você e o computador não pararam de jogar.
-int moedas;//moedas
-bool iniciou=false, parou=false;//Não iniciou e não parou
-sound carta;//Som da carta
-sound ambiente;
-void fim(){
-cartas.resize(0);
-carta.close();
-ambiente.close();
-iniciou=false;parou=false;
-seuspontos=0; pontoscomputador=0; quemjoga=0; ganhou=0; quantidade=0;
-vparou=0; pparou=0;
-garbage_collect();
-}
-void jogar(){
-carta.load("pegar_carta.ogg");
-ambiente.load("musica15.ogg");
-ambiente.volume=-20;
-ambiente.play_looped();
-add_add_item("variado", pu.get_value("Jogo Black Jack, ou 21!"));
-while(true){
-mainloop();
-if(ausente){
-fim();
-break;
-}
-moedas=inv_item_number("coins");
-if(moedas<=0){
-p.play_stationary("notify_died.ogg", false);
-send_reliable(0, "draw notify_died.ogg", 0);
-fim();
-break;
-}
-if(key_pressed(KEY_ESCAPE)){
-p.play_stationary("menuvolta.ogg", false);
-fim();
-break;
-}
-if(iniciou==false&&quantidade>0){
-wait(1500);
-//Limpa matriz
-cartas.resize(0);
-//Começa a adição de cartas
-cartas.insert_last("ás de ouros");
-cartas.insert_last("2 de ouros");
-cartas.insert_last("3 de ouros");
-cartas.insert_last("4 de ouros");
-cartas.insert_last("5 de ouros");
-cartas.insert_last("6 de ouros");
-cartas.insert_last("7 de ouros");
-cartas.insert_last("8 de ouros");
-cartas.insert_last("9 de ouros");
-cartas.insert_last("10 de ouros");
-cartas.insert_last("valete de ouros");
-cartas.insert_last("dama de ouros");
-cartas.insert_last("rei de ouros");
-cartas.insert_last("ás de espadas");
-cartas.insert_last("2 de espadas");
-cartas.insert_last("3 de espadas");
-cartas.insert_last("4 de espadas");
-cartas.insert_last("5 de espadas");
-cartas.insert_last("6 de espadas");
-cartas.insert_last("7 de espadas");
-cartas.insert_last("8 de espadas");
-cartas.insert_last("9 de espadas");
-cartas.insert_last("10 de espadas");
-cartas.insert_last("valete de espadas");
-cartas.insert_last("dama de espadas");
-cartas.insert_last("rei de espadas");
-cartas.insert_last("ás de paus");
-cartas.insert_last("2 de paus");
-cartas.insert_last("3 de paus");
-cartas.insert_last("4 de paus");
-cartas.insert_last("5 de paus");
-cartas.insert_last("6 de paus");
-cartas.insert_last("7 de paus");
-cartas.insert_last("8 de paus");
-cartas.insert_last("9 de paus");
-cartas.insert_last("10 de paus");
-cartas.insert_last("valete de paus");
-cartas.insert_last("dama de paus");
-cartas.insert_last("rei de paus");
-cartas.insert_last("ás de copas");
-cartas.insert_last("2 de copas");
-cartas.insert_last("3 de copas");
-cartas.insert_last("4 de copas");
-cartas.insert_last("5 de copas");
-cartas.insert_last("6 de copas");
-cartas.insert_last("7 de copas");
-cartas.insert_last("8 de copas");
-cartas.insert_last("9 de copas");
-cartas.insert_last("10 de copas");
-cartas.insert_last("valete de copas");
-cartas.insert_last("dama de copas");
-cartas.insert_last("rei de copas");
-//Fim da adição de cartas
-add_add_item("variado", pu.get_value("Vamos sortear quem irá começar jogando..."));
-add_add_item("variado", pu.get_value("Para isso, vamos utilizar um dado de seis lados. De quatro para baixo, eu começo. Se cair em quatro ou mais, quem começa é você."));
-wait(500);
-p.play_stationary("dado1.ogg", false);
-int a=random(1, 6);
-if(a<=4){
-add_add_item("variado", pu.get_value("E quem começa sou eu! Já comecei bem..."));
-quemjoga=1;//Computador jogando
-}
-else{
-add_add_item("variado", pu.get_value("E quem começa é você, muito bom..."));
-quemjoga=2;//Você jogando
-}
-iniciou=true;//Começou a partida
-}
-if(key_pressed(KEY_1)&&quantidade<=0){
-string quanto=v.input("Quantos coins você quer apostar?");
-quantidade=string_to_number(quanto);
-if(quantidade>moedas){
-add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
-quantidade=0;
-}
-if(quantidade<5000||quantidade>20000){
-add_add_item("variado", pu.get_value("O valor para apostar tem que ser de 5000 à 20000."));
-quantidade=0;
-}
-}
-if(key_pressed(KEY_RETURN)&&ganhou>0||key_pressed(KEY_RETURN)&&parou){
-ganhou=0;
-quemjoga=0;
-seuspontos=0;
-pontoscomputador=0;
-iniciou=false;
-parou=false;
-vparou=0; pparou=0;
-quantidade=0;
-}
-if(key_pressed(KEY_H)){
-add_add_item("variado", pu.get_value("Para definir a quantidade de coins a serem apostados, pressione 1. Saber a quantidade de pontos seus e do computador, pressione 2. Para parar com os pontos que possui, pressione seta para baixo. Para comprar uma carta, pressione espaço. Para reiniciar o jogo quando alguém ganhar, pressione Enter. para sair, use ESCAPE."));
-}
-if(key_pressed(KEY_2))add_add_item("variado", pu.get_value("Sua pontuação:")+" "+seuspontos+". "+pu.get_value("Pontos do computador:")+" "+pontoscomputador+".");
-if(key_pressed(KEY_DOWN)&&vparou==0&&ganhou==0){
-if(seuspontos<18){
-add_add_item("variado", pu.get_value("Não, você não pode parar com essa quantidade de pontos..."));
-}
-else if(seuspontos>=18){
-add_add_item("variado", pu.get_value("Você decidiu parar!"));
-vparou=1;
-}
-}
-if(key_pressed(KEY_1)){
-string quanto=v.input("Quantos coins você quer apostar?");
-quantidade=string_to_number(quanto);
-if(quantidade>moedas){
-add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
-quantidade=0;
-}
-if(quantidade<2000||quantidade>10000){
-add_add_item("variado", pu.get_value("O valor para apostar tem que ser de")+" 2000 "+pu.get_value("até")+" 10000.");
-quantidade=0;
-}
-}
-if(key_pressed(KEY_SPACE)&&ganhou==0&&vparou==0&&quemjoga==2){
-if(quantidade<=0)add_add_item("variado", pu.get_value("Defina a quantidade que vai apostar primeiro!"));
-else{
-carta.play();//Som da carta tocando.
-send_reliable(0, "draw pegar_carta.ogg", 0);
-int c=random(0, cartas.length()-1);
-add_add_item("variado", pu.get_value("Você tirou")+" "+pu.get_value(cartas[c])+".");
-if(string_contains(string_to_lower_case(cartas[c]),"ás",1)>-1)seuspontos+=1;
-if(string_contains(string_to_lower_case(cartas[c]),"valete",1)>-1)seuspontos+=10;
-if(string_contains(string_to_lower_case(cartas[c]),"dama",1)>-1)seuspontos+=10;
-if(string_contains(string_to_lower_case(cartas[c]),"rei",1)>-1)seuspontos+=10;
-if(string_contains(string_to_lower_case(cartas[c]),"10",1)>-1)seuspontos+=10;
-if(string_contains(string_to_lower_case(cartas[c]),"9",1)>-1)seuspontos+=9;
-if(string_contains(string_to_lower_case(cartas[c]),"8",1)>-1)seuspontos+=8;
-if(string_contains(string_to_lower_case(cartas[c]),"7",1)>-1)seuspontos+=7;
-if(string_contains(string_to_lower_case(cartas[c]),"6",1)>-1)seuspontos+=6;
-if(string_contains(string_to_lower_case(cartas[c]),"5",1)>-1)seuspontos+=5;
-if(string_contains(string_to_lower_case(cartas[c]),"4",1)>-1)seuspontos+=4;
-if(string_contains(string_to_lower_case(cartas[c]),"3",1)>-1)seuspontos+=3;
-if(string_contains(string_to_lower_case(cartas[c]),"2",1)>-1)seuspontos+=2;
-add_add_item("variado", pu.get_value("Você tem agora")+" "+seuspontos+""+pu.get_value("pontos."));
-cartas.remove_at(c);
-if(seuspontos==21){
-add_add_item("variado", pu.get_value("Você ganhou!!!"));
-send_reliable(0, "acoins "+quantidade, 2);
-ganhou=2;
-quemjoga=0;
-}
-if(seuspontos>21){
-add_add_item("variado", pu.get_value("Você extorou os pontos, Eu ganhei."));
-send_reliable(0, "acoins -"+quantidade, 2);
-ganhou=1;
-quemjoga=0;
-}
-else{
-if(pparou==1)quemjoga=2;
-else quemjoga=1;
-}
-}
-}//Fim do espaço
-if(ganhou==0&&quemjoga==1&&pparou==0||vparou==1&&quemjoga>0&&pparou==0){//Ninguém ganhou e quem joga é o computador
-add_add_item("variado", pu.get_value("Minha vez:"));
-wait(1800);
-carta.play();//Som da carta tocando.
-send_reliable(0, "draw pegar_carta.ogg", 0);
-int c=random(0, cartas.length()-1);
-add_add_item("variado", pu.get_value("Eu tirei")+" "+pu.get_value(cartas[c])+".");
-if(string_contains(string_to_lower_case(cartas[c]),"ás",1)>-1)pontoscomputador+=1;
-if(string_contains(string_to_lower_case(cartas[c]),"valete",1)>-1)pontoscomputador+=10;
-if(string_contains(string_to_lower_case(cartas[c]),"dama",1)>-1)pontoscomputador+=10;
-if(string_contains(string_to_lower_case(cartas[c]),"rei",1)>-1)pontoscomputador+=10;
-if(string_contains(string_to_lower_case(cartas[c]),"10",1)>-1)pontoscomputador+=10;
-if(string_contains(string_to_lower_case(cartas[c]),"9",1)>-1)pontoscomputador+=9;
-if(string_contains(string_to_lower_case(cartas[c]),"8",1)>-1)pontoscomputador+=8;
-if(string_contains(string_to_lower_case(cartas[c]),"7",1)>-1)pontoscomputador+=7;
-if(string_contains(string_to_lower_case(cartas[c]),"6",1)>-1)pontoscomputador+=6;
-if(string_contains(string_to_lower_case(cartas[c]),"5",1)>-1)pontoscomputador+=5;
-if(string_contains(string_to_lower_case(cartas[c]),"4",1)>-1)pontoscomputador+=4;
-if(string_contains(string_to_lower_case(cartas[c]),"3",1)>-1)pontoscomputador+=3;
-if(string_contains(string_to_lower_case(cartas[c]),"2",1)>-1)pontoscomputador+=2;
-add_add_item("variado", pu.get_value("Eu tenho agora")+" "+pontoscomputador+" "+pu.get_value("pontos."));
-cartas.remove_at(c);
-if(pontoscomputador==21){
-add_add_item("variado", pu.get_value("Eu ganhei!!!"));
-send_reliable(0, "acoins -"+quantidade, 2);
-ganhou=1;
-quemjoga=0;
-}
-if(pontoscomputador>21){
-add_add_item("variado", pu.get_value("Eu extorei os pontos, você ganhou."));
-send_reliable(0, "acoins "+quantidade, 2);
-ganhou=2;
-quemjoga=0;
-}
-else{
-if(pontoscomputador>=18&&quemjoga>0){
-int parar=random(1, 6);
-if(parar<=3){
-add_add_item("variado", pu.get_value("Eu decidi parar!"));
-pparou=1;
-ganhou=0;
-}
-}
-if(vparou==0&&ganhou==0||pparou==1&&ganhou==0)quemjoga=2;
-else if(vparou==1&&ganhou==0||pparou==0&&ganhou==0)quemjoga=1;
-//else if(vparou==1&&ganhou==0)quemjoga=1;
-}
-if(ganhou==0&&quemjoga==2&&vparou==0)add_add_item("variado", pu.get_value("Sua vez."));
-}//Fim do ganhou
-if(vparou==1&&pparou==1&&ganhou==0&&parou==false){
-add_add_item("variado", pu.get_value("O-ou, nós resolvemos parar!"));
-wait(1000);
-parou=true;
-if(seuspontos>pontoscomputador){
-add_add_item("variado", pu.get_value("Você levou a melhor e ganhou!"));
-ganhou=2;
-quemjoga=0;
-}
-else if(pontoscomputador>seuspontos){
-add_add_item("variado", pu.get_value("Eu levei a melhor, e ganhei!"));
-}
-else{
-add_add_item("variado", pu.get_value("Deu empate! Ninguém ganhou..."));
-ganhou=3;
-quemjoga=0;
-}
-}
-}//Fim do while
-//fim do void jogar
-}//Fim da classe
+	string[] cartas;//Matriz de cartas
+	int seuspontos=0, pontoscomputador=0, quemjoga=0, ganhou=0, quantidade=0;//Variáveis em zero pois não começou nada
+	int vparou=0, pparou=0;//Você e o computador não pararam de jogar.
+	int moedas;//moedas
+	bool iniciou=false, parou=false;//Não iniciou e não parou
+	sound carta;//Som da carta
+	sound ambiente;
+	void fim(){
+		cartas.resize(0);
+		carta.close();
+		ambiente.close();
+		iniciou=false;parou=false;
+		seuspontos=0; pontoscomputador=0; quemjoga=0; ganhou=0; quantidade=0;
+		vparou=0; pparou=0;
+		garbage_collect();
+	}
+	void jogar(){
+		carta.load("pegar_carta.ogg");
+		ambiente.load("musica15.ogg");
+		ambiente.volume=-20;
+		ambiente.play_looped();
+		add_add_item("variado", pu.get_value("Jogo Black Jack, ou 21!"));
+		while(true){
+			mainloop();
+			if(ausente){
+				fim();
+				break;
+			}
+			moedas=inv_item_number("coins");
+			if(moedas<=0){
+				p.play_stationary("notify_died.ogg", false);
+				send_reliable(0, "draw notify_died.ogg", 0);
+				fim();
+				break;
+			}
+			if(key_pressed(KEY_ESCAPE)){
+				p.play_stationary("menuvolta.ogg", false);
+				fim();
+				break;
+			}
+			if(iniciou==false&&quantidade>0){
+				wait(1500);
+				cartas.resize(0);
+				cartas.insert_last("ás de ouros");
+				cartas.insert_last("2 de ouros");
+				cartas.insert_last("3 de ouros");
+				cartas.insert_last("4 de ouros");
+				cartas.insert_last("5 de ouros");
+				cartas.insert_last("6 de ouros");
+				cartas.insert_last("7 de ouros");
+				cartas.insert_last("8 de ouros");
+				cartas.insert_last("9 de ouros");
+				cartas.insert_last("10 de ouros");
+				cartas.insert_last("valete de ouros");
+				cartas.insert_last("dama de ouros");
+				cartas.insert_last("rei de ouros");
+				cartas.insert_last("ás de espadas");
+				cartas.insert_last("2 de espadas");
+				cartas.insert_last("3 de espadas");
+				cartas.insert_last("4 de espadas");
+				cartas.insert_last("5 de espadas");
+				cartas.insert_last("6 de espadas");
+				cartas.insert_last("7 de espadas");
+				cartas.insert_last("8 de espadas");
+				cartas.insert_last("9 de espadas");
+				cartas.insert_last("10 de espadas");
+				cartas.insert_last("valete de espadas");
+				cartas.insert_last("dama de espadas");
+				cartas.insert_last("rei de espadas");
+				cartas.insert_last("ás de paus");
+				cartas.insert_last("2 de paus");
+				cartas.insert_last("3 de paus");
+				cartas.insert_last("4 de paus");
+				cartas.insert_last("5 de paus");
+				cartas.insert_last("6 de paus");
+				cartas.insert_last("7 de paus");
+				cartas.insert_last("8 de paus");
+				cartas.insert_last("9 de paus");
+				cartas.insert_last("10 de paus");
+				cartas.insert_last("valete de paus");
+				cartas.insert_last("dama de paus");
+				cartas.insert_last("rei de paus");
+				cartas.insert_last("ás de copas");
+				cartas.insert_last("2 de copas");
+				cartas.insert_last("3 de copas");
+				cartas.insert_last("4 de copas");
+				cartas.insert_last("5 de copas");
+				cartas.insert_last("6 de copas");
+				cartas.insert_last("7 de copas");
+				cartas.insert_last("8 de copas");
+				cartas.insert_last("9 de copas");
+				cartas.insert_last("10 de copas");
+				cartas.insert_last("valete de copas");
+				cartas.insert_last("dama de copas");
+				cartas.insert_last("rei de copas");
+				add_add_item("variado", pu.get_value("Vamos sortear quem irá começar jogando..."));
+				add_add_item("variado", pu.get_value("Para isso, vamos utilizar um dado de seis lados. De quatro para baixo, eu começo. Se cair em quatro ou mais, quem começa é você."));
+				wait(500);
+				p.play_stationary("dado1.ogg", false);
+				int a=random(1, 6);
+				if(a<=4){
+					add_add_item("variado", pu.get_value("E quem começa sou eu! Já comecei bem..."));
+					quemjoga=1;//Computador jogando
+				}
+				else{
+					add_add_item("variado", pu.get_value("E quem começa é você, muito bom..."));
+					quemjoga=2;//Você jogando
+				}
+				iniciou=true;//Começou a partida
+			}
+			if(key_pressed(KEY_1)&&quantidade<=0){
+				string quanto=v.input("Quantos coins você quer apostar?");
+				quantidade=string_to_number(quanto);
+				if(quantidade>moedas){
+					add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
+					quantidade=0;
+				}
+				if(quantidade<5000||quantidade>20000){
+					add_add_item("variado", pu.get_value("O valor para apostar tem que ser de 5000 à 20000."));
+					quantidade=0;
+				}
+			}
+			if(key_pressed(KEY_RETURN)&&ganhou>0||key_pressed(KEY_RETURN)&&parou){
+				ganhou=0;
+				quemjoga=0;
+				seuspontos=0;
+				pontoscomputador=0;
+				iniciou=false;
+				parou=false;
+				vparou=0; pparou=0;
+				quantidade=0;
+			}
+			if(key_pressed(KEY_H)){
+				add_add_item("variado", pu.get_value("Para definir a quantidade de coins a serem apostados, pressione 1. Saber a quantidade de pontos seus e do computador, pressione 2. Para parar com os pontos que possui, pressione seta para baixo. Para comprar uma carta, pressione espaço. Para reiniciar o jogo quando alguém ganhar, pressione Enter. para sair, use ESCAPE."));
+			}
+			if(key_pressed(KEY_2))add_add_item("variado", pu.get_value("Sua pontuação:")+" "+seuspontos+". "+pu.get_value("Pontos do computador:")+" "+pontoscomputador+".");
+			if(key_pressed(KEY_DOWN)&&vparou==0&&ganhou==0){
+				if(seuspontos<18){
+					add_add_item("variado", pu.get_value("Não, você não pode parar com essa quantidade de pontos..."));
+				}
+				else if(seuspontos>=18){
+					add_add_item("variado", pu.get_value("Você decidiu parar!"));
+					vparou=1;
+				}
+			}
+			if(key_pressed(KEY_1)){
+				string quanto=v.input("Quantos coins você quer apostar?");
+				quantidade=string_to_number(quanto);
+				if(quantidade>moedas){
+					add_add_item("variado", pu.get_value("Você não tem")+" "+quantidade+" "+pu.get_value("coins para apostar."));
+					quantidade=0;
+				}
+				if(quantidade<2000||quantidade>10000){
+					add_add_item("variado", pu.get_value("O valor para apostar tem que ser de")+" 2000 "+pu.get_value("até")+" 10000.");
+					quantidade=0;
+				}
+			}
+			if(key_pressed(KEY_SPACE)&&ganhou==0&&vparou==0&&quemjoga==2){
+				if(quantidade<=0)add_add_item("variado", pu.get_value("Defina a quantidade que vai apostar primeiro!"));
+				else{
+					carta.play();//Som da carta tocando.
+					send_reliable(0, "draw pegar_carta.ogg", 0);
+					int c=random(0, cartas.length()-1);
+					add_add_item("variado", pu.get_value("Você tirou")+" "+pu.get_value(cartas[c])+".");
+					if(string_contains(string_to_lower_case(cartas[c]),"ás",1)>-1)seuspontos+=1;
+					if(string_contains(string_to_lower_case(cartas[c]),"valete",1)>-1)seuspontos+=10;
+					if(string_contains(string_to_lower_case(cartas[c]),"dama",1)>-1)seuspontos+=10;
+					if(string_contains(string_to_lower_case(cartas[c]),"rei",1)>-1)seuspontos+=10;
+					if(string_contains(string_to_lower_case(cartas[c]),"10",1)>-1)seuspontos+=10;
+					if(string_contains(string_to_lower_case(cartas[c]),"9",1)>-1)seuspontos+=9;
+					if(string_contains(string_to_lower_case(cartas[c]),"8",1)>-1)seuspontos+=8;
+					if(string_contains(string_to_lower_case(cartas[c]),"7",1)>-1)seuspontos+=7;
+					if(string_contains(string_to_lower_case(cartas[c]),"6",1)>-1)seuspontos+=6;
+					if(string_contains(string_to_lower_case(cartas[c]),"5",1)>-1)seuspontos+=5;
+					if(string_contains(string_to_lower_case(cartas[c]),"4",1)>-1)seuspontos+=4;
+					if(string_contains(string_to_lower_case(cartas[c]),"3",1)>-1)seuspontos+=3;
+					if(string_contains(string_to_lower_case(cartas[c]),"2",1)>-1)seuspontos+=2;
+					add_add_item("variado", pu.get_value("Você tem agora")+" "+seuspontos+""+pu.get_value("pontos."));
+					cartas.remove_at(c);
+					if(seuspontos==21){
+						add_add_item("variado", pu.get_value("Você ganhou!!!"));
+						send_reliable(0, "acoins "+quantidade, 2);
+						ganhou=2;
+						quemjoga=0;
+					}
+					if(seuspontos>21){
+						add_add_item("variado", pu.get_value("Você extorou os pontos, Eu ganhei."));
+						send_reliable(0, "acoins -"+quantidade, 2);
+						ganhou=1;
+						quemjoga=0;
+					}
+					else{
+						if(pparou==1)quemjoga=2;
+						else quemjoga=1;
+					}
+				}
+			}
+			if(ganhou==0&&quemjoga==1&&pparou==0||vparou==1&&quemjoga>0&&pparou==0){
+				add_add_item("variado", pu.get_value("Minha vez:"));
+				wait(1800);
+				carta.play();//Som da carta tocando.
+				send_reliable(0, "draw pegar_carta.ogg", 0);
+				int c=random(0, cartas.length()-1);
+				add_add_item("variado", pu.get_value("Eu tirei")+" "+pu.get_value(cartas[c])+".");
+				if(string_contains(string_to_lower_case(cartas[c]),"ás",1)>-1)pontoscomputador+=1;
+				if(string_contains(string_to_lower_case(cartas[c]),"valete",1)>-1)pontoscomputador+=10;
+				if(string_contains(string_to_lower_case(cartas[c]),"dama",1)>-1)pontoscomputador+=10;
+				if(string_contains(string_to_lower_case(cartas[c]),"rei",1)>-1)pontoscomputador+=10;
+				if(string_contains(string_to_lower_case(cartas[c]),"10",1)>-1)pontoscomputador+=10;
+				if(string_contains(string_to_lower_case(cartas[c]),"9",1)>-1)pontoscomputador+=9;
+				if(string_contains(string_to_lower_case(cartas[c]),"8",1)>-1)pontoscomputador+=8;
+				if(string_contains(string_to_lower_case(cartas[c]),"7",1)>-1)pontoscomputador+=7;
+				if(string_contains(string_to_lower_case(cartas[c]),"6",1)>-1)pontoscomputador+=6;
+				if(string_contains(string_to_lower_case(cartas[c]),"5",1)>-1)pontoscomputador+=5;
+				if(string_contains(string_to_lower_case(cartas[c]),"4",1)>-1)pontoscomputador+=4;
+				if(string_contains(string_to_lower_case(cartas[c]),"3",1)>-1)pontoscomputador+=3;
+				if(string_contains(string_to_lower_case(cartas[c]),"2",1)>-1)pontoscomputador+=2;
+				add_add_item("variado", pu.get_value("Eu tenho agora")+" "+pontoscomputador+" "+pu.get_value("pontos."));
+				cartas.remove_at(c);
+				if(pontoscomputador==21){
+					add_add_item("variado", pu.get_value("Eu ganhei!!!"));
+					send_reliable(0, "acoins -"+quantidade, 2);
+					ganhou=1;
+					quemjoga=0;
+				}
+				if(pontoscomputador>21){
+					add_add_item("variado", pu.get_value("Eu extorei os pontos, você ganhou."));
+					send_reliable(0, "acoins "+quantidade, 2);
+					ganhou=2;
+					quemjoga=0;
+				}
+				else{
+					if(pontoscomputador>=18&&quemjoga>0){
+						int parar=random(1, 6);
+						if(parar<=3){
+							add_add_item("variado", pu.get_value("Eu decidi parar!"));
+							pparou=1;
+							ganhou=0;
+						}
+					}
+					if(vparou==0&&ganhou==0||pparou==1&&ganhou==0)quemjoga=2;
+					else if(vparou==1&&ganhou==0||pparou==0&&ganhou==0)quemjoga=1;
+				}
+				if(ganhou==0&&quemjoga==2&&vparou==0)add_add_item("variado", pu.get_value("Sua vez."));
+			}
+			if(vparou==1&&pparou==1&&ganhou==0&&parou==false){
+				add_add_item("variado", pu.get_value("O-ou, nós resolvemos parar!"));
+				wait(1000);
+				parou=true;
+				if(seuspontos>pontoscomputador){
+					add_add_item("variado", pu.get_value("Você levou a melhor e ganhou!"));
+					ganhou=2;
+					quemjoga=0;
+				}
+				else if(pontoscomputador>seuspontos){
+					add_add_item("variado", pu.get_value("Eu levei a melhor, e ganhei!"));
+				}
+				else{
+					add_add_item("variado", pu.get_value("Deu empate! Ninguém ganhou..."));
+					ganhou=3;
+					quemjoga=0;
+				}
+			}
+		}
+	}
 }
