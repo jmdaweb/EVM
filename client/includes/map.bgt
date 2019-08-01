@@ -7,454 +7,380 @@ string[] map, map2, zones;
 bool amisafe=false, comurl=false;
 long streamurl;
 void playstep(){
-if (jumping==0){
-p.play_stationary(get_tile_at(me.x, me.y)+"step"+random(1, 5)+".ogg", false);
+	if (jumping==0){
+		p.play_stationary(get_tile_at(me.x, me.y)+"step"+random(1, 5)+".ogg", false);
+	}
 }
-//int mex=round(me.x,0);
-//int mey=round(me.y,0);
+string gmt(){
+	return get_tile_at(me.x,me.y);
 }
-string gmt()
-{
-return get_tile_at(me.x,me.y);
+string gct(){
+	return get_tile_at(camera.x,camera.y);
 }
-string gct()
-{
-return get_tile_at(camera.x,camera.y);
+string get_tile_at(int x, int y){
+	string final;
+	for(uint i=0; i<map.length(); i++){
+		string[] parsed=string_split(map[i], ":", false);
+		if (parsed.length()>=5){
+			int minx=string_to_number(parsed[0]);
+			int maxx=string_to_number(parsed[1]);
+			int miny=string_to_number(parsed[2]);
+			int maxy=string_to_number(parsed[3]);
+			if(minx>x){
+				continue;
+			}
+			if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y){
+				final=parsed[4];
+			}
+		}
+	}
+	return final;
 }
-string get_tile_at(int x, int y)
-{
-string final;
-for(uint i=0; i<map.length(); i++){
-string[] parsed=string_split(map[i], ":", false);
-if (parsed.length()>=5){
-int minx=string_to_number(parsed[0]);
-int maxx=string_to_number(parsed[1]);
-int miny=string_to_number(parsed[2]);
-int maxy=string_to_number(parsed[3]);
-if(minx>x){
-continue;
+string linear(string[] a){
+	string final;
+	for(uint i=0; i<a.length(); i++){
+		final+=(a[i]+"\r\n");
+	}
+	return final;
 }
-if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y){
-final=parsed[4];
-}
-}
-}
-return final;
-}
-string linear(string[] a)
-{
-string final;
-for(uint i=0; i<a.length(); i++)
-{
-final+=(a[i]+"\r\n");
-}
-return final;
-}
-string[] delinear(string a)
-{
-return string_split(a, "\r\n", false);
+string[] delinear(string a){
+	return string_split(a, "\r\n", false);
 }
 string get_zone_at(int x, int y){
-string final;
-for(uint i=0; i<zones.length(); i++){
-string[] parsed=string_split(zones[i], ":", false);
-int minx=string_to_number(parsed[0]);
-int maxx=string_to_number(parsed[1]);
-int miny=string_to_number(parsed[2]);
-int maxy=string_to_number(parsed[3]);
-if(minx>x){
-continue;
+	string final;
+	for(uint i=0; i<zones.length(); i++){
+		string[] parsed=string_split(zones[i], ":", false);
+		int minx=string_to_number(parsed[0]);
+		int maxx=string_to_number(parsed[1]);
+		int miny=string_to_number(parsed[2]);
+		int maxy=string_to_number(parsed[3]);
+		if(minx>x){
+			continue;
+		}
+		if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y){
+			final=parsed[4];
+		}
+	}
+	return final;
 }
-if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y){
-final=parsed[4];
+void load_map(string mdata){
+	if(comurl){
+		stream.stop(streamurl);
+		comurl=false;
+	}
+	safezones.delete_all();
+	objs.resize(0);
+	destroy_all_doors();
+	destroy_all_elevadors();
+	destroy_all_txts();
+	maquinatempos.resize(0);
+	computadors.resize(0);
+	p.destroy_all();
+	pobjs.destroy_all();
+	pcomputador.destroy_all();
+	destroy_all_splays();
+	destroy_all_ambientes();
+	destroy_all_sources();
+	destroy_all_staircases();
+	destroy_all_msounds();
+	map.resize(0);
+	map2.resize(0);
+	zones.resize(0);
+	outras=true;
+	dcamera=0;
+	dcoordenadas=0;
+	dvarinha=0;
+	bicicletaativa=1;
+	somchuva="rain4.ogg";
+	destruir_areias_movedissas();
+	string[] ldata=delinear(mdata);
+	map2=ldata;
+	bool isitsafe=false;
+	for(uint i=0; i<ldata.length(); i++){
+		if(ldata[i]=="safemap") isitsafe=true;
+		string[] parsed=string_split(ldata[i], ":", true);
+		if(parsed[0]=="map"){
+			mapname=string_trim_left(ldata[i],4);
+			if(mapname=="túnel"){
+				centado=false;
+				if(lan.nalancha==1)lan.saindo=1;
+			}
+		}
+		else if(parsed[0]=="url"&&parsed.length()>1){
+			comurl=true;
+			streamurl=stream.load(string_trim_left(ldata[i],4));
+			stream.play(streamurl);
+		}
+		else if(parsed[0]=="teto"){
+			somchuva=parsed[1];
+		}
+		else if(parsed[0]=="platform"&&parsed.length>=5){
+			string minx,maxx,y,tile;
+			minx=parsed[1];
+			maxx=parsed[2];
+			y=parsed[3];
+			tile=parsed[4];
+			map.insert_last(minx+":"+maxx+":"+y+":"+y+":"+tile);
+		}
+		else if(parsed[0]=="wall"&&parsed.length>=5||parsed[0]=="pwall"&&parsed.length>=5){
+			string x,miny,maxy,tile;
+			x=parsed[1];
+			miny=parsed[2];
+			maxy=parsed[3];
+			tile=parsed[4];
+			map.insert_last(x+":"+x+":"+miny+":"+maxy+":"+tile);
+		}
+		else if(parsed[0]=="zone"){
+			zones.insert_last(string_trim_left(ldata[i],5));
+		}
+		else if(parsed[0]=="desc"&&parsed.length()>4)colocar_desc(string_to_number(parsed[1]),string_to_number(parsed[2]),string_to_number(parsed[3]),string_to_number(parsed[4]),parsed[5]);
+		else if(parsed[0]=="maxx"){
+			max.x=string_to_number(parsed[1]);
+		}
+		else if(parsed[0]=="maxy"){
+			max.y=string_to_number(parsed[1]);
+		}
+		else if(parsed[0]=="x"){
+			me.x=string_to_number(parsed[1]);
+		}
+		else if(parsed[0]=="y"){
+			me.y=string_to_number(parsed[1]);
+		}
+		else if(parsed[0]=="sound_source" and parsed.length()>=6||parsed[0]=="som"&&parsed.length()>=6){
+			int lx=string_to_number(parsed[1]);
+			int rx=string_to_number(parsed[2]);
+			int miny=string_to_number(parsed[3]);
+			int maxy=string_to_number(parsed[4]);
+			string id="123";
+			spawn_source(lx, rx, miny, maxy, string_replace(parsed[5],".wav",".ogg",true), id);
+		}
+		else if(parsed[0]=="door" and parsed.length()>=9||parsed[0]=="porta"&&parsed.length()>=9){
+			int x=string_to_number(parsed[1]);
+			int y=string_to_number(parsed[2]);
+			int fx=string_to_number(parsed[3]);
+			int fy=string_to_number(parsed[4]);
+			int speed=string_to_number(parsed[5]);
+			string snd1=parsed[6];
+			string snd2=parsed[7];
+			string snd3=parsed[8];
+			string snd4=parsed[9];
+			spawn_door(x, y, fx, fy,speed,snd1,snd2,snd3,snd4);
+		}
+		else if(parsed[0]=="elevador"&&parsed.length()>4){
+			int x=string_to_number(parsed[1]);
+			int y=string_to_number(parsed[2]);
+			int fx=string_to_number(parsed[3]);
+			int fy=string_to_number(parsed[4]);
+			spawn_elevador(x, y, fx, fy);
+		}
+		else if(parsed[0]=="staircase" and parsed.length()>=6){
+			int lx=string_to_number(parsed[1]);
+			int rx=string_to_number(parsed[2]);
+			int miny=string_to_number(parsed[3]);
+			int maxy=string_to_number(parsed[4]);
+			string tile=parsed[5];
+			string id="1234";
+			spawn_staircase(lx, rx, miny, maxy, tile, id);
+		}
+		else if(parsed[0]=="texto" and parsed.length()>=4){
+			int x=string_to_number(parsed[1]);
+			int y=string_to_number(parsed[2]);
+			string txt=parsed[3];
+			spawn_txt(x, y, txt);
+		}
+		else if(parsed[0]=="areia_movediça")colocar_areia_movedissa(string_to_number(parsed[1]), string_to_number(parsed[2]), mapname);
+		else if (parsed[0]=="travelpoint"||parsed[0]=="portamapa"||parsed[0]=="reverb"||parsed[0]=="congelar"){
+		}
+		else if(parsed[0]=="desativar"){
+			if(parsed[1]=="coordenadas")dcoordenadas=1;
+			if(parsed[1]=="varinha")dvarinha=1;
+			if(parsed[1]=="camera")dcamera=1;
+			if(parsed[1]=="bicicleta")bicicletaativa=0;
+			if(parsed[1]=="armas_pretas")outras=false;
+		}
+		else if(parsed[0]=="safemap"){
+			if(amisafe=false){
+				amisafe=true;
+				send_reliable(peer_id,"iamsafe",0);
+			}
+		}
+		else if(parsed[0]=="safezone"&&parsed.length==5){
+			safezones.set(parsed[1]+":"+parsed[2]+":"+parsed[3]+":"+parsed[4],"safe");
+		}
+		else if((parsed[0][0]=="/"&&parsed[0][1]=="/")||parsed[0]=="comment"){}
+		else{
+			add_add_item("misc","map error. An error has occured. On line: "+(i+1)+". "+ldata[i]+". Error: Invalid syntax.");
+		}
+	}
+	if(isitsafe==false&&amisafe==true){
+		amisafe=false;
+		send_reliable(peer_id,"iamnotsafe",0);
+	}
+	chuva();
 }
+void load_map2(string mdata){
+	objs.resize(0);
+	destroy_all_txts();
+	maquinatempos.resize(0);
+	computadors.resize(0);
+	pcomputador.destroy_all();
+	outras=true;
+	dcamera=0;
+	dcoordenadas=0;
+	dvarinha=0;
+	bicicletaativa=1;
+	somchuva="rain4.ogg";
+	map.resize(0);
+	map2.resize(0);
+	string[] ldata=delinear(mdata);
+	map2=ldata;
+	bool isitsafe=false;
+	for(uint i=0; i<ldata.length(); i++){
+		if(ldata[i]=="safemap") isitsafe=true;
+		string[] parsed=string_split(ldata[i], ":", true);
+		if(parsed[0]=="map"){
+			mapname=string_trim_left(ldata[i],4);
+			if(mapname=="túnel")centado=false;
+		}
+		else if(parsed[0]=="teto"){
+			somchuva=parsed[1];
+		}
+		else if(parsed[0]=="platform"&&parsed.length>=5){
+			string minx,maxx,y,tile;
+			minx=parsed[1];
+			maxx=parsed[2];
+			y=parsed[3];
+			tile=parsed[4];
+			map.insert_last(minx+":"+maxx+":"+y+":"+y+":"+tile);
+		}
+		else if(parsed[0]=="wall"&&parsed.length>=5||parsed[0]=="pwall"&&parsed.length>=5){
+			string x,miny,maxy,tile;
+			x=parsed[1];
+			miny=parsed[2];
+			maxy=parsed[3];
+			tile=parsed[4];
+			map.insert_last(x+":"+x+":"+miny+":"+maxy+":"+tile);
+		}
+		else if(parsed[0]=="zone"){
+			zones.insert_last(string_trim_left(ldata[i],5));
+		}
+		else if(parsed[0]=="maxx"){
+			max.x=string_to_number(parsed[1]);
+		}
+		else if(parsed[0]=="maxy"){
+			max.y=string_to_number(parsed[1]);
+		}
+		else if(parsed[0]=="x"){
+			me.x=string_to_number(parsed[1]);
+		}
+		else if(parsed[0]=="y"){
+			me.y=string_to_number(parsed[1]);
+		}
+		else if(parsed[0]=="sound_source" and parsed.length()>=6||parsed[0]=="som"&&parsed.length()>=6){
+			int lx=string_to_number(parsed[1]);
+			int rx=string_to_number(parsed[2]);
+			int miny=string_to_number(parsed[3]);
+			int maxy=string_to_number(parsed[4]);
+			string id="123";
+			spawn_source(lx, rx, miny, maxy, string_replace(parsed[5],".wav",".ogg",true), id);
+		}
+		else if(parsed[0]=="door" and parsed.length()>=9||parsed[0]=="porta"&&parsed.length()>=9){
+			int x=string_to_number(parsed[1]);
+			int y=string_to_number(parsed[2]);
+			int fx=string_to_number(parsed[3]);
+			int fy=string_to_number(parsed[4]);
+			int speed=string_to_number(parsed[5]);
+			string snd1=parsed[6];
+			string snd2=parsed[7];
+			string snd3=parsed[8];
+			string snd4=parsed[9];
+			spawn_door(x, y, fx, fy,speed,snd1,snd2,snd3,snd4);
+		}
+		else if(parsed[0]=="elevador" and parsed.length()>=9){
+			int x=string_to_number(parsed[1]);
+			int y=string_to_number(parsed[2]);
+			int fx=string_to_number(parsed[3]);
+			int fy=string_to_number(parsed[4]);
+			spawn_elevador(x, y, fx, fy);
+		}
+		else if(parsed[0]=="staircase" and parsed.length()>=6){
+			int lx=string_to_number(parsed[1]);
+			int rx=string_to_number(parsed[2]);
+			int miny=string_to_number(parsed[3]);
+			int maxy=string_to_number(parsed[4]);
+			string tile=parsed[5];
+			string id="1234";
+			spawn_staircase(lx, rx, miny, maxy, tile, id);
+		}
+		else if(parsed[0]=="texto" and parsed.length()>=4){
+			int x=string_to_number(parsed[1]);
+			int y=string_to_number(parsed[2]);
+			string txt=parsed[3];
+			spawn_txt(x, y, txt);
+		}
+		else if(parsed[0]=="areia_movediça")colocar_areia_movedissa(string_to_number(parsed[1]), string_to_number(parsed[2]), mapname);
+		else if (parsed[0]=="travelpoint"||parsed[0]=="portamapa"||parsed[0]=="reverb"){}
+		else if(parsed[0]=="desativar"){
+			if(parsed[1]=="coordenadas")dcoordenadas=1;
+			if(parsed[1]=="varinha")dvarinha=1;
+			if(parsed[1]=="camera")dcamera=1;
+			if(parsed[1]=="bicicleta")bicicletaativa=0;
+			if(parsed[1]=="armas_pretas")outras=false;
+		}
+		else if(parsed[0]=="safemap"){
+			if(amisafe=false){
+				amisafe=true;
+				send_reliable(peer_id,"iamsafe",0);
+			}
+		}
+		else if(parsed[0]=="safezone"&&parsed.length==5){
+			safezones.set(parsed[1]+":"+parsed[2]+":"+parsed[3]+":"+parsed[4],"safe");
+		}
+		else if((parsed[0][0]=="/"&&parsed[0][1]=="/")||parsed[0]=="comment"){}
+		else{
+			add_add_item("misc","map error. An error has occured. On line: "+(i+1)+". "+ldata[i]+". Error: Invalid syntax.");
+		}
+	}
+	if(isitsafe==false&&amisafe==true){
+		amisafe=false;
+		send_reliable(peer_id,"iamnotsafe",0);
+	}
+	chuva();
 }
-return final;
+void spawn_platform(int leftx, int rightx, int miny, int maxy, string plattype){
+	map.insert_last(leftx+":"+rightx+":"+miny+":"+maxy+":"+plattype);
 }
-void load_map(string mdata)
-{
-if(comurl){
-stream.stop(streamurl);
-comurl=false;
+void spawn_tiles(int leftx, int rightx, int miny, int maxy, string plattype){
+	map.insert_last(leftx+":"+rightx+":"+miny+":"+maxy+":"+plattype);
 }
-safezones.delete_all();
-objs.resize(0);
-destroy_all_doors();
-destroy_all_elevadors();
-destroy_all_txts();
-maquinatempos.resize(0);
-computadors.resize(0);
-p.destroy_all();
-pobjs.destroy_all();
-pcomputador.destroy_all();
-destroy_all_splays();
-destroy_all_ambientes();
-destroy_all_sources();
-destroy_all_staircases();
-destroy_all_msounds();
-map.resize(0);
-map2.resize(0);
-zones.resize(0);
-outras=true;
-dcamera=0;
-dcoordenadas=0;
-dvarinha=0;
-bicicletaativa=1;
-somchuva="rain4.ogg";
-destruir_areias_movedissas();
-string[] ldata=delinear(mdata);
-map2=ldata;
-bool isitsafe=false;
-for(uint i=0; i<ldata.length(); i++)
-{
-if(ldata[i]=="safemap") isitsafe=true;
-string[] parsed=string_split(ldata[i], ":", true);
-if(parsed[0]=="map")
-{
-mapname=string_trim_left(ldata[i],4);
-if(mapname=="túnel"){
-centado=false;
-if(lan.nalancha==1)lan.saindo=1;
-}
-}
-else if(parsed[0]=="url"&&parsed.length()>1){
-comurl=true;
-streamurl=stream.load(string_trim_left(ldata[i],4));
-stream.play(streamurl);
-}
-else if(parsed[0]=="teto")
-{
-somchuva=parsed[1];
-}
-else if(parsed[0]=="platform"&&parsed.length>=5)
-{
-string minx,maxx,y,tile;
-minx=parsed[1];
-maxx=parsed[2];
-y=parsed[3];
-tile=parsed[4];
-map.insert_last(minx+":"+maxx+":"+y+":"+y+":"+tile);
-}
-else if(parsed[0]=="wall"&&parsed.length>=5||parsed[0]=="pwall"&&parsed.length>=5)
-{
-string x,miny,maxy,tile;
-x=parsed[1];
-miny=parsed[2];
-maxy=parsed[3];
-tile=parsed[4];
-map.insert_last(x+":"+x+":"+miny+":"+maxy+":"+tile);
-}
-else if(parsed[0]=="zone")
-{
-zones.insert_last(string_trim_left(ldata[i],5));
-}
-else if(parsed[0]=="desc"&&parsed.length()>4)colocar_desc(string_to_number(parsed[1]),string_to_number(parsed[2]),string_to_number(parsed[3]),string_to_number(parsed[4]),parsed[5])
-
-
-
-
-
-
-
-
-
-
-
-
-;
-else if(parsed[0]=="maxx")
-{
-max.x=string_to_number(parsed[1]);
-}
-else if(parsed[0]=="maxy")
-{
-max.y=string_to_number(parsed[1]);
-}
-else if(parsed[0]=="x")
-{
-me.x=string_to_number(parsed[1]);
-}
-else if(parsed[0]=="y")
-{
-me.y=string_to_number(parsed[1]);
-}
-else if(parsed[0]=="sound_source" and parsed.length()>=6||parsed[0]=="som"&&parsed.length()>=6)
-{
-int lx=string_to_number(parsed[1]);
-int rx=string_to_number(parsed[2]);
-int miny=string_to_number(parsed[3]);
-int maxy=string_to_number(parsed[4]);
-string id="123";
-spawn_source(lx, rx, miny, maxy, string_replace(parsed[5],".wav",".ogg",true), id);
-}
-else if(parsed[0]=="door" and parsed.length()>=9||parsed[0]=="porta"&&parsed.length()>=9)
-{
-int x=string_to_number(parsed[1]);
-int y=string_to_number(parsed[2]);
-int fx=string_to_number(parsed[3]);
-int fy=string_to_number(parsed[4]);
-int speed=string_to_number(parsed[5]);
-string snd1=parsed[6];
-string snd2=parsed[7];
-string snd3=parsed[8];
-string snd4=parsed[9];
-spawn_door(x, y, fx, fy,speed,snd1,snd2,snd3,snd4);
-}
-else if(parsed[0]=="elevador"&&parsed.length()>4){
-int x=string_to_number(parsed[1]);
-int y=string_to_number(parsed[2]);
-int fx=string_to_number(parsed[3]);
-int fy=string_to_number(parsed[4]);
-spawn_elevador(x, y, fx, fy);
-}
-else if(parsed[0]=="staircase" and parsed.length()>=6)
-{
-int lx=string_to_number(parsed[1]);
-int rx=string_to_number(parsed[2]);
-int miny=string_to_number(parsed[3]);
-int maxy=string_to_number(parsed[4]);
-string tile=parsed[5];
-string id="1234";
-spawn_staircase(lx, rx, miny, maxy, tile, id);
-}
-else if(parsed[0]=="texto" and parsed.length()>=4)
-{
-int x=string_to_number(parsed[1]);
-int y=string_to_number(parsed[2]);
-string txt=parsed[3];
-spawn_txt(x, y, txt);
-}
-else if(parsed[0]=="areia_movediça")colocar_areia_movedissa(string_to_number(parsed[1]), string_to_number(parsed[2]), mapname);
-else if (parsed[0]=="travelpoint"||parsed[0]=="portamapa"||parsed[0]=="reverb"||parsed[0]=="congelar")
-{
-}
-else if(parsed[0]=="desativar"){
-if(parsed[1]=="coordenadas")dcoordenadas=1;
-if(parsed[1]=="varinha")dvarinha=1;
-if(parsed[1]=="camera")dcamera=1;
-if(parsed[1]=="bicicleta")bicicletaativa=0;
-if(parsed[1]=="armas_pretas")outras=false;
-}
-else if(parsed[0]=="safemap")
-{
-if(amisafe=false)
-{
-amisafe=true;
-send_reliable(peer_id,"iamsafe",0);
-}
-}
-else if(parsed[0]=="safezone"&&parsed.length==5)
-{
-safezones.set(parsed[1]+":"+parsed[2]+":"+parsed[3]+":"+parsed[4],"safe");
-}
-else if((parsed[0][0]=="/"&&parsed[0][1]=="/")||parsed[0]=="comment"){}
-else
-{
-add_add_item("misc","map error. An error has occured. On line: "+(i+1)+". "+ldata[i]+". Error: Invalid syntax.");
-}
-}
-if(isitsafe==false&&amisafe==true)
-{
-amisafe=false;
-send_reliable(peer_id,"iamnotsafe",0);
-}
-chuva();
-}
-void load_map2(string mdata)
-{
-objs.resize(0);
-destroy_all_txts();
-maquinatempos.resize(0);
-computadors.resize(0);
-pcomputador.destroy_all();
-outras=true;
-dcamera=0;
-dcoordenadas=0;
-dvarinha=0;
-bicicletaativa=1;
-somchuva="rain4.ogg";
-map.resize(0);
-map2.resize(0);
-string[] ldata=delinear(mdata);
-map2=ldata;
-bool isitsafe=false;
-for(uint i=0; i<ldata.length(); i++)
-{
-if(ldata[i]=="safemap") isitsafe=true;
-string[] parsed=string_split(ldata[i], ":", true);
-if(parsed[0]=="map")
-{
-mapname=string_trim_left(ldata[i],4);
-if(mapname=="túnel")centado=false;
-}
-else if(parsed[0]=="teto")
-{
-somchuva=parsed[1];
-}
-else if(parsed[0]=="platform"&&parsed.length>=5)
-{
-string minx,maxx,y,tile;
-minx=parsed[1];
-maxx=parsed[2];
-y=parsed[3];
-tile=parsed[4];
-map.insert_last(minx+":"+maxx+":"+y+":"+y+":"+tile);
-}
-else if(parsed[0]=="wall"&&parsed.length>=5||parsed[0]=="pwall"&&parsed.length>=5)
-{
-string x,miny,maxy,tile;
-x=parsed[1];
-miny=parsed[2];
-maxy=parsed[3];
-tile=parsed[4];
-map.insert_last(x+":"+x+":"+miny+":"+maxy+":"+tile);
-}
-else if(parsed[0]=="zone")
-{
-zones.insert_last(string_trim_left(ldata[i],5));
-}
-else if(parsed[0]=="maxx")
-{
-max.x=string_to_number(parsed[1]);
-}
-else if(parsed[0]=="maxy")
-{
-max.y=string_to_number(parsed[1]);
-}
-else if(parsed[0]=="x")
-{
-me.x=string_to_number(parsed[1]);
-}
-else if(parsed[0]=="y")
-{
-me.y=string_to_number(parsed[1]);
-}
-else if(parsed[0]=="sound_source" and parsed.length()>=6||parsed[0]=="som"&&parsed.length()>=6)
-{
-int lx=string_to_number(parsed[1]);
-int rx=string_to_number(parsed[2]);
-int miny=string_to_number(parsed[3]);
-int maxy=string_to_number(parsed[4]);
-string id="123";
-spawn_source(lx, rx, miny, maxy, string_replace(parsed[5],".wav",".ogg",true), id);
-}
-else if(parsed[0]=="door" and parsed.length()>=9||parsed[0]=="porta"&&parsed.length()>=9)
-{
-int x=string_to_number(parsed[1]);
-int y=string_to_number(parsed[2]);
-int fx=string_to_number(parsed[3]);
-int fy=string_to_number(parsed[4]);
-int speed=string_to_number(parsed[5]);
-string snd1=parsed[6];
-string snd2=parsed[7];
-string snd3=parsed[8];
-string snd4=parsed[9];
-spawn_door(x, y, fx, fy,speed,snd1,snd2,snd3,snd4);
-}
-else if(parsed[0]=="elevador" and parsed.length()>=9)
-{
-int x=string_to_number(parsed[1]);
-int y=string_to_number(parsed[2]);
-int fx=string_to_number(parsed[3]);
-int fy=string_to_number(parsed[4]);
-spawn_elevador(x, y, fx, fy);
-}
-else if(parsed[0]=="staircase" and parsed.length()>=6)
-{
-int lx=string_to_number(parsed[1]);
-int rx=string_to_number(parsed[2]);
-int miny=string_to_number(parsed[3]);
-int maxy=string_to_number(parsed[4]);
-string tile=parsed[5];
-string id="1234";
-spawn_staircase(lx, rx, miny, maxy, tile, id);
-}
-else if(parsed[0]=="texto" and parsed.length()>=4)
-{
-int x=string_to_number(parsed[1]);
-int y=string_to_number(parsed[2]);
-string txt=parsed[3];
-spawn_txt(x, y, txt);
-}
-else if(parsed[0]=="areia_movediça")colocar_areia_movedissa(string_to_number(parsed[1]), string_to_number(parsed[2]), mapname);
-else if (parsed[0]=="travelpoint"||parsed[0]=="portamapa"||parsed[0]=="reverb")
-{
-}
-else if(parsed[0]=="desativar"){
-if(parsed[1]=="coordenadas")dcoordenadas=1;
-if(parsed[1]=="varinha")dvarinha=1;
-if(parsed[1]=="camera")dcamera=1;
-if(parsed[1]=="bicicleta")bicicletaativa=0;
-if(parsed[1]=="armas_pretas")outras=false;
-}
-else if(parsed[0]=="safemap")
-{
-if(amisafe=false)
-{
-amisafe=true;
-send_reliable(peer_id,"iamsafe",0);
-}
-}
-else if(parsed[0]=="safezone"&&parsed.length==5)
-{
-safezones.set(parsed[1]+":"+parsed[2]+":"+parsed[3]+":"+parsed[4],"safe");
-}
-else if((parsed[0][0]=="/"&&parsed[0][1]=="/")||parsed[0]=="comment"){}
-else
-{
-add_add_item("misc","map error. An error has occured. On line: "+(i+1)+". "+ldata[i]+". Error: Invalid syntax.");
-}
-}
-if(isitsafe==false&&amisafe==true)
-{
-amisafe=false;
-send_reliable(peer_id,"iamnotsafe",0);
-}
-chuva();
-}
-void spawn_platform(int leftx, int rightx, int miny, int maxy, string plattype)
-{
-map.insert_last(leftx+":"+rightx+":"+miny+":"+maxy+":"+plattype);
-}
-void spawn_tiles(int leftx, int rightx, int miny, int maxy, string plattype)
-{
-map.insert_last(leftx+":"+rightx+":"+miny+":"+maxy+":"+plattype);
-}
-void spawn_zone(int leftx, int rightx, int miny, int maxy, string zonetype)
-{
-zones.insert_last(leftx+":"+rightx+":"+miny+":"+maxy+":"+zonetype);
+void spawn_zone(int leftx, int rightx, int miny, int maxy, string zonetype){
+	zones.insert_last(leftx+":"+rightx+":"+miny+":"+maxy+":"+zonetype);
 }
 bool inansz=false;
-bool safezone()
-{
-string[] safekeys=safezones.get_keys();
-bool ret=false;
-for(uint i=0; i<safekeys.length; i++)
-{
-string[] atest=string_split(safekeys[i],":",false);
-int smnx=string_to_number(atest[0]);
-int smxx=string_to_number(atest[1]);
-int smny=string_to_number(atest[2]);
-int smxy=string_to_number(atest[3]);
-if(me.x>=smnx&&me.x<=smxx&&me.y>=smny&&me.y<=smxy)
-{
-ret=true;
-break;
+bool safezone(){
+	string[] safekeys=safezones.get_keys();
+	bool ret=false;
+	for(uint i=0; i<safekeys.length; i++){
+		string[] atest=string_split(safekeys[i],":",false);
+		int smnx=string_to_number(atest[0]);
+		int smxx=string_to_number(atest[1]);
+		int smny=string_to_number(atest[2]);
+		int smxy=string_to_number(atest[3]);
+		if(me.x>=smnx&&me.x<=smxx&&me.y>=smny&&me.y<=smxy){
+			ret=true;
+			break;
+		}
+	}
+	return ret;
 }
-}
-return ret;
-}
-void safeloop()
-{
-bool v=safezone();
-if(v==false&&inansz==true&&nolhar=="")
-{
-inansz=false;
-send_reliable(peer_id,"sn",0);
-}
-if(v==true&&inansz==false)
-{
-inansz=true;
-send_reliable(peer_id,"s",0);
-}
+void safeloop(){
+	bool v=safezone();
+	if(v==false&&inansz==true&&nolhar==""){
+		inansz=false;
+		send_reliable(peer_id,"sn",0);
+	}
+	if(v==true&&inansz==false){
+		inansz=true;
+		send_reliable(peer_id,"s",0);
+	}
 }

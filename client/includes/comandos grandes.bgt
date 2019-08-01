@@ -1,296 +1,254 @@
-void gerais()
-{
-setupmenu();
-if(rcontrol==0)m.add_item_tts(pu.get_value("Ativar control direito para disparar"), "direito");
-else if(rcontrol==1)m.add_item_tts(pu.get_value("Desativar control direito para disparar"), "direito");
-if(file_exists(DIRECTORY_APPDATA+"/microsoft/Windows/Start Menu/Programs/Startup/entre a vida e a morte - Versão.bat"))m.add_item_tts(pu.get_value("Iniciando o entre a vida e a morte - Versão com o Windows"), "w");
-else if(!file_exists(DIRECTORY_APPDATA+"/microsoft/Windows/Start Menu/Programs/Startup/entre a vida e a morte - Versão.bat"))m.add_item_tts(pu.get_value("Não iniciando o entre a vida e a morte - Versão com o Windows"), "w");
-if (asktoexit==0)m.add_item_tts(pu.get_value("Ativar confirmação ao sair"),"ae");
-else if (asktoexit==1) m.add_item_tts(pu.get_value("Desativar confirmação ao sair"),"ad");
-if(avisadesconectou==0)m.add_item_tts(pu.get_value("Desativar avisos quando um personagem se conectar e desconectar"),"avisadesconectou");
-else if(avisadesconectou==1)m.add_item_tts(pu.get_value("Ativar avisos quando um personagem se conectar e desconectar"),"avisadesconectou");
-if(usalogo==0)m.add_item_tts(pu.get_value("Desativar a reprodução do logo na inicialização"), "usandologo");
-else if(usalogo==1)m.add_item_tts(pu.get_value("Ativar a reprodução do logo na inicialização"), "usandologo");
-m.add_item_tts(pu.get_value("Modo voz sape"),"wine");
-if (interrupt==0)m.add_item_tts(pu.get_value("Ativar interrupção do leitor"),"interrupt");
-else if (interrupt==1)m.add_item_tts(pu.get_value("Desativar interrupção do leitor"),"interrupt");
-if (atualizar==0)m.add_item_tts(pu.get_value("Ativar verificação de atualização ao iniciar"),"atualizar");
-else if (atualizar==1)m.add_item_tts(pu.get_value("Desativar verificação de atualização ao iniciar"),"atualizar");
-m.add_item_tts(pu.get_value("Voltar"),"back");
-int mres=m.run(pu.get_value("Opções Gerais."), true);
-if(m.get_item_name(mres)=="wine")
-{
-togglewine();
-if (wine()==true) {
-speak(pu.get_value("Modo voz sape ativado"));
+void gerais(){
+	setupmenu();
+	if(rcontrol==0)m.add_item_tts(pu.get_value("Ativar control direito para disparar"), "direito");
+	else if(rcontrol==1)m.add_item_tts(pu.get_value("Desativar control direito para disparar"), "direito");
+	if(file_exists(DIRECTORY_APPDATA+"/microsoft/Windows/Start Menu/Programs/Startup/entre a vida e a morte - Versão.bat"))m.add_item_tts(pu.get_value("Iniciando o entre a vida e a morte - Versão com o Windows"), "w");
+	else if(!file_exists(DIRECTORY_APPDATA+"/microsoft/Windows/Start Menu/Programs/Startup/entre a vida e a morte - Versão.bat"))m.add_item_tts(pu.get_value("Não iniciando o entre a vida e a morte - Versão com o Windows"), "w");
+	if (asktoexit==0)m.add_item_tts(pu.get_value("Ativar confirmação ao sair"),"ae");
+	else if (asktoexit==1) m.add_item_tts(pu.get_value("Desativar confirmação ao sair"),"ad");
+	if(avisadesconectou==0)m.add_item_tts(pu.get_value("Desativar avisos quando um personagem se conectar e desconectar"),"avisadesconectou");
+	else if(avisadesconectou==1)m.add_item_tts(pu.get_value("Ativar avisos quando um personagem se conectar e desconectar"),"avisadesconectou");
+	if(usalogo==0)m.add_item_tts(pu.get_value("Desativar a reprodução do logo na inicialização"), "usandologo");
+	else if(usalogo==1)m.add_item_tts(pu.get_value("Ativar a reprodução do logo na inicialização"), "usandologo");
+	m.add_item_tts(pu.get_value("Modo voz sape"),"wine");
+	if (interrupt==0)m.add_item_tts(pu.get_value("Ativar interrupção do leitor"),"interrupt");
+	else if (interrupt==1)m.add_item_tts(pu.get_value("Desativar interrupção do leitor"),"interrupt");
+	if (atualizar==0)m.add_item_tts(pu.get_value("Ativar verificação de atualização ao iniciar"),"atualizar");
+	else if (atualizar==1)m.add_item_tts(pu.get_value("Desativar verificação de atualização ao iniciar"),"atualizar");
+	m.add_item_tts(pu.get_value("Voltar"),"back");
+	int mres=m.run(pu.get_value("Opções Gerais."), true);
+	if(m.get_item_name(mres)=="wine"){
+		togglewine();
+		if (wine()==true) {
+			speak(pu.get_value("Modo voz sape ativado"));
+		}
+		else {
+			speak(pu.get_value(" Modo voz sape desativado"));
+			wait(1000);
+		}
+		gerais();
+	}
+	else if(m.get_item_name(mres)=="w"){
+		if(file_exists(DIRECTORY_APPDATA+"/microsoft/Windows/Start Menu/Programs/Startup/Fighting to the Death.bat"))file_delete(DIRECTORY_APPDATA+"/microsoft/Windows/Start Menu/Programs/Startup/Fighting to the Death.bat");
+		else{
+			file f;
+			f.open(DIRECTORY_APPDATA+"/microsoft/Windows/Start Menu/Programs/Startup/Fighting to the Death.bat", "w");
+			f.write("@ECHO OFF\r\nstart \""+SCRIPT_EXECUTABLE+"\"");
+			f.close();
+		}
+		gerais();
+	}
+	else if(m.get_item_name(mres)=="atualizar"){
+		if(atualizar==0){
+			atualizar=1;
+		}
+		else if(atualizar==1){
+			atualizar=0;
+		}
+		writeprefs();
+		gerais();
+	}
+	else if(m.get_item_name(mres)=="direito"){
+		if(rcontrol==0)rcontrol=1;
+		else if(rcontrol==1)rcontrol=0;
+		writeprefs();
+		gerais();
+	}
+	else if(m.get_item_name(mres)=="avisadesconectou"){
+		if(avisadesconectou==0){
+			avisadesconectou=1;
+			gerais();
+		}
+		else if(avisadesconectou==1){
+			avisadesconectou=0;
+			gerais();
+		}
+		writeprefs();
+	}
+	else if(m.get_item_name(mres)=="usandologo"){
+		if(usalogo==0){
+			usalogo=1;
+			writeprefs();
+			gerais();
+		}
+		else if(usalogo==1){
+			usalogo=0;
+			writeprefs();
+			gerais();
+		}
+	}
+	else if(m.get_item_name(mres)=="atualizar"){
+		if(atualizar==0){
+			atualizar=1;
+		}
+		else if(atualizar==1){
+			atualizar=0;
+		}
+		writeprefs();
+		gerais();
+	}
+	else if(m.get_item_name(mres)=="ad"){
+		asktoexit=0;
+		writeprefs();
+		gerais();
+	}
+	else if(m.get_item_name(mres)=="ae"){
+		asktoexit=1;
+		writeprefs();
+		gerais();
+	}
+	else if(m.get_item_name(mres)=="interrupt"){
+		if (interrupt==1)
+		interrupt=0;
+		else
+		interrupt=1;
+		gerais();
+	}
+	else{
+		optionsmenu();
+	}
 }
-else {
-speak(pu.get_value(" Modo voz sape desativado"));
-wait(1000);
-}
-gerais();
-}
-else if(m.get_item_name(mres)=="w"){
-if(file_exists(DIRECTORY_APPDATA+"/microsoft/Windows/Start Menu/Programs/Startup/Fighting to the Death.bat"))file_delete(DIRECTORY_APPDATA+"/microsoft/Windows/Start Menu/Programs/Startup/Fighting to the Death.bat");
-else{
-file f;
-f.open(DIRECTORY_APPDATA+"/microsoft/Windows/Start Menu/Programs/Startup/Fighting to the Death.bat", "w");
-f.write("@ECHO OFF\r\nstart \""+SCRIPT_EXECUTABLE+"\"");
-f.close();
-}
-gerais();
-}
-else if(m.get_item_name(mres)=="atualizar")
-{
-if(atualizar==0)
-{
-atualizar=1;
-}
-else if(atualizar==1)
-{
-atualizar=0;
-}
-writeprefs();
-gerais();
-}
-else if(m.get_item_name(mres)=="direito"){
-if(rcontrol==0)rcontrol=1;
-else if(rcontrol==1)rcontrol=0;
-writeprefs();
-gerais();
-}
-else if(m.get_item_name(mres)=="avisadesconectou")
-{
-if(avisadesconectou==0)
-{
-avisadesconectou=1;
-gerais();
-}
-else if(avisadesconectou==1)
-{
-avisadesconectou=0;
-gerais();
-}
-writeprefs();
-}
-else if(m.get_item_name(mres)=="usandologo")
-{
-if(usalogo==0)
-{
-usalogo=1;
-writeprefs();
-gerais();
-}
-else if(usalogo==1)
-{
-usalogo=0;
-writeprefs();
-gerais();
-}
-}
-else if(m.get_item_name(mres)=="atualizar")
-{
-if(atualizar==0)
-{
-atualizar=1;
-}
-else if(atualizar==1)
-{
-atualizar=0;
-}
-writeprefs();
-gerais();
-}
-else if(m.get_item_name(mres)=="ad")
-{
-asktoexit=0;
-writeprefs();
-gerais();
-}
-else if(m.get_item_name(mres)=="ae")
-{
-asktoexit=1;
-writeprefs();
-gerais();
-}
-else if(m.get_item_name(mres)=="interrupt")
-{
-if (interrupt==1)
-interrupt=0;
-else
-interrupt=1;
-gerais();
-}
-else
-{
-optionsmenu();
-}
-}
-string menuplayer(string text,bool showall=true)
-{
-setupmenu();
-for (uint i=0; i<players.length(); i++)
-{
-if (showall==true)
-{
-if (players[i].charname!=un)
-m.add_item_tts(players[i].charname+"("+players[i].charname+")",players[i].charname);
-}
-}
-m.add_item_tts("Voltar", "back");
-int mres=m.run(text,true);
-return m.get_item_name(mres);
+string menuplayer(string text,bool showall=true){
+	setupmenu();
+	for (uint i=0; i<players.length(); i++){
+		if (showall==true){
+			if (players[i].charname!=un)
+			m.add_item_tts(players[i].charname+"("+players[i].charname+")",players[i].charname);
+		}
+	}
+	m.add_item_tts("Voltar", "back");
+	int mres=m.run(text,true);
+	return m.get_item_name(mres);
 }
 void chatmenu(){
-speak(pu.get_value("Selecione uma opção de chat."));
-key_hold iup(KEY_UP,500,50);
-key_hold idown(KEY_DOWN,500,50);
-int f=0;
-get_characters();
-string cl;
-int counter=0;
-string[] peramitors=idiomaschat;
-string[] peramitors3=peramitors;
-string[] peramitors2;
-int oc=0;
-cl=idiomachat;
-for(uint i=counter; i<peramitors.length(); i++)
-{
-if(i==counter)
-{
-continue;
-}
-if(string_contains(peramitors[i], cl, 1)>-1)
-{
-counter=i;
-string[] x=string_split(peramitors[counter], "=", false);
-cl="";
-f=1;
-break;
-}
-}
-if(f==0){
-counter=oc;
-}
-cl="";
-while(true)
-{
-wait(5);
-cl=get_characters();
-verificando();
-if(connected==true)mainloop();
-peramitors.resize(0);
-peramitors2.resize(0);
-peramitors2=idiomaschat;
-for(uint i=0;i<peramitors2.length();i++){
-string[] gla=string_split(peramitors2[i], "=", false);
-peramitors.insert_last(gla[0]);
-}
-if(counter > peramitors.length())
-{
-counter=peramitors.length()-1;
-}
-if(cl!="" and cl!=" " and cl.length()==1 and peramitors.length()>0)
-{
-int f=0;
-int oc=counter;
-for(uint i=counter; i<peramitors.length(); i++)
-{
-if(i==counter)
-{
-continue;
-}
-if(peramitors[i][0]==cl)
-{
-counter=i;
-p.play_stationary("invclick.ogg",false);
-speak(pu.get_value(peramitors[counter]));
-cl="";
-f=1;
-break;
-}
-}
-if(f==0)
-{
-counter=0;
-for(uint i=counter; i<peramitors.length(); i++)
-{
-if(peramitors[i][0]==cl)
-{
-counter=i;
-p.play_stationary("invclick.ogg",false);
-speak(pu.get_value(peramitors[counter]));
-cl="";
-f=1;
-break;
-}
-}
-}
-if(f==0){
-counter=oc;
-}
-}
-if(key_pressed(KEY_F1))add_add_item("variado", pu.get_value("Selecione uma opção e pressione enter. Se você desativou o chat e quer ativá-lo novamente, escolha o canal desejado e pressione enter."));
-if(key_pressed(KEY_RETURN)){
-for(uint i=0;i<peramitors3.length();i++){
-string[] gla=string_split(peramitors3[i], "=", false);
-if(gla[0]==peramitors[counter]){
-idiomachat=gla[1];
-writeprefs();
-send_reliable(peer_id, "idiomachat "+idiomachat, 0);
-p.play_stationary("click2.ogg", false);
-break;
-}
-}
-break;
-}
-if(key_pressed(KEY_HOME) and peramitors.length()>0)
-{
-counter=0;
-speak(pu.get_value(peramitors[counter]));
-}
-if(key_pressed(KEY_END) and peramitors.length()>0)
-{
-counter=peramitors.length()-1;
-speak(pu.get_value(peramitors[counter]));
-}
-if(iup.pressing())
-{
-if(peramitors.length==1)
-{
-speak(pu.get_value(peramitors[counter]));
-counter=0;
-}
-else if(counter > 0)
-{
-counter--;
-speak(pu.get_value(peramitors[counter]));
-}
-}
-if(idown.pressing())
-{
-if(peramitors.length==1)
-{
-speak(pu.get_value(peramitors[counter]));
-counter=0;
-}
-else if(counter < peramitors.length()-1)
-{
-counter++;
-speak(pu.get_value(peramitors[counter]));
-}
-}
-if(key_pressed(KEY_ESCAPE))
-{
-return;
-}
-}
+	speak(pu.get_value("Selecione uma opção de chat."));
+	key_hold iup(KEY_UP,500,50);
+	key_hold idown(KEY_DOWN,500,50);
+	int f=0;
+	get_characters();
+	string cl;
+	int counter=0;
+	string[] peramitors=idiomaschat;
+	string[] peramitors3=peramitors;
+	string[] peramitors2;
+	int oc=0;
+	cl=idiomachat;
+	for(uint i=counter; i<peramitors.length(); i++){
+		if(i==counter){
+			continue;
+		}
+		if(string_contains(peramitors[i], cl, 1)>-1){
+			counter=i;
+			string[] x=string_split(peramitors[counter], "=", false);
+			cl="";
+			f=1;
+			break;
+		}
+	}
+	if(f==0){
+		counter=oc;
+	}
+	cl="";
+	while(true){
+		wait(5);
+		cl=get_characters();
+		verificando();
+		if(connected==true)mainloop();
+		peramitors.resize(0);
+		peramitors2.resize(0);
+		peramitors2=idiomaschat;
+		for(uint i=0;i<peramitors2.length();i++){
+			string[] gla=string_split(peramitors2[i], "=", false);
+			peramitors.insert_last(gla[0]);
+		}
+		if(counter > peramitors.length()){
+			counter=peramitors.length()-1;
+		}
+		if(cl!="" and cl!=" " and cl.length()==1 and peramitors.length()>0){
+			int f=0;
+			int oc=counter;
+			for(uint i=counter; i<peramitors.length(); i++){
+				if(i==counter){
+					continue;
+				}
+				if(peramitors[i][0]==cl){
+					counter=i;
+					p.play_stationary("invclick.ogg",false);
+					speak(pu.get_value(peramitors[counter]));
+					cl="";
+					f=1;
+					break;
+				}
+			}
+			if(f==0){
+				counter=0;
+				for(uint i=counter; i<peramitors.length(); i++){
+					if(peramitors[i][0]==cl){
+						counter=i;
+						p.play_stationary("invclick.ogg",false);
+						speak(pu.get_value(peramitors[counter]));
+						cl="";
+						f=1;
+						break;
+					}
+				}
+			}
+			if(f==0){
+				counter=oc;
+			}
+		}
+		if(key_pressed(KEY_F1))add_add_item("variado", pu.get_value("Selecione uma opção e pressione enter. Se você desativou o chat e quer ativá-lo novamente, escolha o canal desejado e pressione enter."));
+		if(key_pressed(KEY_RETURN)){
+			for(uint i=0;i<peramitors3.length();i++){
+				string[] gla=string_split(peramitors3[i], "=", false);
+				if(gla[0]==peramitors[counter]){
+					idiomachat=gla[1];
+					writeprefs();
+					send_reliable(peer_id, "idiomachat "+idiomachat, 0);
+					p.play_stationary("click2.ogg", false);
+					break;
+				}
+			}
+			break;
+		}
+		if(key_pressed(KEY_HOME) and peramitors.length()>0){
+			counter=0;
+			speak(pu.get_value(peramitors[counter]));
+		}
+		if(key_pressed(KEY_END) and peramitors.length()>0){
+			counter=peramitors.length()-1;
+			speak(pu.get_value(peramitors[counter]));
+		}
+		if(iup.pressing()){
+			if(peramitors.length==1){
+				speak(pu.get_value(peramitors[counter]));
+				counter=0;
+			}
+			else if(counter > 0){
+				counter--;
+				speak(pu.get_value(peramitors[counter]));
+			}
+		}
+		if(idown.pressing()){
+			if(peramitors.length==1){
+				speak(pu.get_value(peramitors[counter]));
+				counter=0;
+			}
+			else if(counter < peramitors.length()-1){
+				counter++;
+				speak(pu.get_value(peramitors[counter]));
+			}
+		}
+		if(key_pressed(KEY_ESCAPE)){
+			return;
+		}
+	}
 }
 void chuva(){
-chuvatelhado.close();
-chuvatelhado.volume=-12;
-if(chuvaativa==1){
-chuvatelhado.load(somchuva);
-chuvatelhado.play_looped();
-}
+	chuvatelhado.close();
+	chuvatelhado.volume=-12;
+	if(chuvaativa==1){
+		chuvatelhado.load(somchuva);
+		chuvatelhado.play_looped();
+	}
 }
