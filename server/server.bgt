@@ -6790,7 +6790,7 @@ void vervida(){
 					send_reliable(0, "ps notify_startrek_beep.ogg", 0);
 					jrecord=players[get_player_index_from(players[ie].lasthit)].matou;
 					njrecord=players[get_player_index_from(players[ie].lasthit)].charname;
-					if(postar==true) url_post("http://www.desafiomortal.com.br/record.php", "nome="+njrecord+"&assassinatos="+jrecord);
+					if(postar==true) url_post(RECORD_POST_URL, "nome="+njrecord+"&assassinatos="+jrecord);
 					file f;
 					f.open("servidor.recordista","wb");
 					f.write(njrecord+"\r\n"+jrecord);

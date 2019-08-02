@@ -18,6 +18,7 @@ const string PASSWORD_ENCRYPTION_KEY="encryptpasswords";
 //IpInfoDB API key and server script
 const string IP_LOCALE_API_KEY="";
 const string IP_LOCALE_PHP_URL="http://localhost/ip_locale.php";
+const string RECORD_POST_URL="http://www.desafiomortal.com.br/record.php";
 const bool portable=true;
 
 // Stop changing values here!

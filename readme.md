@@ -44,6 +44,7 @@ De aquí sólo nos interesan los valores, situados a la derecha. A continuación
 * PASSWORD_ENCRYPTION_KEY: contraseña para cifrar las claves de tus usuarios en el servidor. Muy recomendable cambiarla.
 * IP_LOCALE_API_KEY: clave para utilizar la API de IpInfoDB. Debes registrarte en este servicio y escribir la tuya entre las comillas para poder geolocalizar las direcciones IP de tus usuarios. Esta función es opcional.
 * IP_LOCALE_PHP_URL: dirección web del script PHP que hará las consultas al servicio IpInfoDB. Este script se incluye en la raíz del repositorio.
+* RECORD_POST_URL: dirección web del script php que registrará el récord del mejor jugador. Este script no se incluye.
 * portable: indica si el juego es portable o no. Admite los valores false o true, que deberán ir sin comillas y en minúscula.
 
 Cuando acabes de editar este archivo y guardes los cambios, vuelve a compilar tanto el cliente como el servidor.
