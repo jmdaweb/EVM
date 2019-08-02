@@ -6,452 +6,397 @@ timer tempoconectado;
 timer temponaoevoce;
 int fbau=0;
 bool shift_pressionado(){
-if(key_down(KEY_RSHIFT)||key_down(KEY_LSHIFT))return true;
-return false;
+	if(key_down(KEY_RSHIFT)||key_down(KEY_LSHIFT))return true;
+	return false;
 }
 void jogadoresmenu(){
-if(players.length()==0||ausente)return;
-reset_all_forced_keys();
-key_hold iup(KEY_UP,500,50);
-key_hold idown(KEY_DOWN,500,50);
-get_characters();
-string cl;
-int counter=0;
-string[] peramitors;
-string[] peramitors2;
-for(uint i=0; i<players.length(); i++){
-peramitors2.insert_last(players[i].charname);
-}
-speak(peramitors2[0]);
-emchat=true;
-while(true){
-wait(5);
-mainloop();
-if(ausente)break;
-peramitors.resize(0);
-peramitors2.resize(0);
-for(uint i=0; i<players.length(); i++){
-if(players[i].beeping==1||desenvolvedordm==1)peramitors.insert_last(players[i].charname);
-}
-if(counter > peramitors.length()-1)counter=peramitors.length()-1;
-if(counter<0)counter=0;
-cl=get_characters();
-if(cl!=""&&cl!=" "&&cl.length()==1&&peramitors.length()>0){
-int f=0;
-int oc=counter;
-for(uint i=counter; i<peramitors.length(); i++){
-if(i==counter){
-continue;
-}
-if(peramitors[i][0]==cl){
-counter=i;
-speak(peramitors[counter]);
-cl="";
-f=1;
-break;
-}
-}
-if(f==0){
-counter=0;
-for(uint i=counter; i<peramitors.length(); i++){
-if(peramitors[i][0]==cl){
-counter=i;
-speak(peramitors[counter]);
-cl="";
-f=1;
-break;
-}
-}
-}
-}
-if(key_pressed(KEY_HOME)&&peramitors.length()>0){
-counter=0;
-speak(peramitors[counter]);
-}
-if(key_pressed(KEY_END) and peramitors.length()>0)
-{
-counter=peramitors.length()-1;
-speak(peramitors[counter]);
-}
-if(iup.pressing())
-{
-if(peramitors.length==1)
-{
-speak(peramitors[0]);
-counter=0;
-}
-else if(counter > 0)
-{
-counter--;
-speak(peramitors[counter]);
-}
-}
-if(idown.pressing())
-{
-if(peramitors.length==1)
-{
-speak(peramitors[0]);
-counter=0;
-}
-else if(counter < peramitors.length()-1)
-{
-counter++;
-speak(peramitors[counter]);
-}
-}
-if(key_pressed(KEY_RETURN)){
-string msg=v.input(pu.get_value("Digite sua mensagem para")+" "+peramitors[counter]);
-if(msg!="")send_reliable(peer_id, "/pm "+peramitors[counter]+" "+msg, 1);
-}
-if(key_pressed(KEY_F1))send_reliable(peer_id, "j1 "+peramitors[counter], 0);
-if(key_pressed(KEY_F2))send_reliable(peer_id, "j2 "+peramitors[counter], 0);
-if(key_pressed(KEY_F3))send_reliable(peer_id, "j3 "+peramitors[counter], 0);
-if(key_pressed(KEY_F4))send_reliable(peer_id, "j4 "+peramitors[counter], 0);
-if(key_down(KEY_LCONTROL)||key_down(KEY_RCONTROL)){
-if(key_pressed(KEY_C)){
-clipboard_copy_text(peramitors[counter]);
-speak(peramitors[counter]+" "+pu.get_value("copiado."));
-}
-if(desenvolvedordm==1){
-if(key_pressed(KEY_M))send_reliable(peer_id, "/killplayer "+peramitors[counter], 1);
-if(key_pressed(KEY_E))send_reliable(peer_id, "/expulsar "+peramitors[counter], 1);
-if(key_pressed(KEY_B))send_reliable(peer_id, "/ban "+peramitors[counter], 1);
-if(key_pressed(KEY_Z)){
-nolhar=peramitors[counter];
-int n=get_player(nolhar);
-if(nolhar>-1){
-speak(pu.get_value("Pronto."));
-olhar_x=players[n].x;
-olhar_y=players[n].y;
-send_reliable(peer_id, "olhar "+nolhar, 0);
-moveable=false;
-inansz=true;
-}
-}
-}
-}
-if(key_pressed(KEY_ESCAPE)){
-emchat=false;
-return;
-}
-}
+	if(players.length()==0||ausente)return;
+	reset_all_forced_keys();
+	key_hold iup(KEY_UP,500,50);
+	key_hold idown(KEY_DOWN,500,50);
+	get_characters();
+	string cl;
+	int counter=0;
+	string[] peramitors;
+	string[] peramitors2;
+	for(uint i=0; i<players.length(); i++){
+		peramitors2.insert_last(players[i].charname);
+	}
+	speak(peramitors2[0]);
+	emchat=true;
+	while(true){
+		wait(5);
+		mainloop();
+		if(ausente)break;
+		peramitors.resize(0);
+		peramitors2.resize(0);
+		for(uint i=0; i<players.length(); i++){
+			if(players[i].beeping==1||desenvolvedordm==1)peramitors.insert_last(players[i].charname);
+		}
+		if(counter > peramitors.length()-1)counter=peramitors.length()-1;
+		if(counter<0)counter=0;
+		cl=get_characters();
+		if(cl!=""&&cl!=" "&&cl.length()==1&&peramitors.length()>0){
+			int f=0;
+			int oc=counter;
+			for(uint i=counter; i<peramitors.length(); i++){
+				if(i==counter){
+					continue;
+				}
+				if(peramitors[i][0]==cl){
+					counter=i;
+					speak(peramitors[counter]);
+					cl="";
+					f=1;
+					break;
+				}
+			}
+			if(f==0){
+				counter=0;
+				for(uint i=counter; i<peramitors.length(); i++){
+					if(peramitors[i][0]==cl){
+						counter=i;
+						speak(peramitors[counter]);
+						cl="";
+						f=1;
+						break;
+					}
+				}
+			}
+		}
+		if(key_pressed(KEY_HOME)&&peramitors.length()>0){
+			counter=0;
+			speak(peramitors[counter]);
+		}
+		if(key_pressed(KEY_END) and peramitors.length()>0){
+			counter=peramitors.length()-1;
+			speak(peramitors[counter]);
+		}
+		if(iup.pressing()){
+			if(peramitors.length==1){
+				speak(peramitors[0]);
+				counter=0;
+			}
+			else if(counter > 0){
+				counter--;
+				speak(peramitors[counter]);
+			}
+		}
+		if(idown.pressing()){
+			if(peramitors.length==1){
+				speak(peramitors[0]);
+				counter=0;
+			}
+			else if(counter < peramitors.length()-1){
+				counter++;
+				speak(peramitors[counter]);
+			}
+		}
+		if(key_pressed(KEY_RETURN)){
+			string msg=v.input(pu.get_value("Digite sua mensagem para")+" "+peramitors[counter]);
+			if(msg!="")send_reliable(peer_id, "/pm "+peramitors[counter]+" "+msg, 1);
+		}
+		if(key_pressed(KEY_F1))send_reliable(peer_id, "j1 "+peramitors[counter], 0);
+		if(key_pressed(KEY_F2))send_reliable(peer_id, "j2 "+peramitors[counter], 0);
+		if(key_pressed(KEY_F3))send_reliable(peer_id, "j3 "+peramitors[counter], 0);
+		if(key_pressed(KEY_F4))send_reliable(peer_id, "j4 "+peramitors[counter], 0);
+		if(key_down(KEY_LCONTROL)||key_down(KEY_RCONTROL)){
+			if(key_pressed(KEY_C)){
+				clipboard_copy_text(peramitors[counter]);
+				speak(peramitors[counter]+" "+pu.get_value("copiado."));
+			}
+			if(desenvolvedordm==1){
+				if(key_pressed(KEY_M))send_reliable(peer_id, "/killplayer "+peramitors[counter], 1);
+				if(key_pressed(KEY_E))send_reliable(peer_id, "/expulsar "+peramitors[counter], 1);
+				if(key_pressed(KEY_B))send_reliable(peer_id, "/ban "+peramitors[counter], 1);
+				if(key_pressed(KEY_Z)){
+					nolhar=peramitors[counter];
+					int n=get_player(nolhar);
+					if(nolhar>-1){
+						speak(pu.get_value("Pronto."));
+						olhar_x=players[n].x;
+						olhar_y=players[n].y;
+						send_reliable(peer_id, "olhar "+nolhar, 0);
+						moveable=false;
+						inansz=true;
+					}
+				}
+			}
+		}
+		if(key_pressed(KEY_ESCAPE)){
+			emchat=false;
+			return;
+		}
+	}
 }
 void computadormenu(){
-if(ausente)return;
-int counter=0;
-string content=opcoespc;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] peramitors2;
-for(uint i=0; i<peramitors.length(); i++){
-peramitors[i]=string_split(peramitors[i],"=",true)[0];
-}
-speak(pu.get_value(peramitors[0]));
-while(true){
-wait(5);
-mainloop();
-if(ausente||mapname=="túnel")break;
-peramitors.resize(0);
-peramitors2.resize(0);
-content=opcoespc;
-peramitors2=string_split(content, "\r\n", true);
-for(uint i=0; i<peramitors2.length(); i++)
-{
-peramitors2[i]=string_split(peramitors2[i],"=",true)[0];
-int pwn=0;
-peramitors.insert_last(peramitors2[i]);
-}
-if(counter > peramitors.length())
-{
-counter=peramitors.length()-1;
-}
-if(key_pressed(KEY_RETURN)){
-copiaragora="";
-send_reliable(peer_id, "pc "+peramitors[counter], 0);
-}
-if(key_pressed(KEY_HOME) and peramitors.length()>0&&cavando==0)
-{
-counter=0;
-speak(pu.get_value(peramitors[counter]));
-copiaragora=pu.get_value(peramitors[counter]);
-}
-if(key_pressed(KEY_END) and peramitors.length()>0&&cavando==0)
-{
-counter=peramitors.length()-1;
-speak(pu.get_value(peramitors[counter]));
-copiaragora=pu.get_value(peramitors[counter]);
-}
-if(key_pressed(KEY_UP)){
-if(peramitors.length==1)
-{
-counter=0;
-speak(pu.get_value(peramitors[counter]));
-copiaragora=pu.get_value(peramitors[counter]);
-}
-else if(counter > 0)
-{
-counter--;
-speak(pu.get_value(peramitors[counter]));
-copiaragora=pu.get_value(peramitors[counter]);
-}
-}
-if(key_pressed(KEY_DOWN)){
-if(peramitors.length==1)
-{
-counter=0;
-speak(pu.get_value(peramitors[counter]));
-copiaragora=pu.get_value(peramitors[counter]);
-}
-else if(counter < peramitors.length()-1)
-{
-counter++;
-speak(pu.get_value(peramitors[counter]));
-copiaragora=pu.get_value(peramitors[counter]);
-}
-}
-if(key_pressed(KEY_ESCAPE)){
-copiaragora="";
-return;
-}
-}
+	if(ausente)return;
+	int counter=0;
+	string content=opcoespc;
+	string[] peramitors=string_split(content, "\r\n", true);
+	string[] peramitors2;
+	for(uint i=0; i<peramitors.length(); i++){
+		peramitors[i]=string_split(peramitors[i],"=",true)[0];
+	}
+	speak(pu.get_value(peramitors[0]));
+	while(true){
+		wait(5);
+		mainloop();
+		if(ausente||mapname=="túnel")break;
+		peramitors.resize(0);
+		peramitors2.resize(0);
+		content=opcoespc;
+		peramitors2=string_split(content, "\r\n", true);
+		for(uint i=0; i<peramitors2.length(); i++){
+			peramitors2[i]=string_split(peramitors2[i],"=",true)[0];
+			int pwn=0;
+			peramitors.insert_last(peramitors2[i]);
+		}
+		if(counter > peramitors.length()){
+			counter=peramitors.length()-1;
+		}
+		if(key_pressed(KEY_RETURN)){
+			copiaragora="";
+			send_reliable(peer_id, "pc "+peramitors[counter], 0);
+		}
+		if(key_pressed(KEY_HOME) and peramitors.length()>0&&cavando==0){
+			counter=0;
+			speak(pu.get_value(peramitors[counter]));
+			copiaragora=pu.get_value(peramitors[counter]);
+		}
+		if(key_pressed(KEY_END) and peramitors.length()>0&&cavando==0){
+			counter=peramitors.length()-1;
+			speak(pu.get_value(peramitors[counter]));
+			copiaragora=pu.get_value(peramitors[counter]);
+		}
+		if(key_pressed(KEY_UP)){
+			if(peramitors.length==1){
+				counter=0;
+				speak(pu.get_value(peramitors[counter]));
+				copiaragora=pu.get_value(peramitors[counter]);
+			}
+			else if(counter > 0){
+				counter--;
+				speak(pu.get_value(peramitors[counter]));
+				copiaragora=pu.get_value(peramitors[counter]);
+			}
+		}
+		if(key_pressed(KEY_DOWN)){
+			if(peramitors.length==1){
+				counter=0;
+				speak(pu.get_value(peramitors[counter]));
+				copiaragora=pu.get_value(peramitors[counter]);
+			}
+			else if(counter < peramitors.length()-1){
+				counter++;
+				speak(pu.get_value(peramitors[counter]));
+				copiaragora=pu.get_value(peramitors[counter]);
+			}
+		}
+		if(key_pressed(KEY_ESCAPE)){
+			copiaragora="";
+			return;
+		}
+	}
 }
 void apartamentomenu(){
-if(ausente)return;
-get_characters();
-string cl;
-int counter=0;
-string content=apartamentoinv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] peramitors2;
-for(uint i=0; i<peramitors.length(); i++){
-peramitors[i]=string_split(peramitors[i],"=",true)[0];
-}
-if(fbau==1)fbau=0;
-while(true){
-wait(5);
-mainloop();
-if(ausente||mapname=="túnel")break;
-peramitors.resize(0);
-peramitors2.resize(0);
-content=apartamentoinv;
-peramitors2=string_split(content, "\r\n", true);
-for(uint i=0; i<peramitors2.length(); i++)
-{
-peramitors2[i]=string_split(peramitors2[i],"=",true)[0];
-int pwn=0;
-peramitors.insert_last(peramitors2[i]);
-}
-if(counter > peramitors.length())counter=peramitors.length()-1;
-if(fbau==1){
-fbau=0;
-break;
-}
-if(key_pressed(KEY_RETURN)){
-int n=string_to_number(v.input(pu.get_value("Quantos você quer pegar?")));
-if(n>apartamentoinv_item_number(peramitors[counter])||n<=0)p.play_stationary("erro.ogg", false);
-else send_reliable(peer_id, "papartamento "+peramitors[counter]+" "+n, 0);
-}
-if(key_pressed(KEY_HOME) and peramitors.length()>0&&cavando==0)
-{
-counter=0;
-p.play_stationary("invclick.ogg",false);
-speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
-}
-if(key_pressed(KEY_END) and peramitors.length()>0&&cavando==0)
-{
-counter=peramitors.length()-1;
-p.play_stationary("invclick.ogg",false);
-speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
-}
-if(key_pressed(KEY_UP)){
-if(peramitors.length==1)
-{
-counter=0;
-p.play_stationary("invclick.ogg",false);
-speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
-}
-else if(counter > 0)
-{
-counter--;
-p.play_stationary("invclick.ogg",false);
-speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
-}
-}
-if(key_pressed(KEY_DOWN)){
-if(peramitors.length==1)
-{
-counter=0;
-p.play_stationary("invclick.ogg",false);
-speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
-}
-else if(counter < peramitors.length()-1)
-{
-counter++;
-p.play_stationary("invclick.ogg",false);
-speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
-}
-}
-if(key_pressed(KEY_ESCAPE)){
-p.play_stationary("fbaú.ogg", false);
-send_reliable(peer_id, "draw fbaú.ogg", 0);
-send_reliable(peer_id, "fbaú", 0);
-return;
-}
-}
+	if(ausente)return;
+	get_characters();
+	string cl;
+	int counter=0;
+	string content=apartamentoinv;
+	string[] peramitors=string_split(content, "\r\n", true);
+	string[] peramitors2;
+	for(uint i=0; i<peramitors.length(); i++){
+		peramitors[i]=string_split(peramitors[i],"=",true)[0];
+	}
+	if(fbau==1)fbau=0;
+	while(true){
+		wait(5);
+		mainloop();
+		if(ausente||mapname=="túnel")break;
+		peramitors.resize(0);
+		peramitors2.resize(0);
+		content=apartamentoinv;
+		peramitors2=string_split(content, "\r\n", true);
+		for(uint i=0; i<peramitors2.length(); i++){
+			peramitors2[i]=string_split(peramitors2[i],"=",true)[0];
+			int pwn=0;
+			peramitors.insert_last(peramitors2[i]);
+		}
+		if(counter > peramitors.length())counter=peramitors.length()-1;
+		if(fbau==1){
+			fbau=0;
+			break;
+		}
+		if(key_pressed(KEY_RETURN)){
+			int n=string_to_number(v.input(pu.get_value("Quantos você quer pegar?")));
+			if(n>apartamentoinv_item_number(peramitors[counter])||n<=0)p.play_stationary("erro.ogg", false);
+			else send_reliable(peer_id, "papartamento "+peramitors[counter]+" "+n, 0);
+		}
+		if(key_pressed(KEY_HOME) and peramitors.length()>0&&cavando==0){
+			counter=0;
+			p.play_stationary("invclick.ogg",false);
+			speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
+		}
+		if(key_pressed(KEY_END) and peramitors.length()>0&&cavando==0){
+			counter=peramitors.length()-1;
+			p.play_stationary("invclick.ogg",false);
+			speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
+		}
+		if(key_pressed(KEY_UP)){
+			if(peramitors.length==1){
+				counter=0;
+				p.play_stationary("invclick.ogg",false);
+				speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
+			}
+			else if(counter > 0){
+				counter--;
+				p.play_stationary("invclick.ogg",false);
+				speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
+			}
+		}
+		if(key_pressed(KEY_DOWN)){
+			if(peramitors.length==1){
+				counter=0;
+				p.play_stationary("invclick.ogg",false);
+				speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
+			}
+			else if(counter < peramitors.length()-1){
+				counter++;
+				p.play_stationary("invclick.ogg",false);
+				speak(pu.get_value(peramitors[counter])+", "+apartamentoinv_item_number(peramitors[counter]));
+			}
+		}
+		if(key_pressed(KEY_ESCAPE)){
+			p.play_stationary("fbaú.ogg", false);
+			send_reliable(peer_id, "draw fbaú.ogg", 0);
+			send_reliable(peer_id, "fbaú", 0);
+			return;
+		}
+	}
 }
 void readprefs(){
-string content=string_decrypt(pf.read(),PREFS_ENCRYPTION_KEY);
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-}
-if(peramitors.find("mlang")!=-1)
-{
-mainlang=values[peramitors.find("mlang")];
-}
-if(peramitors.find("ouvirhits")!=-1)
-{
-ouvirhits=string_to_number(values[peramitors.find("ouvirhits")]);
-}
-if(peramitors.find("ouvirpassos")!=-1)
-{
-ouvirpassos=string_to_number(values[peramitors.find("ouvirpassos")]);
-}
-if(peramitors.find("ouviremoutrasjanelas")!=-1)
-{
-ouviremoutrasjanelas=string_to_number(values[peramitors.find("ouviremoutrasjanelas")]);
-}
-if(peramitors.find("musicamenu")!=-1)
-{
-musicamenu=string_to_number(values[peramitors.find("musicamenu")]);
-}
-if(peramitors.find("idiomaorigem")!=-1)
-{
-idiomaorigem=values[peramitors.find("idiomaorigem")];
-}
-if(peramitors.find("tradutorativo")!=-1)
-{
-tradutorativo=string_to_number(values[peramitors.find("tradutorativo")]);
-}
-if(peramitors.find("primeiravez")!=-1)
-{
-primeiravez=string_to_number(values[peramitors.find("primeiravez")]);
-}
-if(peramitors.find("cmfinal")!=-1)
-{
-cmfinal=values[peramitors.find("cmfinal")];
-}
-if(peramitors.find("idiomachat")!=-1)
-{
-idiomachat=values[peramitors.find("idiomachat")];
-}
-if(peramitors.find("atu")!=-1)atu=string_to_number(values[peramitors.find("atu")]);
-if(peramitors.find("rcontrol")!=-1)rcontrol=string_to_number(values[peramitors.find("rcontrol")]);
-if(peramitors.find("ouvirmortes")!=-1)ouvirmortes=string_to_number(values[peramitors.find("ouvirmortes")]);
-if(peramitors.find("nalancha")!=-1)lan.nalancha=string_to_number(values[peramitors.find("nalancha")]);
-if(peramitors.find("un")!=-1){
-un=values[peramitors.find("un")];
-}
-if(peramitors.find("pw")!=-1){
-pw=values[peramitors.find("pw")];
-}
-if(peramitors.find("ttsrate")!=-1)
-{
-ttsrate=string_to_number(values[peramitors.find("ttsrate")]);
-ws.rate=ttsrate;
-}
-if(peramitors.find("voice")!=-1)
-{
-voice=string_to_number(values[peramitors.find("voice")]);
-}
-if(peramitors.find("wineask")!=-1)
-{
-wineask=string_to_number(values[peramitors.find("wineask")]);
-}
-if(peramitors.find("beaconing")!=-1)
-{
-beaconing=string_to_number(values[peramitors.find("beaconing")]);
-}
-if(peramitors.find("interrupt")!=-1)
-{
-interrupt=string_to_number(values[peramitors.find("interrupt")]);
-}
-if(peramitors.find("avisadesconectou")!=-1)
-{
-avisadesconectou=string_to_number(values[peramitors.find("avisadesconectou")]);
-}
-if(peramitors.find("usalogo")!=-1)
-{
-usalogo=string_to_number(values[peramitors.find("usalogo")]);
-}
-if(peramitors.find("numero_dispositivo")!=-1)
-{
-numero_dispositivo=string_to_number(values[peramitors.find("numero_dispositivo")]);
-}
-if(peramitors.find("atualizar")!=-1)
-{
-atualizar=string_to_number(values[peramitors.find("atualizar")]);
-}
-if(peramitors.find("volumejogo")!=-1)
-{
-volumejogo=string_to_number(values[peramitors.find("volumejogo")]);
-}
-if(peramitors.find("asktoexit")!=-1)
-{
-asktoexit=string_to_number(values[peramitors.find("asktoexit")]);
-}
-if(peramitors.find("avisanivel")!=-1)
-{
-avisanivel=string_to_number(values[peramitors.find("avisanivel")]);
-}
-if(peramitors.find("f1")!=-1)
-{
-f1=string_to_number(values[peramitors.find("f1")]);
-}
-if(peramitors.find("f2")!=-1)
-{
-f2=string_to_number(values[peramitors.find("f2")]);
-}
-if(peramitors.find("f3")!=-1)
-{
-f3=string_to_number(values[peramitors.find("f3")]);
-}
-if(peramitors.find("f4")!=-1)
-{
-f4=string_to_number(values[peramitors.find("f4")]);
-}
-if(peramitors.find("f5")!=-1)
-{
-f5=string_to_number(values[peramitors.find("f5")]);
-}
-if(peramitors.find("f6")!=-1)
-{
-f6=string_to_number(values[peramitors.find("f6")]);
-}
-if(peramitors.find("f7")!=-1)
-{
-f7=string_to_number(values[peramitors.find("f7")]);
-}
-if(peramitors.find("f8")!=-1)
-{
-f8=string_to_number(values[peramitors.find("f8")]);
-}
-if(peramitors.find("f9")!=-1)
-{
-f9=string_to_number(values[peramitors.find("f9")]);
-}
-if(peramitors.find("f0")!=-1)
-{
-f0=string_to_number(values[peramitors.find("f0")]);
-}
+	string content=string_decrypt(pf.read(),PREFS_ENCRYPTION_KEY);
+	string[] peramitors=string_split(content, "\r\n", true);
+	string[] values;
+	for(uint i=0; i<peramitors.length(); i++){
+		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+	}
+	if(peramitors.find("mlang")!=-1){
+		mainlang=values[peramitors.find("mlang")];
+	}
+	if(peramitors.find("ouvirhits")!=-1){
+		ouvirhits=string_to_number(values[peramitors.find("ouvirhits")]);
+	}
+	if(peramitors.find("ouvirpassos")!=-1){
+		ouvirpassos=string_to_number(values[peramitors.find("ouvirpassos")]);
+	}
+	if(peramitors.find("ouviremoutrasjanelas")!=-1){
+		ouviremoutrasjanelas=string_to_number(values[peramitors.find("ouviremoutrasjanelas")]);
+	}
+	if(peramitors.find("musicamenu")!=-1){
+		musicamenu=string_to_number(values[peramitors.find("musicamenu")]);
+	}
+	if(peramitors.find("idiomaorigem")!=-1){
+		idiomaorigem=values[peramitors.find("idiomaorigem")];
+	}
+	if(peramitors.find("tradutorativo")!=-1){
+		tradutorativo=string_to_number(values[peramitors.find("tradutorativo")]);
+	}
+	if(peramitors.find("primeiravez")!=-1){
+		primeiravez=string_to_number(values[peramitors.find("primeiravez")]);
+	}
+	if(peramitors.find("cmfinal")!=-1){
+		cmfinal=values[peramitors.find("cmfinal")];
+	}
+	if(peramitors.find("idiomachat")!=-1){
+		idiomachat=values[peramitors.find("idiomachat")];
+	}
+	if(peramitors.find("atu")!=-1)atu=string_to_number(values[peramitors.find("atu")]);
+	if(peramitors.find("rcontrol")!=-1)rcontrol=string_to_number(values[peramitors.find("rcontrol")]);
+	if(peramitors.find("ouvirmortes")!=-1)ouvirmortes=string_to_number(values[peramitors.find("ouvirmortes")]);
+	if(peramitors.find("nalancha")!=-1)lan.nalancha=string_to_number(values[peramitors.find("nalancha")]);
+	if(peramitors.find("un")!=-1){
+		un=values[peramitors.find("un")];
+	}
+	if(peramitors.find("pw")!=-1){
+		pw=values[peramitors.find("pw")];
+	}
+	if(peramitors.find("ttsrate")!=-1){
+		ttsrate=string_to_number(values[peramitors.find("ttsrate")]);
+		ws.rate=ttsrate;
+	}
+	if(peramitors.find("voice")!=-1){
+		voice=string_to_number(values[peramitors.find("voice")]);
+	}
+	if(peramitors.find("wineask")!=-1){
+		wineask=string_to_number(values[peramitors.find("wineask")]);
+	}
+	if(peramitors.find("beaconing")!=-1){
+		beaconing=string_to_number(values[peramitors.find("beaconing")]);
+	}
+	if(peramitors.find("interrupt")!=-1){
+		interrupt=string_to_number(values[peramitors.find("interrupt")]);
+	}
+	if(peramitors.find("avisadesconectou")!=-1){
+		avisadesconectou=string_to_number(values[peramitors.find("avisadesconectou")]);
+	}
+	if(peramitors.find("usalogo")!=-1){
+		usalogo=string_to_number(values[peramitors.find("usalogo")]);
+	}
+	if(peramitors.find("numero_dispositivo")!=-1){
+		numero_dispositivo=string_to_number(values[peramitors.find("numero_dispositivo")]);
+	}
+	if(peramitors.find("atualizar")!=-1){
+		atualizar=string_to_number(values[peramitors.find("atualizar")]);
+	}
+	if(peramitors.find("volumejogo")!=-1){
+		volumejogo=string_to_number(values[peramitors.find("volumejogo")]);
+	}
+	if(peramitors.find("asktoexit")!=-1){
+		asktoexit=string_to_number(values[peramitors.find("asktoexit")]);
+	}
+	if(peramitors.find("avisanivel")!=-1){
+		avisanivel=string_to_number(values[peramitors.find("avisanivel")]);
+	}
+	if(peramitors.find("f1")!=-1){
+		f1=string_to_number(values[peramitors.find("f1")]);
+	}
+	if(peramitors.find("f2")!=-1){
+		f2=string_to_number(values[peramitors.find("f2")]);
+	}
+	if(peramitors.find("f3")!=-1){
+		f3=string_to_number(values[peramitors.find("f3")]);
+	}
+	if(peramitors.find("f4")!=-1){
+		f4=string_to_number(values[peramitors.find("f4")]);
+	}
+	if(peramitors.find("f5")!=-1){
+		f5=string_to_number(values[peramitors.find("f5")]);
+	}
+	if(peramitors.find("f6")!=-1){
+		f6=string_to_number(values[peramitors.find("f6")]);
+	}
+	if(peramitors.find("f7")!=-1){
+		f7=string_to_number(values[peramitors.find("f7")]);
+	}
+	if(peramitors.find("f8")!=-1){
+		f8=string_to_number(values[peramitors.find("f8")]);
+	}
+	if(peramitors.find("f9")!=-1){
+		f9=string_to_number(values[peramitors.find("f9")]);
+	}
+	if(peramitors.find("f0")!=-1){
+		f0=string_to_number(values[peramitors.find("f0")]);
+	}
 }
 void writeprefs() {
-if(!portable)pf.open(prefsdir+PREFSFILE,"wb");
-else pf.open(PREFSFILE,"wb");
-string s;
-s=
+	if(!portable)pf.open(prefsdir+PREFSFILE,"wb");
+	else pf.open(PREFSFILE,"wb");
+	string s;
+	s=
 "mlang="+mainlang+"
 tradutorativo="+tradutorativo+"
 idiomaorigem="+idiomaorigem+"
@@ -492,883 +437,804 @@ f8="+f8+"
 f9="+f9+"
 f0="+f0+"
 ";
-s=string_encrypt(s,PREFS_ENCRYPTION_KEY);
-pf.write(s);
-pf.close();
+	s=string_encrypt(s,PREFS_ENCRYPTION_KEY);
+	pf.write(s);
+	pf.close();
 }
 void descitem (string itemname){
-send_reliable(peer_id,"desc "+itemname,2);
+	send_reliable(peer_id,"desc "+itemname,2);
 }
 void copiar(){
-if(copiaragora!=""){
-clipboard_copy_text(copiaragora);
-copiaragora="";
-speak(pu.get_value("Texto copiado."));
-}
-else if(adds[addpos].items.length()>0){
-clipboard_copy_text(adds[addpos].items[adds[addpos].pos]);
-speak(pu.get_value("Texto copiado."));
-}
+	if(copiaragora!=""){
+		clipboard_copy_text(copiaragora);
+		copiaragora="";
+		speak(pu.get_value("Texto copiado."));
+	}
+	else if(adds[addpos].items.length()>0){
+		clipboard_copy_text(adds[addpos].items[adds[addpos].pos]);
+		speak(pu.get_value("Texto copiado."));
+	}
 }
 void localloop(){
-string locate=get_zone_at(me.x,me.y);
-if(locate=="Gramado"&&grama==0){
-send_reliable(peer_id,"/multar",2);
-grama=1;
-}
-else if(locate!="Gramado"&&grama==1){
-grama=0;
-}
-else if(locate=="Refrigerador."&&congelando==0){
-tempocongelando.restart();
-congelando=1;
-}
-else if(locate!="Refrigerador."&&congelando==1){
-congelando=0;
-}
-if(locate=="Rio"||locate=="Parte funda do lago."){
-if(salvavida==0&&mapname!="pesqueiro"||mapname=="pesqueiro"&&lan.nalancha==0){
-if(afogando==0&&!bolhadear&&lan.nalancha==0){
-afogando=1;
-somafogando.load("afogando.ogg");
-somafogando.play_wait();
-send_reliable(peer_id,"terminouafogando",0);
-}
-}
-}
-else if(cavar.playing==false&&cavando==1)
-{
-cavando=0;
-send_reliable(peer_id, "enterrar "+opa, 0);
-}
-else if(tempocongelando.elapsed>numerocongelando&&locate=="Refrigerador."){
-tempocongelando.restart();
-send_reliable(peer_id,"congelou",0);
-}
-else if (carregartimer.elapsed>=carregartime&&carregando==1){
-carregartimer.restart();
-carregando=0;
-}
-else if (atirando==1&&weapontimer.elapsed>=weapontime){
-weapontimer.restart();
-atirando=0;
-}
+	string locate=get_zone_at(me.x,me.y);
+	if(locate=="Gramado"&&grama==0){
+		send_reliable(peer_id,"/multar",2);
+		grama=1;
+	}
+	else if(locate!="Gramado"&&grama==1){
+		grama=0;
+	}
+	else if(locate=="Refrigerador."&&congelando==0){
+		tempocongelando.restart();
+		congelando=1;
+	}
+	else if(locate!="Refrigerador."&&congelando==1){
+		congelando=0;
+	}
+	if(locate=="Rio"||locate=="Parte funda do lago."){
+		if(salvavida==0&&mapname!="pesqueiro"||mapname=="pesqueiro"&&lan.nalancha==0){
+			if(afogando==0&&!bolhadear&&lan.nalancha==0){
+				afogando=1;
+				somafogando.load("afogando.ogg");
+				somafogando.play_wait();
+				send_reliable(peer_id,"terminouafogando",0);
+			}
+		}
+	}
+	else if(cavar.playing==false&&cavando==1){
+		cavando=0;
+		send_reliable(peer_id, "enterrar "+opa, 0);
+	}
+	else if(tempocongelando.elapsed>numerocongelando&&locate=="Refrigerador."){
+		tempocongelando.restart();
+		send_reliable(peer_id,"congelou",0);
+	}
+	else if (carregartimer.elapsed>=carregartime&&carregando==1){
+		carregartimer.restart();
+		carregando=0;
+	}
+	else if (atirando==1&&weapontimer.elapsed>=weapontime){
+		weapontimer.restart();
+		atirando=0;
+	}
 }
 void checarenter(){
-string locate=get_zone_at(me.x,me.y);
-if(locate=="Guichê para compras de passagens."&&string_contains(mapname, "aeroporto", 1)>-1){
-string m=comprarpa();
-if(m!="")
-{
-send_reliable(peer_id, "passagema "+m,2);
-}
-}
-else if(locate=="painél de destino, selecione seu destino e tecle enter."){
-/*
-menusilent();
-m.add_item_tts(pu.get_value("centro comercial"), "comercial");
-m.add_item_tts(pu.get_value("Rua magnólia"), "1");
-int mres=m.run(pu.get_value("Selecione sua rua"), true);
-int atual=(me.y/20);
-//if(atual==20&&n==0)atual=0;
-if(m.get_item_name(mres)=="comercial"){{
-nandar=0;
-}
-if(mres==0) return;
-if(mres==atual) speak(pu.get_value("Você já está nesta rua!")); speak(mres);
-else nandar=mres; speak(mres);
-}
-}
-*/
-string nn=v.input("Digite o número do andar");
-if(nn=="")return;
-int n=string_to_number(nn);
-int atual=(me.y/20);
-if(atual==20&&n==0)atual=0;
-if(n>50){
-speak("O andar é auto demais para este prédio. Procure em outro lugar!");
-return;
-}
-if(n==atual){
-speak(pu.get_value("Você já está neste andar!"));
-return;
-}
-else nandar=n;
-}
-if(locate=="Guichê para compras de passagens."&&string_contains(mapname, "estação", 1)>-1){
-string m=comprarpa2();
-if(m!="")
-{
-send_reliable(peer_id, "passagemb "+m,2);
-}
-}
-else if(locate=="Guichê para compras de passagens."&&string_contains(mapname, "rodoviária", 1)>-1){
-send_reliable(peer_id, "passagemo", 2);
-}
-else if(locate=="Roleta dos animais!") roleta_animais.jogar();
-else if(locate=="Par ou ímpar!")parouimpar.jogar();
-else if(locate=="Black Jack, ou 21!")blackjack.jogar();
-else if(locate=="Pedra, papel, tesoura!")poker.jogar();
-else if(locate=="Farkle!") farkle.jogar();
-else if(locate=="Dado da sorte.") dadosorte.jogar();
-else if(locate=="Orelhão."||locate=="Cabine telefônica."){
-bool jatem=false;
-for(uint i=0;i<players.length();i++){
-if(players[i].charname!=un&&players[i].x==me.x&&players[i].y==me.y){
-jatem=true;
-break;
-}
-}
-if(jatem==true){
-add_add_item("variado", pu.get_value("Já tem alguém usando o telefone!"));
-}
-else if(jatem==false){
-string telefonar=tel.input("");
-if(telefonar=="95941354"){
-moveable=false;
-sound s;
-s.load("telefone.ogg");
-int a=random(2, 9);
-for(int i=0;i<a;i++){
-s.play();
-while(s.playing){
-mainloop();
-wait(5);
-}
-}
-s.load("v"+voice+"questcapacete.ogg");
-s.play();
-while(s.playing){
-wait(5);
-mainloop();
-}
-moveable=true;
-send_reliable(peer_id, "/quest filha_desaparecida", 1);
-}
-send_reliable(peer_id, "tocar telefonecolocandogancho.ogg", 0);
-}
-}
-else if(locate=="Tomada.") send_reliable(peer_id, "checarcarregar "+tirostaser, 2);
-else if(mapname=="imobiliária"&&locate=="Balcão de atendimento.") send_reliable(peer_id, "comprarcasa", 0);
-else if(mapname=="casa_de_intercâmbio"&&locate=="Balcão de atendimento.") convertermenu();
-else if(mapname=="departamento_da_polícia_federal"&&locate=="Balcão de atendimento.") send_reliable(peer_id, "tirarpassaporte", 0);
+	string locate=get_zone_at(me.x,me.y);
+	if(locate=="Guichê para compras de passagens."&&string_contains(mapname, "aeroporto", 1)>-1){
+		string m=comprarpa();
+		if(m!=""){
+			send_reliable(peer_id, "passagema "+m,2);
+		}
+	}
+	else if(locate=="painél de destino, selecione seu destino e tecle enter."){
+		string nn=v.input("Digite o número do andar");
+		if(nn=="")return;
+		int n=string_to_number(nn);
+		int atual=(me.y/20);
+		if(atual==20&&n==0)atual=0;
+		if(n>50){
+			speak("O andar é auto demais para este prédio. Procure em outro lugar!");
+			return;
+		}
+		if(n==atual){
+			speak(pu.get_value("Você já está neste andar!"));
+			return;
+		}
+		else nandar=n;
+	}
+	if(locate=="Guichê para compras de passagens."&&string_contains(mapname, "estação", 1)>-1){
+		string m=comprarpa2();
+		if(m!=""){
+			send_reliable(peer_id, "passagemb "+m,2);
+		}
+	}
+	else if(locate=="Guichê para compras de passagens."&&string_contains(mapname, "rodoviária", 1)>-1){
+		send_reliable(peer_id, "passagemo", 2);
+	}
+	else if(locate=="Roleta dos animais!") roleta_animais.jogar();
+	else if(locate=="Par ou ímpar!")parouimpar.jogar();
+	else if(locate=="Black Jack, ou 21!")blackjack.jogar();
+	else if(locate=="Pedra, papel, tesoura!")poker.jogar();
+	else if(locate=="Farkle!") farkle.jogar();
+	else if(locate=="Dado da sorte.") dadosorte.jogar();
+	else if(locate=="Orelhão."||locate=="Cabine telefônica."){
+		bool jatem=false;
+		for(uint i=0;i<players.length();i++){
+			if(players[i].charname!=un&&players[i].x==me.x&&players[i].y==me.y){
+				jatem=true;
+				break;
+			}
+		}
+		if(jatem==true){
+			add_add_item("variado", pu.get_value("Já tem alguém usando o telefone!"));
+		}
+		else if(jatem==false){
+			string telefonar=tel.input("");
+			if(telefonar=="95941354"){
+				moveable=false;
+				sound s;
+				s.load("telefone.ogg");
+				int a=random(2, 9);
+				for(int i=0;i<a;i++){
+					s.play();
+					while(s.playing){
+						mainloop();
+						wait(5);
+					}
+				}
+				s.load("v"+voice+"questcapacete.ogg");
+				s.play();
+				while(s.playing){
+					wait(5);
+					mainloop();
+				}
+				moveable=true;
+				send_reliable(peer_id, "/quest filha_desaparecida", 1);
+			}
+			send_reliable(peer_id, "tocar telefonecolocandogancho.ogg", 0);
+		}
+	}
+	else if(locate=="Tomada.") send_reliable(peer_id, "checarcarregar "+tirostaser, 2);
+	else if(mapname=="imobiliária"&&locate=="Balcão de atendimento.") send_reliable(peer_id, "comprarcasa", 0);
+	else if(mapname=="casa_de_intercâmbio"&&locate=="Balcão de atendimento.") convertermenu();
+	else if(mapname=="departamento_da_polícia_federal"&&locate=="Balcão de atendimento.") send_reliable(peer_id, "tirarpassaporte", 0);
 }
 void exitgame(){
-if(exiting)return;
-speak(pu.get_value("Saindo do servidor..."));
-writeprefs();
-send_reliable(peer_id, "close", 0);
-exittimer.restart();
-exiting=true;
-connected=false;
-connect=false;
+	if(exiting)return;
+	speak(pu.get_value("Saindo do servidor..."));
+	writeprefs();
+	send_reliable(peer_id, "close", 0);
+	exittimer.restart();
+	exiting=true;
+	connected=false;
+	connect=false;
 }
 void checarlo(){
-string locate=get_zone_at(me.x,me.y);
-if(locate=="Loja de roupas.") roupas();
-else if(mapname=="loja_de_explosivos") explosivos();
-else if(locate=="Cessão de equipamentos para caça.")armasbertalina();
-else if(locate=="Cessão de equipamentos para pesca.")pesca();
-else if(string_contains(mapname, "farmácia", 1)>-1)farmacia();
-else if(mapname=="loja_de_eletrônicos") comprareletronicos();
-else if(mapname=="zona_de_segurança") send_reliable(peer_id,"store",0);
-else if(mapname=="joalheria") joalheria();
-else if(string_contains(string_to_lower_case(locate), "lanchonete.", 1)>-1||locate=="Praça de alimentação") lanchonete();
+	string locate=get_zone_at(me.x,me.y);
+	if(locate=="Loja de roupas.") roupas();
+	else if(mapname=="loja_de_explosivos") explosivos();
+	else if(locate=="Cessão de equipamentos para caça.")armasbertalina();
+	else if(locate=="Cessão de equipamentos para pesca.")pesca();
+	else if(string_contains(mapname, "farmácia", 1)>-1)farmacia();
+	else if(mapname=="loja_de_eletrônicos") comprareletronicos();
+	else if(mapname=="zona_de_segurança") send_reliable(peer_id,"store",0);
+	else if(mapname=="joalheria") joalheria();
+	else if(string_contains(string_to_lower_case(locate), "lanchonete.", 1)>-1||locate=="Praça de alimentação") lanchonete();
 }
-void retirar (string itemname)
-{
-if(itemname=="bicicleta"){
-send_reliable(peer_id, "draw bicicletadraw.ogg", 0);
-p.play_stationary("bicicletadraw.ogg", false);
-bicicleta=0;
-}
-if(itemname=="paraquedas"&&get_tile_at(me.x, me.y)!=""&&get_zone_at(me.x, me.y)!="")paraquedas=0;
-send_reliable(peer_id,"retirar "+itemname,0);
+void retirar (string itemname){
+	if(itemname=="bicicleta"){
+		send_reliable(peer_id, "draw bicicletadraw.ogg", 0);
+		p.play_stationary("bicicletadraw.ogg", false);
+		bicicleta=0;
+	}
+	if(itemname=="paraquedas"&&get_tile_at(me.x, me.y)!=""&&get_zone_at(me.x, me.y)!="")paraquedas=0;
+	send_reliable(peer_id,"retirar "+itemname,0);
 }
 void outrosloop(){
-if(!outras&&branca(tempweap)==false||tempweap!=0&&tempweap!=27&&!inv_item_exists(weapons[tempweap])){
-tempweap=0;
+	if(!outras&&branca(tempweap)==false||tempweap!=0&&tempweap!=27&&!inv_item_exists(weapons[tempweap])){
+		tempweap=0;
+	}
+	if(olharx.elapsed>=3000){
+		if(me.x<=0){
+			me.x=1;
+			send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+		}
+		else if(me.x>=max.x){
+			me.x=max.x-1;
+			send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+		}
+		else if(me.y<0){
+			me.y=1;
+			send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+		}
+		else if(me.y>=max.y){
+			me.y=max.y-2;
+			send_reliable(peer_id,"move "+me.x+" "+me.y,0);
+		}
+	}
+	if(echotimer.elapsed>=echotime&&echo==true){
+		echocheck(facing);
+	}
 }
-if(olharx.elapsed>=3000){
-if(me.x<=0){
-me.x=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-else if(me.x>=max.x){
-me.x=max.x-1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-else if(me.y<0){
-me.y=1;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-else if(me.y>=max.y){
-me.y=max.y-2;
-send_reliable(peer_id,"move "+me.x+" "+me.y,0);
-}
-}
-if(echotimer.elapsed>=echotime&&echo==true)
-{
-echocheck(facing);
-}
-}
-bool msginvalida(string message)
-{
-message=string_to_lower_case(message);
-string[] filter;
-filter.insert_last(" ");
-filter.insert_last("ª");
-filter.insert_last("~");
-filter.insert_last("º");
-filter.insert_last("§");
-filter.insert_last("¬");
-filter.insert_last("¢");
-filter.insert_last("\"");
-filter.insert_last("!");
-filter.insert_last("#");
-filter.insert_last("$");
-filter.insert_last("%");
-filter.insert_last("¨");
-filter.insert_last("*");
-filter.insert_last("");
-filter.insert_last("");
-filter.insert_last("+");
-filter.insert_last("{");
-filter.insert_last("}");
-filter.insert_last("`");
-filter.insert_last("^");
-filter.insert_last("|");
-filter.insert_last("<");
-filter.insert_last(">");
-filter.insert_last(":");
-filter.insert_last("ç");
-filter.insert_last("\\");
-filter.insert_last(",");
-filter.insert_last(";");
-filter.insert_last("[");
-filter.insert_last("]");
-filter.insert_last("´");
-filter.insert_last("=");
-filter.insert_last("§");
-filter.insert_last("¤");
-filter.insert_last("ä");
-filter.insert_last("å");
-filter.insert_last("ë");
-filter.insert_last("ï");
-filter.insert_last("æ");
-filter.insert_last("à");
-filter.insert_last("è");
-filter.insert_last("ì");
-filter.insert_last("ò");
-filter.insert_last("ù");
-filter.insert_last("ö");
-filter.insert_last("ÿ");
-filter.insert_last("Ü");
-filter.insert_last("ø");
-filter.insert_last("£");
-filter.insert_last("×");
-filter.insert_last("ƒ");
-filter.insert_last("ñ");
-filter.insert_last("®");
-filter.insert_last("½");
-filter.insert_last("¼");
-filter.insert_last("¡");
-filter.insert_last("¦");
-filter.insert_last("»");
-filter.insert_last("«");for(int counter=0; counter<filter.length(); counter++)
-{
-string banned=filter[counter];
-if(string_contains(message, filter[counter], 1)>-1)
-{
-return true;
-}
-}
-return false;
+bool msginvalida(string message){
+	message=string_to_lower_case(message);
+	string[] filter;
+	filter.insert_last(" ");
+	filter.insert_last("ª");
+	filter.insert_last("~");
+	filter.insert_last("º");
+	filter.insert_last("§");
+	filter.insert_last("¬");
+	filter.insert_last("¢");
+	filter.insert_last("\"");
+	filter.insert_last("!");
+	filter.insert_last("#");
+	filter.insert_last("$");
+	filter.insert_last("%");
+	filter.insert_last("¨");
+	filter.insert_last("*");
+	filter.insert_last("");
+	filter.insert_last("");
+	filter.insert_last("+");
+	filter.insert_last("{");
+	filter.insert_last("}");
+	filter.insert_last("`");
+	filter.insert_last("^");
+	filter.insert_last("|");
+	filter.insert_last("<");
+	filter.insert_last(">");
+	filter.insert_last(":");
+	filter.insert_last("ç");
+	filter.insert_last("\\");
+	filter.insert_last(",");
+	filter.insert_last(";");
+	filter.insert_last("[");
+	filter.insert_last("]");
+	filter.insert_last("´");
+	filter.insert_last("=");
+	filter.insert_last("§");
+	filter.insert_last("¤");
+	filter.insert_last("ä");
+	filter.insert_last("å");
+	filter.insert_last("ë");
+	filter.insert_last("ï");
+	filter.insert_last("æ");
+	filter.insert_last("à");
+	filter.insert_last("è");
+	filter.insert_last("ì");
+	filter.insert_last("ò");
+	filter.insert_last("ù");
+	filter.insert_last("ö");
+	filter.insert_last("ÿ");
+	filter.insert_last("Ü");
+	filter.insert_last("ø");
+	filter.insert_last("£");
+	filter.insert_last("×");
+	filter.insert_last("ƒ");
+	filter.insert_last("ñ");
+	filter.insert_last("®");
+	filter.insert_last("½");
+	filter.insert_last("¼");
+	filter.insert_last("¡");
+	filter.insert_last("¦");
+	filter.insert_last("»");
+	filter.insert_last("«");
+	for(int counter=0; counter<filter.length(); counter++){
+		string banned=filter[counter];
+		if(string_contains(message, filter[counter], 1)>-1){
+			return true;
+		}
+	}
+	return false;
 }
 void abrir(){
-p.play_stationary("door1open.ogg", false);
+	p.play_stationary("door1open.ogg", false);
 }
 void sair(){
-sound s;
-s.load("door1close.ogg");
-s.play_wait();
-exit();
+	sound s;
+	s.load("door1close.ogg");
+	s.play_wait();
+	exit();
 }
-void setupmenu(bool music=false)
-{
-m.reset(true);
-if(music==true)
-{
-m.add_music("m"+random(1, 8)+".ogg");
+void setupmenu(bool music=false){
+	m.reset(true);
+	if(music==true){
+		m.add_music("m"+random(1, 8)+".ogg");
+	}
+	m.enable_numbers=true;
+	m.enable_first_letter_navigation=true;
+	m.click_sound="menumove.ogg";
+	m.enter_sound="menuenter.ogg";
+	m.repeat_items_at_edges=false;
+	m.enable_side_scrolling=false;
+	m.enable_left_and_right=false;
+	m.enable_up_and_down=true;
+	m.enable_enter=true;
+	m.allow_escape=true;
+	m.wrap=true;
+	m.enable_home_and_end=true;
+	m.set_callback(clb,"");
 }
-m.enable_numbers=true;
-m.enable_first_letter_navigation=true;
-m.click_sound="menumove.ogg";
-m.enter_sound="menuenter.ogg";
-//m.open_sound="menuopen.ogg";
-m.repeat_items_at_edges=false;
-m.enable_side_scrolling=false;
-m.enable_left_and_right=false;
-m.enable_up_and_down=true;
-m.enable_enter=true;
-m.allow_escape=true;
-m.wrap=true;
-m.enable_home_and_end=true;
-m.set_callback(clb,"");
+void menusilent(){
+	m.reset(true);
+	m.enable_numbers=true;
+	m.enable_first_letter_navigation=true;
+	m.click_sound="nada.ogg";
+	m.enter_sound="nada.ogg";
+	m.open_sound="menuopen.ogg";
+	m.repeat_items_at_edges=false;
+	m.wrap_sound="nada.ogg";
+	m.enable_side_scrolling=false;
+	m.enable_left_and_right=false;
+	m.enable_up_and_down=true;
+	m.enable_enter=true;
+	m.allow_escape=true;
+	m.wrap=true;
+	m.enable_home_and_end=true;
+	m.set_callback(clb,"");
 }
-void menusilent()
-{
-m.reset(true);
-m.enable_numbers=true;
-m.enable_first_letter_navigation=true;
-m.click_sound="nada.ogg";
-//m.edge_sound="menuedge.ogg";
-m.enter_sound="nada.ogg";
-m.open_sound="menuopen.ogg";
-m.repeat_items_at_edges=false;
-m.wrap_sound="nada.ogg";
-m.enable_side_scrolling=false;
-m.enable_left_and_right=false;
-m.enable_up_and_down=true;
-m.enable_enter=true;
-m.allow_escape=true;
-m.wrap=true;
-m.enable_home_and_end=true;
-m.set_callback(clb,"");
+void tprincipais(){
+	safeloop();
+	if(shift_pressionado()){
+		if(key_pressed(KEY_F1))send_reliable(peer_id, "/afk", 0);
+		else if(key_pressed(KEY_F2))send_reliable(peer_id, "/pacifista", 0);
+		else if(key_pressed(KEY_F3)){
+			if(ouviremoutrasjanelas==1){
+				speak(pu.get_value("Não anunciando mensagens quando estiver em outras janelas."));
+				ouviremoutrasjanelas=0;
+			}
+			else if(ouviremoutrasjanelas==0){
+				speak(pu.get_value("Ouvindo mensagens em outras janelas."));
+				ouviremoutrasjanelas=1;
+			}
+			writeprefs();
+		}
+		else if(key_pressed(KEY_SLASH)&&mapname!="quadro")send_reliable(peer_id, "whoonline", 0);
+		else if (key_pressed(KEY_RBRACKET))lastadd();
+		else if (key_pressed(KEY_LBRACKET))firstadd();
+		else if (key_pressed(KEY_COMMA))topadditem();
+		else if (key_pressed(KEY_PERIOD))bottomadditem();
+		else if(key_pressed(KEY_EQUALS)){
+			string colocar=v.input("Entre com um comando.");
+			if(colocar!="")send_reliable(peer_id, "/"+colocar, 1);
+		}
+		else if(key_pressed(KEY_F5)){
+			if(tvolume.elapsed>=250){
+				tvolume.restart();
+				volumejogo=volumejogo+1;
+				if(volumejogo>0)volumejogo=0;
+				set_sound_master_volume(volumejogo);
+				mudo=false;
+			}
+		}
+		else if(key_pressed(KEY_F4)){
+			if(tvolume.elapsed>=250){
+				tvolume.restart();
+				volumejogo=volumejogo-1;
+				if(volumejogo<-100)volumejogo=-100;
+				set_sound_master_volume(volumejogo);
+				mudo=false;
+			}
+		}
+		if(key_pressed(KEY_F6)){
+			if(mudo){
+				set_sound_master_volume(0);
+				add_add_item("variado", pu.get_value("Som ativado."));
+				mudo=false;
+			}
+			else if(!mudo){
+				set_sound_master_volume(-100);
+				add_add_item("variado", pu.get_value("Som desativado."));
+				mudo=true;
+			}
+		}
+	}
+	else{
+		if(key_pressed(KEY_F1))send_reliable(peer_id, "uptime", 0);
+		else if(key_pressed(KEY_F2))send_reliable(peer_id, "getmotd", 0);
+		else if(key_pressed(KEY_F3)&&forcepinging==false){
+			forcepinging=true;
+			p.play_stationary("pingstart.ogg",false);
+			ping=true;
+			send_reliable(peer_id,"ping",pingchannel);
+			pingtimer.restart();
+		}
+		else if(key_pressed(KEY_F4)){
+			if(playertrack==""){
+				playertrack=select_player(pu.get_value("Rastrear quem?"));
+				if(playertrack!="") speak(pu.get_value("Rastreando")+" "+playertrack);
+			}
+			else{
+				playertrack="";
+				speak(pu.get_value("Não rastreando."));
+			}
+		}
+		else if(key_pressed(KEY_F5))jogadoresmenu();
+		else if(key_pressed(KEY_F6))chatmenu();
+		else if (key_pressed(KEY_F8)){
+			if (beaconing==1){
+				speak(pu.get_value("Bipes desligados."));
+				beaconing=0;
+			}
+			else if (beaconing==0){
+				speak(pu.get_value("Bipes ligados."));
+				beaconing=1;
+			}
+			writeprefs();
+		}
+		else if (key_pressed(KEY_LBRACKET))addleft();
+		else if(key_pressed(KEY_RBRACKET))addright();
+		else if(key_pressed(KEY_COMMA))prevadditem();
+		else if(key_pressed(KEY_PERIOD))nextadditem();
+		else if(key_pressed(KEY_V))send_reliable(peer_id, "lc", 0);
+		else if (key_pressed(KEY_BACKSLASH)){
+			string colocar=v.input("Digite sua mensagem.");
+			if(colocar!="") send_reliable(peer_id,"/falarnomapa "+colocar, 0);
+		}
+		else if(key_pressed(KEY_SLASH)){
+			string colocar=v.input("Digite sua mensagem.");
+			if(colocar!=""){
+				if(string_contains(colocar, "::", 1)>-1&&desenvolvedordm==1){
+					string[] z=string_split(colocar, "::", false);
+					for(uint i=0;i<z.length();i++){
+						send_reliable(peer_id, z[i], 1);
+					}
+					return;
+				}
+				string enviar=colocar;
+				if(tradutorativo==1){
+					enviar=colocar;
+				}
+				if(enviar!="")send_reliable(peer_id, enviar, 1);
+			}
+		}
+	}
+	if(tempweap!=tempweap2){
+		if (tempweap==0||tempweap==27){
+			tempweap2=tempweap;
+			weapon=tempweap+1;
+			speak(pu.get_value(weapons[tempweap]));
+			p.play_stationary(weapons[tempweap]+"draw.ogg",false);
+			send_reliable(peer_id,"draw "+weapons[tempweap]+"draw.ogg",0);
+		}
+		else if(inv_item_exists(weapons[tempweap])&&branca(tempweap)==true&&outras==false||inv_item_exists(weapons[tempweap])&&outras==true){
+			tempweap2=tempweap;
+			weapon=tempweap+1;
+			speak(pu.get_value(weapons[tempweap]));
+			p.play_stationary(weapons[tempweap]+"draw.ogg",false);
+			send_reliable(peer_id,"draw "+weapons[tempweap]+"draw.ogg",0);
+		}
+	}
 }
-void tprincipais(){//Teclas principais
-safeloop();
-if(shift_pressionado()){
-if(key_pressed(KEY_F1))send_reliable(peer_id, "/afk", 0);
-else if(key_pressed(KEY_F2))send_reliable(peer_id, "/pacifista", 0);
-else if(key_pressed(KEY_F3)){
-if(ouviremoutrasjanelas==1){
-speak(pu.get_value("Não anunciando mensagens quando estiver em outras janelas."));
-ouviremoutrasjanelas=0;
-}
-else if(ouviremoutrasjanelas==0){
-speak(pu.get_value("Ouvindo mensagens em outras janelas."));
-ouviremoutrasjanelas=1;
-}
-writeprefs();
-}
-else if(key_pressed(KEY_SLASH)&&mapname!="quadro")send_reliable(peer_id, "whoonline", 0);
-else if (key_pressed(KEY_RBRACKET))lastadd();
-else if (key_pressed(KEY_LBRACKET))firstadd();
-else if (key_pressed(KEY_COMMA))topadditem();
-else if (key_pressed(KEY_PERIOD))bottomadditem();
-else if(key_pressed(KEY_EQUALS)){
-string colocar=v.input("Entre com um comando.");
-if(colocar!="")send_reliable(peer_id, "/"+colocar, 1);
-}
-else if(key_pressed(KEY_F5)){
-if(tvolume.elapsed>=250){
-tvolume.restart();
-volumejogo=volumejogo+1;
-if(volumejogo>0)volumejogo=0;
-set_sound_master_volume(volumejogo);
-mudo=false;
-}
-}
-else if(key_pressed(KEY_F4)){
-if(tvolume.elapsed>=250){
-tvolume.restart();
-volumejogo=volumejogo-1;
-if(volumejogo<-100)volumejogo=-100;
-set_sound_master_volume(volumejogo);
-mudo=false;
-}
-}
-if(key_pressed(KEY_F6)){
-if(mudo){
-set_sound_master_volume(0);
-add_add_item("variado", pu.get_value("Som ativado."));
-mudo=false;
-}
-else if(!mudo){
-set_sound_master_volume(-100);
-add_add_item("variado", pu.get_value("Som desativado."));
-mudo=true;
-}
-}
-}
-else{
-if(key_pressed(KEY_F1))send_reliable(peer_id, "uptime", 0);
-else if(key_pressed(KEY_F2))send_reliable(peer_id, "getmotd", 0);
-else if(key_pressed(KEY_F3)&&forcepinging==false){
-forcepinging=true;
-p.play_stationary("pingstart.ogg",false);
-ping=true;
-send_reliable(peer_id,"ping",pingchannel);
-pingtimer.restart();
-}
-else if(key_pressed(KEY_F4)){
-if(playertrack==""){
-playertrack=select_player(pu.get_value("Rastrear quem?"));
-if(playertrack!="") speak(pu.get_value("Rastreando")+" "+playertrack);
-}
-else
-{
-playertrack="";
-speak(pu.get_value("Não rastreando."));
-}
-}
-else if(key_pressed(KEY_F5))jogadoresmenu();
-else if(key_pressed(KEY_F6))chatmenu();
-else if (key_pressed(KEY_F8)){
-if (beaconing==1)
-{
-speak(pu.get_value("Bipes desligados."));
-beaconing=0;
-}
-else if (beaconing==0)
-{
-speak(pu.get_value("Bipes ligados."));
-beaconing=1;
-}
-writeprefs();
-}
-else if (key_pressed(KEY_LBRACKET))addleft();
-else if(key_pressed(KEY_RBRACKET))addright();
-else if(key_pressed(KEY_COMMA))prevadditem();
-else if(key_pressed(KEY_PERIOD))nextadditem();
-else if(key_pressed(KEY_V))send_reliable(peer_id, "lc", 0);
-else if (key_pressed(KEY_BACKSLASH)){
-string colocar=v.input("Digite sua mensagem.");
-if(colocar!="") send_reliable(peer_id,"/falarnomapa "+colocar, 0);
-}
-else if(key_pressed(KEY_SLASH)){
-string colocar=v.input("Digite sua mensagem.");
-if(colocar!=""){
-if(string_contains(colocar, "::", 1)>-1&&desenvolvedordm==1){
-string[] z=string_split(colocar, "::", false);
-for(uint i=0;i<z.length();i++){
-send_reliable(peer_id, z[i], 1);
-}
-return;
-}
-string enviar=colocar;
-if(tradutorativo==1){
-enviar=colocar;
-}
-if(enviar!="")send_reliable(peer_id, enviar, 1);
-}
-}
-}
-if(tempweap!=tempweap2){
-if (tempweap==0||tempweap==27){
-tempweap2=tempweap;
-weapon=tempweap+1;
-speak(pu.get_value(weapons[tempweap]));
-p.play_stationary(weapons[tempweap]+"draw.ogg",false);
-send_reliable(peer_id,"draw "+weapons[tempweap]+"draw.ogg",0);
-}
-else if(inv_item_exists(weapons[tempweap])&&branca(tempweap)==true&&outras==false||inv_item_exists(weapons[tempweap])&&outras==true){
-tempweap2=tempweap;
-weapon=tempweap+1;
-speak(pu.get_value(weapons[tempweap]));
-p.play_stationary(weapons[tempweap]+"draw.ogg",false);
-send_reliable(peer_id,"draw "+weapons[tempweap]+"draw.ogg",0);
-}
-}
-}//Fim da tprincipais
 void chutad(){
-s1.load("chutad.ogg");
-s1.play();
-send_reliable(peer_id, "chutad2", 0);
-while(s1.playing){
-wait(5);
-mainloop();
-}
+	s1.load("chutad.ogg");
+	s1.play();
+	send_reliable(peer_id, "chutad2", 0);
+	while(s1.playing){
+		wait(5);
+		mainloop();
+	}
 }
 tone_synth progress_synth;
 sound@ progress_sound;
-void beep_percentage(double val)
-{
-val=round(val,0);
-if(val<0) val=0;
-if(val>100) val=100;
-double freq=110*2**(val/25);
-progress_synth.waveform_type=3;
-progress_synth.set_edge_fades(0,0);
-progress_synth.freq_ms(""+freq,40);
-@progress_sound=progress_synth.write_wave_sound();
-progress_synth.reset();
-progress_sound.play();
+void beep_percentage(double val){
+	val=round(val,0);
+	if(val<0) val=0;
+	if(val>100) val=100;
+	double freq=110*2**(val/25);
+	progress_synth.waveform_type=3;
+	progress_synth.set_edge_fades(0,0);
+	progress_synth.freq_ms(""+freq,40);
+	@progress_sound=progress_synth.write_wave_sound();
+	progress_synth.reset();
+	progress_sound.play();
 }
-string dl_file(string url, string disk_file,bool quiet=true)
-{
-dl.initiate_download(url, disk_file);
-string status;
-double dlpercent=-1;
-while(dl.is_active())
-{
-dl.monitor();
-if (key_pressed(KEY_ESCAPE))
-{
-dl.abort();
-status="canceled";
-speak(status);
-wait(600);
-return status;
-}
-if(round(dl.get_percentage(),0)!=dlpercent)
-{
-dlpercent=round(dl.get_percentage(),0);
-if(quiet)
-beep_percentage(dlpercent);
-}
-if (key_pressed(KEY_SPACE))
-{
-speak(dl.get_percentage()+" percent");
-}
-}
-if (status!="canceled")
-{
-status="finished";
-speak(status);
-wait(600);
-return status;
-}
-return "";
+string dl_file(string url, string disk_file,bool quiet=true){
+	dl.initiate_download(url, disk_file);
+	string status;
+	double dlpercent=-1;
+	while(dl.is_active()){
+		dl.monitor();
+		if (key_pressed(KEY_ESCAPE)){
+			dl.abort();
+			status="canceled";
+			speak(status);
+			wait(600);
+			return status;
+		}
+		if(round(dl.get_percentage(),0)!=dlpercent){
+			dlpercent=round(dl.get_percentage(),0);
+			if(quiet)
+			beep_percentage(dlpercent);
+		}
+		if (key_pressed(KEY_SPACE)){
+			speak(dl.get_percentage()+" percent");
+		}
+	}
+	if (status!="canceled"){
+		status="finished";
+		speak(status);
+		wait(600);
+		return status;
+	}
+	return "";
 }
 string pegar_mensagem(){
-return string_decrypt(event.message, NETWORK_ENCRYPTION_KEY);
+	return string_decrypt(event.message, NETWORK_ENCRYPTION_KEY);
 }
 bool send_reliable(uint peer, string p, int c){
-p=string_encrypt(p, NETWORK_ENCRYPTION_KEY);
-return net.send_reliable(peer, p, c);
+	p=string_encrypt(p, NETWORK_ENCRYPTION_KEY);
+	return net.send_reliable(peer, p, c);
 }
 bool send_unreliable(uint peerid, string p, int channel){
-p=string_encrypt(p, NETWORK_ENCRYPTION_KEY);
-return net.send_unreliable(peerid, p, channel);
+	p=string_encrypt(p, NETWORK_ENCRYPTION_KEY);
+	return net.send_unreliable(peerid, p, channel);
 }
 void verificando(){
-instance cheat("cheatengine-x86_64");
-if(cheat.is_already_running)exit();
-if(tverificar.elapsed>=5000){
-tverificar.restart();
-bool achou=false;
-if(directory_exists(DIRECTORY_TEMP+"\\Cheat Engine")){
-achou=true;
-}
-if(achou==true&&!s1.playing){
-chutad();
-wait(200);
-exit();
-}
-}
+	instance cheat("cheatengine-x86_64");
+	if(cheat.is_already_running)exit();
+	if(tverificar.elapsed>=5000){
+		tverificar.restart();
+		bool achou=false;
+		if(directory_exists(DIRECTORY_TEMP+"\\Cheat Engine")){
+			achou=true;
+		}
+		if(achou==true&&!s1.playing){
+			chutad();
+			wait(200);
+			exit();
+		}
+	}
 }
 void centar(){
-string l=get_zone_at(me.x, me.y);
-bool achou=false;
-if(string_contains(l, "Vaso sanitário.", 1)>-1||string_contains( string_to_lower_case(l), "computador", 1)>-1){
-if(!centado){
-centado=true;
-send_reliable(peer_id, "draw centar.ogg", 0);
-p.play_stationary("centar.ogg", false);
-}
-else if(centado){
-centado=false;
-send_reliable(peer_id, "draw levantar.ogg", 0);
-p.play_stationary("levantar.ogg", false);
-}
-}
+	string l=get_zone_at(me.x, me.y);
+	bool achou=false;
+	if(string_contains(l, "Vaso sanitário.", 1)>-1||string_contains( string_to_lower_case(l), "computador", 1)>-1){
+		if(!centado){
+			centado=true;
+			send_reliable(peer_id, "draw centar.ogg", 0);
+			p.play_stationary("centar.ogg", false);
+		}
+		else if(centado){
+			centado=false;
+			send_reliable(peer_id, "draw levantar.ogg", 0);
+			p.play_stationary("levantar.ogg", false);
+		}
+	}
 }
 int valoritem(string nome, string iii){
-string content2=iii;
-string[] peramitorss=string_split(content2, "\r\n", true);
-string[] valuess;
-for(uint ii=0; ii<peramitorss.length(); ii++)
-{
-valuess.insert_at(ii,string_replace(peramitorss[ii], string_left(peramitorss[ii], string_contains(peramitorss[ii], "=", 1)+1), "", true));
-peramitorss[ii]=string_replace(peramitorss[ii], "="+valuess[ii], "", true);
+	string content2=iii;
+	string[] peramitorss=string_split(content2, "\r\n", true);
+	string[] valuess;
+	for(uint ii=0; ii<peramitorss.length(); ii++){
+		valuess.insert_at(ii,string_replace(peramitorss[ii], string_left(peramitorss[ii], string_contains(peramitorss[ii], "=", 1)+1), "", true));
+		peramitorss[ii]=string_replace(peramitorss[ii], "="+valuess[ii], "", true);
+	}
+	for(uint ii=0; ii<peramitorss.length(); ii++){
+		if(peramitorss[ii]==nome){
+			return string_to_number(valuess[ii]);
+		}
+	}
+	return 0;
 }
-for(uint ii=0; ii<peramitorss.length(); ii++)
-{
-if(peramitorss[ii]==nome)
-{
-return string_to_number(valuess[ii]);
+void apartamentoinv_add_item(string itemname, int itemvalue){
+	string content=apartamentoinv;
+	string[] peramitors=string_split(content, "\r\n", true);
+	string[] values;
+	for(uint i=0; i<peramitors.length(); i++){
+		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+	}
+	if(apartamentoinv_item_exists(itemname)){
+		int orgval;
+		if(apartamentoinv_item_number(itemname) > -1){
+			orgval=string_to_number(values[apartamentoinv_item_number(itemname)]);
+		}
+		else{
+			return;
+		}
+		if(orgval+itemvalue < 1){
+			apartamentoinv_delete_item(itemname);
+		}
+		else{
+			values[apartamentoinv_item_number(itemname)]=(orgval+itemvalue);
+			string tempinv;
+			for(uint i=0; i<peramitors.length(); i++){
+				tempinv+=peramitors[i]+"="+values[i]+"\r\n";
+			}
+			apartamentoinv=tempinv;
+		}
+	}
+	else{
+		if(itemvalue > 0){
+			apartamentoinv+=itemname+"="+itemvalue+"\r\n";
+		}
+	}
 }
+bool apartamentoinv_item_exists(string itemname){
+	string content=apartamentoinv;
+	string[] peramitors=string_split(content, "\r\n", true);
+	string[] values;
+	for(uint i=0; i<peramitors.length(); i++){
+		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+	}
+	for(uint i=0; i<peramitors.length(); i++){
+		if(peramitors[i]==itemname){
+			return true;
+		}
+	}
+	return false;
 }
-return 0;
+int apartamentoinv_item_number(string itemname){
+	string content=apartamentoinv;
+	string[] peramitors=string_split(content, "\r\n", true);
+	string[] values;
+	for(uint i=0; i<peramitors.length(); i++){
+		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+	}
+	for(uint i=0; i<peramitors.length(); i++){
+		if(peramitors[i]==itemname){
+			return string_to_number(values[i]);
+		}
+	}
+	return 0;
 }
-void apartamentoinv_add_item(string itemname, int itemvalue)
-{
-string content=apartamentoinv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+int apartamentoinv_item(string itemname){
+	string content=apartamentoinv;
+	string[] peramitors=string_split(content, "\r\n", true);
+	string[] values;
+	for(uint i=0; i<peramitors.length(); i++){
+		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+	}
+	for(uint i=0; i<peramitors.length(); i++){
+		if(peramitors[i]==itemname){
+			return i;
+		}
+	}
+	return -1;
 }
-if(apartamentoinv_item_exists(itemname))
-{
-int orgval;
-if(apartamentoinv_item_number(itemname) > -1)
-{
-orgval=string_to_number(values[apartamentoinv_item_number(itemname)]);
-}
-else
-{
-return;
-}
-if(orgval+itemvalue < 1)
-{
-apartamentoinv_delete_item(itemname);
-}
-else
-{
-values[apartamentoinv_item_number(itemname)]=(orgval+itemvalue);
-string tempinv;
-for(uint i=0; i<peramitors.length(); i++)
-{
-tempinv+=peramitors[i]+"="+values[i]+"\r\n";
-}
-apartamentoinv=tempinv;
-}
-}
-else
-{
-if(itemvalue > 0)
-{
-apartamentoinv+=itemname+"="+itemvalue+"\r\n";
-}
-}
-}
-bool apartamentoinv_item_exists(string itemname)
-{
-string content=apartamentoinv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-}
-for(uint i=0; i<peramitors.length(); i++)
-{
-if(peramitors[i]==itemname)
-{
-return true;
-}
-}
-return false;
-}
-int apartamentoinv_item_number(string itemname)
-{
-string content=apartamentoinv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-}
-for(uint i=0; i<peramitors.length(); i++)
-{
-if(peramitors[i]==itemname)
-{
-return string_to_number(values[i]);
-}
-}
-return 0;
-}
-int apartamentoinv_item(string itemname)
-{
-string content=apartamentoinv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-}
-for(uint i=0; i<peramitors.length(); i++)
-{
-if(peramitors[i]==itemname)
-{
-return i;
-}
-}
-return -1;
-}
-void apartamentoinv_delete_item(string itemname)
-{
-string content=apartamentoinv;
-string[] peramitors=string_split(content, "\r\n", true);
-string[] values;
-for(uint i=0; i<peramitors.length(); i++)
-{
-values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-}
-for(uint i=0; i<peramitors.length(); i++)
-{
-if(peramitors[i]==itemname)
-{
-apartamentoinv=string_replace(apartamentoinv, itemname+"="+values[i]+"\r\n", "", false);
-}
-}
+void apartamentoinv_delete_item(string itemname){
+	string content=apartamentoinv;
+	string[] peramitors=string_split(content, "\r\n", true);
+	string[] values;
+	for(uint i=0; i<peramitors.length(); i++){
+		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+	}
+	for(uint i=0; i<peramitors.length(); i++){
+		if(peramitors[i]==itemname){
+			apartamentoinv=string_replace(apartamentoinv, itemname+"="+values[i]+"\r\n", "", false);
+		}
+	}
 }
 bool branca(int nome){
-if(nome==0||nome==1||nome==5||nome==19||nome==27||nome==28||nome==29)return true;
-else return false;
+	if(nome==0||nome==1||nome==5||nome==19||nome==27||nome==28||nome==29)return true;
+	else return false;
 }
 void secundario(){
-if(lan.nalancha==0){
-if(itenssecundarios.find("vara_de_pesca")>-1)itenssecundarios.remove_at(itenssecundarios.find("vara_de_pesca"));
-if(itenssecundarios.find("galão_de_gasolina")>-1)itenssecundarios.remove_at(itenssecundarios.find("galão_de_gasolina"));
-if(itenssecundarios.find("dardo_envenenado")<0&&inv_item_number("dardo_envenenado")>0)itenssecundarios.insert_last("dardo_envenenado");
-if(itenssecundarios.find("dardo")<0&&inv_item_number("dardo")>0)itenssecundarios.insert_last("dardo");
-if(itenssecundarios.find("fita_explosiva")<0&&inv_item_number("fita_explosiva")>0)itenssecundarios.insert_last("fita_explosiva");
-}
-else if(lan.nalancha==1){
-if(itenssecundarios.find("vara_de_pesca")<0&&inv_item_number("vara_de_pesca")>0)itenssecundarios.insert_last("vara_de_pesca");
-if(itenssecundarios.find("galão_de_gasolina")<0&&inv_item_number("galão_de_gasolina")>0)itenssecundarios.insert_last("galão_de_gasolina");
-if(itenssecundarios.find("minhoca")<0&&inv_item_number("minhoca")>0)itenssecundarios.insert_last("minhoca");
-if(itenssecundarios.find("peixe_pescado")<0&&inv_item_number("peixe_pescado")>0)itenssecundarios.insert_last("peixe_pescado");
-if(itenssecundarios.find("dardo_envenenado")>-1)itenssecundarios.remove_at(itenssecundarios.find("dardo_envenenado"));
-if(itenssecundarios.find("dardo")>-1)itenssecundarios.remove_at(itenssecundarios.find("dardo"));
-if(itenssecundarios.find("fita_explosiva")>-1)itenssecundarios.remove_at(itenssecundarios.find("fita_explosiva"));
-}
-if(itenssecundarios.length()>0){
-if(invsecundario>itenssecundarios.length()-1)invsecundario=itenssecundarios.length()-1;
-if(key_pressed(KEY_BACK)&&inv_item_number(itenssecundarios[invsecundario])>0)interact(itenssecundarios[invsecundario]);
-if(key_pressed(KEY_A)&&inv_item_number(itenssecundarios[invsecundario])>0)speak(inv_item_number(itenssecundarios[invsecundario]));
-if(!key_down(KEY_LMENU)&&!key_down(KEY_RMENU)){
-if(key_down(KEY_RSHIFT)&&key_pressed(KEY_TAB)||key_down(KEY_LSHIFT)&&key_pressed(KEY_TAB)){
-invsecundario--;
-if(invsecundario<0)invsecundario=itenssecundarios.length()-1;
-if(invsecundario>itenssecundarios.length())invsecundario=itenssecundarios.length()-1;
-speak(pu.get_value(itenssecundarios[invsecundario]));
-}
-if(key_pressed(KEY_TAB)){
-if(itenssecundarios.length()>0){
-invsecundario++;
-if(invsecundario>itenssecundarios.length()-1)invsecundario=0;
-speak(pu.get_value(itenssecundarios[invsecundario]));
-}
-}
-}
-}
+	if(lan.nalancha==0){
+		if(itenssecundarios.find("vara_de_pesca")>-1)itenssecundarios.remove_at(itenssecundarios.find("vara_de_pesca"));
+		if(itenssecundarios.find("galão_de_gasolina")>-1)itenssecundarios.remove_at(itenssecundarios.find("galão_de_gasolina"));
+		if(itenssecundarios.find("dardo_envenenado")<0&&inv_item_number("dardo_envenenado")>0)itenssecundarios.insert_last("dardo_envenenado");
+		if(itenssecundarios.find("dardo")<0&&inv_item_number("dardo")>0)itenssecundarios.insert_last("dardo");
+		if(itenssecundarios.find("fita_explosiva")<0&&inv_item_number("fita_explosiva")>0)itenssecundarios.insert_last("fita_explosiva");
+	}
+	else if(lan.nalancha==1){
+		if(itenssecundarios.find("vara_de_pesca")<0&&inv_item_number("vara_de_pesca")>0)itenssecundarios.insert_last("vara_de_pesca");
+		if(itenssecundarios.find("galão_de_gasolina")<0&&inv_item_number("galão_de_gasolina")>0)itenssecundarios.insert_last("galão_de_gasolina");
+		if(itenssecundarios.find("minhoca")<0&&inv_item_number("minhoca")>0)itenssecundarios.insert_last("minhoca");
+		if(itenssecundarios.find("peixe_pescado")<0&&inv_item_number("peixe_pescado")>0)itenssecundarios.insert_last("peixe_pescado");
+		if(itenssecundarios.find("dardo_envenenado")>-1)itenssecundarios.remove_at(itenssecundarios.find("dardo_envenenado"));
+		if(itenssecundarios.find("dardo")>-1)itenssecundarios.remove_at(itenssecundarios.find("dardo"));
+		if(itenssecundarios.find("fita_explosiva")>-1)itenssecundarios.remove_at(itenssecundarios.find("fita_explosiva"));
+	}
+	if(itenssecundarios.length()>0){
+		if(invsecundario>itenssecundarios.length()-1)invsecundario=itenssecundarios.length()-1;
+		if(key_pressed(KEY_BACK)&&inv_item_number(itenssecundarios[invsecundario])>0)interact(itenssecundarios[invsecundario]);
+		if(key_pressed(KEY_A)&&inv_item_number(itenssecundarios[invsecundario])>0)speak(inv_item_number(itenssecundarios[invsecundario]));
+		if(!key_down(KEY_LMENU)&&!key_down(KEY_RMENU)){
+			if(key_down(KEY_RSHIFT)&&key_pressed(KEY_TAB)||key_down(KEY_LSHIFT)&&key_pressed(KEY_TAB)){
+				invsecundario--;
+				if(invsecundario<0)invsecundario=itenssecundarios.length()-1;
+				if(invsecundario>itenssecundarios.length())invsecundario=itenssecundarios.length()-1;
+				speak(pu.get_value(itenssecundarios[invsecundario]));
+			}
+			if(key_pressed(KEY_TAB)){
+				if(itenssecundarios.length()>0){
+					invsecundario++;
+					if(invsecundario>itenssecundarios.length()-1)invsecundario=0;
+					speak(pu.get_value(itenssecundarios[invsecundario]));
+				}
+			}
+		}
+	}
 }
 string enviar(string mensagem){
-return string_encrypt(mensagem, NETWORK_ENCRYPTION_KEY);
+	return string_encrypt(mensagem, NETWORK_ENCRYPTION_KEY);
 }
 string receber(string mensagem){
-return string_decrypt(mensagem, NETWORK_ENCRYPTION_KEY);
+	return string_decrypt(mensagem, NETWORK_ENCRYPTION_KEY);
 }
 void interact(string itemname){
-if(ausente||!moveable)return;
-if(itemname=="item_magnético") send_reliable(peer_id,"usemagnet "+facing,0);
-else if(itemname=="sugador"){
-string djog=daritem();
-if(djog!="")send_reliable(peer_id, "sugador vida "+djog, 0);
-}
-else if(itemname=="paraquedas"&&paraquedas==0&&string_contains(mapname, "avião", 1)>-1)paraquedas=1;
-else if (itemname=="bicicleta"){
- bicicleta=1;
-send_reliable(peer_id, "draw bicicletadraw.ogg", 0);
-p.play_stationary("bicicletadraw.ogg", false);
-}
-else if(itemname=="paraquedas"&&paraquedas==0&&string_contains(mapname, "avião", 1)>-1)paraquedas=1;
-else if(itemname=="teleporter"){
-string tele=telemenu();
-send_reliable(peer_id, "usetele "+tele, 0);
-}
-else if (itemname=="cerveja")
-{
-bebendo="cerveja";
-}
-else if (itemname=="energético")
-{
-bebendo="energético";
-}
-else if (itemname=="refrigerante")
-{
-bebendo="refrigerante";
-}
-opa=itemname;
-if(string_contains(opa,"corpo_de_",1)!=-1)
-{
-string locate=get_zone_at(me.x,me.y);
-if(locate=="Cuidado onde piza; há túmulos por toda parte.")
-{
-if(cavar.playing==true)
-{
-speak(pu.get_value("Mas você está enterrando um corpo")+"!");
-}
-else
-{
-cavar.load("cavar.ogg");
-cavar.play();
-send_reliable(peer_id,"draw cavar.ogg",0);
-cavando=1;
-}
-}
-}
-else
-{
-for (uint i2=0; i2<weapons.length(); i2++)
-{
-if (itemname==weapons[i2])
-{
-tempweap=i2;
-break;
-}
-}
-}
-int t=0;
-if(string_contains(itemname, "bomba", 1)>-1||itemname=="fita_explosiva"||itemname=="mina"||
-itemname=="projétil"||itemname=="míssil_teleguiado"||itemname=="dardo"||
-itemname=="dardo_envenenado"||itemname=="sugador"||itemname=="ovo_de_dragonsauro"){
-if(!outras)t=1;
-}
-if(t==0)send_reliable(peer_id, "uitem "+itemname, 0);
+	if(ausente||!moveable)return;
+	if(itemname=="item_magnético") send_reliable(peer_id,"usemagnet "+facing,0);
+	else if(itemname=="sugador"){
+		string djog=daritem();
+		if(djog!="")send_reliable(peer_id, "sugador vida "+djog, 0);
+	}
+	else if(itemname=="paraquedas"&&paraquedas==0&&string_contains(mapname, "avião", 1)>-1)paraquedas=1;
+	else if (itemname=="bicicleta"){
+		bicicleta=1;
+		send_reliable(peer_id, "draw bicicletadraw.ogg", 0);
+		p.play_stationary("bicicletadraw.ogg", false);
+	}
+	else if(itemname=="paraquedas"&&paraquedas==0&&string_contains(mapname, "avião", 1)>-1)paraquedas=1;
+	else if(itemname=="teleporter"){
+		string tele=telemenu();
+		send_reliable(peer_id, "usetele "+tele, 0);
+	}
+	else if (itemname=="cerveja"){
+		bebendo="cerveja";
+	}
+	else if (itemname=="energético"){
+		bebendo="energético";
+	}
+	else if (itemname=="refrigerante"){
+		bebendo="refrigerante";
+	}
+	opa=itemname;
+	if(string_contains(opa,"corpo_de_",1)!=-1){
+		string locate=get_zone_at(me.x,me.y);
+		if(locate=="Cuidado onde piza; há túmulos por toda parte."){
+			if(cavar.playing==true){
+				speak(pu.get_value("Mas você está enterrando um corpo")+"!");
+			}
+			else{
+				cavar.load("cavar.ogg");
+				cavar.play();
+				send_reliable(peer_id,"draw cavar.ogg",0);
+				cavando=1;
+			}
+		}
+	}
+	else{
+		for (uint i2=0; i2<weapons.length(); i2++){
+			if (itemname==weapons[i2]){
+				tempweap=i2;
+				break;
+			}
+		}
+	}
+	int t=0;
+	if(string_contains(itemname, "bomba", 1)>-1||itemname=="fita_explosiva"||itemname=="mina"||itemname=="projétil"||itemname=="míssil_teleguiado"||itemname=="dardo"||itemname=="dardo_envenenado"||itemname=="sugador"||itemname=="ovo_de_dragonsauro"){
+		if(!outras)t=1;
+	}
+	if(t==0)send_reliable(peer_id, "uitem "+itemname, 0);
 }
 void doorcheck(){
-for (uint i=0; i<doors.length(); i++){
-if (me.x==doors[i].dx&&me.y==doors[i].dy&&!dmoving){
-send_reliable(peer_id,"draw "+doors[i].ds3,0);
-sound s;
-s.load(doors[i].ds3);
-s.play();
-while(s.playing){
-wait(5);
-mainloop();
-}
-dmoving=true;
-if(doors.length()==0){
-dcheck=false;
-dmoving=false;
-break;
-}
-doors[i].doorsound2=p2.play_stationary(doors[i].ds2, true);
-doors[i].moving=true;
-dmoving=true;
-dcheck=false;
-send_reliable(peer_id,"iamdmoving",0);
-}
-else if (i>=doors.length()-1){
-dcheck=false;
-break;
-}
-}
+	for (uint i=0; i<doors.length(); i++){
+		if (me.x==doors[i].dx&&me.y==doors[i].dy&&!dmoving){
+			send_reliable(peer_id,"draw "+doors[i].ds3,0);
+			sound s;
+			s.load(doors[i].ds3);
+			s.play();
+			while(s.playing){
+				wait(5);
+				mainloop();
+			}
+			dmoving=true;
+			if(doors.length()==0){
+				dcheck=false;
+				dmoving=false;
+				break;
+			}
+			doors[i].doorsound2=p2.play_stationary(doors[i].ds2, true);
+			doors[i].moving=true;
+			dmoving=true;
+			dcheck=false;
+			send_reliable(peer_id,"iamdmoving",0);
+		}
+		else if (i>=doors.length()-1){
+			dcheck=false;
+			break;
+		}
+	}
 }
 void elevadorcheck(){
-for(uint i=0;i<elevadors.length();i++){
-if (me.x==elevadors[i].x&&me.y==elevadors[i].y&&dmoving==false){
-elevadors[i].s=p2.play_2d("elevador.ogg", me.x, me.y, elevadors[i].x, elevadors[i].y, true);
-elevadors[i].moving=true;
-emoving=true;
-echeck=false;
-moveable=false;
-}
-else if(i>=elevadors.length()-1){
-echeck=false;
-if(!ausente)moveable=true;
-}
-}
+	for(uint i=0;i<elevadors.length();i++){
+		if (me.x==elevadors[i].x&&me.y==elevadors[i].y&&dmoving==false){
+			elevadors[i].s=p2.play_2d("elevador.ogg", me.x, me.y, elevadors[i].x, elevadors[i].y, true);
+			elevadors[i].moving=true;
+			emoving=true;
+			echeck=false;
+			moveable=false;
+		}
+		else if(i>=elevadors.length()-1){
+			echeck=false;
+			if(!ausente)moveable=true;
+		}
+	}
 }
