@@ -1,0 +1,36 @@
+//coco
+coco@[] cocos;
+class coco{
+	int x;
+	int y;
+	string map, s;
+	timer tempo;
+	bool pegou=false;
+	coco(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void cocoloop(){
+	for(uint i=0; i<cocos.length(); i++){
+		for(uint i2=0; i2 < players.length(); i2++){
+			if(cocos[i].x==players[i2].x&&cocos[i].y==players[i2].y&&cocos[i].map==players[i2].map&&cocos[i].pegou==false){
+				players[i2].health-=random(100, 200);
+				send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+				players[i2].lasthit="derrepente";
+				cocos[i].pegou=true;
+			}
+		}
+		if(cocos[i].y==0){
+			send_packet(0,"play cocoacerta.ogg "+cocos[i].x+" "+cocos[i].y+" "+cocos[i].map,cocos[i].map);
+			spawn_obj(cocos[i].x, 0, "coco", 1, "floresta_tropical");
+			cocos.remove_at(i);
+			break;
+		}
+	}
+}
+void spawn_coco(int x, int y, string map){
+	coco c(x, y, map);
+	cocos.insert_last(c);
+}

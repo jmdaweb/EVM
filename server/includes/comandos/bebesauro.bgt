@@ -1,0 +1,88 @@
+//Bebê sauro
+bebesauro@[] bebesauros;
+class bebesauro{
+	int x, y;
+	uint tiros=1;
+	int vida=random(50000, 100000);
+	string golpeado;
+	string map;
+	timer bebesaurotimer, tnascendo;
+	timer tempoatirar;
+	timer tsom;
+	int asom=4000;
+	int bebesaurotime=410;
+	bool nasceu=false;
+	bebesauro(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void bebesauroloop(){
+	for(uint i=0; i<bebesauros.length(); i++){
+		int andar=1;
+		if(bebesauros[i].vida<=0){
+			uint total=0;
+			send_packet(0,"play m_bbsauro.ogg "+bebesauros[i].x+" "+bebesauros[i].y,bebesauros[i].map);
+			string golp=bebesauros[i].golpeado;
+			send_reliable(0, "msg2 "+golp+"; ;matou um; ;bebê_sauro;!", 3);
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				ganhaxp(players[xx].charname, random(200, 400));
+				players[xx].inv_add_item("corpo_de_bebesauro", 1);
+			}
+			bebesauros.remove_at(i);
+			break;
+		}
+		if(bebesauros[i].tnascendo.elapsed>=6500&&bebesauros[i].nasceu==false){
+			bebesauros[i].nasceu=true;
+			bebesauros[i].tnascendo.force(0);
+			bebesauros[i].tnascendo.pause();
+		}
+		if(bebesauros[i].nasceu){
+			if(bebesauros[i].tsom.elapsed>=bebesauros[i].asom+random(1000, 2000)){
+				bebesauros[i].tsom.restart();
+				string ss="bbsauro"+random(1, 2)+".ogg";
+				send_packet(0,"play "+ss+" "+bebesauros[i].x+" "+bebesauros[i].y,bebesauros[i].map);
+			}
+			if(bebesauros[i].bebesaurotimer.elapsed>=bebesauros[i].bebesaurotime){
+				bebesauros[i].bebesaurotimer.restart();
+				for(uint i2=0; i2 < players.length(); i2++){
+					if(get_bebesauro_distance(bebesauros[i], players[i2])>-1&&get_bebesauro_distance(bebesauros[i],players[i2])<=4&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false){
+						bebesauros[i].tempoatirar.restart();
+						send_packet(0,"play bbsauro_bater"+random(1, 2)+".ogg "+bebesauros[i].x+" "+bebesauros[i].y,bebesauros[i].map);
+						int r=refletir(i2, "bbsauro", bebesauros[i].x, bebesauros[i].y, random(300, 1000));
+						if(r>0){bebesauros[i].vida-=r;bebesauros[i].golpeado=players[i2].charname;break;}
+						players[i2].health-=random(300, 1000);
+						send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+						players[i2].lasthit="bebê_sauro";
+						bebesauros[i].tiros--;
+						andar=0;
+						break;
+					}
+					if(bebesauros[i].x>players[i2].x+3&&players[i2].insz==false&&players[i2].map==bebesauros[i].map&&players[i2].newbie==false&&players[i2].afk==false&&players[i2].pacifico==0&&andar==1){
+						bebesauros[i].x--;
+						string ss=get_tile_at(bebesauros[i].x, bebesauros[i].y, bebesauros[i].map);
+						if(ss!="")send_packet(0,"play "+ss+" "+bebesauros[i].x+" "+bebesauros[i].y,bebesauros[i].map);
+						andar=0;
+					}
+					else if(bebesauros[i].x<players[i2].x-3&&players[i2].insz==false&&bebesauros[i].map==players[i2].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&andar==1){
+						bebesauros[i].x++;
+						string ss=get_tile_at(bebesauros[i].x, bebesauros[i].y, bebesauros[i].map);
+						if(ss!="")send_packet(0,"play "+ss+" "+bebesauros[i].x+" "+bebesauros[i].y,bebesauros[i].map);
+					}
+					if(bebesauros[i].tiros<=0){
+						bebesauros[i].tiros=1;
+						bebesauros[i].tempoatirar.restart();
+					}
+				}
+			}
+		}
+	}
+}
+void spawn_bebesauro(int x, int y, string map){
+	if(!pvp)return;
+	bebesauro c(x, y, map);
+	bebesauros.insert_last(c);
+	send_packet(0, "play osauro.ogg "+x+" "+y, map);
+}

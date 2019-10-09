@@ -49,8 +49,7 @@ string get_tile_at(int x, int y, string mapname, bool includeglobal=true){
 	}
 	return outval;
 }
-string get_zone_at(int x, int y, string mapname, bool includeglobal=true)
-{
+string get_zone_at(int x, int y, string mapname, bool includeglobal=true){
 	string outval;
 	if(includeglobal==true)
 	{
@@ -107,8 +106,7 @@ string get_safezone_at(int x, int y, string mapname, bool includeglobal=true){
 	}
 	return false;
 }
-string linear(string[] a)
-{
+string linear(string[] a){
 	string final;
 	for(uint i=0; i<a.length(); i++)
 	{
@@ -116,7 +114,6 @@ string linear(string[] a)
 	}
 	return final;
 }
-string[] delinear(string a)
-{
+string[] delinear(string a){
 	return string_split(a, "\r\n", false);
 }

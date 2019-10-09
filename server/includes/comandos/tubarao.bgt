@@ -1,0 +1,91 @@
+//Tubarão
+tubarao@[] tubaraos;
+class tubarao{
+	int x;
+	int y;
+	uint tiros=1;
+	int vida=random(2200, 2800);
+	string golpeado, som;
+	string map;
+	timer tubaraotimer;
+	timer tempoatirar;
+	timer tsom;
+	int asom=4000;
+	int tubaraotime=200;
+	bool modofugir=false;
+	tubarao(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+		som=spawn_moving_sound("tubarãoloop.ogg", x, y, map);
+	}
+}
+void tubaraoloop(){
+	for(uint i=0; i<tubaraos.length(); i++){
+		if(tubaraos[i].vida<=0){
+			send_packet(0,"play m_tubarao.ogg "+tubaraos[i].x+" "+tubaraos[i].y+" "+tubaraos[i].map,tubaraos[i].map);
+			send_reliable(0, "msg2 "+tubaraos[i].golpeado+"; ;matou um; ;tubarão;!", 3);
+			int xx=get_player_index_from(tubaraos[i].golpeado);
+			if(xx>-1){
+				players[xx].inv_add_item("corpo_de_tubarão", 1);
+				ganhaxp(players[xx].charname, random(100, 150));
+			}
+			destroy_moving_sound(tubaraos[i].som);
+			tubaraos.remove_at(i);
+			break;
+		}
+		if(tubaraos[i].tsom.elapsed>=tubaraos[i].asom+random(1000, 1200)){
+			tubaraos[i].tsom.restart();
+			string ss="tubarao"+random(1, 3)+".ogg";
+			send_packet(0,"play "+ss+" "+tubaraos[i].x+" "+tubaraos[i].y+" "+tubaraos[i].map,tubaraos[i].map);
+		}
+		if(tubaraos[i].tubaraotimer.elapsed>=tubaraos[i].tubaraotime){
+			tubaraos[i].tubaraotimer.restart();
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(tubaraos[i].x>players[i2].x+2&&players[i2].insz==false&&players[i2].map==tubaraos[i].map&&players[i2].newbie==false&&players[i2].afk==false&&players[i2].pacifico==0&&tubaraos[i].modofugir==false){
+					tubaraos[i].x--;
+					update_moving_sound(tubaraos[i].som, tubaraos[i].x, tubaraos[i].y);
+					tubaraos[i].tubaraotimer.restart();
+					break;
+				}
+				else if(tubaraos[i].x<players[i2].x-2&&players[i2].insz==false&&tubaraos[i].map==players[i2].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&tubaraos[i].modofugir==false){
+					tubaraos[i].x++;
+					tubaraos[i].tubaraotimer.restart();
+					update_moving_sound(tubaraos[i].som, tubaraos[i].x, tubaraos[i].y);
+					break;
+				}
+				else if(tubaraos[i].y>players[i2].y&&tubaraos[i].map==players[i2].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&players[i2].insz==false&&tubaraos[i].modofugir==false){
+					tubaraos[i].y--;
+					update_moving_sound(tubaraos[i].som, tubaraos[i].x, tubaraos[i].y);
+					tubaraos[i].tubaraotimer.restart();
+					break;
+				}
+				else if(tubaraos[i].y<players[i2].y&&tubaraos[i].map==players[i2].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&players[i2].insz==false&&tubaraos[i].modofugir==false&&tubaraos[i].y<50){
+					tubaraos[i].y++;
+					update_moving_sound(tubaraos[i].som, tubaraos[i].x, tubaraos[i].y);
+					tubaraos[i].tubaraotimer.restart();
+					break;
+				}
+				if(get_tubarao_distance(tubaraos[i], players[i2])>-1&&get_tubarao_distance(tubaraos[i],players[i2])<=2&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&tubaraos[i].tempoatirar.elapsed>=random(1000, 3000)&&tubaraos[i].tiros>0){
+					tubaraos[i].tempoatirar.restart();
+					send_packet(0,"play tubaraobater.ogg "+tubaraos[i].x+" "+tubaraos[i].y+" "+tubaraos[i].map,tubaraos[i].map);
+					int r=refletir(i2, "tubarao", tubaraos[i].x, tubaraos[i].y, random(1800, 2800));
+					if(r>0){tubaraos[i].vida-=r;tubaraos[i].golpeado=players[i2].charname;break;}
+					players[i2].health-=random(1800, 2800);
+					send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+					players[i2].lasthit="um tubarão";
+					tubaraos[i].tiros--;
+					break;
+				}
+				if(tubaraos[i].tiros<=0){
+					tubaraos[i].tiros=1;
+				}
+			}
+		}
+	}
+}
+void spawn_tubarao(int x, int y, string map){
+	if(!pvp)return;
+	tubarao c(x, y, map);
+	tubaraos.insert_last(c);
+}

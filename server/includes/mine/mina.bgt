@@ -1,0 +1,41 @@
+class mina{
+	int x,y,damage;
+	string id,owner,map;
+	mina(string mid, int mx, int my, int md,string mo,string mm)
+	{
+		id=mid;
+		x=mx;
+		y=my;
+		damage=md;
+		owner=mo;
+		map=mm;
+	}
+}
+mina@[] minas;
+void spawnmina(int x, int y, int damage,string owner,string map){
+	string id;
+	bool breakit=false;
+	while(true)
+	{
+		id=randomstring();
+		breakit=true;
+		for(uint i=0; i<minas.length; i++)
+		{
+			if(minas[i].id==id) breakit=false;
+		}
+		if(breakit) break;
+	}
+	mina m1(id,x,y,damage,owner,map);
+	minas.insert_last(m1);
+	send_packet(0, "play mineplace.ogg "+x+" "+y, map);
+}
+void destroymina(string id){
+	for(uint i=0; i<minas.length; i++)
+	{
+		if(minas[i].id==id)
+		{
+			minas.remove_at(i);
+			continue;
+		}
+	}
+}

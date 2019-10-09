@@ -1,0 +1,118 @@
+//homem da caverna
+hcaverna@[] hcavernas;
+class hcaverna{
+	int x, y, vida=random(100000, 300000), morrendo=0, morreu=0, narma, ndist=7, ndano=random(2000, 4000), natirar=1232, nsom=5000;
+	string mapa, golpeado, njogador;
+	timer tandar, tmorreu, tsom, tatirar;
+	string[] tipoarma={"", "lança", "espada_curta", "espada"};
+	hcaverna(int zx, int zy, string m, int tn){
+		x=zx;
+		y=zy;
+		mapa=m;
+		tmorreu.force(0);
+		tmorreu.pause();
+		narma=tn;
+		if(tn==3){
+			ndist=10;
+			natirar=random(800, 1400);
+			ndano=random(5000, 8000);
+		}
+	}
+	~hcaverna(){
+		for(uint i=0;i<walls.length();i++){
+			if(walls[i].map==mapa)walls[i].vida=-1;
+		}
+	}
+}
+void colocar_hcaverna(int x, int y, string m, int nn=random(1, 2)){
+	hcaverna z(x, y, m, nn);
+	hcavernas.insert_last(z);
+	colocar_wall(97, m, 1000000000);
+	spawn_obj(100,0,"antídoto-",1, m);
+}
+void hcavernaloop(){
+	for(uint i=0;i<hcavernas.length();i++){
+		int saiu=0;
+		if(hcavernas[i].vida<=0&&hcavernas[i].morreu==1&&hcavernas[i].tmorreu.elapsed>=4450){
+			send_packet(0, "play "+get_tile_at(hcavernas[i].x, hcavernas[i].y, hcavernas[i].mapa)+"harland.ogg "+hcavernas[i].x+" "+hcavernas[i].y,
+			hcavernas[i].mapa);
+			string golp=hcavernas[i].golpeado;
+			send_reliable(0, "msg2 "+golp+"; ;matou um; ;homem_das_cavernas;!", 3);
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				ganhaxp(players[xx].charname, random(1050, 1500));
+			}
+			hcavernas.remove_at(i);
+			saiu=1;
+			return;
+		}
+		if(saiu==1)break;
+		else if(hcavernas[i].morreu==0&&hcavernas[i].vida<=0){
+			send_packet(0, "play v1morte1.ogg "+hcavernas[i].x+" "+hcavernas[i].y, hcavernas[i].mapa);
+			hcavernas[i].tmorreu.restart();
+			hcavernas[i].morreu=1;
+		}
+		if(hcavernas[i].tsom.elapsed>=hcavernas[i].nsom&&hcavernas[i].morrendo==0&&hcavernas[i].morreu==0){
+			hcavernas[i].nsom=random(2000, 6200);
+			send_packet(0, "play uga"+random(1, 2)+".ogg "+hcavernas[i].x+" "+hcavernas[i].y, hcavernas[i].mapa);
+			hcavernas[i].tsom.restart();
+		}
+		if(saiu==1)break;
+		int andar=1;
+		if(hcavernas[i].tatirar.elapsed>=hcavernas[i].natirar&&hcavernas[i].morreu==0){
+			hcavernas[i].tatirar.restart();
+			int i2=get_player_index_from(hcavernas[i].njogador);
+			if(i2>-1){
+				if(players[i2].pacifico==1||get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==true||players[i2].afk||players[i2].map!=hcavernas[i].mapa)i2=-1;
+			}
+			if(i2<0)hcavernas[i].njogador=selecionar_jogador(hcavernas[i].mapa);
+			i2=get_player_index_from(hcavernas[i].njogador);
+			if(i2>-1){
+				if(players[i2].pacifico==1||get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==true||players[i2].afk||players[i2].map!=hcavernas[i].mapa)i2=-1;
+			}
+			if(i2<0)break;
+			if(g(hcavernas[i].x, hcavernas[i].y, players[i2].x, players[i2].y)<=hcavernas[i].ndist&&players[i2].afk==false&&players[i2].pacifico==0&&get_safezone_at(players[i2].x, players[i2].y,players[i2].map)==false){
+				andar=0;
+				send_packet(0, "play "+hcavernas[i].tipoarma[hcavernas[i].narma]+".ogg "+hcavernas[i].x+" "+hcavernas[i].y, hcavernas[i].mapa);
+				players[i2].health-=hcavernas[i].ndano;
+				send_packet(0, "play uga_bater"+random(1, 2)+".ogg "+hcavernas[i].x+" "+hcavernas[i].y, hcavernas[i].mapa);
+				players[i2].lasthit="homem_das_cavernas";
+				break;
+			}
+		}
+		andar=0;
+		if(hcavernas[i].tandar.elapsed>=210&&hcavernas[i].morrendo==0&&hcavernas[i].morreu==0&&andar==1&&hcavernas[i].narma<3){
+			hcavernas[i].tandar.restart();
+			int i2=get_player_index_from(hcavernas[i].njogador);
+			if(i2>-1){
+				if(players[i2].pacifico==1||get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==true||players[i2].afk||players[i2].map!=hcavernas[i].mapa)i2=-1;
+			}
+			if(i2<0)hcavernas[i].njogador=selecionar_jogador(hcavernas[i].mapa);
+			i2=get_player_index_from(hcavernas[i].njogador);
+			if(i2>-1){
+				if(players[i2].pacifico==1||get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==true||players[i2].afk||players[i2].map!=hcavernas[i].mapa)i2=-1;
+			}
+			if(i2<0)break;
+			if(hcavernas[i].x>players[i2].x-1&&!players[i2].afk&&string_contains(get_tile_at(hcavernas[i].x-1, hcavernas[i].y, hcavernas[i].mapa), "wall", 1)<0&&andar==1){
+				hcavernas[i].x--;
+				send_packet(0, "play "+get_tile_at(hcavernas[i].x, hcavernas[i].y, hcavernas[i].mapa)+"step"+random(1, 5)+".ogg "+hcavernas[i].x+" "+hcavernas[i].y,
+				hcavernas[i].mapa);
+				andar=0;
+				break;
+			}
+			else if(hcavernas[i].x<players[i2].x+1&&!players[i2].afk&&string_contains(get_tile_at(hcavernas[i].x+1, hcavernas[i].y, hcavernas[i].mapa), "wall", 1)<0&&andar==1){
+				hcavernas[i].x++;
+				send_packet(0, "play "+get_tile_at(hcavernas[i].x, hcavernas[i].y, hcavernas[i].mapa)+"step"+random(1, 5)+".ogg "+hcavernas[i].x+" "+hcavernas[i].y,
+				hcavernas[i].mapa);
+				andar=0;
+				break;
+			}
+		}
+		for(uint i2=0;i2<players.length();i2++){
+			if(players[i2].map==hcavernas[i].mapa&&players[i2].afk==false&&players[i2].pacifico==0&&g(hcavernas[i].x, hcavernas[i].y, players[i2].x, players[i2].y)<=hcavernas[i].ndist){
+				hcavernas[i].njogador=players[i2].charname;
+				break;
+			}
+		}
+	}
+}

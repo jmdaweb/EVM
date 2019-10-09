@@ -1,0 +1,37 @@
+class splay{
+	string id,soundloop,map;
+	splay(string i, string l, string cm){
+		id=i;
+		soundloop=l;
+		map=cm;
+	}
+}
+splay@[] splays;
+string spawn_splay(string loop, string map){
+	string id;
+	bool breakit=false;
+	while(true)
+	{
+		id=randomstring();
+		breakit=true;
+		for(uint i=0; i<splays.length; i++){
+			if(splays[i].id==id) breakit=false;
+		}
+		if(breakit) break;
+	}
+	splay m1(id,loop,map);
+	splays.insert_last(m1);
+	for(uint iz=0;iz<players.length();iz++){
+		if(players[iz].map==map) send_reliable(players[iz].peer_id, "csplay "+id+" "+loop+" "+map,0);
+	}
+	return id;
+}
+void destroy_splay(string id){
+	for(uint i=0; i<splays.length; i++){
+		if(splays[i].id==id){
+			send_reliable(0,"dsplay "+id,0);
+			splays.remove_at(i);
+			continue;
+		}
+	}
+}

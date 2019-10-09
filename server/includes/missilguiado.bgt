@@ -1,0 +1,72 @@
+missilguiado@[] misseisguiados;
+class missilguiado{
+	int x, y;
+	string mapa, nome, alvo, s;
+	timer tandar;
+	missilguiado(int mx, int my, string mm, string mn, string ma){
+		x=mx;
+		y=my;
+		mapa=mm;
+		nome=mn;
+		alvo=ma;
+		s=spawn_moving_sound("rpgloop.ogg", x, y, mapa);
+	}
+	~missilguiado(){
+		destroy_moving_sound(s);
+	}
+}
+void cmissil(int x, int y, string mapa, string nome, string alvo){
+	missilguiado m(x, y, mapa, nome, alvo);
+	misseisguiados.insert_last(m);
+}
+void mguiadoloop(){
+	for(uint i=0;i<misseisguiados.length();i++){
+		int i2=get_player_index_from(misseisguiados[i].alvo);
+		if(i2<0){
+			int index=get_player_index_from(misseisguiados[i].nome);
+			if(index>-1)players[index].inv_add_item("míssil_teleguiado", 1);
+			misseisguiados.remove_at(i);
+			break;
+		}
+		else if(players[i2].afk||players[i2].pacifico==1){
+			int index=get_player_index_from(misseisguiados[i].nome);
+			if(index>-1)players[index].inv_add_item("míssil_teleguiado", 1);
+			misseisguiados.remove_at(i);
+			break;
+		}
+		if(players[i2].map!=misseisguiados[i].mapa){
+			misseisguiados[i].mapa=players[i2].map;
+			misseisguiados[i].y=13;
+			destroy_moving_sound(misseisguiados[i].s);
+			misseisguiados[i].s=spawn_moving_sound("rpgloop.ogg", misseisguiados[i].x, misseisguiados[i].y, misseisguiados[i].mapa);
+			break;
+		}
+		if(players[i2].x==misseisguiados[i].x&&misseisguiados[i].y==players[i2].y){
+			players[i2].health-=random(5000, 8000);
+			players[i2].lasthit="missil_"+misseisguiados[i].nome;
+			send_packet(0, "play boobytraphit3.ogg "+misseisguiados[i].x+" "+misseisguiados[i].y, misseisguiados[i].mapa);
+			send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+			misseisguiados.remove_at(i);
+			break;
+		}
+		else if(misseisguiados[i].tandar.elapsed>=80){
+			misseisguiados[i].tandar.restart();
+			if(misseisguiados[i].y>players[i2].y){
+				misseisguiados[i].y--;
+				update_moving_sound(misseisguiados[i].s, misseisguiados[i].x, misseisguiados[i].y);
+			}
+			else if(misseisguiados[i].y<players[i2].y){
+				misseisguiados[i].y++;
+				update_moving_sound(misseisguiados[i].s, misseisguiados[i].x, misseisguiados[i].y);
+			}
+			else if(misseisguiados[i].x>players[i2].x){
+				misseisguiados[i].x--;
+				update_moving_sound(misseisguiados[i].s, misseisguiados[i].x, misseisguiados[i].y);
+			}
+			else if(misseisguiados[i].x<players[i2].x){
+				misseisguiados[i].x++;
+				update_moving_sound(misseisguiados[i].s, misseisguiados[i].x, misseisguiados[i].y);
+			}
+		}
+	}
+}

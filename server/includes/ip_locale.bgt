@@ -7,16 +7,13 @@ I will not be held responsible for any harm that comes out of the use of any of 
 */
 // start of class
 
-class ip_locale
-{
-	// constructer
-	ip_locale()
-	{
+class ip_locale{
+	// constructor
+	ip_locale(){
 		reset();
 	}
 	// reset all variables to default. 
-	void reset()
-	{
+	void reset(){
 		active=false;
 		requested=false;
 		raw_data="";
@@ -32,15 +29,13 @@ class ip_locale
 		time_zone="";
 	}
 	// set the IP address to geolocate. Passing "AUTO" to the function will determine the location from the clients IP address. 
-	void set_ip(string ip="AUTO")
-	{
+	void set_ip(string ip="AUTO"){
 		reset();
 		ip_query=ip;
 		active=true;
 	}
 	// request. Sends a request out to "www.ipinfodb.com" and fills all variables with location data on success. 
-	bool request()
-	{
+	bool request(){
 		if(requested==false and active==true)
 		{
 			if(ip_query=="AUTO")
@@ -78,64 +73,55 @@ class ip_locale
 		}
 	}
 	// below are all of the string functions to retreive the location data. 
-	string get_ip_address()
-	{
+	string get_ip_address(){
 		if(active and requested)
 		return ip_address;
 		else
 		return "";
 	}
-	string get_country_code()
-	{
+	string get_country_code(){
 		if(active and requested)
 		return country_code;
 		else
 		return "";
 	}
-	string get_country_name()
-	{
+	string get_country_name(){
 		if(active and requested)
 		return country_name;
 		else
 		return "";
 	}
-	string get_state()
-	{
+	string get_state(){
 		if(active and requested)
 		return state;
 		else
 		return "";
 	}
-	string get_city()
-	{
+	string get_city(){
 		if(active and requested)
 		return city;
 		else
 		return "";
 	}
-	string get_zipcode()
-	{
+	string get_zipcode(){
 		if(active and requested)
 		return zipcode;
 		else
 		return "";
 	}
-	string get_latitude()
-	{
+	string get_latitude(){
 		if(active and requested)
 		return latitude;
 		else
 		return "";
 	}
-	string get_longitude()
-	{
+	string get_longitude(){
 		if(active and requested)
 		return longitude;
 		else
 		return "";
 	}
-	string get_time_zone()
-	{
+	string get_time_zone(){
 		if(active and requested)
 		return time_zone;
 		else

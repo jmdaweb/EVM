@@ -1,0 +1,85 @@
+//lobo
+lobo@[] lobos;
+class lobo{
+	int x, y, ladoandar=2;
+	uint tiros=1;
+	int vida=random(3000, 3300);
+	string golpeado;
+	string map;
+	timer lobotimer;
+	timer tempoatirar;
+	timer tsom;
+	int asom=4000;
+	int lobotime=290;
+	lobo(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void loboloop(){
+	for(uint i=0; i<lobos.length(); i++){
+		if(lobos[i].vida<=0){
+			uint total=0;
+			send_packet(0,"play m_lobo.ogg "+lobos[i].x+" "+lobos[i].y+" "+lobos[i].map,lobos[i].map);
+			string golp=lobos[i].golpeado;
+			if(string_contains(golp, "magnet_", 1)>-1){
+				golp=string_replace(golp, "magnet_", "", true);
+				send_reliable(0, "msg2 um; ;lobo ;morreu no; ;item_magnético; ;de; ;"+golp+";!", 3);
+			}
+			else{
+				send_reliable(0, "msg2 "+golp+"; ;matou um; ;lobo;!", 3);
+			}
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				players[xx].inv_add_item("corpo_de_lobo", 1);
+				ganhaxp(players[xx].charname, random(20, 30));
+			}
+			lobos.remove_at(i);
+			break;
+		}
+		if(lobos[i].tsom.elapsed>=lobos[i].asom+random(1000, 3200)){
+			lobos[i].tsom.restart();
+			string ss="lobonervoso"+random(1, 5)+".ogg";
+			send_packet(0,"play "+ss+" "+lobos[i].x+" "+lobos[i].y+" "+lobos[i].map,lobos[i].map);
+		}
+		if(lobos[i].lobotimer.elapsed>=lobos[i].lobotime){
+			lobos[i].lobotimer.restart();
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(lobos[i].x>players[i2].x+2&&players[i2].insz==false&&players[i2].map==lobos[i].map&&players[i2].newbie==false&&players[i2].afk==false&&players[i2].pacifico==0&&lobos[i].y<=1){
+					lobos[i].x-=2;
+					string ss=get_tile_at(lobos[i].x, lobos[i].y, lobos[i].map);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+lobos[i].x+" "+lobos[i].y+" "+lobos[i].map,lobos[i].map);
+					lobos[i].lobotimer.restart();
+					break;
+				}
+				else if(lobos[i].x<players[i2].x-2&&players[i2].insz==false&&lobos[i].map==players[i2].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&lobos[i].y<=1){
+					lobos[i].x+=2;
+					string ss=get_tile_at(lobos[i].x, lobos[i].y, lobos[i].map);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+lobos[i].x+" "+lobos[i].y+" "+lobos[i].map,lobos[i].map);
+					lobos[i].lobotimer.restart();
+					break;
+				}
+				if(get_lobo_distance(lobos[i], players[i2])>-1&&get_lobo_distance(lobos[i],players[i2])<=2&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&lobos[i].tempoatirar.elapsed>=500&&lobos[i].tiros>0){
+					lobos[i].tempoatirar.restart();
+					send_packet(0,"play lobobater.ogg "+lobos[i].x+" "+lobos[i].y+" "+lobos[i].map,lobos[i].map);
+					int r=refletir(i2, "lobo", lobos[i].x, lobos[i].y, random(300, 500));
+					if(r>0){lobos[i].vida-=r;lobos[i].golpeado=players[i2].charname;break;}
+					players[i2].health-=random(300, 500);
+					send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+					players[i2].lasthit="lobo";
+					lobos[i].tiros--;
+					break;
+				}
+				if(lobos[i].tiros<=0){
+					lobos[i].tiros=1;
+					lobos[i].tempoatirar.restart();
+				}
+			}
+		}
+	}
+}
+void spawn_lobo(int x, int y, string map){
+	lobo c(x, y, map);
+	lobos.insert_last(c);
+}

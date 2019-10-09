@@ -1,0 +1,86 @@
+//cachorro
+cachorro@[] cachorros;
+class cachorro{
+	int x, y, ladoandar=2;
+	uint tiros=1;
+	int vida=random(2000, 2300);
+	string golpeado;
+	string map;
+	timer cachorrotimer;
+	timer tempoatirar;
+	timer tsom;
+	int asom=4000;
+	int cachorrotime=290;
+	cachorro(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void cachorroloop(){
+	for(uint i=0; i<cachorros.length(); i++){
+		if(cachorros[i].vida<=0){
+			uint total=0;
+			send_packet(0,"play m_cachorro.ogg "+cachorros[i].x+" "+cachorros[i].y+" "+cachorros[i].map,cachorros[i].map);
+			string golp=cachorros[i].golpeado;
+			if(string_contains(golp, "magnet_", 1)>-1){
+				golp=string_replace(golp, "magnet_", "", true);
+				send_reliable(0, "msg2 um; ;cachorro; ;morreu no; ;item_magnético; ;de; ;"+golp+";!", 3);
+			}
+			else{
+				send_reliable(0, "msg2 "+golp+"; ;matou um; ;cachorro;!", 3);
+			}
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				players[xx].inv_add_item("corpo_de_cachorro", 1);
+				ganhaxp(players[xx].charname, random(10, 20));
+			}
+			cachorros.remove_at(i);
+			break;
+		}
+		if(cachorros[i].tsom.elapsed>=cachorros[i].asom+random(1000, 3200)){
+			cachorros[i].tsom.restart();
+			string ss="cachorronervoso"+random(1, 5)+".ogg";
+			send_packet(0,"play "+ss+" "+cachorros[i].x+" "+cachorros[i].y+" "+cachorros[i].map,cachorros[i].map);
+		}
+		if(cachorros[i].cachorrotimer.elapsed>=cachorros[i].cachorrotime){
+			cachorros[i].cachorrotimer.restart();
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(cachorros[i].x>players[i2].x+2&&players[i2].insz==false&&players[i2].map==cachorros[i].map&&players[i2].newbie==false&&players[i2].afk==false&&players[i2].pacifico==0&&cachorros[i].y<=1){
+					cachorros[i].x-=2;
+					string ss=get_tile_at(cachorros[i].x, cachorros[i].y, cachorros[i].map);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+cachorros[i].x+" "+cachorros[i].y+" "+cachorros[i].map,cachorros[i].map);
+					cachorros[i].cachorrotimer.restart();
+					break;
+				}
+				else if(cachorros[i].x<players[i2].x-2&&players[i2].insz==false&&cachorros[i].map==players[i2].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&cachorros[i].y<=1){
+					cachorros[i].x+=2;
+					string ss=get_tile_at(cachorros[i].x, cachorros[i].y, cachorros[i].map);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+cachorros[i].x+" "+cachorros[i].y+" "+cachorros[i].map,cachorros[i].map);
+					cachorros[i].cachorrotimer.restart();
+					break;
+				}
+				if(get_cachorro_distance(cachorros[i], players[i2])>-1&&get_cachorro_distance(cachorros[i],players[i2])<=2&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&cachorros[i].tempoatirar.elapsed>=500&&cachorros[i].tiros>0){
+					cachorros[i].tempoatirar.restart();
+					send_packet(0,"play cachorrobater.ogg "+cachorros[i].x+" "+cachorros[i].y+" "+cachorros[i].map,cachorros[i].map);
+					int r=refletir(i2, "cachorro", cachorros[i].x, cachorros[i].y, random(300, 500));
+					if(r>0){cachorros[i].vida-=r;cachorros[i].golpeado=players[i2].charname;break;}
+					players[i2].health-=random(300, 500);
+					send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+					players[i2].lasthit="cachorro";
+					cachorros[i].tiros--;
+					break;
+				}
+				if(cachorros[i].tiros<=0){
+					cachorros[i].tiros=1;
+					cachorros[i].tempoatirar.restart();
+				}
+			}
+		}
+	}
+	netloop();
+}
+void spawn_cachorro(int x, int y, string map){
+	cachorro c(x, y, map);
+	cachorros.insert_last(c);
+}

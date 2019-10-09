@@ -1,0 +1,43 @@
+//Cavalo
+cavalo@[] cavalos;
+class cavalo{
+	int x, y, nandar=410, andando=2;
+	timer tandar;
+	string mapa;
+	cavalo(int cx, int cy, string cmapa){
+		x=cx;
+		y=cy;
+		mapa=cmapa;
+	}
+}
+void novo_cavalo(int x, int y, string mapa){
+	cavalo c(x, y, mapa);
+	cavalos.insert_last(c);
+}
+void cavaloloop(){
+	for(uint i=0;i<cavalos.length();i++){
+		if(cavalos[i].tandar.elapsed>=cavalos[i].nandar){
+			cavalos[i].tandar.restart();
+			if(cavalos[i].andando==2)cavalos[i].x++;
+			else if(cavalos[i].andando==1)cavalos[i].x--;
+			if(players.length()>0)send_packet(0, "play cavaloloop.ogg "+cavalos[i].x+" "+cavalos[i].y, cavalos[i].mapa);
+			for(uint i2=0;i2<players.length();i2++){
+				if(cavalos[i].x==players[i2].x&&cavalos[i].y==players[i2].y&&cavalos[i].mapa==players[i2].map&&players[i2].cavalo==false){
+					players[i2].health-=random(4000, 4700);
+					send_packet(0, "play cavalocoice.ogg "+players[i2].x+" "+players[i2].y, players[i2].map);
+					players[i2].lasthit="Cavalo";
+					break;
+				}
+			}
+			for(uint i2=0;i2<players.length();i2++){
+				if(players[i2].map==cavalos[i].mapa&&players[i2].cavalo==true){
+					players[i2].x=cavalos[i].x;
+					players[i2].y=(cavalos[i].y+1);
+					send_packet(0,"update_player2 "+players[i2].charname+" "+players[i2].x+" "        +players[i2].y+" "+players[i2].map,players[i2].map);
+				}
+			}
+			if(cavalos[i].andando==2&&string_contains(get_tile_at(cavalos[i].x+1, cavalos[i].y, cavalos[i].mapa), "wall", 1)>-1)cavalos[i].andando=1;
+			else if(cavalos[i].andando==1&&string_contains(get_tile_at(cavalos[i].x-1, cavalos[i].y, cavalos[i].mapa), "wall", 1)>-1)cavalos[i].andando=2;
+		}
+	}
+}

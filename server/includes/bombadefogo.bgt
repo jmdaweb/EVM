@@ -1,0 +1,46 @@
+//bomba de fogo
+bombadefogo@[] bombadefogos;
+class bombadefogo{
+	int x, y;
+	string map, nome, spa;
+	int tempoativar=30000;
+	int tempofogo=15000;
+	timer ativartimer, fogotimer, perdetimer;
+	bool ativada=false;
+	bombadefogo(int cx, int cy, string cmap, string cnome){
+		x=cx;
+		y=cy;
+		map=cmap;
+		nome=cnome;
+	}
+}
+void bombadefogoloop(){
+	for(uint i=0; i<bombadefogos.length(); i++){
+		if(bombadefogos[i].ativartimer.elapsed>=bombadefogos[i].tempoativar&&bombadefogos[i].ativada==false){
+			bombadefogos[i].ativada=true;
+			send_packet(0, "play bombadefogoexplode.ogg "+bombadefogos[i].x+" "+bombadefogos[i].y, bombadefogos[i].map);
+			bombadefogos[i].spa=spawn_splay("boladefogo.ogg", bombadefogos[i].map);
+			bombadefogos[i].perdetimer.restart();
+		}
+		if(bombadefogos[i].perdetimer.elapsed>=18000&&bombadefogos[i].ativada==true){
+			destroy_splay(bombadefogos[i].spa);
+			bombadefogos.remove_at(i);
+			break;
+		}
+		if(bombadefogos[i].ativada==true){
+			for(uint i2=0;i2<players.length();i2++){
+				if(players[i2].map==bombadefogos[i].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&players[i2].tempofogo.elapsed>=500){
+					players[i2].health-=random(1000, 2000);
+					players[i2].lasthit="bombadefogo_"+bombadefogos[i].nome;
+					players[i2].tempofogo.restart();
+				}
+			}
+		}
+	}
+}
+void spawn_bombadefogo(int x, int y, string map, string nome){
+	if(!pvp)return;
+	bombadefogo c(x, y, map, nome);
+	bombadefogos.insert_last(c);
+	send_packet(0,"play bombadefogoativar.ogg "+x+" "+y+" "+map,map);
+}

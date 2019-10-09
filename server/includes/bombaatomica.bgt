@@ -1,0 +1,66 @@
+//Bomba atômica
+bombaatomica@[] bombaatomicas;
+class bombaatomica{
+	int x, y;
+	string map, nome;
+	timer bombaatomicatimer;
+	int bombaatomicatime=60000;
+	bombaatomica(int cx, int cy, string cmap, string cnome){
+		x=cx;
+		y=cy;
+		map=cmap;
+		nome=cnome;
+	}
+}
+void bombaatomicaloop(){
+	for(uint i=0; i<bombaatomicas.length(); i++){
+		if(bombaatomicas[i].bombaatomicatimer.elapsed>=bombaatomicas[i].bombaatomicatime){
+			send_packet(0,"play bombaatomicaexplode.ogg "+bombaatomicas[i].x+" "+bombaatomicas[i].y+" "+bombaatomicas[i].map,bombaatomicas[i].map);
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(players[i2].map==bombaatomicas[i].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false){
+					players[i2].health=0;
+					players[i2].lasthit="bombaatomica_"+bombaatomicas[i].nome;
+					wait(5);
+				}
+			}
+			for(uint i3=0; i3<objs.length(); i3++){
+				if(bombaatomicas[i].map==objs[i3].map){
+					objs[i3].obtainable=false;
+					objs[i3].delete=true;
+					objloop();
+				}
+			}
+			file f;
+			f.open("maps/"+bombaatomicas[i].map+".map", "r");
+			string mdata=f.read();
+			f.close();
+			string[] p1=delinear(mdata);
+			for(uint ii=0; ii<p1.length(); ii++){
+				string[] parsed=string_split(p1[ii], ":", true);
+				if(parsed[0]=="travelpoint"&&parsed.length()>8){
+					string newmap=parsed[7];
+					for(uint i2=0; i2 < players.length(); i2++){
+						if(players[i2].map==newmap&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false){
+							players[i2].health=0;
+							players[i2].lasthit="bombaatomica_"+bombaatomicas[i].nome;
+						}
+					}
+					for(uint i3=0; i3<objs.length(); i3++){
+						if(newmap==objs[i3].map){
+							objs[i3].obtainable=false;
+							objs[i3].delete=true;
+							objloop();
+						}
+					}
+				}
+			}
+			bombaatomicas.remove_at(i);
+		}
+	}
+}
+void spawn_bombaatomica(int x, int y, string map, string nome){
+	if(!pvp)return;
+	bombaatomica c(x, y, map, nome);
+	bombaatomicas.insert_last(c);
+	send_packet(0,"play atomicaativada.ogg "+x+" "+y+" "+map,map);
+}

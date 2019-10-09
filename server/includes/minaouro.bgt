@@ -1,0 +1,15 @@
+//Mina de ouro
+minaouro@[]minasouro;
+class minaouro{
+	int x, y, quantoscavar=random(100, 200), quantosouro=random(4, 10);
+	string map;
+	minaouro(int mx, int my, string mmap){
+		x=mx;
+		y=my;
+		map=mmap;
+	}
+}
+void colocar_minaouro(int x, int y, string map){
+	minaouro o(x, y, map);
+	minasouro.insert_last(o);
+}

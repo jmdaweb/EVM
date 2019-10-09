@@ -1,0 +1,122 @@
+//macaco
+macaco@[] macacos;
+class macaco{
+	int x, y, asom=4000;
+	uint tiros=1;
+	int vida=1800;
+	string golpeado;
+	string map;
+	timer macacotimer, tsom;
+	timer tempoatirar;
+	int macacotime=370;
+	bool modofugir=false;
+	macaco(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void macacoloop(){
+	for(uint i=0; i<macacos.length(); i++){
+		if(macacos[i].vida<=0){
+			send_packet(0,"play m_macaco.ogg "+macacos[i].x+" "+macacos[i].y+" "+macacos[i].map,macacos[i].map);
+			string golp=macacos[i].golpeado;
+			send_reliable(0, "msg2 "+golp+"; ;matou um; ;macaco;!", 3);
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				players[xx].inv_add_item("corpo_de_macaco", 1);
+				ganhaxp(players[xx].charname, random(5, 10));
+			}
+			macacos.remove_at(i);
+			break;
+		}
+		if(macacos[i].tsom.elapsed>=macacos[i].asom+random(1000, 2000)){
+			macacos[i].tsom.restart();
+			string ss="macaco"+random(1, 3)+".ogg";
+			send_packet(0,"play "+ss+" "+macacos[i].x+" "+macacos[i].y+" "+macacos[i].map,macacos[i].map);
+		}
+		if(macacos[i].macacotimer.elapsed>=macacos[i].macacotime){
+			macacos[i].macacotimer.restart();
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(macacos[i].x>players[i2].x+1&&players[i2].insz==false&&players[i2].map==macacos[i].map&&players[i2].newbie==false&&players[i2].afk==false&&players[i2].pacifico==0&&macacos[i].modofugir==false){
+					macacos[i].x--;
+					string ss=get_tile_at(macacos[i].x, macacos[i].y, macacos[i].map);
+					send_packet(0,"play "+ss+" "+macacos[i].x+" "+macacos[i].y+" "+macacos[i].map,macacos[i].map);
+					macacos[i].macacotimer.restart();
+					break;
+				}
+				else if(macacos[i].x<players[i2].x-1&&players[i2].insz==false&&macacos[i].map==players[i2].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&macacos[i].modofugir==false){
+					macacos[i].x++;
+					string ss=get_tile_at(macacos[i].x, macacos[i].y, macacos[i].map);
+					send_packet(0,"play "+ss+" "+macacos[i].x+" "+macacos[i].y+" "+macacos[i].map,macacos[i].map);
+					macacos[i].macacotimer.restart();
+					break;
+				}
+				if(get_macaco_distance(macacos[i], players[i2])>-1&&get_macaco_distance(macacos[i],players[i2])<=2&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&macacos[i].tempoatirar.elapsed>=500&&macacos[i].tiros>0&&players[i2].insz==false){
+					macacos[i].tempoatirar.restart();
+					send_packet(0,"play macacobater1.ogg "+macacos[i].x+" "+macacos[i].y+" "+macacos[i].map,macacos[i].map);
+					int r=refletir(i2, "macaco", macacos[i].x, macacos[i].y, random(50, 100));
+					if(r>0){macacos[i].vida-=r;macacos[i].golpeado=players[i2].charname;break;}
+					players[i2].health-=random(50, 100);
+					send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+					players[i2].lasthit="macaco";
+					macacos[i].tiros--;
+					break;
+				}
+				if(macacos[i].tiros<=0){
+					macacos[i].tiros=1;
+					macacos[i].tempoatirar.restart();
+				}
+			}
+			for(uint za=0;za<objs.length();za++){
+				if(macacos[i].map==objs[za].map&&macacos[i].y<objs[za].y){
+					if(objs[za].item=="banana"||objs[za].item=="maçã"||objs[za].item=="figo"||objs[za].item=="morango"||objs[za].item=="goiaba"||objs[za].item=="pera"||objs[za].item=="jabuticaba"||objs[za].item=="caqui"||objs[za].item=="amora"){
+						macacos[i].y++;
+						string ss=get_tile_at(macacos[i].x, macacos[i].y, macacos[i].map);
+						send_packet(0,"play "+ss+" "+macacos[i].x+" "+macacos[i].y+" "+macacos[i].map,macacos[i].map);
+						break;
+					}
+				}
+				if(macacos[i].map==objs[za].map&&macacos[i].y>objs[za].y){
+					if(objs[za].item=="banana"||objs[za].item=="maçã"||objs[za].item=="figo"||objs[za].item=="morango"||objs[za].item=="goiaba"||objs[za].item=="pera"||objs[za].item=="jabuticaba"||objs[za].item=="caqui"||objs[za].item=="amora"){
+						macacos[i].y--;
+						string ss=get_tile_at(macacos[i].x, macacos[i].y, macacos[i].map);
+						send_packet(0,"play "+ss+" "+macacos[i].x+" "+macacos[i].y+" "+macacos[i].map,macacos[i].map);
+						break;
+					}
+				}
+				if(macacos[i].map==objs[za].map&&macacos[i].x<objs[za].x){
+					if(objs[za].item=="banana"||objs[za].item=="maçã"||objs[za].item=="figo"||objs[za].item=="morango"||objs[za].item=="goiaba"||objs[za].item=="pera"||objs[za].item=="jabuticaba"||objs[za].item=="caqui"||objs[za].item=="amora"){
+						macacos[i].x++;
+						string ss=get_tile_at(macacos[i].x, macacos[i].y, macacos[i].map);
+						send_packet(0,"play "+ss+" "+macacos[i].x+" "+macacos[i].y+" "+macacos[i].map,macacos[i].map);
+						break;
+					}
+				}
+				if(macacos[i].map==objs[za].map&&macacos[i].x>objs[za].x){
+					if(objs[za].item=="banana"||objs[za].item=="maçã"||objs[za].item=="figo"||objs[za].item=="morango"||objs[za].item=="goiaba"||objs[za].item=="pera"||objs[za].item=="jabuticaba"||objs[za].item=="caqui"||objs[za].item=="amora"){
+						macacos[i].x--;
+						string ss=get_tile_at(macacos[i].x, macacos[i].y, macacos[i].map);
+						send_packet(0,"play "+ss+" "+macacos[i].x+" "+macacos[i].y+" "+macacos[i].map,macacos[i].map);
+						break;
+					}
+				}
+				else if(macacos[i].map==objs[za].map&&macacos[i].x==objs[za].x&&macacos[i].y==objs[za].y){
+					if(objs[za].item=="banana"||objs[za].item=="maçã"||objs[za].item=="figo"||objs[za].item=="morango"||objs[za].item=="goiaba"||objs[za].item=="pera"||objs[za].item=="jabuticaba"||objs[za].item=="caqui"||objs[za].item=="amora"){
+						macacos[i].y+=10;
+						if(macacos[i].y>20) macacos[i].y=20;
+						objs[za].obtainable=false;
+						objs[za].delete=true;
+						objloop();
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+void spawn_macaco(int x, int y, string map){
+	if(!pvp)return;
+	macaco c(x, y, map);
+	macacos.insert_last(c);
+}

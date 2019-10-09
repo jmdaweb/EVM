@@ -1,0 +1,39 @@
+//cachorro
+dog@[] dogs;
+class dog{
+	int x;
+	int y;
+	string map;
+	string sounddog;
+	timer dogtimer;
+	int dogtime=500;
+	dog(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+		sounddog=spawn_moving_sound("water5.ogg",x,y,map);
+	}
+}
+void dogloop(){
+	for(uint i=0; i<dogs.length(); i++){
+		if(dogs[i].dogtimer.elapsed>=dogs[i].dogtime){
+			dogs[i].x--;
+			update_moving_sound(dogs[i].sounddog,dogs[i].x,dogs[i].y);
+			dogs[i].dogtimer.restart();
+		}
+		if(dogs[i].x<-20){
+			destroy_moving_sound(dogs[i].sounddog);
+			dogs.remove_at(i);
+			break;
+		}
+		for(uint i2=0; i2<players.length(); i2++){
+			if(players[i2].x==dogs[i].x&&players[i2].y<=dogs[i].y&&players[i2].map==dogs[i].map){
+				changemap("túnel", i2);
+			}
+		}
+	}
+}
+void spawn_dog(int x, int y, string map){
+	dog c(x, y, map);
+	dogs.insert_last(c);
+}

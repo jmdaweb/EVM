@@ -1,0 +1,82 @@
+rato@[] ratos;
+class rato{
+	int x, y, asom=2000;
+	uint tiros=1;
+	int vida=300;
+	string golpeado;
+	string map;
+	timer ratotimer, tsom;
+	timer tempoatirar;
+	int ratotime=200;
+	bool modofugir=false;
+	rato(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void ratoloop(){
+	for(uint i=0; i<ratos.length(); i++){
+		if(ratos[i].vida<=0){
+			send_packet(0,"play m_rato.ogg "+ratos[i].x+" "+ratos[i].y,ratos[i].map);
+			string golp=ratos[i].golpeado;
+			send_reliable(0, "msg2 "+golp+"; ;matou um; ;rato;!", 3);
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				players[xx].inv_add_item("corpo_de_rato", 1);
+				ganhaxp(players[xx].charname, random(5, 10));
+			}
+			ratos.remove_at(i);
+			break;
+		}
+		if(ratos[i].tsom.elapsed>=ratos[i].asom+random(1000, 2000)){
+			ratos[i].tsom.restart();
+			string ss="rato.ogg";
+			send_packet(0,"play "+ss+" "+ratos[i].x+" "+ratos[i].y,ratos[i].map);
+		}
+		if(ratos[i].ratotimer.elapsed>=ratos[i].ratotime){
+			ratos[i].ratotimer.restart();
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(ratos[i].x>players[i2].x+1&&players[i2].insz==false&&players[i2].map==ratos[i].map&&players[i2].newbie==false&&players[i2].afk==false){
+					ratos[i].x--;
+					string ss=get_tile_at(ratos[i].x, ratos[i].y, ratos[i].map);
+					send_packet(0,"play "+ss+" "+ratos[i].x+" "+ratos[i].y+" "+ratos[i].map,ratos[i].map);
+					ratos[i].ratotimer.restart();
+					break;
+				}
+				else if(ratos[i].x<players[i2].x-1&&players[i2].insz==false&&ratos[i].map==players[i2].map&&players[i2].afk==false&&players[i2].newbie==false){
+					ratos[i].x++;
+					string ss=get_tile_at(ratos[i].x, ratos[i].y, ratos[i].map);
+					send_packet(0,"play "+ss+" "+ratos[i].x+" "+ratos[i].y+" "+ratos[i].map,ratos[i].map);
+					ratos[i].ratotimer.restart();
+					break;
+				}
+				if(get_rato_distance(ratos[i], players[i2])>-1&&get_rato_distance(ratos[i],players[i2])<=2&&players[i2].afk==false&&players[i2].newbie==false&&ratos[i].tempoatirar.elapsed>=1500&&ratos[i].tiros>0&&players[i2].insz==false){
+					ratos[i].tempoatirar.restart();
+					send_packet(0,"play ratobater1.ogg "+ratos[i].x+" "+ratos[i].y+" "+ratos[i].map,ratos[i].map);
+					int fdoente=random(1, 100);
+					if(fdoente>60){
+						players[i2].health-=random(50, 100);
+						players[i2].doente+=random(1, 5);;
+						players[i2].tdoente2.restart();
+						send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+						players[i2].lasthit="rato";
+						players[i2].tdoente2.restart();
+						ratos[i].tiros--;
+						break;
+					}
+				}
+				if(ratos[i].tiros<=0){
+					ratos[i].tiros=1;
+					ratos[i].tempoatirar.restart();
+				}
+			}
+		}
+	}
+	netloop();
+}
+void spawn_rato(int x, int y, string map){
+	if(!pvp)return;
+	rato c(x, y, map);
+	ratos.insert_last(c);
+}

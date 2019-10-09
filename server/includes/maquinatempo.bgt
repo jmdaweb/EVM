@@ -1,0 +1,37 @@
+//Máquina do tempo
+class maquinatempo{
+	int x,y;
+	string id,map;
+	int ligada=0;
+	maquinatempo(string mid, int mx, int my,string mm){
+		id=mid;
+		x=mx;
+		y=my;
+		map=mm;
+	}
+}
+maquinatempo@[] maquinatempos;
+void spawnmaquinatempo(int x, int y, string map){
+	string id;
+	bool breakit=false;
+	while(true){
+		id=randomstring();
+		breakit=true;
+		for(uint i=0; i<maquinatempos.length; i++){
+			if(maquinatempos[i].id==id) breakit=false;
+		}
+		if(breakit) break;
+	}
+	maquinatempo m1(id,x,y,map);
+	maquinatempos.insert_last(m1);
+	send_packet(0,"spawnmaquinatempo "+id+" "+x+" "+y+" "+map,map);
+}
+void destroymaquinatempo(string id){
+	for(uint i=0; i<maquinatempos.length; i++){
+		if(maquinatempos[i].id==id){
+			send_reliable(0,"destroymaquinatempo "+id, 0);
+			maquinatempos.remove_at(i);
+			continue;
+		}
+	}
+}

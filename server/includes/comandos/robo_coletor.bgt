@@ -1,0 +1,79 @@
+//robô_coletor
+robo_coletor@[] robo_coletores;
+class robo_coletor{
+	int x, y, vida=random(3000, 6000), morrendo=0, morreu=0, nsom=random(350, 1200);
+	string mapa, golpeado, njogador, s;
+	timer tandar, tmorreu, tsom;
+	robo_coletor(int zx, int zy, string m){
+		x=zx;
+		y=zy;
+		mapa=m;
+		tmorreu.force(0);
+		tmorreu.pause();
+		s=spawn_moving_sound("rloop"+random(1, 2)+".ogg", x, y, mapa);
+	}
+}
+void colocar_robo_coletor(int x, int y, string m){
+	robo_coletor z(x, y, m);
+	robo_coletores.insert_last(z);
+}
+void robo_coletorloop(){
+	for(uint i=0;i<robo_coletores.length();i++){
+		if(robo_coletores[i].morreu==0&&robo_coletores[i].vida<=0){
+			send_packet(0, "play m_robo_coletor.ogg "+robo_coletores[i].x+" "+robo_coletores[i].y, robo_coletores[i].mapa);
+			robo_coletores[i].tmorreu.restart();
+			robo_coletores[i].morreu=1;
+		}
+		if(robo_coletores[i].vida<=0&&robo_coletores[i].morreu==1&&robo_coletores[i].tmorreu.elapsed>=990){
+			send_packet(0, "play "+get_tile_at(robo_coletores[i].x, robo_coletores[i].y, robo_coletores[i].mapa)+"harland.ogg "+robo_coletores[i].x+" "+robo_coletores[i].y, robo_coletores[i].mapa);
+			string golp=robo_coletores[i].golpeado;
+			send_reliable(0, "msg2 "+golp+"; ;matou um; ;robô_coletor;!", 3);
+			destroy_moving_sound(robo_coletores[i].s);
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				ganhaxp(players[xx].charname, random(50, 100), random(1000, 3000));
+			}
+			robo_coletores.remove_at(i);
+			break;
+		}
+		if(robo_coletores[i].tsom.elapsed>=robo_coletores[i].nsom&&robo_coletores[i].morrendo==0&&robo_coletores[i].morreu==0){
+			robo_coletores[i].nsom=random(2000, 6200);
+			send_packet(0, "play robo"+random(1, 3)+".ogg "+robo_coletores[i].x+" "+robo_coletores[i].y, robo_coletores[i].mapa);
+			robo_coletores[i].tsom.restart();
+		}
+		if(robo_coletores[i].tandar.elapsed>=210&&robo_coletores[i].morrendo==0&&robo_coletores[i].morreu==0){
+			robo_coletores[i].tandar.restart();
+			int i2=get_player_index_from(robo_coletores[i].njogador);
+			if(i2>-1){
+				if(players[i2].pacifico==1||get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==true||players[i2].afk||players[i2].map!=robo_coletores[i].mapa)i2=-1;
+			}
+			if(i2<0)robo_coletores[i].njogador=selecionar_jogador(robo_coletores[i].mapa);
+			i2=get_player_index_from(robo_coletores[i].njogador);
+			if(i2>-1){
+				if(players[i2].pacifico==1||get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==true||players[i2].afk||players[i2].map!=robo_coletores[i].mapa)i2=-1;
+			}
+			if(i2<0)break;
+			int andar=1;
+			if(g_robo_coletore(robo_coletores[i], players[i2])>-1&&g_robo_coletore(robo_coletores[i], players[i2])<=2&&players[i2].afk==false&&players[i2].pacifico==0&&get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==false){
+				andar=0;
+				players[i2].health-=random(3000, 4000);
+				players[i2].lasthit="robô_coletor";
+				send_packet(0, "play robobater"+random(1, 2)+".ogg "+players[i2].x+" "+players[i2].y, players[i2].map);
+			}
+			if(robo_coletores[i].x>players[i2].x-1&&!players[i2].afk&&string_contains(get_tile_at(robo_coletores[i].x-1, robo_coletores[i].y, robo_coletores[i].mapa), "wall", 1)<0&&andar==1){
+				robo_coletores[i].x--;
+				update_moving_sound(robo_coletores[i].s,robo_coletores[i].x,robo_coletores[i].y);
+				send_packet(0, "play "+get_tile_at(robo_coletores[i].x, robo_coletores[i].y, robo_coletores[i].mapa)+"step"+random(1, 5)+".ogg "+robo_coletores[i].x+" "+robo_coletores[i].y, robo_coletores[i].mapa);
+				andar=0;
+				break;
+			}
+			else if(robo_coletores[i].x<players[i2].x+1&&!players[i2].afk&&string_contains(get_tile_at(robo_coletores[i].x+1, robo_coletores[i].y, robo_coletores[i].mapa), "wall", 1)<0&&andar==1){
+				robo_coletores[i].x++;
+				update_moving_sound(robo_coletores[i].s,robo_coletores[i].x,robo_coletores[i].y);
+				send_packet(0, "play "+get_tile_at(robo_coletores[i].x, robo_coletores[i].y, robo_coletores[i].mapa)+"step"+random(1, 5)+".ogg "+robo_coletores[i].x+" "+robo_coletores[i].y, robo_coletores[i].mapa);
+				andar=0;
+				break;
+			}
+		}
+	}
+}

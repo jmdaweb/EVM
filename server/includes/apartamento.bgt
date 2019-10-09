@@ -1,0 +1,120 @@
+//apartamentos
+apartamento@[]apartamentos;
+class apartamento{
+	string apartamentoinv;
+	string map;
+	apartamento(string cm, string ci){
+		map=cm;
+		apartamentoinv=ci;
+	}
+	void inv_add_item(string itemname, int itemvalue, bool enviar=true){
+		string content=apartamentoinv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++){
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		if(inv_item_exists(itemname)){
+			int orgval;
+			if(inv_item(itemname) > -1){
+				orgval=string_to_number(values[inv_item(itemname)]);
+			}
+			else
+			{
+				return;
+			}
+			if(orgval+itemvalue < 1){
+				inv_delete_item(itemname);
+			}
+			else
+			{
+				values[inv_item(itemname)]=(orgval+itemvalue);
+				string tempinv;
+				for(uint i=0; i<peramitors.length(); i++){
+					tempinv+=peramitors[i]+"="+values[i]+"\r\n";
+				}
+				apartamentoinv=tempinv;
+			}
+		}
+		else
+		{
+			if(itemvalue > 0){
+				apartamentoinv+=itemname+"="+itemvalue+"\r\n";
+			}
+		}
+		send_packet(0, "apartamentoinv "+apartamentoinv, map);
+	}
+	bool inv_item_exists(string itemname){
+		string content=apartamentoinv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++){
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		for(uint i=0; i<peramitors.length(); i++){
+			if(peramitors[i]==itemname){
+				return true;
+			}
+		}
+		return false;
+	}
+	int inv_item_number(string itemname){
+		string content=apartamentoinv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++){
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		for(uint i=0; i<peramitors.length(); i++){
+			if(peramitors[i]==itemname){
+				return string_to_number(values[i]);
+			}
+		}
+		return 0;
+	}
+	int inv_item(string itemname){
+		string content=apartamentoinv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++){
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		for(uint i=0; i<peramitors.length(); i++){
+			if(peramitors[i]==itemname){
+				return i;
+			}
+		}
+		return -1;
+	}
+	void inv_delete_item(string itemname){
+		string content=apartamentoinv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++){
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		for(uint i=0; i<peramitors.length(); i++){
+			if(peramitors[i]==itemname){
+				apartamentoinv=string_replace(apartamentoinv, itemname+"="+values[i]+"\r\n", "", false);
+			}
+		}
+	}
+}
+void colocar_apartamento(string map, string itens=""){
+	apartamento c(map, itens);
+	apartamentos.insert_last(c);
+}
+void atapartamento(string map, string itens){
+	for(uint i=0;i<apartamentos.length();i++){
+		if(apartamentos[i].map==map){
+			apartamentos[i].apartamentoinv=itens;
+			send_packet(0, "apartamentoinv "+apartamentos[i].apartamentoinv, apartamentos[i].map);
+			break;
+		}
+	}
+}

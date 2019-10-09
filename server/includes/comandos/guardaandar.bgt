@@ -1,0 +1,62 @@
+guardaandar@[]guardasandar;
+class guardaandar{
+	int x, y, gastar=0, nbater=210, nandar=180, vida=30000;
+	timer bater, andar;
+	string mapa, matar;
+	guardaandar(int gx, int gy, string gmapa, string nmatar){
+		x=gx;
+		y=gy;
+		mapa=gmapa;
+		matar=nmatar;
+	}
+}
+void guardaandarloop(){
+	for(uint i=0;i<guardasandar.length();i++){
+		int andar=1;
+		if(guardasandar[i].vida<=0){
+			guardasandar.remove_at(i);
+			break;
+		}
+		if(guardasandar[i].bater.elapsed>=guardasandar[i].nbater){
+			for(uint i2=0;i2<players.length();i2++){
+				if(g_dist(guardasandar[i], players[i2])>-1&&g_dist(guardasandar[i], players[i2])<=4&&guardasandar[i].bater.elapsed>=guardasandar[i].nbater){
+					guardasandar[i].bater.restart();
+					players[i2].lasthit=guardasandar[i].matar;
+					players[i2].health-=random(players[i2].maxhealth/20,players[i2].maxhealth/10);
+					string[] armas;
+					armas.insert_last("espadahit.ogg");
+					armas.insert_last("espada_curtahit.ogg");
+					send_packet(0, "play "+armas[random(0, armas.length()-1)]+" "+guardasandar[i].x+" "+guardasandar[i].y, guardasandar[i].mapa);
+					andar=0;
+					send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+					break;
+				}
+			}
+		}
+		if(guardasandar[i].andar.elapsed>=guardasandar[i].nandar&&andar==1){
+			guardasandar[i].andar.restart();
+			for(uint i2=0;i2<players.length();i2++){
+				if(guardasandar[i].x>players[i2].x+2&&guardasandar[i].mapa==players[i2].map&&andar==1){
+					guardasandar[i].x--;
+					string ss=get_tile_at(guardasandar[i].x, guardasandar[i].y, guardasandar[i].mapa);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+guardasandar[i].x+" "+guardasandar[i].y+" "+guardasandar[i].mapa,guardasandar[i].mapa);
+					andar=0;
+					break;
+				}
+				else if(guardasandar[i].x<players[i2].x-2&&guardasandar[i].mapa==players[i2].map&&andar==1){
+					guardasandar[i].x++;
+					string ss=get_tile_at(guardasandar[i].x, guardasandar[i].y, guardasandar[i].mapa);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+guardasandar[i].x+" "+guardasandar[i].y+" "+guardasandar[i].mapa,guardasandar[i].mapa);
+					andar=0;
+					break;
+				}
+			}
+		}
+	}
+	netloop();
+}
+void colocar_guardaandar(int x, int y, string mapa, string matar){
+	if(!pvp)return;
+	guardaandar g(x, y, mapa, matar);
+	guardasandar.insert_last(g);
+}

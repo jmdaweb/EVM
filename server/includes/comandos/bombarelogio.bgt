@@ -1,0 +1,43 @@
+//bomba relógio
+bombarelogio@[] bombarelogios;
+class bombarelogio{
+	int x;
+	int y;
+	string map;
+	string nome;
+	timer bombarelogiotimer, beeptimer;
+	int beeptime;
+	int bombarelogiotime=5000;
+	bombarelogio(int cx, int cy, string cmap, string cnome){
+		x=cx;
+		y=cy;
+		map=cmap;
+		nome=cnome;
+	}
+}
+void bombarelogioloop(){
+	for(uint i=0; i<bombarelogios.length(); i++){
+		bombarelogios[i].bombarelogiotime=5000-bombarelogios[i].bombarelogiotimer.elapsed;
+		bombarelogios[i].beeptime=bombarelogios[i].bombarelogiotime/10+50;
+		if (bombarelogios[i].beeptimer.elapsed>=bombarelogios[i].beeptime){
+			bombarelogios[i].beeptimer.restart();
+			send_packet(0,"play timebombbeep.ogg "+bombarelogios[i].x+" "+bombarelogios[i].y+" "+bombarelogios[i].map,bombarelogios[i].map);
+		}
+		if(bombarelogios[i].bombarelogiotime<=0){
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(get_bombarelogio_distance(bombarelogios[i], players[i2])>-1&&get_bombarelogio_distance(bombarelogios[i],players[i2])<=30&&players[i2].afk==false&&players[i2].pacifico==0){
+					players[i2].health-=random(500, 1000);
+					send_packet(0,"play timebombexplode.ogg "+players[i2].x+" "+players[i2].y+" "+players[i2].map,players[i2].map);
+					send_packet(0,"inithurt "+players[i2].charname+" "+players[i2].x+" "+players[i2].y+" "+players[i2].voice+" "+players[i2].pitch+" "+players[i2].map,players[i2].map);
+					players[i2].lasthit="bombarelogio_"+bombarelogios[i].nome;
+				}
+			}
+			bombarelogios.remove_at(i);
+		}
+	}
+}
+void spawn_bombarelogio(int x, int y, string map, string nome){
+	bombarelogio c(x, y, map, nome);
+	bombarelogios.insert_last(c);
+	send_packet(0,"play timebombdrop.ogg "+x+" "+y+" "+map,map);
+}

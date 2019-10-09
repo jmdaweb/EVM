@@ -1,0 +1,42 @@
+//dardo
+dardo@[] dardos;
+class dardo{
+	int x;
+	int y;
+	int dist=1;
+	string map;
+	string nome;
+	int n=100;
+	timer tempo;
+	bool pegou=false;
+	dardo(int cx, int cy, string cmap, string cnome, int ddist){
+		x=cx;
+		y=cy;
+		map=cmap;
+		nome=cnome;
+		dist=ddist;
+	}
+}
+void dardoloop(){
+	for(uint i=0; i<dardos.length(); i++){
+		for(uint i2=0; i2 < players.length(); i2++){
+			if(players[i2].charname!=dardos[i].nome&&get_dardo_distance(dardos[i],players[i2])>-1&&get_dardo_distance(dardos[i],players[i2])<=dardos[i].dist&&dardos[i].pegou==false&&emequipe(dardos[i].nome, players[i2].charname)==false){
+				send_reliable(players[i2].peer_id, "stopmoving", 0);
+				players[i2].health-=random(3, 9);
+				players[i2].nparalisado+=5000;
+				players[i2].paralisado=true;
+				players[i2].tparalisado.restart();
+				send_packet(0,"play dardoacerta.ogg "+players[i2].x+" "+players[i2].y+" "+players[i2].map,players[i2].map);
+				send_packet(0,"inithurt "+players[i2].charname+" "+players[i2].x+" "+players[i2].y+" "+players[i2].voice+" "+players[i2].pitch+" "+players[i2].map,players[i2].map);
+				players[i2].lasthit="dardo_"+dardos[i].nome;
+				dardos[i].pegou=true;
+			}
+		}
+		dardos.remove_at(i);
+	}
+}
+void spawn_dardo(int x, int y, string map, string nome, int dist=1){
+	dardo c(x, y, map, nome, dist);
+	dardos.insert_last(c);
+	send_packet(0,"play dardolança.ogg "+x+" "+y+" "+map,map);
+}

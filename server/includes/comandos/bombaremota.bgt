@@ -1,0 +1,37 @@
+//Bomba remota
+bombaremota@[] bombaremotas;
+class bombaremota{
+	int x;
+	int y;
+	string map;
+	string nome;
+	bool ativou;
+	bombaremota(int cx, int cy, string cmap, string cnome){
+		x=cx;
+		y=cy;
+		map=cmap;
+		nome=cnome;
+		ativou=false;
+	}
+}
+void bombaremotaloop(){
+	for(uint i=0; i<bombaremotas.length(); i++){
+		if(bombaremotas[i].ativou){
+			send_packet(0,"play bombaremotaexplode.ogg "+bombaremotas[i].x+" "+bombaremotas[i].y+" "+bombaremotas[i].map, bombaremotas[i].map);
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(get_bombaremota_distance(bombaremotas[i], players[i2])>-1&&get_bombaremota_distance(bombaremotas[i],players[i2])<=30&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&players[i2].insz==false){
+					players[i2].health-=random(2000, 3000);
+					send_packet(0,"inithurt "+players[i2].charname+" "+players[i2].x+" "+players[i2].y+" "+players[i2].voice+" "+players[i2].pitch+" "+players[i2].map,players[i2].map);
+					players[i2].lasthit="bombaremota_"+bombaremotas[i].nome;
+				}
+			}
+			bombaremotas.remove_at(i);
+		}
+	}
+}
+void spawn_bombaremota(int x, int y, string map, string nome){
+	if(!pvp)return;
+	bombaremota c(x, y, map, nome);
+	bombaremotas.insert_last(c);
+	send_packet(0,"play bombaremotaativada.ogg "+x+" "+y+" "+map,map);
+}

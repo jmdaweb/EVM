@@ -1,0 +1,73 @@
+//Computador
+class computador{
+	int talarme=0, fbau=0;
+	int x,y, abau=0, relogio=0;
+	string id,map, salarme, salarme2, srelogio;
+	int ligada=0, seguro=0, codcasa;//modo alarme
+	bool ligando=false, iniciado=false;
+	timer tligando, tabrir;
+	computador(string mid, int mx, int my,string mm, int ccod, int cseguro, int cbau, int crelogio){
+		id=mid;
+		x=mx;
+		y=my;
+		map=mm;
+		codcasa=ccod;
+		seguro=cseguro;
+		abau=cbau;
+		tabrir.force(0);tabrir.pause();
+		relogio=crelogio;
+		if(crelogio==0)srelogio=spawn_moving_sound("clock.ogg", 1, 4, map);
+	}
+}
+computador@[] computadors;
+void computadorloop(){
+	for(uint i=0;i<computadors.length();i++){
+		if(computadors[i].tabrir.elapsed>=5000){
+			computadors[i].tabrir.force(0);
+			computadors[i].tabrir.pause();
+			file f;
+			f.open("maps/"+computadors[i].map+".map", "r");
+			string[] linhas=delinear(f.read());
+			f.close();
+			int x=1000, y=0;
+			for(uint i2=0;i2<linhas.length();i2++){
+				string[] l=string_split(linhas[i2], ":", false);
+				if(l[0]=="travelpoint"){
+					x=string_to_number(l[5]);
+					y=string_to_number(l[6]);
+				}
+			}
+			send_packet(0, "play door12close.ogg "+x+" "+y, "prédio_residencial");
+		}
+		if(computadors[i].tligando.elapsed>=20000&&computadors[i].ligada==1){
+			send_packet(0, "pcliga", computadors[i].map);
+			computadors[i].iniciado=true;
+			computadors[i].tligando.force(0);
+			computadors[i].tligando.pause();
+		}
+	}
+}
+void spawncomputador(int x, int y, string map, int cod, int seguro, int bau, int relogio){
+	string id;
+	bool breakit=false;
+	while(true){
+		id=randomstring();
+		breakit=true;
+		for(uint i=0; i<computadors.length; i++){
+			if(computadors[i].id==id) breakit=false;
+		}
+		if(breakit) break;
+	}
+	computador m1(id,x,y,map, cod, seguro, bau, relogio);
+	computadors.insert_last(m1);
+	send_packet(0,"spawncomputador "+id+" "+x+" "+y+" "+map,map);
+}
+void destroycomputador(string id){
+	for(uint i=0; i<computadors.length; i++){
+		if(computadors[i].id==id){
+			send_reliable(0,"destroycomputador "+id, 0);
+			computadors.remove_at(i);
+			continue;
+		}
+	}
+}

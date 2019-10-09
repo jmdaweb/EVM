@@ -1,0 +1,46 @@
+//Canhão
+canhao@[] canhaos;
+class canhao{
+	int x, y;
+	string map;
+	string somcanhao;
+	timer canhaotimer;
+	int canhaotime;
+	canhao(int cx, int cy, string cmap, int ct){
+		x=cx;
+		y=cy;
+		map=cmap;
+		canhaotime=ct;
+		somcanhao=spawn_moving_sound("rocketloop.ogg",x,y,map);
+	}
+}
+void canhaoloop(){
+	for(uint i=0; i<canhaos.length(); i++){
+		if(canhaos[i].y<0){
+			destroy_moving_sound(canhaos[i].somcanhao);
+			spawn_canhao(random(1, 20), 10, canhaos[i].map, (canhaos[i].canhaotime-10));
+			canhaos.remove_at(i);
+			break;
+		}
+		if(canhaos[i].canhaotimer.elapsed>=canhaos[i].canhaotime){
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(canhaos[i].y==players[i2].y&&players[i2].map==canhaos[i].map&&players[i2].x==canhaos[i].x){
+					players[i2].health=0;
+					send_packet(0,"play bazucahit.ogg "+players[i2].x+" "+players[i2].y+" "+players[i2].map,players[i2].map);
+					send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+					players[i2].lasthit="canhão";
+				}
+			}
+			if(canhaos[i].y>=0){
+				canhaos[i].y--;
+				update_moving_sound(canhaos[i].somcanhao,canhaos[i].x,canhaos[i].y);
+				canhaos[i].canhaotimer.restart();
+			}
+		}
+	}
+}
+void spawn_canhao(int x, int y, string map, int tempo){
+	if(tempo<50)tempo=50;
+	canhao c(x, y, map, tempo);
+	canhaos.insert_last(c);
+}

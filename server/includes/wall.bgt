@@ -1,0 +1,61 @@
+wall@[]walls;
+class wall{
+	int x, miny=0, maxy=50, vida=600000;
+	string map;
+	wall(int cx, string cmap, int cvida){
+		x=cx;
+		map=cmap;
+		vida=cvida;
+	}
+}
+void colocar_wall(int x, string map, int vida=600000){
+	file z;
+	z.open("maps/"+map+".map", "r");
+	string[] m=string_split(z.read(), "\r\n", false);
+	z.close();
+	m.insert_last("pwall:"+x+":0:50:wallnone");
+	z.open("maps/"+map+".map", "w");
+	z.write(linear(m));
+	z.close();
+	update(map);
+	wall c(x, map, vida);
+	walls.insert_last(c);
+}
+void wallloop(){
+	for(uint i=0;i<walls.length();i++){
+		if(walls[i].vida<=0){
+			if(walls[i].map=="caverna")tmina2.restart();
+			retirar_wall(walls[i].map, walls[i].x);
+			break;
+		}
+	}
+}
+void retirar_wall(string map, int x){
+	file z;
+	z.open("maps/"+map+".map", "r");
+	string[] m=string_split(z.read(), "\r\n", false);
+	z.close();
+	for(uint i=0;i<walls.length();i++){
+		if(walls[i].map==map&&walls[i].x==x){
+			while(true){
+				bool t=false;
+				for(uint i2=0;i2<m.length();i2++){
+					if(string_contains(m[i2], "pwall", 1)>-1){
+						string[] bla=string_split(m[i2], ":", false);
+						if(string_to_number(bla[1])==x){
+							t=true;
+							m.remove_at(i2);
+						}
+					}
+				}
+				if(!t)break;
+			}
+			send_packet(0, "play dparede.ogg "+walls[i].x+" "+walls[i].miny, walls[i].map);
+			walls.remove_at(i);
+			z.open("maps/"+map+".map", "w");
+			z.write(linear(m));
+			z.close();
+			update2(map);
+		}
+	}
+}

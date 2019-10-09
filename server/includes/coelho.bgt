@@ -1,0 +1,63 @@
+//Coelho
+coelho@[] coelhos;
+class coelho{
+	int x, y, vida=random(500, 1000), morrendo=0, morreu=0, nsom=random(350, 1200);
+	string mapa, golpeado, njogador;
+	timer tandar, tmorreu, tsom;
+	coelho(int zx, int zy, string m){
+		x=zx;
+		y=zy;
+		mapa=m;
+		tmorreu.force(0);
+		tmorreu.pause();
+	}
+}
+void colocar_coelho(int x, int y, string m){
+	coelho z(x, y, m);
+	coelhos.insert_last(z);
+}
+void coelholoop(){
+	for(uint i=0;i<coelhos.length();i++){
+		if(coelhos[i].vida<=0){
+			send_packet(0, "play m_coelho.ogg "+coelhos[i].x+" "+coelhos[i].y, coelhos[i].mapa);
+			string golp=coelhos[i].golpeado;
+			send_reliable(0, "msg2 "+golp+"; ;matou um; ;coelho;!", 3);
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				players[xx].inv_add_item("pele_de_coelho", 1);
+				ganhaxp(players[xx].charname, random(10, 20), random(100, 500));
+			}
+			coelhos.remove_at(i);
+			break;
+		}
+		if(coelhos[i].tsom.elapsed>=coelhos[i].nsom&&coelhos[i].morrendo==0&&coelhos[i].morreu==0){
+			coelhos[i].nsom=random(800, 2300);
+			send_packet(0, "play coelho"+random(1, 2)+".ogg "+coelhos[i].x+" "+coelhos[i].y, coelhos[i].mapa);
+			coelhos[i].tsom.restart();
+		}
+		if(coelhos[i].tandar.elapsed>=130&&coelhos[i].morrendo==0&&coelhos[i].morreu==0){
+			coelhos[i].tandar.restart();
+			int i2=get_player_index_from(coelhos[i].njogador);
+			if(i2>-1){
+				if(players[i2].afk||players[i2].map!=coelhos[i].mapa)i2=-1;
+			}
+			if(i2<0)coelhos[i].njogador=selecionar_jogador(coelhos[i].mapa);
+			i2=get_player_index_from(coelhos[i].njogador);
+			if(i2>-1){
+				if(players[i2].afk||players[i2].map!=coelhos[i].mapa)i2=-1;
+			}
+			if(i2<0)break;
+			int andar=1;
+			if(coelhos[i].x>players[i2].x-1&&!players[i2].afk&&string_contains(get_tile_at(coelhos[i].x-1, coelhos[i].y, coelhos[i].mapa), "wall", 1)<0&&andar==1){
+				coelhos[i].x--;
+				andar=0;
+				break;
+			}
+			else if(coelhos[i].x<players[i2].x+1&&!players[i2].afk&&string_contains(get_tile_at(coelhos[i].x+1, coelhos[i].y, coelhos[i].mapa), "wall", 1)<0&&andar==1){
+				coelhos[i].x++;
+				andar=0;
+				break;
+			}
+		}
+	}
+}

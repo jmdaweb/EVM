@@ -1,0 +1,52 @@
+//guardas-cofre
+guardacofre@[] guardacofres;
+class guardacofre{
+	int x;
+	int y;
+	uint tiros=30;
+	int vida=5000;
+	string golpeado;
+	string map;
+	timer guardacofretimer;
+	timer tempoatirar;
+	int guardacofretime=500;
+	guardacofre(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void guardacofreloop(){
+	for(uint i=0; i<guardacofres.length(); i++){
+		if(guardacofres[i].guardacofretimer.elapsed>=guardacofres[i].guardacofretime){
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(get_guardacofre_distance(guardacofres[i], players[i2])>-1&&get_guardacofre_distance(guardacofres[i],players[i2])<=15&&players[i2].newbie==false&&guardacofres[i].tempoatirar.elapsed>=100&&guardacofres[i].tiros>0&&players[i2].insz==false){
+					guardacofres[i].tempoatirar.restart();
+					send_packet(0,"play m4a1s.ogg "+guardacofres[i].x+" "+guardacofres[i].y+" "+guardacofres[i].map,guardacofres[i].map);
+					players[i2].health-=random(100, 130);
+					send_packet(0,"inithurt "+players[i2].charname+" "+players[i2].x+" "+players[i2].y+" "+players[i2].voice+" "+players[i2].pitch+" "+players[i2].map,players[i2].map);
+					players[i2].lasthit="guardacofre";
+					guardacofres[i].tiros--;
+					break;
+				}
+				if(guardacofres[i].tiros<=0){
+					guardacofres[i].tiros=30;
+					guardacofres[i].tempoatirar.restart();
+					send_packet(0,"play carregar_m4a1.ogg "+guardacofres[i].x+" "+guardacofres[i].y+" "+guardacofres[i].map,guardacofres[i].map);
+				}
+				if(guardacofres[i].vida<=0){
+					send_packet(0,"play notifykills.ogg "+guardacofres[i].x+" "+guardacofres[i].y+" "+guardacofres[i].map,guardacofres[i].map);
+					send_reliable(0, "msgdepois "+guardacofres[i].golpeado+" matou um guarda_do_cofre!", 0);
+					spawn_obj(guardacofres[i].x, guardacofres[i].y, "m4a1", 1, guardacofres[i].map);
+					guardacofres.remove_at(i);
+					break;
+				}
+			}
+		}
+	}
+}
+void spawn_guardacofre(int x, int y, string map){
+	if(!pvp)return;
+	guardacofre c(x, y, map);
+	guardacofres.insert_last(c);
+}

@@ -1,0 +1,52 @@
+//Guarda
+guarda@[] guardas;
+class guarda{
+	int x, y;
+	uint tiros=30;
+	int vida=5000;
+	string golpeado;
+	string map;
+	timer guardatimer;
+	timer tempoatirar;
+	timer tempocarregar;
+	int guardatime=500;
+	guarda(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void guardaloop(){
+	for(uint i=0; i<guardas.length(); i++){
+		if(guardas[i].guardatimer.elapsed>=guardas[i].guardatime){
+			string l=get_zone_at(guardas[i].x, guardas[i].y, guardas[i].map);
+			for(uint i2=0; i2 < players.length(); i2++){
+				string ll=get_zone_at(players[i2].x, players[i2].y, players[i2].map);
+				if(guardas[i].tempoatirar.elapsed>=450&&guardas[i].tiros>0&&players[i2].insz==false&&guardas[i].tempocarregar.elapsed>=1600){
+					if(players[i2].inv_item_number("troféu_de_ouro")<8||players[i2].inv_item_number("medalha_de_ouro")<8){
+						if(string_contains(ll, "frente", 1)>-1||string_contains(ll,"portão", 1)>-1||string_contains(ll, l, 1)>-1){
+							guardas[i].tempoatirar.restart();
+							send_packet(0,"play helicopteroarma"+random(1, 3)+".ogg "+guardas[i].x+" "+guardas[i].y+" "+guardas[i].map,guardas[i].map);
+							players[i2].health-=random(100, 130);
+							send_reliable(0,"inithurt "+players[i2].charname+" "+players[i2].x+" "+players[i2].y+" "+players[i2].voice+" "+players[i2].pitch+" "+players[i2].map,0);
+							players[i2].lasthit="guarda";
+							guardas[i].tiros--;
+							break;
+						}
+					}
+				}
+				if(guardas[i].tiros<=0){
+					guardas[i].tiros=30;
+					guardas[i].tempocarregar.restart();
+					guardas[i].tempoatirar.restart();
+					send_packet(0,"play carregar_m60.ogg "+guardas[i].x+" "+guardas[i].y+" "+guardas[i].map,guardas[i].map);
+				}
+			}
+		}
+	}
+}
+void spawn_guarda(int x, int y, string map){
+	if(!pvp)return;
+	guarda c(x, y, map);
+	guardas.insert_last(c);
+}

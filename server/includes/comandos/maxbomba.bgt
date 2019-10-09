@@ -1,0 +1,36 @@
+//maxbomba
+maxbomba@[] maxbombas;
+class maxbomba{
+	int x;
+	int y;
+	string map;
+	string nome;
+	timer maxbombatimer;
+	int maxbombatime=20000;
+	maxbomba(int cx, int cy, string cmap, string cnome){
+		x=cx;
+		y=cy;
+		map=cmap;
+		nome=cnome;
+	}
+}
+void maxbombaloop(){
+	for(uint i=0; i<maxbombas.length(); i++){
+		if(maxbombas[i].maxbombatimer.elapsed>=maxbombas[i].maxbombatime){
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(get_bomba_distance(maxbombas[i], players[i2])>-1&&get_bomba_distance(maxbombas[i],players[i2])<=50&&players[i2].afk==false&&players[i2].pacifico==0){
+					players[i2].health-=random(3000, 4000);
+					send_packet(0,"play mina.ogg "+players[i2].x+" "+players[i2].y+" "+players[i2].map,players[i2].map);
+					send_packet(0,"inithurt "+players[i2].charname+" "+players[i2].x+" "+players[i2].y+" "+players[i2].voice+" "+players[i2].pitch+" "+players[i2].map,players[i2].map);
+					players[i2].lasthit="maxbomba_"+maxbombas[i].nome;
+				}
+			}
+			maxbombas.remove_at(i);
+		}
+	}
+}
+void spawn_maxbomba(int x, int y, string map, string nome){
+	maxbomba c(x, y, map, nome);
+	maxbombas.insert_last(c);
+	send_packet(0,"play notify_blip.ogg "+x+" "+y+" "+map,map);
+}

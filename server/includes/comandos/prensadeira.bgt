@@ -1,0 +1,37 @@
+//Prensadeira
+prensadeira@[] prensadeiras;
+class prensadeira{
+	int x, y;
+	string map;
+	timer prensadeiratimer;
+	int prensadeiratime=1686;
+	prensadeira(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void prensadeiraloop(){
+	for(uint i=0; i<prensadeiras.length(); i++){
+		if(prensadeiras[i].prensadeiratimer.elapsed>=prensadeiras[i].prensadeiratime){
+			prensadeiras[i].prensadeiratimer.restart();
+			string l=get_zone_at(prensadeiras[i].x, prensadeiras[i].y, prensadeiras[i].map);
+			for(uint i2=0; i2 < players.length(); i2++){
+				string ll=get_zone_at(players[i2].x, players[i2].y, players[i2].map);
+				if(players[i2].map==prensadeiras[i].map&&players[i2].afk==false&&l==ll){
+					send_reliable(players[i2].peer_id, "ps concrete4hardland.ogg", 0);
+					players[i2].health-=random(200, 300);
+					send_packet(0,"inithurt "+players[i2].charname+" "+players[i2].x+" "+players[i2].y+" "+players[i2].voice+" "+players[i2].pitch+" "+players[i2].map,players[i2].map);
+					players[i2].lasthit="prensadeira";
+				}
+				else if(players[i2].map==prensadeiras[i].map&&get_prensadeira_distance(prensadeiras[i], players[i2])>-1&&get_prensadeira_distance(prensadeiras[i],players[i2])>4){
+					send_reliable(players[i2].peer_id, "play concrete4hardland.ogg "+prensadeiras[i].x+" "+prensadeiras[i].y+" "+prensadeiras[i].map, 0);
+				}
+			}
+		}
+	}
+}
+void spawn_prensadeira(int x, int y, string map){
+	prensadeira c(x, y, map);
+	prensadeiras.insert_last(c);
+}

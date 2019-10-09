@@ -1,49 +1,4 @@
-class mina
-{
-	int x,y,damage;
-	string id,owner,map;
-	mina(string mid, int mx, int my, int md,string mo,string mm)
-	{
-		id=mid;
-		x=mx;
-		y=my;
-		damage=md;
-		owner=mo;
-		map=mm;
-	}
-}
-mina@[] minas;
-void spawnmina(int x, int y, int damage,string owner,string map)
-{
-	string id;
-	bool breakit=false;
-	while(true)
-	{
-		id=randomstring();
-		breakit=true;
-		for(uint i=0; i<minas.length; i++)
-		{
-			if(minas[i].id==id) breakit=false;
-		}
-		if(breakit) break;
-	}
-	mina m1(id,x,y,damage,owner,map);
-	minas.insert_last(m1);
-	send_packet(0, "play mineplace.ogg "+x+" "+y, map);
-}
-void destroymina(string id)
-{
-	for(uint i=0; i<minas.length; i++)
-	{
-		if(minas[i].id==id)
-		{
-			minas.remove_at(i);
-			continue;
-		}
-	}
-}
-class objmagnet
-{
+class objmagnet{
 	int x,y,dir,traveled;
 	bool collecting=true;
 	string owner,map;
@@ -163,7 +118,7 @@ class objmagnet
 				else output+=collected.length+" items";
 				if(collected.length!=1||playernames.length!=1) were=true;
 				output+=were==true ? " coletou" : "foi coletado";
-				send_reliable(players[ind].peer_id,"Seu item_magnético voltou. "+output,2);
+				send_reliable(players[ind].peer_id,"Seu item_magnÃ©tico voltou. "+output,2);
 			}
 			send_packet(0,"play item_magnet_deposit.ogg "+x+" "+y+" "+map,map);
 			for(uint i=0; i<collected.length; i++)
@@ -175,8 +130,7 @@ class objmagnet
 	}
 }
 objmagnet@[] oms;
-void spawn_item_magnetico(int x, int y, int dir, string map, string owner)
-{
+void spawn_item_magnetico(int x, int y, int dir, string map, string owner){
 	objmagnet om(x,y,dir,map,owner);
 	oms.insert_last(om);
 }

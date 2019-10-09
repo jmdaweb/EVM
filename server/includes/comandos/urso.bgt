@@ -1,0 +1,73 @@
+//ursos
+urso@[] ursos;
+class urso{
+	int x;
+	int y;
+	int nobjs=370;
+	uint tiros=1;
+	int vida=3000;
+	string golpeado;
+	string map;
+	timer ursotimer, tobjs;
+	timer tempoatirar;
+	int ursotime=187;
+	bool modofugir=false;
+	urso(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void ursoloop(){
+	for(uint i=0; i<ursos.length(); i++){
+		if(ursos[i].vida<=0){
+			send_packet(0,"play m_urso.ogg "+ursos[i].x+" "+ursos[i].y+" "+ursos[i].map,ursos[i].map);
+			send_reliable(0, "msg2 "+ursos[i].golpeado+"; ;matou um; ;urso;!", 3);
+			string golp=ursos[i].golpeado;
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				players[xx].inv_add_item("corpo_de_urso", 1);
+				ganhaxp(players[xx].charname, random(100, 200));
+			}
+			ursos.remove_at(i);
+			break;
+		}
+		if(ursos[i].ursotimer.elapsed>=ursos[i].ursotime){
+			ursos[i].ursotimer.restart();
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(ursos[i].x>players[i2].x+1&&players[i2].insz==false&&players[i2].map==ursos[i].map&&players[i2].newbie==false&&players[i2].afk==false&&players[i2].pacifico==0&&ursos[i].modofugir==false&&players[i2].y<=1){
+					ursos[i].x--;
+					string ss=get_tile_at(ursos[i].x, ursos[i].y, ursos[i].map);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+ursos[i].x+" "+ursos[i].y, ursos[i].map);
+					break;
+				}
+				else if(ursos[i].x<players[i2].x-1&&players[i2].insz==false&&ursos[i].map==players[i2].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&ursos[i].modofugir==false&&players[i2].y<=1){
+					ursos[i].x++;
+					string ss=get_tile_at(ursos[i].x, ursos[i].y, ursos[i].map);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+ursos[i].x+" "+ursos[i].y,ursos[i].map);
+					break;
+				}
+				if(get_urso_distance(ursos[i], players[i2])>-1&&get_urso_distance(ursos[i],players[i2])<=2&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&ursos[i].tempoatirar.elapsed>=500&&ursos[i].tiros>0&&players[i2].insz==false){
+					ursos[i].tempoatirar.restart();
+					send_packet(0,"play ursobater.ogg "+ursos[i].x+" "+ursos[i].y,ursos[i].map);
+					int r=refletir(i2, "urso", ursos[i].x, ursos[i].y, random(150, 200));
+					if(r>0){ursos[i].vida-=r;ursos[i].golpeado=players[i2].charname;break;}
+					players[i2].health-=random(150, 200);
+					send_packet(0,"inithurt "+players[i2].charname+" "+players[i2].x+" "+players[i2].y+" "+players[i2].voice+" "+players[i2].pitch+" "+players[i2].map,players[i2].map);
+					players[i2].lasthit="urso";
+					ursos[i].tiros--;
+					break;
+				}
+				if(ursos[i].tiros<=0){
+					ursos[i].tiros=1;
+					ursos[i].tempoatirar.restart();
+				}
+			}
+		}
+	}
+}
+void spawn_urso(int x, int y, string map){
+	if(!pvp)return;
+	urso c(x, y, map);
+	ursos.insert_last(c);
+}

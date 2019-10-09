@@ -1,0 +1,42 @@
+//dardo envenenado
+dardoenvenenado@[] dardosenvenenados;
+class dardoenvenenado{
+	int x;
+	int y;
+	int dist;
+	string map;
+	string nome;
+	int n=100;
+	timer tempo;
+	bool pegou=false;
+	dardoenvenenado(int cx, int cy, string cmap, string cnome, int ddist){
+		x=cx;
+		y=cy;
+		map=cmap;
+		nome=cnome;
+		dist=ddist;
+	}
+}
+void dardoenvenenadoloop(){
+	for(uint i=0; i<dardosenvenenados.length(); i++){
+		for(uint i2=0; i2 < players.length(); i2++){
+			if(players[i2].charname!=dardosenvenenados[i].nome&&get_dardoenvenenado_distance(dardosenvenenados[i],players[i2])>-1&&get_dardoenvenenado_distance(dardosenvenenados[i],players[i2])<=dardosenvenenados[i].dist&&emequipe(dardosenvenenados[i].nome, players[i2].charname)==false&&dardosenvenenados[i].pegou==false){
+				players[i2].health-=random(3, 9);
+				players[i2].nveneno+=30;
+				players[i2].tempoveneno2.restart();
+				players[i2].envenenado=true;
+				send_packet(0,"play dardoacerta.ogg "+players[i2].x+" "+players[i2].y+" "+players[i2].map,players[i2].map);
+				send_packet(0,"inithurt "+players[i2].charname+" "+players[i2].x+" "+players[i2].y+" "+players[i2].voice+" "+players[i2].pitch+" "+players[i2].map,players[i2].map);
+				players[i2].lasthit="dardoenvenenado_"+dardosenvenenados[i].nome;
+				dardosenvenenados[i].pegou=true;
+			}
+		}
+		dardosenvenenados.remove_at(i);
+	}
+}
+void spawn_dardoenvenenado(int x, int y, string map, string nome, int dist=1){
+	if(!pvp)return;
+	dardoenvenenado c(x, y, map, nome, dist);
+	dardosenvenenados.insert_last(c);
+	send_packet(0,"play dardolança.ogg "+x+" "+y+" "+map,map);
+}

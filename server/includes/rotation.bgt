@@ -12,76 +12,61 @@ const int streight_up=90;
 const int half_down=135;
 const int streight_down=180;
 double theta;
-double calculate_theta(double deg)
-{
+double calculate_theta(double deg){
 	return deg*pi/180;
 }
-double getdir(double facing)
-{
-	if (facing>=north and facing<northeast)
-	{
+double getdir(double facing){
+	if (facing>=north and facing<northeast){
 		return north;
 	}
-	if (facing>=northeast and facing<east)
-	{
+	if (facing>=northeast and facing<east){
 		return northeast;
 	}
-	if (facing>=east and facing<southeast)
-	{
+	if (facing>=east and facing<southeast){
 		return east;
 	}
-	if (facing>=southeast and facing<south)
-	{
+	if (facing>=southeast and facing<south){
 		return southeast;
 	}
-	if (facing>=south and facing<southwest)
-	{
+	if (facing>=south and facing<southwest){
 		return south;
 	}
-	if (facing>=southwest and facing<west)
-	{
+	if (facing>=southwest and facing<west){
 		return southwest;
 	}
-	if (facing>=west and facing<northwest)
-	{
+	if (facing>=west and facing<northwest){
 		return west;
 	}
-	if (facing>=northwest)
-	{
+	if (facing>=northwest){
 		return northwest;
 	}
 	return -1;
 }
-double snapleft(double deg, int direction, double inc=45)
-{
+double snapleft(double deg, int direction, double inc=45){
 	double d=direction-inc;
 	if(d<0)
 	d+=360;
 	return d;
 }
-double snapright(double deg, int direction, double inc=45)
-{
+double snapright(double deg, int direction, double inc=45){
 	double d=direction+inc;
 	if(d>=360)
 	d-=360;
 	return d;
 }
-double turnleft(double deg, double inc)
-{
+double turnleft(double deg, double inc){
 	deg-=inc;
 	if(deg<0)
 	deg+=360;
 	return deg;
 }
-double turnright(double deg, double inc)
-{
+double turnright(double deg, double inc){
 	deg+=inc;
 	if(deg>360)
 	deg-=360;
 	return deg;
 }
-string dir_to_string(int direction)
-{
+string dir_to_string(int direction){
 	string r=direction;
 	r=string_replace(r, northwest, "northwest", true);
 	r=string_replace(r, west, "west", true);
@@ -93,8 +78,7 @@ string dir_to_string(int direction)
 	r=string_replace(r, north, "north", true);
 	return r;
 }
-double get_1d_distance(double x1, double x2)
-{
+double get_1d_distance(double x1, double x2){
 	return absolute(x1-x2);
 }
 double g(double x1, double y1, double x2, double y2){
@@ -102,145 +86,112 @@ double g(double x1, double y1, double x2, double y2){
 	double y=get_1d_distance(y1, y2);
 	return x+y;
 }
-double get_3d_distance(double x1, double y1, double z1, double x2, double y2, double z2)
-{
+double get_3d_distance(double x1, double y1, double z1, double x2, double y2, double z2){
 	double x=get_1d_distance(x1, x2);
 	double y=get_1d_distance(y1, y2);
 	double z=get_1d_distance(z1, z2);
 	return x+y+z;
 }
-double calculate_x_y_angle(double x1, double y1, double x2, double y2, double deg)
-{
+double calculate_x_y_angle(double x1, double y1, double x2, double y2, double deg){
 	double x=x2-x1;
 	double y=y2-y1;
 	if(x==0 and y==0)
 	return 0;
-	if(x==0)
-	{
+	if(x==0){
 		x+=0.0000001;
 	}
-	if(y==0)
-	{
+	if(y==0){
 		y+=0.0000001;
 	}
 	double rad=arc_tangent(y/x);
 	double arctan=rad/pi*180;
 	double fdeg;
-	if(x>0)
-	{
+	if(x>0){
 		fdeg=90-arctan;
 	}
-	else if(x<0)
-	{
+	else if(x<0){
 		fdeg=270-arctan;
 	}
-	if(x==0)
-	{
-		if(y>0)
-		{
+	if(x==0){
+		if(y>0){
 			fdeg=0;
 		}
-		else if(y<0)
-		{
+		else if(y<0){
 			fdeg=180;
 		}
 	}
 	fdeg-=deg;
-	if(fdeg<0)
-	{
+	if(fdeg<0){
 		fdeg+=360;
 	}
 	fdeg=round(fdeg, 0);
 	return fdeg;
 }
-string calculate_x_y_string(double deg)
-{
-	if(deg==0)
-	{
+string calculate_x_y_string(double deg){
+	if(deg==0){
 		return "streight in front";
 	}
-	else if(deg>0 and deg<10)
-	{
+	else if(deg>0 and deg<10){
 		return "in front and very slightly to the right";
 	}
-	else if(deg>9 and deg<20)
-	{
+	else if(deg>9 and deg<20){
 		return "in front and slightly off to the right";
 	}
-	else if(deg>19 and deg<40)
-	{
+	else if(deg>19 and deg<40){
 		return "in front a little ways off to the right";
 	}
-	else if(deg>39 and deg<90)
-	{
+	else if(deg>39 and deg<90){
 		return "slightly in front and a fair distance off to the right";
 	}
-	else if(deg==90)
-	{
+	else if(deg==90){
 		return "streight off to the right";
 	}
-	else if(deg>90 and deg<120)
-	{
+	else if(deg>90 and deg<120){
 		return "slightly behind and far off to the right";
 	}
-	else if(deg>119 and deg<150)
-	{
+	else if(deg>119 and deg<150){
 		return "behind and a little ways off to the right";
 	}
-	else if(deg>149 and deg<170)
-	{
+	else if(deg>149 and deg<170){
 		return "behind and slightly to the right";
 	}
-	else if(deg>169 and deg<180)
-	{
+	else if(deg>169 and deg<180){
 		return "behind and very slightly to the right";
 	}
-	else if(deg==180)
-	{
+	else if(deg==180){
 		return "streight behind";
 	}
-	else if(deg>180 and deg<190)
-	{
+	else if(deg>180 and deg<190){
 		return "behind and very slightly to the left";
 	}
-	else if(deg>189 and deg<200)
-	{
+	else if(deg>189 and deg<200){
 		return "behind and slightly to the left";
 	}
-	else if(deg>199 and deg<220)
-	{
+	else if(deg>199 and deg<220){
 		return "behind and a little ways off to the left";
 	}
-	else if(deg>219 and deg<240)
-	{
+	else if(deg>219 and deg<240){
 		return "behind and a fair distance off to the left";
 	}
-	else if(deg>239 and deg<270)
-	{
+	else if(deg>239 and deg<270){
 		return "slightly behind and far off to the left";
 	}
-	else if(deg==270)
-	{
+	else if(deg==270){
 		return "streight off to the left";
 	}
-	else if(deg>270 and deg<300)
-	{
+	else if(deg>270 and deg<300){
 		return "slightly in front far off to the left";
 	}
-	else if(deg>299 and deg<320)
-	{
+	else if(deg>299 and deg<320){
 		return "in front and a ways off to the left";
 	}
-	else if(deg>319 and deg<340)
-	{
+	else if(deg>319 and deg<340){
 		return "in front and a little ways off to the left";
 	}
-	else if(deg>339 and deg<350)
-	{
+	else if(deg>339 and deg<350){
 		return "in front and slightly off to the left";
 	}
-	else if(deg>349 and deg<=360)
-	{
+	else if(deg>349 and deg<=360){
 		return "in front and very slightly off to the left";
 	}
 	return "";

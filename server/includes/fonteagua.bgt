@@ -1,0 +1,16 @@
+//Fonte de água
+fonteagua@[] fonteaguas;
+class fonteagua{
+	int x, y;
+	string mapa, som;
+	fonteagua(int cx, int cy, string cmapa){
+		x=cx;
+		y=cy;
+		mapa=cmapa;
+		som=spawn_moving_sound("fonteagua.ogg", x, y, mapa);
+	}
+}
+void colocar_fonteagua(int x, int y, string mapa){
+	fonteagua c(x, y, mapa);
+	fonteaguas.insert_last(c);
+}

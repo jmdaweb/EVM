@@ -1,0 +1,68 @@
+carroforte@[] carrosfortes;
+class carroforte{
+	int x, y=0, vida, natirar1=random(100, 140), natirar2=random(150, 190);
+	string mapa, s, golpeado;
+	timer tandar, tatirar1, tatirar2;
+	carroforte(int cx, int cy, string cm, int cv){
+		x=cx;
+		y=cy;
+		mapa=cm;
+		s=spawn_moving_sound("car2.ogg", x, y, mapa);
+		vida=cv;
+	}
+	~carroforte(){
+		destroy_moving_sound(s);
+	}
+}
+void carroforteloop(){
+	for(uint i=0;i<carrosfortes.length();i++){
+		if(carrosfortes[i].vida<=0){
+			string golp=carrosfortes[i].golpeado;
+			send_reliable(0, "msg2 "+golp+"; ;destruiu um carro_forte;!", 3);
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				ganhaxp(players[xx].charname, random(5000, 8000), random(250000, 500000));
+				dar_reais(players[xx].charname, random(1000, 2000));
+			}
+			carrosfortes.remove_at(i);
+			break;
+		}
+		if(carrosfortes[i].x>=240){
+			carrosfortes.remove_at(i);
+			break;
+		}
+		if(carrosfortes[i].tandar.elapsed>=230){
+			carrosfortes[i].tandar.restart();
+			carrosfortes[i].x++;
+			update_moving_sound(carrosfortes[i].s, carrosfortes[i].x, carrosfortes[i].y);
+		}
+		if(carrosfortes[i].tatirar1.elapsed>=carrosfortes[i].natirar1){
+			carrosfortes[i].natirar1=random(100, 160);
+			carrosfortes[i].tatirar1.restart();
+			for(uint i2=0;i2<players.length();i2++){
+				if(players[i2].pacifico==0&&!players[i2].afk&&gcforte(carrosfortes[i], players[i2])>-1&&gcforte(carrosfortes[i], players[i2])<=20){
+					send_packet(0, "play mk1.ogg "+carrosfortes[i].x+" "+carrosfortes[i].y, carrosfortes[i].mapa);
+					players[i2].lasthit="carro_forte";
+					players[i2].health-=310;
+					break;
+				}
+			}
+		}
+		if(carrosfortes[i].tatirar2.elapsed>=carrosfortes[i].natirar2){
+			carrosfortes[i].natirar1=random(130, 170);
+			carrosfortes[i].tatirar2.restart();
+			for(uint i2=0;i2<players.length();i2++){
+				if(players[i2].pacifico==0&&!players[i2].afk&&gcforte(carrosfortes[i], players[i2])>-1&&gcforte(carrosfortes[i], players[i2])<=20){
+					send_packet(0, "play ak48.ogg "+carrosfortes[i].x+" "+carrosfortes[i].y, carrosfortes[i].mapa);
+					players[i2].lasthit="carro_forte";
+					players[i2].health-=400;
+					break;
+				}
+			}
+		}
+	}
+}
+void colocar_cforte(int x, int y, string mapa, int vida=50000){
+	carroforte c(x, y, mapa, vida);
+	carrosfortes.insert_last(c);
+}

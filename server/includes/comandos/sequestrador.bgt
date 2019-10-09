@@ -1,0 +1,88 @@
+//sequestradors
+sequestrador@[] sequestradors;
+class sequestrador{
+	int x;
+	int y;
+	uint tiros=30;
+	int vida=100000;
+	string golpeado;
+	string map;
+	timer sequestradortimer;
+	timer tempoatirar;
+	int sequestradortime=300;
+	sequestrador(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void sequestradorloop(){
+	for(uint i=0; i<sequestradors.length(); i++){
+		if(sequestradors[i].vida<=0){
+			send_reliable(0, "msg2 "+sequestradors[i].golpeado+" ;matou um sequestrador!", 3);
+			int xx=get_player_index_from(sequestradors[i].golpeado);
+			if(xx>-1){
+				ganhaxp(players[xx].charname, random(10000, 20000));
+				players[xx].inv_add_item("corpo_de_sequestrador", 10);
+			}
+			spawn_obj(sequestradors[i].x, sequestradors[i].y, "m4a1", 1, sequestradors[i].map);
+			sequestradors.remove_at(i);
+			break;
+		}
+		if(sequestradors[i].sequestradortimer.elapsed>=sequestradors[i].sequestradortime){
+			for(uint i2=0; i2 < players.length(); i2++){
+				bool andou=false;
+				if(sequestradors[i].tiros<=0){
+					sequestradors[i].tiros=30;
+					sequestradors[i].tempoatirar.restart();
+					send_packet(0,"play carregar_m4a1.ogg "+sequestradors[i].x+" "+sequestradors[i].y+" "+sequestradors[i].map,sequestradors[i].map);
+				}
+				if(get_sequestrador_distance(sequestradors[i], players[i2])>-1&&get_sequestrador_distance(sequestradors[i],players[i2])<=15&&players[i2].afk==false&&players[i2].newbie==false&&sequestradors[i].tempoatirar.elapsed>=500&&players[i2].newbie==false&&sequestradors[i].tempoatirar.elapsed>=500&&sequestradors[i].tiros>0&&players[i2].insz==false){
+					sequestradors[i].tempoatirar.restart();
+					send_packet(0,"play m4a1.ogg "+sequestradors[i].x+" "+sequestradors[i].y+" "+sequestradors[i].map,sequestradors[i].map);
+					int r=refletir(i2, "sequestrador", sequestradors[i].x, sequestradors[i].y, random(50, 100));
+					if(r>0){sequestradors[i].vida-=r;sequestradors[i].golpeado=players[i2].charname;break;}
+					players[i2].health-=random(50, 100);
+					send_packet(0,"inithurt "+players[i2].charname+" "+players[i2].x+" "+players[i2].y+" "+players[i2].voice+" "+players[i2].pitch+" "+players[i2].map,players[i2].map);
+					players[i2].lasthit="sequestrador";
+					sequestradors[i].tiros--;
+					andou=true;
+					break;
+				}
+				if(sequestradors[i].x>players[i2].x+3&&players[i2].insz==false&&players[i2].map==sequestradors[i].map&&players[i2].newbie==false&&players[i2].afk==false&&andou==false){
+					sequestradors[i].x--;
+					string ss=get_tile_at(sequestradors[i].x, sequestradors[i].y, sequestradors[i].map);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+sequestradors[i].x+" "+sequestradors[i].y+" "+sequestradors[i].map,sequestradors[i].map);
+					sequestradors[i].sequestradortimer.restart();
+					andou=true;
+				}
+				else if(sequestradors[i].x<players[i2].x-3&&players[i2].insz==false&&sequestradors[i].map==players[i2].map&&players[i2].afk==false&&players[i2].newbie==false&&andou==false){
+					sequestradors[i].x++;
+					string ss=get_tile_at(sequestradors[i].x, sequestradors[i].y, sequestradors[i].map);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+sequestradors[i].x+" "+sequestradors[i].y+" "+sequestradors[i].map,sequestradors[i].map);
+					sequestradors[i].sequestradortimer.restart();
+					andou=true;
+				}
+				else if(sequestradors[i].y>players[i2].y+3&&sequestradors[i].map==players[i2].map&&players[i2].afk==false&&players[i2].newbie==false&&players[i2].insz==false&&andou==false){
+					sequestradors[i].y--;
+					string ss=get_tile_at(sequestradors[i].x, sequestradors[i].y, sequestradors[i].map);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+sequestradors[i].x+" "+sequestradors[i].y+" "+sequestradors[i].map,sequestradors[i].map);
+					sequestradors[i].sequestradortimer.restart();
+					andou=true;
+				}
+				else if(sequestradors[i].y<players[i2].y-3&&sequestradors[i].map==players[i2].map&&players[i2].afk==false&&players[i2].newbie==false&&players[i2].insz==false&&andou==false){
+					sequestradors[i].y++;
+					string ss=get_tile_at(sequestradors[i].x, sequestradors[i].y, sequestradors[i].map);
+					send_packet(0,"play "+ss+"step"+random(1, 5)+".ogg "+sequestradors[i].x+" "+sequestradors[i].y+" "+sequestradors[i].map,sequestradors[i].map);
+					sequestradors[i].sequestradortimer.restart();
+					andou=true;
+				}
+			}
+		}
+	}
+}
+void spawn_sequestrador(int x, int y, string map){
+	if(!pvp)return;
+	sequestrador c(x, y, map);
+	sequestradors.insert_last(c);
+}

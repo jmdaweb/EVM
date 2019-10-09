@@ -359,8 +359,7 @@ void spawn_player(uint id, string name, string vers, string thebanid){
 	player player1(id, name, vers,thebanid);
 	players.insert_last(player1);
 }
-double get_player_distance(player@ p1, player@ p2)
-{
+double get_player_distance(player@ p1, player@ p2){
 	if(p1.map!=p2.map) return -1;
 	int dx,dy;
 	if(p1.x<=p2.x) dx=p2.x-p1.x;

@@ -1,4 +1,4 @@
-string ajuda="
+const string ajuda="
 Estes são os comandos disponíveis até o momento:
 /onde <jogador>: Mostra a localização atual de um jogador.
 /xp <jogador>: Mostra quantos pontos de experiência o jogador possui.
@@ -13,7 +13,7 @@ Estes são os comandos disponíveis até o momento:
 /suicidar: Se suicida...
 Para ver a lista de comandos em Inglês digite /help.
 ";
-string help="
+const string help="
 Hear are the current server commands available at the moment.
 /pacifist: It leaves you protected against shots and explosives. You can only disable this command after 10 minutes, and not fire.
 /me msg, says a me message.

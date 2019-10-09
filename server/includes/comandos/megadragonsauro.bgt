@@ -1,0 +1,85 @@
+megadragonsauro@[] megadragonsauros;
+class megadragonsauro{
+	int x;
+	int y;
+	uint tiros=1;
+	int vida;
+	string golpeado;
+	string map;
+	timer megadragonsaurotimer, tbotar;
+	timer tempoatirar;
+	timer tsom;
+	int asom=4000;
+	int megadragonsaurotime=700;
+	bool modofugir=false;
+	megadragonsauro(int cx, int cy, string cmap, int cvida){
+		x=cx;
+		y=cy;
+		map=cmap;
+		vida=10000000;
+	}
+}
+void megadragonsauroloop(){
+	for(uint i=0; i<megadragonsauros.length(); i++){
+		if(megadragonsauros[i].vida<=0){
+			uint total=0;
+			send_packet(0,"play m_dragonsauro.ogg "+megadragonsauros[i].x+" "+megadragonsauros[i].y+" "+megadragonsauros[i].map,megadragonsauros[i].map);
+			string golp=megadragonsauros[i].golpeado;
+			send_reliable(0, "msg2 "+golp+"; ;matou um; ;mega;dragonsauro;!", 3);
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				players[xx].inv_add_item("corpo_de_megadragonsauro", 10);
+				ganhaxp(players[xx].charname, random(100000, 100001), random(100000, 100000));
+			}
+			megadragonsauros.remove_at(i);
+			break;
+		}
+		if(megadragonsauros[i].tsom.elapsed>=megadragonsauros[i].asom+random(1000, 2000)){
+			megadragonsauros[i].tsom.restart();
+			string ss="dragonsauro"+random(1, 3)+".ogg";
+			send_packet(0,"play "+ss+" "+megadragonsauros[i].x+" "+megadragonsauros[i].y+" "+megadragonsauros[i].map,megadragonsauros[i].map);
+		}
+		if(megadragonsauros[i].tiros<=0){
+			megadragonsauros[i].tiros=1;
+			megadragonsauros[i].tempoatirar.restart();
+		}
+		if(megadragonsauros[i].megadragonsaurotimer.elapsed>=megadragonsauros[i].megadragonsaurotime){
+			megadragonsauros[i].megadragonsaurotimer.restart();
+			int moveu=0;
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(get_megadragonsauro_distance(megadragonsauros[i], players[i2])>-1&&get_megadragonsauro_distance(megadragonsauros[i],players[i2])<=7&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&megadragonsauros[i].tempoatirar.elapsed>=500&&megadragonsauros[i].tiros>0){
+					moveu=1;
+					megadragonsauros[i].tempoatirar.restart();
+					send_packet(0,"play dragonsaurobater.ogg "+megadragonsauros[i].x+" "+megadragonsauros[i].y+" "+megadragonsauros[i].map,megadragonsauros[i].map);
+					int r=refletir(i2, "dragonsauro", megadragonsauros[i].x, megadragonsauros[i].y, random(800, 2800));
+					if(r>0){megadragonsauros[i].vida-=r;megadragonsauros[i].golpeado=players[i2].charname;break;}
+					players[i2].health-=random(800, 2800);
+					send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+					players[i2].lasthit="megadragonsauro";
+					megadragonsauros[i].tiros--;
+					return;
+				}
+				if(megadragonsauros[i].x>players[i2].x+3&&players[i2].insz==false&&players[i2].map==megadragonsauros[i].map&&players[i2].newbie==false&&players[i2].afk==false&&players[i2].pacifico==0&&megadragonsauros[i].modofugir==false&&moveu==0&&players[i2].y==0){
+					moveu=1;
+					megadragonsauros[i].x--;
+					string ss=get_tile_at(megadragonsauros[i].x, megadragonsauros[i].y, megadragonsauros[i].map);
+					send_packet(0,"play "+ss+" "+megadragonsauros[i].x+" "+megadragonsauros[i].y+" "+megadragonsauros[i].map,megadragonsauros[i].map);
+					megadragonsauros[i].megadragonsaurotimer.restart();
+				}
+				else if(megadragonsauros[i].x<players[i2].x-3&&players[i2].insz==false&&megadragonsauros[i].map==players[i2].map&&players[i2].afk==false&&players[i2].pacifico==0&&players[i2].newbie==false&&megadragonsauros[i].modofugir==false&&moveu==0&&players[i2].y==0){
+					moveu=1;
+					megadragonsauros[i].x++;
+					string ss=get_tile_at(megadragonsauros[i].x, megadragonsauros[i].y, megadragonsauros[i].map);
+					send_packet(0,"play "+ss+" "+megadragonsauros[i].x+" "+megadragonsauros[i].y+" "+megadragonsauros[i].map,megadragonsauros[i].map);
+					megadragonsauros[i].megadragonsaurotimer.restart();
+				}
+			}
+		}
+	}
+	netloop();
+}
+void spawn_megadragonsauro(int x, int y, string map, int vida=random(1800000, 2000000)){
+	if(!pvp)return;
+	megadragonsauro c(x, y, map, vida);
+	megadragonsauros.insert_last(c);
+}

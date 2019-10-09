@@ -1,0 +1,83 @@
+//zumbi
+zumbi@[] zumbis;
+class zumbi{
+	int x, y, vida=random(3000, 6000), morrendo=0, morreu=0, nsom=random(350, 1200);
+	string mapa, golpeado, njogador;
+	timer tandar, tmorreu, tsom;
+	zumbi(int zx, int zy, string m){
+		x=zx;
+		y=zy;
+		mapa=m;
+		tmorreu.force(0);
+		tmorreu.pause();
+	}
+}
+void colocar_zumbi(int x, int y, string m){
+	zumbi z(x, y, m);
+	zumbis.insert_last(z);
+}
+void zumbiloop(){
+	for(uint i=0;i<zumbis.length();i++){
+		if(zumbis[i].morreu==0&&zumbis[i].vida<=0){
+			send_packet(0, "play m_zumbi.ogg "+zumbis[i].x+" "+zumbis[i].y, zumbis[i].mapa);
+			zumbis[i].tmorreu.restart();
+			zumbis[i].morreu=1;
+		}
+		if(zumbis[i].vida<=0&&zumbis[i].morreu==1&&zumbis[i].tmorreu.elapsed>=990){
+			send_packet(0, "play "+get_tile_at(zumbis[i].x, zumbis[i].y, zumbis[i].mapa)+"harland.ogg "+zumbis[i].x+" "+zumbis[i].y, zumbis[i].mapa);
+			string golp=zumbis[i].golpeado;
+			send_reliable(0, "msg2 "+golp+"; ;matou um; ;zumbi;!", 3);
+			int xx=get_player_index_from(golp);
+			if(xx>-1){
+				ganhaxp(players[xx].charname, random(50, 100), random(1000, 3000));
+			}
+			int n=random(1, 100);
+			if(n<=15){
+				for(uint i=0;i<=random(1, 2);i++){
+					colocar_zumbi(random(32, 300), 0, "zona_de_segurança");
+				}
+			}
+			zumbis.remove_at(i);
+			break;
+		}
+		if(zumbis[i].tsom.elapsed>=zumbis[i].nsom&&zumbis[i].morrendo==0&&zumbis[i].morreu==0){
+			zumbis[i].nsom=random(2000, 6200);
+			send_packet(0, "play zumbi"+random(1, 2)+".ogg "+zumbis[i].x+" "+zumbis[i].y, zumbis[i].mapa);
+			zumbis[i].tsom.restart();
+		}
+		if(zumbis[i].tandar.elapsed>=210&&zumbis[i].morrendo==0&&zumbis[i].morreu==0){
+			zumbis[i].tandar.restart();
+			int i2=get_player_index_from(zumbis[i].njogador);
+			if(i2>-1){
+				if(players[i2].pacifico==1||get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==true||players[i2].afk||players[i2].map!=zumbis[i].mapa)i2=-1;
+			}
+			if(i2<0)zumbis[i].njogador=selecionar_jogador(zumbis[i].mapa);
+			i2=get_player_index_from(zumbis[i].njogador);
+			if(i2>-1){
+				if(players[i2].pacifico==1||get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==true||players[i2].afk||players[i2].map!=zumbis[i].mapa)i2=-1;
+			}
+			if(i2<0)break;
+			int andar=1;
+			if(g_zumbi(zumbis[i], players[i2])>-1&&g_zumbi(zumbis[i], players[i2])<=2&&players[i2].afk==false&&players[i2].pacifico==0&&get_safezone_at(players[i2].x, players[i2].y, players[i2].map)==false){
+				andar=0;
+				int r=refletir(i2, "zumbi", zumbis[i].x, zumbis[i].y, random(300, 400));
+				if(r>0){zumbis[i].vida-=r;zumbis[i].golpeado=players[i2].charname;break;}
+				players[i2].health-=random(300, 400);
+				players[i2].lasthit="zumbi";
+				send_packet(0, "play z_bater"+random(1, 2)+".ogg "+players[i2].x+" "+players[i2].y, players[i2].map);
+			}
+			if(zumbis[i].x>players[i2].x-1&&!players[i2].afk&&string_contains(get_tile_at(zumbis[i].x-1, zumbis[i].y, zumbis[i].mapa), "wall", 1)<0&&andar==1&&players[i2].x>31){
+				zumbis[i].x--;
+				send_packet(0, "play "+get_tile_at(zumbis[i].x, zumbis[i].y, zumbis[i].mapa)+"step"+random(1, 5)+".ogg "+zumbis[i].x+" "+zumbis[i].y, zumbis[i].mapa);
+				andar=0;
+				break;
+			}
+			else if(zumbis[i].x<players[i2].x+1&&!players[i2].afk&&string_contains(get_tile_at(zumbis[i].x+1, zumbis[i].y, zumbis[i].mapa), "wall", 1)<0&&andar==1&&players[i2].x>31){
+				zumbis[i].x++;
+				send_packet(0, "play "+get_tile_at(zumbis[i].x, zumbis[i].y, zumbis[i].mapa)+"step"+random(1, 5)+".ogg "+zumbis[i].x+" "+zumbis[i].y, zumbis[i].mapa);
+				andar=0;
+				break;
+			}
+		}
+	}
+}

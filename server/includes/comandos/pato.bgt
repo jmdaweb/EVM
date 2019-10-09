@@ -1,0 +1,49 @@
+//pato
+pato@[] patos;
+class pato{
+	int x, y, nandar=random(1000, 3000);
+	string mapa, som;
+	timer tandar, tvoar;
+	pato(int px, int py, string pm){
+		x=px;
+		y=py;
+		mapa=pm;
+		som=spawn_moving_sound("pato_loop.ogg", x, y, mapa);
+	}
+}
+void colocar_pato(int x, int y, string mapa){
+	pato p(x, y, mapa);
+	patos.insert_last(p);
+}
+void patoloop(){
+	for(uint i=0;i<patos.length();i++){
+		if(patos[i].tvoar.elapsed>=1200){
+			for(uint i2=0;i2<players.length();i2++){
+				if(patos[i].x<players[i2].x&&get_pato_distance(patos[i], players[i2])<10&&players[i2].afk==false&&players[i2].map==patos[i].mapa&&players[i2].starsoundid!=""){
+					send_packet3(0, "play pato_voando"+random(1, 2)+".ogg "+patos[i].x+" "+patos[i].y, patos[i].mapa);
+					patos[i].x-=random(30, 40);
+				}
+				else if(patos[i].x>players[i2].x&&get_pato_distance(patos[i], players[i2])<10&&players[i2].afk==false&&players[i2].map==patos[i].mapa&&players[i2].starsoundid!=""){
+					send_packet3(0, "play pato_voando"+random(1, 2)+".ogg "+patos[i].x+" "+patos[i].y, patos[i].mapa);
+					patos[i].x+=random(30, 40);
+				}
+			}
+			patos[i].tvoar.restart();
+		}
+		if(patos[i].tandar.elapsed>=patos[i].nandar){
+			patos[i].nandar=random(1000, 1500);
+			patos[i].tandar.restart();
+			if(patos[i].x<200)patos[i].x+=random(5, 9);
+			if(patos[i].x>400)patos[i].x-=random(5, 9);
+			update_moving_sound(patos[i].som, patos[i].x, patos[i].y);
+		}
+		if(patos[i].x<180){
+			patos[i].x=180+random(4, 15);
+			update_moving_sound(patos[i].som, patos[i].x, patos[i].y);
+		}
+		if(patos[i].x>400){
+			patos[i].x=400-random(3, 15);
+			update_moving_sound(patos[i].som, patos[i].x, patos[i].y);
+		}
+	}
+}

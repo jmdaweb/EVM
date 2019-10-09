@@ -1,0 +1,25 @@
+tempocair@[] tempocaiu;
+class tempocair{
+	string nome;
+	timer esgotado;
+	tempocair(string cn){
+		nome=cn;
+	}
+}
+void colocar_tempocair(string nome){
+	tempocair t(nome);
+	tempocaiu.insert_last(t);
+}
+void caiuloop(){
+	for(uint i=0;i<tempocaiu.length();i++){
+		if(i>tempocaiu.length())break;
+		if(tempocaiu[i].esgotado.elapsed>=600000){
+			file f;
+			f.open("players/"+tempocaiu[i].nome+"/rtudo.usr", "w");
+			f.write("Tempo esgotado!");
+			f.close();
+			tempocaiu.remove_at(i);
+			break;
+		}
+	}
+}

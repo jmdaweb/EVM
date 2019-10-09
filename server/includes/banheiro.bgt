@@ -1,0 +1,16 @@
+//Banheiros
+banheiro@[] banheiros(0);
+class banheiro{
+	int x, y, descarga=0;
+	bool vasoaberto=false;
+	string map;
+	banheiro(int bx, int by, string bmap){
+		x=bx;
+		y=by;
+		map=bmap;
+	}
+}
+void colocar_banheiro(int x, int y, string mapa){
+	banheiro b(x, y, mapa);
+	banheiros.insert_last(b);
+}

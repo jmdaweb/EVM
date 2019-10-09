@@ -1,0 +1,47 @@
+cobra@[] cobras;
+class cobra{
+	int x, y, landar=1;
+	string mapa, s;
+	timer t;
+	cobra(int cx, int cy, string cm){
+		x=cx;
+		y=cy;
+		mapa=cm;
+		s=spawn_moving_sound("cobraloop.ogg", x, y, mapa);
+	}
+	~cobra(){
+		destroy_moving_sound(s);
+	}
+}
+void ccobra(int x, int y, string mapa){
+	cobra c(x, y, mapa);
+	cobras.insert_last(c);
+}
+void cobraloop(){
+	for(uint i=0;i<cobras.length();i++){
+		if(cobras[i].t.elapsed>=150){
+			for(uint i2=0;i2<players.length();i2++){
+				if(cobras[i].x==players[i2].x&&cobras[i].y==players[i2].y&&cobras[i].mapa==players[i2].map&&cobras[i].t.elapsed>=150){
+					send_packet(0, "play cobramorde.ogg "+cobras[i].x+" "+cobras[i].y, cobras[i].mapa);
+					send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+					players[i2].health-=random(1000, 2000);
+					players[i2].lasthit="cobra";
+					cobras[i].t.restart();
+					break;
+				}
+			}
+			if(cobras[i].landar==1){
+				cobras[i].t.restart();
+				cobras[i].x--;
+				update_moving_sound(cobras[i].s, cobras[i].x, cobras[i].y);
+			}
+			else if(cobras[i].landar==2){
+				cobras[i].t.restart();
+				cobras[i].y++;
+				update_moving_sound(cobras[i].s, cobras[i].x, cobras[i].y);
+			}
+		}
+		if(cobras[i].landar==1&&string_contains(get_tile_at(cobras[i].x-1, cobras[i].y, cobras[i].mapa), "walldirt", 1)>-1)cobras[i].landar=2;
+		else if(cobras[i].landar==2&&string_contains(get_tile_at(cobras[i].x+1, cobras[i].y, cobras[i].mapa), "walldirt", 1)>-1)cobras[i].landar=1;
+	}
+}

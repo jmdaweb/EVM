@@ -1,0 +1,103 @@
+//Bomba nuclear
+bombanuclear@[] bombanucleares;
+class bombanuclear{
+	int x, y;
+	string map, nome;
+	timer bombaatomicatimer, tbipar1, tbipar2;
+	int bombaatomicatime=60000;
+	bombanuclear(int cx, int cy, string cmap, string cnome){
+		x=cx;
+		y=cy;
+		map=cmap;
+		nome=cnome;
+	}
+}
+void bombanuclearloop(){
+	for(uint i=0; i<bombanucleares.length(); i++){
+		if(bombanucleares[i].tbipar1.elapsed>=10000&&bombanucleares[i].bombaatomicatimer.elapsed<50000){
+			bombanucleares[i].tbipar1.restart();
+			bombanucleares[i].tbipar2.restart();
+			send_packet(0,"play timebombbeep.ogg "+bombanucleares[i].x+" "+bombanucleares[i].y, bombanucleares[i].map);
+		}
+		if(bombanucleares[i].tbipar2.elapsed>=1000&&bombanucleares[i].bombaatomicatimer.elapsed>=50000){
+			send_packet(0,"play timebombbeep.ogg "+bombanucleares[i].x+" "+bombanucleares[i].y, bombanucleares[i].map);
+			bombanucleares[i].tbipar2.restart();
+		}
+		if(bombanucleares[i].bombaatomicatimer.elapsed>=bombanucleares[i].bombaatomicatime){
+			send_reliable(0,"ps bombaatomicaexplode.ogg", 0);
+			for(uint i2=0; i2 < players.length(); i2++){
+				if(players[i2].afk==false&&players[i2].is_admin()==false){
+					players[i2].health=-1;
+					players[i2].lasthit="bombanuclear_"+bombanucleares[i].nome;
+				}
+			}
+			for(uint i2=0;i2<tubaraos.length();i2++){
+				send_reliable(0, "msg2 tubarão; ;teve todo seu corpo transposto pela destruição diabólica de; "+bombanucleares[i].nome+".", 3);
+				int xx=get_player_index_from(bombanucleares[i].nome);
+				if(xx>-1)ganhaxp(players[xx].charname, random(10, 20));
+				tubaraos.remove_at(i2);
+			}
+			while(zumbis.length()>0){
+				for(uint i2=0;i2<zumbis.length();i2++){
+					send_reliable(0, "msg2 zumbi; ;teve todo seu corpo transposto pela destruição diabólica de; "+bombanucleares[i].nome+".", 3);
+					int xx=get_player_index_from(bombanucleares[i].nome);
+					if(xx>-1)ganhaxp(players[xx].charname, random(50, 100));
+					zumbis.remove_at(i2);
+				}
+			}
+			for(uint i2=0;i2<cachorros.length();i2++){
+				send_reliable(0, "msg2 cachorro; ;teve todo seu corpo transposto pela destruição diabólica de; "+bombanucleares[i].nome+".", 3);
+				int xx=get_player_index_from(bombanucleares[i].nome);
+				if(xx>-1)ganhaxp(players[xx].charname, random(10, 20));
+				cachorros.remove_at(i2);
+			}
+			for(uint i2=0;i2<macacos.length();i2++){
+				send_reliable(0, "msg2 macaco; ;teve todo seu corpo transposto pela destruição diabólica de; "+bombanucleares[i].nome+".", 3);
+				int xx=get_player_index_from(bombanucleares[i].nome);
+				if(xx>-1)ganhaxp(players[xx].charname, random(5, 10));
+				macacos.remove_at(i2);
+			}
+			for(uint i2=0;i2<ursos.length();i2++){
+				send_reliable(0, "msg2 urso; ;teve todo seu corpo transposto pela destruição diabólica de; "+bombanucleares[i].nome+".", 3);
+				int xx=get_player_index_from(bombanucleares[i].nome);
+				if(xx>-1)ganhaxp(players[xx].charname, random(100, 200));
+				ursos.remove_at(i2);
+			}
+			for(uint i2=0;i2<lobos.length();i2++){
+				send_reliable(0, "msg2 lobo; ;teve todo seu corpo transposto pela destruição diabólica de; "+bombanucleares[i].nome+".", 3);
+				int xx=get_player_index_from(bombanucleares[i].nome);
+				if(xx>-1)ganhaxp(players[xx].charname, random(20, 30));
+				lobos.remove_at(i2);
+			}
+			sequestradors.resize(0);
+			for(uint i2=0;i2<bebesauros.length();i2++){
+				send_reliable(0, "msg2 bebê_sauro; ;teve todo seu corpo transposto pela destruição diabólica de; "+bombanucleares[i].nome+".", 3);
+				int xx=get_player_index_from(bombanucleares[i].nome);
+				if(xx>-1)ganhaxp(players[xx].charname, random(200, 400));
+				bebesauros.resize(0);
+			}
+			for(uint i2=0;i2<dragonsauros.length();i2++){
+				send_reliable(0, "msg2 dragonsauro; ;teve todo seu corpo transposto pela destruição diabólica de; "+bombanucleares[i].nome+".", 3);
+				int xx=get_player_index_from(bombanucleares[i].nome);
+				if(xx>-1)ganhaxp(players[xx].charname, random(1500, 2000));
+				dragonsauros.remove_at(i2);
+			}
+			for(uint i2=0;i2<megadragonsauros.length();i2++){
+				send_reliable(0, "msg2 mega;dragonsauro; ;teve todo seu corpo transposto pela destruição diabólica de; "+bombanucleares[i].nome+".", 3);
+				int xx=get_player_index_from(bombanucleares[i].nome);
+				if(xx>-1)ganhaxp(players[xx].charname, random(5000, 8000), random(2000000, 3000000));
+				megadragonsauros.remove_at(i2);
+			}
+			for(uint i3=0; i3<objs.length(); i3++){
+				objs[i3].obtainable=false;
+				objs[i3].delete=true;
+			}
+			bombanucleares.remove_at(i);
+		}
+	}
+}
+void spawn_bombanuclear(int x, int y, string map, string nome){
+	bombanuclear c(x, y, map, nome);
+	bombanucleares.insert_last(c);
+	send_packet(0,"play atomicaativada.ogg "+x+" "+y,map);
+}

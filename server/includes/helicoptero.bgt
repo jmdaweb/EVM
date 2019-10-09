@@ -1,0 +1,88 @@
+//Helicóptero
+helicoptero@[] helicopteros;
+class helicoptero{
+	int x, y, vida;
+	string map, soundhelicoptero;
+	timer helicopterotimer, tbomba;
+	timer tempoatirar;
+	int helicopterotime=100;
+	bool sair=false;
+	helicoptero(int cx, int cy, string cmap, int cv){
+		x=cx;
+		y=cy;
+		map=cmap;
+		soundhelicoptero=spawn_moving_sound("helicopteroloop.ogg",x,y,map);
+		vida=cv;
+	}
+}
+void helicopteroloop(){
+	for(uint i=0; i<helicopteros.length(); i++){
+		if(helicopteros[i].vida<=0){
+			send_packet(0,"play bombaatomicaexplode.ogg "+helicopteros[i].x+" "+helicopteros[i].y+" "+helicopteros[i].map, helicopteros[i].map);
+			send_reliable(0, "msgnormal Um helicóptero foi derrubado!", 0);
+			string[] jitens, jitens2;
+			jitens.insert_last("5.56mm");
+			jitens.insert_last("7.62mm");
+			jitens.insert_last("reais");
+			jitens2.insert_last("mp5");
+			jitens2.insert_last("ar15");
+			jitens2.insert_last("ak47");
+			jitens2.insert_last("mega_laser");
+			int qitens=random(1000, 2000);
+			int qitens2=random(1, 3);
+			for(uint c=0;c<jitens.length();c++){
+				spawn_obj(random(1, 200),0, jitens[c], qitens,helicopteros[i].map);
+			}
+			for(uint c=0;c<jitens2.length();c++){
+				spawn_obj(random(1, 100),6, jitens2[c], qitens2,helicopteros[i].map);
+			}
+			destroy_moving_sound(helicopteros[i].soundhelicoptero);
+			helicopteros.remove_at(i);
+			break;
+		}
+		if(TIME_HOUR>19&&helicopteros[i].map=="milão"&&helicopteros[i].sair==false||TIME_HOUR>19&&helicopteros[i].map=="milão2"&&helicopteros[i].sair==false)helicopteros[i].sair=true;
+		if(helicopteros[i].tbomba.elapsed>=random(40000, 70000)){
+			helicopteros[i].tbomba.restart();
+			int a=random(1, 3);
+			if(a<=2)spawn_maxbomba(helicopteros[i].x,0, helicopteros[i].map, "Helicóptero");
+			else spawn_bombaatomica(helicopteros[i].x, helicopteros[i].y, helicopteros[i].map, "helicóptero");
+		}
+		if(helicopteros[i].helicopterotimer.elapsed>=helicopteros[i].helicopterotime){
+			if(helicopteros[i].sair==false){
+				for(uint i2=0;i2<players.length();i2++){
+					if(players[i2].x==helicopteros[i].x&&players[i2].map==helicopteros[i].map&&helicopteros[i].tempoatirar.elapsed>=random(800, 1000)&&players[i2].pacifico==0){
+						helicopteros[i].tempoatirar.restart();
+						players[i2].health-=random(600, 1000);
+						send_packet(0,"play helicopteroarma"+random(1, 3)+".ogg "+players[i2].x+" "+players[i2].y+" "+players[i2].map,players[i2].map);
+						send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+						players[i2].lasthit="helicoptero";
+					}
+					if(players[i2].x>helicopteros[i].x&&players[i2].map==helicopteros[i].map&&players[i2].newbie==false&&players[i2].afk==false){
+						helicopteros[i].x++;
+						update_moving_sound(helicopteros[i].soundhelicoptero,helicopteros[i].x,helicopteros[i].y);
+						helicopteros[i].helicopterotimer.restart();
+						break;
+					}
+					if(players[i2].x<helicopteros[i].x&&players[i2].map==helicopteros[i].map&&players[i2].newbie==false&&players[i2].afk==false){
+						helicopteros[i].x--;
+						update_moving_sound(helicopteros[i].soundhelicoptero,helicopteros[i].x,helicopteros[i].y);
+						helicopteros[i].helicopterotimer.restart();
+						break;
+					}
+				}
+			}
+			else if(helicopteros[i].sair){
+				helicopteros[i].x++;
+				update_moving_sound(helicopteros[i].soundhelicoptero,helicopteros[i].x,helicopteros[i].y);
+				if(helicopteros[i].x>380){
+					helicopteros.remove_at(i);
+					break;
+				}
+			}
+		}
+	}
+}
+void spawn_helicoptero(int x, int y, string map, int vida=random(250000, 300000)){
+	helicoptero c(x, y, map, vida);
+	helicopteros.insert_last(c);
+}

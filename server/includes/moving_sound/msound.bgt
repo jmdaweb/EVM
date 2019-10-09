@@ -1,42 +1,4 @@
-class splay{
-	string id,soundloop,map;
-	splay(string i, string l, string cm){
-		id=i;
-		soundloop=l;
-		map=cm;
-	}
-}
-splay@[] splays;
-string spawn_splay(string loop, string map){
-	string id;
-	bool breakit=false;
-	while(true)
-	{
-		id=randomstring();
-		breakit=true;
-		for(uint i=0; i<splays.length; i++){
-			if(splays[i].id==id) breakit=false;
-		}
-		if(breakit) break;
-	}
-	splay m1(id,loop,map);
-	splays.insert_last(m1);
-	for(uint iz=0;iz<players.length();iz++){
-		if(players[iz].map==map) send_reliable(players[iz].peer_id, "csplay "+id+" "+loop+" "+map,0);
-	}
-	return id;
-}
-void destroy_splay(string id){
-	for(uint i=0; i<splays.length; i++){
-		if(splays[i].id==id){
-			send_reliable(0,"dsplay "+id,0);
-			splays.remove_at(i);
-			continue;
-		}
-	}
-}
-class msound
-{
+class msound{
 	string id,soundloop,map;
 	int x,y;
 	msound(string i, string l, int c1, int c2,string cm)
@@ -54,8 +16,7 @@ class msound
 	}
 }
 msound@[] msounds;
-string spawn_moving_sound(string loop, int x, int y,string map, string nnome="")
-{
+string spawn_moving_sound(string loop, int x, int y,string map, string nnome=""){
 	string id;
 	bool breakit=false;
 	while(true)
@@ -75,8 +36,7 @@ string spawn_moving_sound(string loop, int x, int y,string map, string nnome="")
 	}
 	return id;
 }
-void update_moving_sound(string id, int x, int y)
-{
+void update_moving_sound(string id, int x, int y){
 	for(uint i=0; i<msounds.length; i++)
 	{
 		if(msounds[i].id==id)
@@ -88,8 +48,7 @@ void update_moving_sound(string id, int x, int y)
 		}
 	}
 }
-void destroy_moving_sound(string id)
-{
+void destroy_moving_sound(string id){
 	for(uint i=0; i<msounds.length; i++)
 	{
 		if(msounds[i].id==id)

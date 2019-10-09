@@ -1,0 +1,43 @@
+//Pias
+pia@[] pias(0);
+class pia{
+	int x, y;
+	bool aberta=false;
+	string map;
+	timer fechar, fechando;
+	pia(int bx, int by, string bmap){
+		x=bx;
+		y=by;
+		map=bmap;
+		fechar.force(0);
+		fechar.pause();
+		fechando.force(0);
+		fechando.pause();
+	}
+}
+void colocar_pia(int x, int y, string mapa){
+	pia b(x, y, mapa);
+	pias.insert_last(b);
+}
+void pialoop(){
+	for(uint i=0;i<pias.length();i++){
+		if(pias[i].aberta&&pias[i].fechar.elapsed>=7903){
+			pias[i].aberta=false;
+			send_packet(0, "startmoving", pias[i].map);
+			pias[i].fechando.force(0);
+			pias[i].fechando.pause();
+			pias[i].fechar.force(0);
+			pias[i].fechar.pause();
+			break;
+		}
+		if(pias[i].aberta&&pias[i].fechando.elapsed>=250){
+			pias[i].fechando.restart();
+			for(uint i2=0;i2<players.length();i2++){
+				if(pias[i].x==players[i2].x&&pias[i].y==players[i2].y&&pias[i].map==players[i2].map){
+					players[i2].sujo-=5;
+					if(players[i2].sujo<0)players[i2].sujo=0;
+				}
+			}
+		}
+	}
+}

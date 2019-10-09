@@ -1,0 +1,58 @@
+// paje
+paje@[] pajes;
+class paje{
+	int x;
+	int y;
+	string map;
+	timer pajetimer, tempotambor;
+	int pajetime=60000;
+	int ntambor=random(20000, 30000);
+	paje(int cx, int cy, string cmap){
+		x=cx;
+		y=cy;
+		map=cmap;
+	}
+}
+void pajeloop(){
+	for(uint i=0; i<pajes.length(); i++){
+		if(pajes[i].pajetimer.elapsed>=pajes[i].pajetime){
+			if(pajes[i].x<=4){
+				pajes[i].pajetimer.restart();
+				int andar=random(2, 5);
+				pajes[i].x+andar;
+				string surface=get_tile_at(pajes[i].x,pajes[i].y,pajes[i].map);
+				send_packet(0,"play "+surface+"step"+random(1, 5)+".ogg "+pajes[i].x+" "+pajes[i].y+" "+pajes[i].map,pajes[i].map);
+			}
+			else if(pajes[i].x>=195){
+				pajes[i].pajetimer.restart();
+				int andar=random(2, 5);
+				pajes[i].x-andar;
+				string surface=get_tile_at(pajes[i].x,pajes[i].y,pajes[i].map);
+				send_packet(0,"play "+surface+"step"+random(1, 5)+".ogg "+pajes[i].x+" "+pajes[i].y+" "+pajes[i].map,pajes[i].map);
+			}
+			else if(pajes[i].x>4&&pajes[i].x<=194){
+				pajes[i].pajetimer.restart();
+				int andar=random(2, 8);
+				pajes[i].x+andar;
+				string surface=get_tile_at(pajes[i].x,pajes[i].y,pajes[i].map);
+				send_packet(0,"play "+surface+"step"+random(1, 5)+".ogg "+pajes[i].x+" "+pajes[i].y+" "+pajes[i].map,pajes[i].map);
+			}
+			else if(pajes[i].x<199&&pajes[i].x>4){
+				pajes[i].pajetimer.restart();
+				int andar=random(2, 8);
+				pajes[i].x-andar;
+				string surface=get_tile_at(pajes[i].x,pajes[i].y,pajes[i].map);
+				send_packet(0,"play "+surface+"step"+random(1, 5)+".ogg "+pajes[i].x+" "+pajes[i].y+" "+pajes[i].map,pajes[i].map);
+			}
+		}
+		if(pajes[i].tempotambor.elapsed>=pajes[i].ntambor){
+			pajes[i].ntambor=random(20000, 30000);
+			pajes[i].tempotambor.restart();
+			send_packet(0,"play tamboraldeia.ogg "+pajes[i].x+" "+pajes[i].y+" "+pajes[i].map,pajes[i].map);
+		}
+	}
+}
+void spawn_paje(int x, int y, string map){
+	paje c(x, y, map);
+	pajes.insert_last(c);
+}

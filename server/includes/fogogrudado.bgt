@@ -1,0 +1,41 @@
+//Fogo grudado
+fogogrudado@[]fogosgrudados;
+class fogogrudado{
+	string nome, alvo;
+	timer t, tt;
+	fogogrudado(string cnome, string calvo){
+		nome=cnome;
+		alvo=calvo;
+	}
+}
+void colocar_fogogrudado(string nome, string alvo){
+	fogogrudado f(nome, alvo);
+	fogosgrudados.insert_last(f);
+}
+void fogogrudadoloop(){
+	for(uint i=0;i<fogosgrudados.length();i++){
+		if(fogosgrudados[i].tt.elapsed>=30000){
+			fogosgrudados.remove_at(i);
+			break;
+		}
+		if(fogosgrudados[i].t.elapsed>=1000){
+			fogosgrudados[i].t.restart();
+			for(uint i2=0;i2<players.length();i2++){
+				if(players[i2].charname==fogosgrudados[i].alvo){
+					string s=get_tile_at(players[i2].x, players[i2].y, players[i2].map);
+					if(string_contains(s, "water", 1)<0&&string_contains(s, "shallow", 1)<0){
+						players[i2].health-=random(200, 400);
+						players[i2].lasthit="boladefogo_"+fogosgrudados[i].nome;
+						players[i2].nsede+=0.5;
+						send_packet(0,"inithurt "+players[i2].voice+" "+players[i2].x+" "+players[i2].y, players[i2].map);
+					}
+					else{
+						send_packet10(0, players[i2].charname, players[i2].charname, "waterhardland.ogg "+players[i2].x+" "+players[i2].y, players[i2].map);
+						fogosgrudados.remove_at(i);
+						break;
+					}
+				}
+			}
+		}
+	}
+}
