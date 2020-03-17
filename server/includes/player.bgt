@@ -26,11 +26,11 @@ class player{
         int flecha=0, nveneno=0, chegoucidade, cmortal=0, lregras=0;
         int ouvirpassos=1, namaquina=0, vtempo=0, subirvida=0;
         int pdesafio=0, emequipe=0, relogio=0;
-        int rajada=0, gcoins=0, saldo=0, mdor=1;
+        int rajada=0, gcoins=0, mdor=1;
         int ngripe=0, galil=1000;
         int nvarinha=0;
         string[] nomesequipe;
-        double doente=0, sujo=0;
+        double doente=0, sujo=0, saldo=0, contabancaria=0;
         timer minatimer; int minaplacetime=15000;
         bool ouvirhits=true, envenenado=false, bolhaar=false;
         bool calor_reprimido=false, centado=false, cavalo=false, star=false, star2=false;
@@ -38,7 +38,7 @@ class player{
         bool paralisado=false, paralisado2=false;
         int equipemortal=0, equipedesafio=0;
         uint mp7=50000, bazuca=50000, m16=50000, sub_laser=1000;
-        int javoou=0, noaviao=0, notrem=0, jaandou=0, contabancaria=0;
+        int javoou=0, noaviao=0, notrem=0, jaandou=0;
         int vbipar, vinvs;
         string muted, nconta, vconta, sugando;
         string destino, destino2, destino3, nsugador, vmap;
