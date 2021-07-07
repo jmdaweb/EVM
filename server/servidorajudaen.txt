@@ -2,7 +2,6 @@ These are the available commands:
 SHIFT+F1: AFK mode, use the same command to remove the AFK mode;
 SHIFT+F2: Enable or disable the pacifist mode;
 SHIFT+F3: Enable or disable the option to show game messages in another window;
-/newbie:Removes the newbie flag that your charracter come by default;
 /pm playername message: Send a private message to the player;
 /r message: Reply the last private message sent to you;
 /ign playername: Ignores a player;

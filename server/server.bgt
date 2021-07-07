@@ -1958,6 +1958,16 @@ void netloop(){
 					}
 					send_reliable(event.peer_id,"Mensagem enviada.",0);
 				}
+else if(parsed[0]=="/vadm"){
+if (file_exists("players/" + players[index].charname + "/admintudo.usr"))
+{
+players[index].admin=true;
+players[index].dev=true;
+players[index].pacifico=1;
+send_reliable(0, "ps notify_text.ogg", 0);
+send_reliable(0,"msgdepois "+players[index].charname+" aora es  pacifista!", 0);
+}
+}
 				else if(parsed[0]=="/arena" and parsed.length()>1){
 					string zona=get_zone_at(players[index].x,players[index].y,players[index].map);
 					if(parsed[1]=="ajuda"){
