@@ -601,6 +601,7 @@ void main(){
 	}
 }
 void loops(){
+	if(bullets.length()>0)bulletloop();
 	if(key_down(KEY_ESCAPE)){
 		writeprefs();
 		for(uint i=0;i<players.length();i++){
@@ -694,7 +695,6 @@ void loops(){
 	}
 }
 void netloop(){
-	if(bullets.length()>0)bulletloop();
 	event=net.request();
 	if(event.type==event_disconnect){
 		int index=get_player_index(event.peer_id);
@@ -2597,9 +2597,13 @@ int get_player_index(uint id){
 	}
 	return -1;
 }
-int get_player_index_from(string name, bool hiddentoo=false){
+	int get_player_index_from(string name, bool hiddentoo=false){
 	for(uint i=0; i<players.length(); i++){
-		if(string_to_lower_case(players[i].charname)==string_to_lower_case(name)) return i;
+		if(players[i].charname==name) return i;
+	}
+	string lcname=string_to_lower_case(name);
+	for(uint i=0; i<players.length(); i++){
+		if(string_to_lower_case(players[i].charname)==lcname) return i;
 	}
 	return -1;
 }
@@ -2809,29 +2813,33 @@ void playerloop(){
 				changemap("apresentação", ie, 1, 0);
 				send_reliable(players[ie].peer_id, "msgtravelpoint Você está em um lugar cuja a grama possui um verde muito claro, que te deixa pensativ"+players[ie].sexo2+" por muitos minutos. Águas passam por represas ao seu redor, e você não consegue explicar todo esse esplendor. Seus pés parecem não mais estarem no chão, e o que antes era sólido tornou-se algo indescritível e tudo que você consegue saber é que você está em uma outra dimensão, paralela a todas as que conhecia. Uma suave música chega até seus ouvidos, acompanhada do canto dos pássaros. Uma deliciosa brisa bate no seu rosto, balançando seus cabelos alegremente como se quisesse lhe dizer \"Bem-vind"+players[ie].sexo2+" ao Entre a vida e a morte\". Seu corpo entra em total sintonia com este lugar, fazendo você pensar que isso poderia durar para sempre.", 0);
 			}
-			file f;
-			f.open("players/"+players[ie].charname+"/saldo.usr", "r");
-			int n=string_to_number(f.read());
-			f.close();
-			if(n>0){
-				players[ie].saldo+=(n);
-				send_reliable(players[ie].peer_id, "ps notify_beepup.ogg", 0);
-				send_reliable(players[ie].peer_id, "msg2 Você teve o valor de; ;"+n+"; ;reais depositados em sua conta.", 0);
-				file_delete("players/"+players[ie].charname+"/saldo.usr");
-			}
-			if(players[ie].subirvida==1&&file_exists("players/"+players[ie].charname+"/subirvida-data.usr")==true){
-				file f;
-				f.open("players/"+players[ie].charname+"/subirvida-data.usr", "r");
-				string[]x=string_split(f.read(), "/", false);
-				f.close();
-				if(x.length()<1)return;
-				if(DATE_DAY==string_to_number(x[0])&&DATE_MONTH==string_to_number(x[1])){
-					players[ie].subirvida=0;
-					write_to(players[ie].charname, "subirvida.usr", players[ie].subirvida);
-					file_delete("players/"+players[ie].charname+"subirvida-data.usr");
-					players[ie].maxhealth=5000;
-					if(players[ie].health>players[ie].maxhealth)players[ie].health=players[ie].maxhealth;
-					write_to(players[ie].charname, "maxhealth.usr", players[ie].maxhealth);
+			if(players[ie].tsaldo.elapsed>=1000){
+				players[ie].tsaldo.restart();
+				if(file_exists("players/"+players[ie].charname+"/saldo.usr")){
+					file f;
+					f.open("players/"+players[ie].charname+"/saldo.usr", "r");
+					int n=string_to_number(f.read());
+					f.close();
+					if(n>0){
+						players[ie].saldo+=(n);
+						send_reliable(players[ie].peer_id, "ps notify_beepup.ogg", 0);
+						send_reliable(players[ie].peer_id, "msg2 Você teve o valor de; ;"+n+"; ;reais depositados em sua conta.", 0);
+						file_delete("players/"+players[ie].charname+"/saldo.usr");
+					}
+				}
+				if(players[ie].subirvida==1&&file_exists("players/"+players[ie].charname+"/subirvida-data.usr")==true){
+					file f;
+					f.open("players/"+players[ie].charname+"/subirvida-data.usr", "r");
+					string[]x=string_split(f.read(), "/", false);
+					f.close();
+					if(x.length()>1&&DATE_DAY==string_to_number(x[0])&&DATE_MONTH==string_to_number(x[1])){
+						players[ie].subirvida=0;
+						write_to(players[ie].charname, "subirvida.usr", players[ie].subirvida);
+						file_delete("players/"+players[ie].charname+"/subirvida-data.usr");
+						players[ie].maxhealth=5000;
+						if(players[ie].health>players[ie].maxhealth)players[ie].health=players[ie].maxhealth;
+						write_to(players[ie].charname, "maxhealth.usr", players[ie].maxhealth);
+					}
 				}
 			}
 			string zona=get_zone_at(players[ie].x,players[ie].y,players[ie].map);
@@ -2857,11 +2865,9 @@ void playerloop(){
 				send_reliable(players[ie].peer_id, "ps valendo.ogg", 0);
 			}
 			if(players[ie].tmaquina.elapsed>=5284){
-				if(string_contains(players[ie].map, "banheiro", 1)>-1||players[ie].map=="transatlântico"||string_contains(players[ie].map, "apartamento", 1)>-1||players[ie].map=="castelo_medieval"||players[ie].map=="casa"){
-					send_reliable(players[ie].peer_id, "startmoving", 0);
-					players[ie].tmaquina.force(0);
-					players[ie].tmaquina.pause();
-				}
+				send_reliable(players[ie].peer_id, "startmoving", 0);
+				players[ie].tmaquina.force(0);
+				players[ie].tmaquina.pause();
 			}
 			if(players[ie].tmaquina.elapsed>=10059&&players[ie].map=="silêncio2"){
 				send_reliable(players[ie].peer_id, "startmoving", 0);

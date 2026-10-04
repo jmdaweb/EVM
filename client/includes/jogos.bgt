@@ -14,6 +14,7 @@ class jogoparouimpar{
 		ambiente.volume=-20;
 		ambiente.play_looped();
 		while(true){
+			wait(5);
 			mainloop();
 			if(ausente){
 				fim();
@@ -122,6 +123,7 @@ class dadodasorte{
 		ambiente.volume=-20;
 		ambiente.play_looped();
 		while(true){
+			wait(5);
 			mainloop();
 			if(ausente){
 				fim();
@@ -289,6 +291,7 @@ class jogoroletadasorte{
 		ambiente.volume=-20;
 		ambiente.play_looped();
 		while(true){
+			wait(5);
 			mainloop();
 			if(ausente){
 				fim();
@@ -640,6 +643,7 @@ class jogoblackjack{
 		ambiente.play_looped();
 		add_add_item("variado", pu.get_value("Jogo Black Jack, ou 21!"));
 		while(true){
+			wait(5);
 			mainloop();
 			if(ausente){
 				fim();

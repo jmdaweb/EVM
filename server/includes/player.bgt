@@ -5,6 +5,7 @@ class player{
 	timer tempoveneno2, tlutar, tszona, tvelocidade, idletimer;
 	timer tinv;
 	timer tpa, tmaquina, thack, tpa2, tsedefome;
+	timer tsaldo;
 	timer tdoente, tdoente2, tsvida, tsitem, tsugando, tgripe;
 	timer tcaverna, tsalvar, tvarinha;
 	timer tmcampo, tmflutuar, tmpulo, tminvs, tppeixe, tmveloz, tmcampo2;
@@ -55,6 +56,29 @@ class player{
 	string computer_id;
 	double level;
 	string inv;
+	string inv_cache_src="";
+	bool inv_cache_valid=false;
+	string[] inv_cache_names;
+	string[] inv_cache_values;
+	void inv_parse(){
+		if(inv_cache_valid && inv==inv_cache_src) return;
+		string content=inv;
+		string[] peramitors=string_split(content, "\r\n", true);
+		string[] values;
+		for(uint i=0; i<peramitors.length(); i++)
+		{
+			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+		}
+		inv_cache_src=inv;
+		inv_cache_valid=true;
+		inv_cache_names=peramitors;
+		inv_cache_values=values;
+	}
+	void inv_cache_clear(){
+		inv_cache_valid=false;
+		inv_cache_src="";
+	}
 	string map="escola";
 	int matou;
 	string title;
@@ -191,25 +215,19 @@ class player{
 	}
 	void inv_add_item(string itemname, int itemvalue, bool enviar=true)
 	{
-		string content=inv;
-		string[] peramitors=string_split(content, "\r\n", true);
-		string[] values;
-		for(uint i=0; i<peramitors.length(); i++)
+		inv_parse();
+		int pos=-1;
+		for(uint i=0; i<inv_cache_names.length(); i++)
 		{
-			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+			if(inv_cache_names[i]==itemname)
+			{
+				pos=i;
+				break;
+			}
 		}
-		if(inv_item_exists(itemname))
+		if(pos>-1)
 		{
-			int orgval;
-			if(inv_item(itemname) > -1)
-			{
-				orgval=string_to_number(values[inv_item(itemname)]);
-			}
-			else
-			{
-				return;
-			}
+			int orgval=string_to_number(inv_cache_values[pos]);
 			if(orgval+itemvalue < 1)
 			{
 				inv_delete_item(itemname);
@@ -218,11 +236,11 @@ class player{
 			}
 			else
 			{
-				values[inv_item(itemname)]=(orgval+itemvalue);
 				string tempinv;
-				for(uint i=0; i<peramitors.length(); i++)
+				for(uint i=0; i<inv_cache_names.length(); i++)
 				{
-					tempinv+=peramitors[i]+"="+values[i]+"\r\n";
+					if(i==pos) tempinv+=inv_cache_names[i]+"="+(orgval+itemvalue)+"\r\n";
+					else tempinv+=inv_cache_names[i]+"="+inv_cache_values[i]+"\r\n";
 				}
 				inv=tempinv;
 			}
@@ -236,6 +254,7 @@ class player{
 				send_reliable(peer_id,itemvalue+" "+itemname,4);
 			}
 		}
+		inv_cache_clear();
 		if(enviar==true){
 			send_reliable(peer_id,"inv "+inv,0);
 			string[] invsec;
@@ -248,17 +267,10 @@ class player{
 	}
 	bool inv_item_exists(string itemname)
 	{
-		string content=inv;
-		string[] peramitors=string_split(content, "\r\n", true);
-		string[] values;
-		for(uint i=0; i<peramitors.length(); i++)
+		inv_parse();
+		for(uint i=0; i<inv_cache_names.length(); i++)
 		{
-			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-		}
-		for(uint i=0; i<peramitors.length(); i++)
-		{
-			if(peramitors[i]==itemname)
+			if(inv_cache_names[i]==itemname)
 			{
 				return true;
 			}
@@ -267,36 +279,22 @@ class player{
 	}
 	int inv_item_number(string itemname)
 	{
-		string content=inv;
-		string[] peramitors=string_split(content, "\r\n", true);
-		string[] values;
-		for(uint i=0; i<peramitors.length(); i++)
+		inv_parse();
+		for(uint i=0; i<inv_cache_names.length(); i++)
 		{
-			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-		}
-		for(uint i=0; i<peramitors.length(); i++)
-		{
-			if(peramitors[i]==itemname)
+			if(inv_cache_names[i]==itemname)
 			{
-				return string_to_number(values[i]);
+				return string_to_number(inv_cache_values[i]);
 			}
 		}
 		return 0;
 	}
 	int inv_item(string itemname)
 	{
-		string content=inv;
-		string[] peramitors=string_split(content, "\r\n", true);
-		string[] values;
-		for(uint i=0; i<peramitors.length(); i++)
+		inv_parse();
+		for(uint i=0; i<inv_cache_names.length(); i++)
 		{
-			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-		}
-		for(uint i=0; i<peramitors.length(); i++)
-		{
-			if(peramitors[i]==itemname)
+			if(inv_cache_names[i]==itemname)
 			{
 				return i;
 			}
@@ -305,21 +303,15 @@ class player{
 	}
 	void inv_delete_item(string itemname)
 	{
-		string content=inv;
-		string[] peramitors=string_split(content, "\r\n", true);
-		string[] values;
-		for(uint i=0; i<peramitors.length(); i++)
+		inv_parse();
+		for(uint i=0; i<inv_cache_names.length(); i++)
 		{
-			values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-			peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-		}
-		for(uint i=0; i<peramitors.length(); i++)
-		{
-			if(peramitors[i]==itemname)
+			if(inv_cache_names[i]==itemname)
 			{
-				inv=string_replace(inv, itemname+"="+values[i]+"\r\n", "", false);
+				inv=string_replace(inv, itemname+"="+inv_cache_values[i]+"\r\n", "", false);
 			}
 		}
+		inv_cache_clear();
 	}
 	bool has_muted(string name)
 	{

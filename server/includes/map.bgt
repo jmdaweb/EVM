@@ -1,111 +1,132 @@
-bool varinha_desativada(string m){
-	file f;
-	f.open("maps/"+m+".map", "r");
-	string[] map=delinear(f.read());
-	f.close();
-	for(uint i=0;i<map.length();i++){
-		string[] parsed=string_split(map[i], ":", false);
-		if(parsed[0]=="desativar"){
-			if(parsed[1]=="varinha")return true;
+class maprec{
+	int kind;
+	int minx, maxx, miny, maxy;
+	string value;
+	maprec(int k, int a, int b, int c, int d, string v){
+		kind=k;
+		minx=a;
+		maxx=b;
+		miny=c;
+		maxy=d;
+		value=v;
+	}
+}
+
+class mapidx{
+	string name;
+	bool varinha;
+	maprec@[] recs;
+	mapidx(string n, bool v, maprec@[] r){
+		name=n;
+		varinha=v;
+		recs=r;
+	}
+}
+
+mapidx@[] allmaps;
+int act_slot=-1;
+
+void load_map_index(string mapname){
+	maprec@[] recs;
+	bool varinha=false;
+	if(file_exists("maps/"+mapname+".map")){
+		file f;
+		f.open("maps/"+mapname+".map", "r");
+		string[] lines=delinear(f.read());
+		f.close();
+		for(uint i=0; i<lines.length(); i++){
+			if(lines[i].length()<1) continue;
+			string[] p=string_split(lines[i], ":", false);
+			if(p[0]=="desativar"){
+				if(p.length()>1 && p[1]=="varinha") varinha=true;
+				continue;
+			}
+			if(p[0]=="platform" && p.length()>4){
+				maprec r1(1, string_to_number(p[1]), string_to_number(p[2]), string_to_number(p[3]), string_to_number(p[3]), p[4]);
+				recs.insert_last(r1);
+			}
+			else if(p[0]=="staircase" && p.length()>5){
+				maprec r2(2, string_to_number(p[1]), string_to_number(p[2]), string_to_number(p[3]), string_to_number(p[4]), p[5]);
+				recs.insert_last(r2);
+			}
+			else if(p[0]=="wall" && p.length()>4){
+				maprec r3(3, string_to_number(p[1]), string_to_number(p[1]), string_to_number(p[2]), string_to_number(p[3]), p[4]);
+				recs.insert_last(r3);
+			}
+			else if(p[0]=="zone" && p.length()>5){
+				maprec r4(4, string_to_number(p[1]), string_to_number(p[2]), string_to_number(p[3]), string_to_number(p[4]), p[5]);
+				recs.insert_last(r4);
+			}
+			else if(p[0]=="safezone" && p.length()>4){
+				maprec r5(5, string_to_number(p[1]), string_to_number(p[2]), string_to_number(p[3]), string_to_number(p[4]), "");
+				recs.insert_last(r5);
+			}
 		}
 	}
-	return false;
+	mapidx m(mapname, varinha, recs);
+	allmaps.insert_last(m);
+	act_slot=allmaps.length()-1;
 }
+
+void ensure_map(string mapname){
+	if(act_slot>=0 && act_slot<allmaps.length() && allmaps[act_slot].name==mapname) return;
+	for(uint i=0; i<allmaps.length(); i++){
+		if(allmaps[i].name==mapname){
+			act_slot=i;
+			return;
+		}
+	}
+	load_map_index(mapname);
+}
+
+bool varinha_desativada(string m){
+	ensure_map(m);
+	return allmaps[act_slot].varinha;
+}
+
 string get_tile_at(int x, int y, string mapname, bool includeglobal=true){
 	string outval;
 	if(includeglobal==true){
-		if(!file_exists("maps/"+mapname+".map"))return"";
-		file f;
-		f.open("maps/"+mapname+".map", "r");
-		string[] map=delinear(f.read());
-		f.close();
-		for(uint i=0;i<map.length();i++){
-			string[] parsed=string_split(map[i], ":", false);
-			if(parsed[0]=="platform"){
-				int minx=string_to_number(parsed[1]);
-				int maxx=string_to_number(parsed[2]);
-				int miny=string_to_number(parsed[3]);
-				int maxy=string_to_number(parsed[3]);
-				if(minx>x)continue;
-				if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y)outval=parsed[4];
-			}
-			if(parsed[0]=="staircase"){
-				int minx=string_to_number(parsed[1]);
-				int maxx=string_to_number(parsed[2]);
-				int miny=string_to_number(parsed[3]);
-				int maxy=string_to_number(parsed[4]);
-				if(minx>x)continue;
-				if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y)outval=parsed[5];
-			}
-			if(parsed[0]=="wall"){
-				int minx=string_to_number(parsed[1]);
-				int maxx=string_to_number(parsed[1]);
-				int miny=string_to_number(parsed[2]);
-				int maxy=string_to_number(parsed[3]);
-				if(minx>x)continue;
-				if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y)outval=parsed[4];
+		ensure_map(mapname);
+		maprec@[] recs=allmaps[act_slot].recs;
+		for(uint i=0; i<recs.length(); i++){
+			if(recs[i].kind<1 || recs[i].kind>3) continue;
+			if(recs[i].minx<=x && recs[i].maxx>=x && recs[i].miny<=y && recs[i].maxy>=y){
+				outval=recs[i].value;
 			}
 		}
 	}
 	return outval;
 }
+
 string get_zone_at(int x, int y, string mapname, bool includeglobal=true){
 	string outval;
-	if(includeglobal==true)
-	{
-		if(!file_exists("maps/"+mapname+".map"))
-		{
-			return "";
-		}
-		file f;
-		f.open("maps/"+mapname+".map", "rb");
-		string[] map=delinear(f.read());
-		f.close();
-		for(uint i=0; i<map.length(); i++)
-		{
-			string[] parsed=string_split(map[i], ":", false);
-			if(parsed[0]=="zone"&&parsed.length()>4)
-			{
-				int minx=string_to_number(parsed[1]);
-				int maxx=string_to_number(parsed[2]);
-				int miny=string_to_number(parsed[3]);
-				int maxy=string_to_number(parsed[4]);
-				if(minx>x)
-				{
-					continue;
-				}
-				if(minx<=x&& maxx>=x&& miny<=y&& maxy>=y)
-				{
-					outval=parsed[5];
-				}
+	if(includeglobal==true){
+		ensure_map(mapname);
+		maprec@[] recs=allmaps[act_slot].recs;
+		for(uint i=0; i<recs.length(); i++){
+			if(recs[i].kind!=4) continue;
+			if(recs[i].minx<=x && recs[i].maxx>=x && recs[i].miny<=y && recs[i].maxy>=y){
+				outval=recs[i].value;
 			}
 		}
 	}
 	return outval;
 }
+
 string get_safezone_at(int x, int y, string mapname, bool includeglobal=true){
 	string outval;
-	if(includeglobal==true)
-	{
-		if(!file_exists("maps/"+mapname+".map"))return false;
-		file f;
-		f.open("maps/"+mapname+".map", "rb");
-		string[] map=delinear(f.read());
-		f.close();
-		for(uint i=0; i<map.length(); i++){
-			string[] parsed=string_split(map[i], ":", false);
-			if(parsed[0]=="safezone"&&parsed.length()>4){
-				int minx=string_to_number(parsed[1]);
-				int maxx=string_to_number(parsed[2]);
-				int miny=string_to_number(parsed[3]);
-				int maxy=string_to_number(parsed[4]);
-				if(minx>x)continue;
-				if(minx<=x&& maxx>=x&& miny<=y&& maxy>=y)return true;
-			}
+	if(includeglobal==true){
+		ensure_map(mapname);
+		maprec@[] recs=allmaps[act_slot].recs;
+		for(uint i=0; i<recs.length(); i++){
+			if(recs[i].kind!=5) continue;
+			if(recs[i].minx<=x && recs[i].maxx>=x && recs[i].miny<=y && recs[i].maxy>=y) return true;
 		}
 	}
 	return false;
 }
+
 string linear(string[] a){
 	string final;
 	for(uint i=0; i<a.length(); i++)
@@ -114,6 +135,7 @@ string linear(string[] a){
 	}
 	return final;
 }
+
 string[] delinear(string a){
 	return string_split(a, "\r\n", false);
 }

@@ -1,6 +1,7 @@
 class msound{
 	string id,soundloop,map;
 	int x,y;
+	timer updtimer;
 	msound(string i, string l, int c1, int c2,string cm)
 	{
 		id=i;
@@ -8,6 +9,7 @@ class msound{
 		x=c1;
 		y=c2;
 		map=cm;
+		updtimer.restart();
 	}
 	void updateme(int c1, int c2)
 	{
@@ -42,8 +44,12 @@ void update_moving_sound(string id, int x, int y){
 		if(msounds[i].id==id)
 		{
 			msounds[i].updateme(x,y);
-			for(uint iz=0;iz<players.length();iz++){
-				if(players[iz].map==msounds[i].map) send_reliable(players[iz].peer_id,"um "+id+" "+x+" "+y+" "+msounds[i].map,0);
+			if(msounds[i].updtimer.elapsed>=100)
+			{
+				msounds[i].updtimer.restart();
+				for(uint iz=0;iz<players.length();iz++){
+					if(players[iz].map==msounds[i].map) send_reliable(players[iz].peer_id,"um "+id+" "+x+" "+y+" "+msounds[i].map,0);
+				}
 			}
 		}
 	}
@@ -53,9 +59,11 @@ void destroy_moving_sound(string id){
 	{
 		if(msounds[i].id==id)
 		{
-			send_reliable(0,"destroymsound "+id,0);
+			for(uint iz=0;iz<players.length();iz++){
+				if(players[iz].map==msounds[i].map) send_reliable(players[iz].peer_id,"destroymsound "+id,0);
+			}
 			msounds.remove_at(i);
-			continue;
+			return;
 		}
 	}
 }

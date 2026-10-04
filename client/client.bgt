@@ -207,6 +207,28 @@ int m16dano=400;
 int m16dist=110;
 int m16time=230;
 string inv, apartamentoinv, opcoespc;
+string inv_cache_src="";
+bool inv_cache_valid=false;
+string[] inv_cache_names;
+string[] inv_cache_values;
+void inv_parse(){
+	if(inv_cache_valid && inv==inv_cache_src) return;
+	string content=inv;
+	string[] peramitors=string_split(content, "\r\n", true);
+	string[] values;
+	for(uint i=0; i<peramitors.length(); i++){
+		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
+		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+	}
+	inv_cache_src=inv;
+	inv_cache_valid=true;
+	inv_cache_names=peramitors;
+	inv_cache_values=values;
+}
+void inv_cache_clear(){
+	inv_cache_valid=false;
+	inv_cache_src="";
+}
 int interrupt=1;
 int wineask;
 bool falling;
@@ -3747,8 +3769,8 @@ void reset(){
 	garbage_collect();
 }
 void checkloc(){
-	if (get_zone_at(me.x,me.y)!=""){
-		string locate=get_zone_at(me.x,me.y);
+	string locate=get_zone_at(me.x,me.y);
+	if (locate!=""){
 		if (locate!=currentloc){
 			if (zonestatus==1)
 			if(locate!=".")speak(pu.get_value(locate));
@@ -3996,8 +4018,10 @@ void mainloop(){
 	sourcepool.update_listener_2d(olhar_x, olhar_y);
 	checkloc();
 	sourcecheckloop();
-	if (playertrack!="" and get_player(playertrack)>-1){
-		if (players[get_player(playertrack)].map!=mapname){
+	int trackidx=-1;
+	if (playertrack!="") trackidx=get_player(playertrack);
+	if (trackidx>-1){
+		if (players[trackidx].map!=mapname){
 			speak(playertrack+" "+pu.get_value("não está em")+" "+pu.get_value(mapname)+". "+pu.get_value("Rastreamento desligado."));
 			playertrack="";
 		}
@@ -4093,12 +4117,7 @@ void invmenu(string category){
 	get_characters();
 	string cl;
 	int counter=0;
-	string content=inv;
-	string[] peramitors=string_split(content, "\r\n", true);
-	string[] peramitors2;
-	for(uint i=0; i<peramitors.length(); i++){
-		peramitors[i]=string_split(peramitors[i],"=",true)[0];
-	}
+	string[] peramitors;
 	if(category=="Tudo"){
 		speak(pu.get_value("Todos os itens"));
 	}
@@ -4128,13 +4147,12 @@ void invmenu(string category){
 			break;
 		}
 		mainloop();
-		peramitors.resize(0);
-		peramitors2.resize(0);
-		content=inv;
-		peramitors2=string_split(content, "\r\n", true);
-		if(peramitors2.length()==0)break;
-		for(uint i=0; i<peramitors2.length(); i++){
-			peramitors2[i]=string_split(peramitors2[i],"=",true)[0];
+		inv_parse();
+		if(inv_cache_names.length()==0)break;
+		if(inv!=invmenu_cache_src||category!=invmenu_cache_cat){
+			string[] peramitors2=inv_cache_names;
+			peramitors.resize(0);
+			for(uint i=0; i<peramitors2.length(); i++){
 			int pwn=0;
 			if (category=="Tudo"){
 				peramitors.insert_last(peramitors2[i]);
@@ -4180,6 +4198,13 @@ void invmenu(string category){
 					if(peramitors2[i]=="teleporter"||peramitors2[i]=="item_magnético"||string_contains(peramitors2[i], "pacote_", 1)>-1||peramitors2[i]=="paraquedas"||peramitors2[i]=="bicicleta"||peramitors2[i]=="mana"||peramitors2[i]=="escudo_do_tempo"||peramitors2[i]=="antibiótico"||peramitors2[i]=="foguete"||peramitors2[i]=="vara_de_pesca"||peramitors2[i]=="minhoca"||peramitors2[i]=="ovo_de_dragonsauro"||peramitors2[i]=="máquina_personagem"||peramitors2[i]=="teleportador")peramitors.insert_last(peramitors2[i]);
 				}
 			}
+		}
+		invmenu_cache_src=inv;
+		invmenu_cache_cat=category;
+		invmenu_cache=peramitors;
+		}
+		else{
+			invmenu_copiar(invmenu_cache, peramitors);
 		}
 		if(cavar.playing==false&&cavando==1){
 			cavando=0;
@@ -4351,29 +4376,24 @@ void invmenu(string category){
 	}
 }
 void inv_add_item(string itemname, int itemvalue){
-	string content=inv;
-	string[] peramitors=string_split(content, "\r\n", true);
-	string[] values;
-	for(uint i=0; i<peramitors.length(); i++){
-		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
+	inv_parse();
+	int pos=-1;
+	for(uint i=0; i<inv_cache_names.length(); i++){
+		if(inv_cache_names[i]==itemname){
+			pos=i;
+			break;
+		}
 	}
-	if(inv_item_exists(itemname)){
-		int orgval;
-		if(inv_item_number(itemname) > -1){
-			orgval=string_to_number(values[inv_item_number(itemname)]);
-		}
-		else{
-			return;
-		}
+	if(pos>-1){
+		int orgval=string_to_number(inv_cache_values[pos]);
 		if(orgval+itemvalue < 1){
 			inv_delete_item(itemname);
 		}
 		else{
-			values[inv_item_number(itemname)]=(orgval+itemvalue);
 			string tempinv;
-			for(uint i=0; i<peramitors.length(); i++){
-				tempinv+=peramitors[i]+"="+values[i]+"\r\n";
+			for(uint i=0; i<inv_cache_names.length(); i++){
+				if(i==pos) tempinv+=inv_cache_names[i]+"="+(orgval+itemvalue)+"\r\n";
+				else tempinv+=inv_cache_names[i]+"="+inv_cache_values[i]+"\r\n";
 			}
 			inv=tempinv;
 		}
@@ -4383,65 +4403,43 @@ void inv_add_item(string itemname, int itemvalue){
 			inv+=itemname+"="+itemvalue+"\r\n";
 		}
 	}
+	inv_cache_clear();
 }
 bool inv_item_exists(string itemname){
-	string content=inv;
-	string[] peramitors=string_split(content, "\r\n", true);
-	string[] values;
-	for(uint i=0; i<peramitors.length(); i++){
-		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-	}
-	for(uint i=0; i<peramitors.length(); i++){
-		if(peramitors[i]==itemname){
+	inv_parse();
+	for(uint i=0; i<inv_cache_names.length(); i++){
+		if(inv_cache_names[i]==itemname){
 			return true;
 		}
 	}
 	return false;
 }
 int inv_item_number(string itemname){
-	string content=inv;
-	string[] peramitors=string_split(content, "\r\n", true);
-	string[] values;
-	for(uint i=0; i<peramitors.length(); i++){
-		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-	}
-	for(uint i=0; i<peramitors.length(); i++){
-		if(peramitors[i]==itemname){
-			return string_to_number(values[i]);
+	inv_parse();
+	for(uint i=0; i<inv_cache_names.length(); i++){
+		if(inv_cache_names[i]==itemname){
+			return string_to_number(inv_cache_values[i]);
 		}
 	}
 	return 0;
 }
 int inv_item(string itemname){
-	string content=inv;
-	string[] peramitors=string_split(content, "\r\n", true);
-	string[] values;
-	for(uint i=0; i<peramitors.length(); i++){
-		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-	}
-	for(uint i=0; i<peramitors.length(); i++){
-		if(peramitors[i]==itemname){
+	inv_parse();
+	for(uint i=0; i<inv_cache_names.length(); i++){
+		if(inv_cache_names[i]==itemname){
 			return i;
 		}
 	}
 	return -1;
 }
 void inv_delete_item(string itemname){
-	string content=inv;
-	string[] peramitors=string_split(content, "\r\n", true);
-	string[] values;
-	for(uint i=0; i<peramitors.length(); i++){
-		values.insert_at(i,string_replace(peramitors[i], string_left(peramitors[i], string_contains(peramitors[i], "=", 1)+1), "", true));
-		peramitors[i]=string_replace(peramitors[i], "="+values[i], "", true);
-	}
-	for(uint i=0; i<peramitors.length(); i++){
-		if(peramitors[i]==itemname){
-			inv=string_replace(inv, itemname+"="+values[i]+"\r\n", "", false);
+	inv_parse();
+	for(uint i=0; i<inv_cache_names.length(); i++){
+		if(inv_cache_names[i]==itemname){
+			inv=string_replace(inv, itemname+"="+inv_cache_values[i]+"\r\n", "", false);
 		}
 	}
+	inv_cache_clear();
 }
 void give(string item){
 	string char=daritem();
@@ -4916,17 +4914,29 @@ void reiniciar(){
 	}
 	exit();
 }
+void invmenu_copiar(string[] from, string[] to){
+	to.resize(0);
+	for(uint i=0; i<from.length(); i++)to.insert_last(from[i]);
+}
+string[] invmenu_cache;
+string invmenu_cache_src="";
+string invmenu_cache_cat="";
+string[] palavras_cache;
+bool palavras_loaded=false;
 string ndicionario(string message){
-	string[] filter;
-	file f;
-	f.open("palavras.txt", "r");
-	filter=string_split(f.read(), "\r\n", false);
-	for(int counter=0; counter<filter.length(); counter++){
-		string banned=filter[counter];
-		if(string_contains(string_to_lower_case(message), filter[counter], 1)>-1){
+	if(!palavras_loaded){
+		file f;
+		if(f.open("palavras.txt", "r"))palavras_cache=string_split(f.read(), "\r\n", false);
+		palavras_loaded=true;
+	}
+	string lowermsg=string_to_lower_case(message);
+	for(int counter=0; counter<palavras_cache.length(); counter++){
+		string banned=palavras_cache[counter];
+		if(banned=="")continue;
+		if(string_contains(lowermsg, banned, 1)>-1){
 			string a;
-			for( uint ii=0;ii<filter[counter].length();ii++){a+=SOUND_STORAGE;}
-			message=string_replace(message, filter[counter], a, true);
+			for( uint ii=0;ii<banned.length();ii++){a+=SOUND_STORAGE;}
+			message=string_replace(message, banned, a, true);
 			return message;
 		}
 	}

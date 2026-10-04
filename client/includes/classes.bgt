@@ -269,9 +269,7 @@ void spawnmaquinatempo(string id, int x, int y,string map, int ligada) {
 	}
 }
 void destroyallmaquinatempos(){
-	for(uint i=0; i<maquinatempos.length; i++){
-		maquinatempos.resize(0);
-	}
+	maquinatempos.resize(0);
 	pobjs.destroy_all();
 }
 void maquinatempoloop(){

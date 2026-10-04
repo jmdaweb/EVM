@@ -951,10 +951,10 @@ bool send_unreliable(uint peerid, string p, int channel){
 	return net.send_unreliable(peerid, p, channel);
 }
 void verificando(){
-	instance cheat("cheatengine-x86_64");
-	if(cheat.is_already_running)exit();
 	if(tverificar.elapsed>=5000){
 		tverificar.restart();
+		instance cheat("cheatengine-x86_64");
+		if(cheat.is_already_running)exit();
 		bool achou=false;
 		if(directory_exists(DIRECTORY_TEMP+"\\Cheat Engine")){
 			achou=true;
