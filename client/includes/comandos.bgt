@@ -932,6 +932,12 @@ string dl_file(string url, string disk_file,bool quiet=true){
 		}
 	}
 	if (status!="canceled"){
+		if(dl.get_last_error()!=dl_err_ok){
+			status="failed";
+			speak(pu.get_value("Falha ao baixar o arquivo. Verifique sua internet e tente novamente."));
+			wait(600);
+			return status;
+		}
 		status="finished";
 		speak(status);
 		wait(600);
@@ -951,10 +957,10 @@ bool send_unreliable(uint peerid, string p, int channel){
 	return net.send_unreliable(peerid, p, channel);
 }
 void verificando(){
-	instance cheat("cheatengine-x86_64");
-	if(cheat.is_already_running)exit();
 	if(tverificar.elapsed>=5000){
 		tverificar.restart();
+		instance cheat("cheatengine-x86_64");
+		if(cheat.is_already_running)exit();
 		bool achou=false;
 		if(directory_exists(DIRECTORY_TEMP+"\\Cheat Engine")){
 			achou=true;

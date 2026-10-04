@@ -6,6 +6,53 @@ string somchuva;
 string[] map, map2, zones;
 bool amisafe=false, comurl=false;
 long streamurl;
+class cmaprec{
+	int minx, maxx, miny, maxy;
+	string value;
+	cmaprec(int a, int b, int c, int d, string v){
+		minx=a;
+		maxx=b;
+		miny=c;
+		maxy=d;
+		value=v;
+	}
+}
+class csfzrec{
+	int minx, maxx, miny, maxy;
+	csfzrec(int a, int b, int c, int d){
+		minx=a;
+		maxx=b;
+		miny=c;
+		maxy=d;
+	}
+}
+cmaprec@[] tileidx;
+cmaprec@[] zoneidx;
+csfzrec@[] sfzidx;
+void rebuild_map_index(){
+	tileidx.resize(0);
+	zoneidx.resize(0);
+	for(uint i=0; i<map.length(); i++){
+		string[] p=string_split(map[i], ":", false);
+		if(p.length()<5) continue;
+		cmaprec r(string_to_number(p[0]), string_to_number(p[1]), string_to_number(p[2]), string_to_number(p[3]), p[4]);
+		tileidx.insert_last(r);
+	}
+	for(uint i=0; i<zones.length(); i++){
+		string[] p=string_split(zones[i], ":", false);
+		if(p.length()<5) continue;
+		cmaprec r(string_to_number(p[0]), string_to_number(p[1]), string_to_number(p[2]), string_to_number(p[3]), p[4]);
+		zoneidx.insert_last(r);
+	}
+}
+void add_tile_index(int leftx, int rightx, int miny, int maxy, string plattype){
+	cmaprec r(leftx, rightx, miny, maxy, plattype);
+	tileidx.insert_last(r);
+}
+void add_zone_index(int leftx, int rightx, int miny, int maxy, string zonetype){
+	cmaprec r(leftx, rightx, miny, maxy, zonetype);
+	zoneidx.insert_last(r);
+}
 void playstep(){
 	if (jumping==0){
 		p.play_stationary(get_tile_at(me.x, me.y)+"step"+random(1, 5)+".ogg", false);
@@ -19,19 +66,9 @@ string gct(){
 }
 string get_tile_at(int x, int y){
 	string final;
-	for(uint i=0; i<map.length(); i++){
-		string[] parsed=string_split(map[i], ":", false);
-		if (parsed.length()>=5){
-			int minx=string_to_number(parsed[0]);
-			int maxx=string_to_number(parsed[1]);
-			int miny=string_to_number(parsed[2]);
-			int maxy=string_to_number(parsed[3]);
-			if(minx>x){
-				continue;
-			}
-			if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y){
-				final=parsed[4];
-			}
+	for(uint i=0; i<tileidx.length(); i++){
+		if(tileidx[i].minx<=x&&tileidx[i].maxx>=x&&tileidx[i].miny<=y&&tileidx[i].maxy>=y){
+			final=tileidx[i].value;
 		}
 	}
 	return final;
@@ -48,17 +85,9 @@ string[] delinear(string a){
 }
 string get_zone_at(int x, int y){
 	string final;
-	for(uint i=0; i<zones.length(); i++){
-		string[] parsed=string_split(zones[i], ":", false);
-		int minx=string_to_number(parsed[0]);
-		int maxx=string_to_number(parsed[1]);
-		int miny=string_to_number(parsed[2]);
-		int maxy=string_to_number(parsed[3]);
-		if(minx>x){
-			continue;
-		}
-		if(minx<=x&&maxx>=x&&miny<=y&&maxy>=y){
-			final=parsed[4];
+	for(uint i=0; i<zoneidx.length(); i++){
+		if(zoneidx[i].minx<=x&&zoneidx[i].maxx>=x&&zoneidx[i].miny<=y&&zoneidx[i].maxy>=y){
+			final=zoneidx[i].value;
 		}
 	}
 	return final;
@@ -69,6 +98,7 @@ void load_map(string mdata){
 		comurl=false;
 	}
 	safezones.delete_all();
+	sfzidx.resize(0);
 	objs.resize(0);
 	destroy_all_doors();
 	destroy_all_elevadors();
@@ -206,6 +236,8 @@ void load_map(string mdata){
 		}
 		else if(parsed[0]=="safezone"&&parsed.length==5){
 			safezones.set(parsed[1]+":"+parsed[2]+":"+parsed[3]+":"+parsed[4],"safe");
+			csfzrec sz(string_to_number(parsed[1]), string_to_number(parsed[2]), string_to_number(parsed[3]), string_to_number(parsed[4]));
+			sfzidx.insert_last(sz);
 		}
 		else if((parsed[0][0]=="/"&&parsed[0][1]=="/")||parsed[0]=="comment"){}
 		else{
@@ -216,6 +248,7 @@ void load_map(string mdata){
 		amisafe=false;
 		send_reliable(peer_id,"iamnotsafe",0);
 	}
+	rebuild_map_index();
 	chuva();
 }
 void load_map2(string mdata){
@@ -232,6 +265,9 @@ void load_map2(string mdata){
 	somchuva="rain4.ogg";
 	map.resize(0);
 	map2.resize(0);
+	zones.resize(0);
+	safezones.delete_all();
+	sfzidx.resize(0);
 	string[] ldata=delinear(mdata);
 	map2=ldata;
 	bool isitsafe=false;
@@ -335,6 +371,8 @@ void load_map2(string mdata){
 		}
 		else if(parsed[0]=="safezone"&&parsed.length==5){
 			safezones.set(parsed[1]+":"+parsed[2]+":"+parsed[3]+":"+parsed[4],"safe");
+			csfzrec sz(string_to_number(parsed[1]), string_to_number(parsed[2]), string_to_number(parsed[3]), string_to_number(parsed[4]));
+			sfzidx.insert_last(sz);
 		}
 		else if((parsed[0][0]=="/"&&parsed[0][1]=="/")||parsed[0]=="comment"){}
 		else{
@@ -345,33 +383,29 @@ void load_map2(string mdata){
 		amisafe=false;
 		send_reliable(peer_id,"iamnotsafe",0);
 	}
+	rebuild_map_index();
 	chuva();
 }
 void spawn_platform(int leftx, int rightx, int miny, int maxy, string plattype){
 	map.insert_last(leftx+":"+rightx+":"+miny+":"+maxy+":"+plattype);
+	add_tile_index(leftx, rightx, miny, maxy, plattype);
 }
 void spawn_tiles(int leftx, int rightx, int miny, int maxy, string plattype){
 	map.insert_last(leftx+":"+rightx+":"+miny+":"+maxy+":"+plattype);
+	add_tile_index(leftx, rightx, miny, maxy, plattype);
 }
 void spawn_zone(int leftx, int rightx, int miny, int maxy, string zonetype){
 	zones.insert_last(leftx+":"+rightx+":"+miny+":"+maxy+":"+zonetype);
+	add_zone_index(leftx, rightx, miny, maxy, zonetype);
 }
 bool inansz=false;
 bool safezone(){
-	string[] safekeys=safezones.get_keys();
-	bool ret=false;
-	for(uint i=0; i<safekeys.length; i++){
-		string[] atest=string_split(safekeys[i],":",false);
-		int smnx=string_to_number(atest[0]);
-		int smxx=string_to_number(atest[1]);
-		int smny=string_to_number(atest[2]);
-		int smxy=string_to_number(atest[3]);
-		if(me.x>=smnx&&me.x<=smxx&&me.y>=smny&&me.y<=smxy){
-			ret=true;
-			break;
+	for(uint i=0; i<sfzidx.length; i++){
+		if(me.x>=sfzidx[i].minx&&me.x<=sfzidx[i].maxx&&me.y>=sfzidx[i].miny&&me.y<=sfzidx[i].maxy){
+			return true;
 		}
 	}
-	return ret;
+	return false;
 }
 void safeloop(){
 	bool v=safezone();
