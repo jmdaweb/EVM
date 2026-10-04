@@ -480,6 +480,7 @@ void main(){
 		logar();
 	}
 	if(usalogo==0) dlgplay("logo.ogg",true,25);
+	batualizacao(true);
 	menuprincipal();
 }
 void netloop(){

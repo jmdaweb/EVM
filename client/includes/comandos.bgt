@@ -932,6 +932,12 @@ string dl_file(string url, string disk_file,bool quiet=true){
 		}
 	}
 	if (status!="canceled"){
+		if(dl.get_last_error()!=dl_err_ok){
+			status="failed";
+			speak(pu.get_value("Falha ao baixar o arquivo. Verifique sua internet e tente novamente."));
+			wait(600);
+			return status;
+		}
 		status="finished";
 		speak(status);
 		wait(600);
