@@ -1,10 +1,10 @@
 const string GAME_NAME="Entre a vida e a morte";
 const double minversion=1.0;
-const string version="1.0";
+const string version="test";
 const string EXECUTABLE_NAME="client.exe";
 const string INSTALLER_NAME="EVM_setup.exe";
-const string DOWNLOAD_URL="https://github.com/Cristian129889/EVM/releases/latest/download/EVM_setup.exe";
-const string UPDATE_URL="https://raw.githubusercontent.com/Cristian129889/EVM/master/client/nova_versao.txt";
+const string DOWNLOAD_URL="http://localhost/EVM_setup.exe";
+const string UPDATE_URL="http://localhost/updaternotify/newversion.txt";
 const string SOUND_STORAGE="sounds.dat";
 const string SOUND_ENCRYPTION_KEY="encryptsounds";
 const string COMPUTER_ID_KEY="computerid";

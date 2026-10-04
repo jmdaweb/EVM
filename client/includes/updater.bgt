@@ -1,32 +1,20 @@
 void batualizacao(bool avisa){
 	latest=url_get(UPDATE_URL);
-	if(string_contains(latest, "VERSAO:", 1)==-1){
-		if(avisa)return;
+	if(string_contains(latest, "versão:", 1)==-1){
 		dlg(pu.get_value("Erro ao checar por atualizações. Os motivos podem ser que você esteja usando uma versão beta, ou o servidor não pode ser carregado."));
 		menuprincipal();
 	}
-	string[] linha_versao=string_split(latest, "\n", false);
-	latest=string_replace(linha_versao[0], "\r", "", true);
-	latest=string_replace(latest, "VERSAO:", "", true);
-	latest=string_replace(latest, " ", "", true);
-	if(latest==""){
-		if(avisa)return;
-		dlg(pu.get_value("Erro ao checar por atualizações. Os motivos podem ser que você esteja usando uma versão beta, ou o servidor não pode ser carregado."));
-		menuprincipal();
-	}
-	if(latest==ver){
-		if(avisa)return;
+	latest=string_replace(latest, "versão:", "", true);
+	if((latest==ver)&&(avisa==false)){
 		dlg(pu.get_value("Nenhuma atualização até o momento."));
 		menuprincipal();
 	}
-	vernova=latest;
-	if(avisa){
+	else if(latest!=ver){
+		vernova=latest;
 		updatefound.play_wait();
-		speak(pu.get_value("Foi encontrada uma nova versão do jogo. A sua versão é")+" "+ver+"."+pu.get_value("A nova versão é")+" "+vernova+".");
+		updatemenu();
 	}
-	updatemenu();
 }
-
 void atualizarv(){
 	speak(pu.get_value("Iniciando o processo de atualização..."));
 	sound updating;
